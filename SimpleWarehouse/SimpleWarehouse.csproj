@@ -107,16 +107,22 @@
     <Compile Include="Forms\SpecificProductForm.Designer.cs">
       <DependentUpon>SpecificProductForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\ICategoriesRepositoryManager.cs" />
     <Compile Include="Interfaces\IEntityRepository.cs" />
     <Compile Include="Interfaces\IEvent.cs" />
     <Compile Include="Interfaces\IEventManager.cs" />
     <Compile Include="Interfaces\IMySqlManager.cs" />
     <Compile Include="Interfaces\IPresenter.cs" />
+    <Compile Include="Interfaces\IProductsRepositoryManager.cs" />
+    <Compile Include="Interfaces\IProductViewManager.cs" />
     <Compile Include="Interfaces\ISession.cs" />
     <Compile Include="Interfaces\IUser.cs" />
     <Compile Include="IO\ConsoleWriter.cs" />
     <Compile Include="Interfaces\IOutputWriter.cs" />
-    <Compile Include="Managers\ProductManager.cs" />
+    <Compile Include="Managers\ProductSectionManagers\CatetegoryRepositoryManager.cs" />
+    <Compile Include="Managers\ProductSectionManagers\ProductRepositoryManager.cs" />
+    <Compile Include="Managers\ProductSectionManagers\ProductSectionManager.cs" />
+    <Compile Include="Managers\ProductSectionManagers\ProductViewManager.cs" />
     <Compile Include="Model\Category.cs" />
     <Compile Include="Model\Event.cs" />
     <Compile Include="Model\EventManager.cs" />

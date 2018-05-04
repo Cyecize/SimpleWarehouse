@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using SimpleWarehouse.Factory;
 using SimpleWarehouse.Interfaces;
 using SimpleWarehouse.Managers;
+using SimpleWarehouse.Managers.ProductSectionManagers;
 using SimpleWarehouse.Model;
 using SimpleWarehouse.Presenter.ProductSpecificPresenters;
 using SimpleWarehouse.View;
@@ -15,17 +16,17 @@ namespace SimpleWarehouse.Presenter
 {
     public class NewProductPresenter : AbstractPresenter, IProductSpecificPresenter
     {
-        private ProductManager ProductManager;
+        private ProductSectionManager ProductSectionManager;
         private ISpecificProductView Form;
         private bool IsFormCancelled; 
 
-        public NewProductPresenter(IStateManager manager, ProductManager productManager) : base(manager)
+        public NewProductPresenter(IStateManager manager, ProductSectionManager productManager) : base(manager)
         {
             this.IsFormCancelled = false;
-            this.ProductManager = productManager;
+            this.ProductSectionManager = productManager;
             this.Form = (ISpecificProductView)FormFactory.CreateForm("SpecificProductForm", new object[] { this });
             ((Form)this.Form).FormClosing += (sen, e) => this.Cancel();
-            this.Form.DisplayCategories(this.ProductManager.GetCategories());
+            this.Form.DisplayCategories(this.ProductSectionManager.CategoriesManager.GetCategories());
         }
 
         public void Cancel()
@@ -61,8 +62,8 @@ namespace SimpleWarehouse.Presenter
             };
             try
             {
-                this.ProductManager.CreateProduct(product);
-                this.ProductManager.DisplayProducts();
+                this.ProductSectionManager.ProductsManager.CreateProduct(product);
+                this.ProductSectionManager.UpdateProducts();
                 this.Cancel();
             }catch(ArgumentException e)
             {

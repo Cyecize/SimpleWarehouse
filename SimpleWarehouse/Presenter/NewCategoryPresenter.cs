@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SimpleWarehouse.Factory;
 using SimpleWarehouse.Interfaces;
 using SimpleWarehouse.Managers;
+using SimpleWarehouse.Managers.ProductSectionManagers;
 using SimpleWarehouse.Model;
 using SimpleWarehouse.Presenter.ProductSpecificPresenters;
 using SimpleWarehouse.View;
@@ -14,16 +15,16 @@ namespace SimpleWarehouse.Presenter
 {
     public class NewCategoryPresenter : AbstractPresenter, IProductSpecificPresenter
     {
-        private ProductManager ProductManager;
+        private ProductSectionManager ProductSectionManager;
         private IAddCategoryView Form;
         private bool IsFormCancelled;
 
-        public NewCategoryPresenter(IStateManager manager, ProductManager product) : base(manager)
+        public NewCategoryPresenter(IStateManager manager, ProductSectionManager product) : base(manager)
         {
             this.IsFormCancelled = false;
             this.Form = (IAddCategoryView)FormFactory.CreateForm("SpecificCategoryForm", new object[] { this });
-            this.ProductManager = product;
-            List<Category> categories = this.ProductManager.GetCategories();
+            this.ProductSectionManager = product;
+            List<Category> categories = this.ProductSectionManager.CategoriesManager.GetCategories();
             categories.Insert(0, new Category() { CategoryName = "ГЛАВНА!", Id = 0 });
             this.Form.DisplayCategories(categories);
             this.Form.SelectedCategory = categories[0];
@@ -54,7 +55,7 @@ namespace SimpleWarehouse.Presenter
             Category category = new Category() { CategoryName = this.Form.CategoryName, ParantId = this.Form.SelectedCategory.Id };
             try
             {
-                this.ProductManager.CreateCategory(category);
+                this.ProductSectionManager.CategoriesManager.CreateCategory(category);
                 this.Cancel();
             }catch(ArgumentException e)
             {

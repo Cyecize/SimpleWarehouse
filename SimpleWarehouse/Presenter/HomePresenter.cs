@@ -2,7 +2,7 @@
 using SimpleWarehouse.Constants;
 using SimpleWarehouse.Factory;
 using SimpleWarehouse.Interfaces;
-using SimpleWarehouse.Managers;
+using SimpleWarehouse.Managers.ProductSectionManagers;
 using SimpleWarehouse.Model;
 using SimpleWarehouse.Service;
 using SimpleWarehouse.View;
@@ -17,10 +17,12 @@ namespace SimpleWarehouse.Presenter
 {
     public class HomePresenter : AbstractPresenter
     {
-        private IHomeView Form { get; set; }
+       
         private IEntityRepository<User> OnlineUserRepo;
-        private ProductManager ProductManager;
         private bool IsProductsDisplayed;
+
+        public ProductSectionManager ProductSection { get; set; }
+        public IHomeView Form { get; set; }
 
         public HomePresenter(IStateManager mangaer) : base(mangaer)
         {
@@ -28,7 +30,7 @@ namespace SimpleWarehouse.Presenter
             this.Form = (IHomeView)FormFactory.CreateForm("MainForm", new object[] { this });
             //onClosingEvent to stopp the application
             ((Form)(this.Form)).FormClosing += (sender, args) => ApplicationState.IsRunning = false;
-            this.ProductManager = new ProductManager(this.Form.DataTable, base.StateManager.SqlManager);
+            this.ProductSection = new ProductSectionManager(base.StateManager.SqlManager, this.Form.DataTable, this);
 
             base.StateManager.EventManager.AddEvent(new Event(
                 Constants.Config.EVENT_LISTENER_IMMEDIEATE,
@@ -37,7 +39,7 @@ namespace SimpleWarehouse.Presenter
                 true));
 
             this.IsProductsDisplayed = false;
-            this.Form.SetSearchParams(this.ProductManager.GetSearchParameters());
+            this.Form.SetSearchParams(this.ProductSection.ProductsManager.GetSearchParameters());
             if (!base.StateManager.UserSession.IsActive)//prevent any actions till login
                 return;
         }
@@ -45,68 +47,22 @@ namespace SimpleWarehouse.Presenter
         //---->main functionality
 
         //product section
-      
-        public void SelectProduct()
-        {
-            this.ProductManager.SelectProduct();
-        }
 
-        public void AddNewProductAction()
-        {
-            if (!Roles.IsRequredRoleMet(base.StateManager.UserSession.SessionEntity.Role, Constants.Config.USER_TYPICAL_ROLE))
-            {
-                base.StateManager.Push(new ErrorPresenter(base.StateManager, Messages.NOT_AUTHORIZED_MSG));
-                return;
-            }
-            base.StateManager.Push(new NewProductPresenter(base.StateManager, this.ProductManager)); 
-        }
-
-        public void EditProductRequest()
-        {
-            if (!Roles.IsRequredRoleMet(base.StateManager.UserSession.SessionEntity.Role, Constants.Config.USER_TYPICAL_ROLE))
-            {
-                base.StateManager.Push(new ErrorPresenter(base.StateManager, Messages.NOT_AUTHORIZED_MSG));
-                return;
-            }
-            try
-            {
-                this.ProductManager.GetProductForEdit();
-            }
-            catch (ArgumentException e)
-            {
-                base.StateManager.Push(new ErrorPresenter(base.StateManager, e.Message));
-                return;
-            }
-            Product product = this.ProductManager.GetProductForEdit();
-            base.StateManager.Push(new EditProductPresenter(base.StateManager, product, this.ProductManager));
-
-        }
-
-        public void AddNewCategoryAction()
-        {
-            base.StateManager.Push(new NewCategoryPresenter(base.StateManager, this.ProductManager));
-        }
-
-        public void SearchProd()
-        {
-            this.ProductManager.Search(this.Form.SearchText);
-        }
-
-        public void ChangeSearchParam()
-        {
-            this.ProductManager.ChangeSearchParam(this.Form.SearchParameter);
-        }
+        //requests
+        
+        //actions
+       
         //end product section
 
-        public void Refresh()
+        public void RefreshAction()
         {
             base.StateManager.Set(new HomePresenter(base.StateManager));
         }
 
-        public void Logout()
+        public void LogoutAction()
         {
             base.StateManager.UserSession.IsActive = false;
-            this.Refresh();
+            this.RefreshAction();
         }
 
         //---->overrides
@@ -129,12 +85,14 @@ namespace SimpleWarehouse.Presenter
             }
             if (!this.IsProductsDisplayed && base.StateManager.UserSession.SessionEntity != null)
             {
-                this.ProductManager.DisplayProducts();
+                this.ProductSection.UpdateProducts();
                 this.IsProductsDisplayed = true;
+                if (Roles.IsRequredRoleMet(base.StateManager.UserSession.SessionEntity.Role, Constants.Config.USER_TYPICAL_ROLE))
+                {
+                    this.Form.EnableOrDisableMaterialBtn("AddRevenueBtn", true);
+                }
             }
-
         }
-
 
         //event handlers
         private void CheckIsLoginHandler()
@@ -147,7 +105,6 @@ namespace SimpleWarehouse.Presenter
             else
                 base.StateManager.OutputWriter.WriteLine($"Player logges as {base.StateManager.UserSession.SessionEntity.Username}");
         }
-
         //private methods
 
 

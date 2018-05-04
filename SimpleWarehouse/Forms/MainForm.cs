@@ -38,7 +38,7 @@ namespace SimpleWarehouse.Forms
             this.DataTableView.AllowUserToAddRows = false;
             this.SearchBox.TextChanged += (obj, e) =>
             {
-                this.Presenter.SearchProd();
+                this.Presenter.ProductSection.SearchProdAction();
             };
             this.DataTableView.KeyPress += (obj, e) =>
             {
@@ -52,7 +52,7 @@ namespace SimpleWarehouse.Forms
 
             };
             this.SearchType.SelectedIndexChanged += this.OnSearchParamChange;
-
+            
         }
 
         public void ShowAsDialog()
@@ -62,23 +62,23 @@ namespace SimpleWarehouse.Forms
 
         private void MaterialButton1_Click(object sender, EventArgs e)
         {
-            this.Presenter.AddNewProductAction();
+            this.Presenter.ProductSection.AddNewProductRequest();
         }
 
         private void EditBtn_Click(object sender, EventArgs e)
         {
-            this.Presenter.EditProductRequest();
+            this.Presenter.ProductSection.EditProductRequest();
         }
 
         //events
         private void OnCellClick(Object sender, EventArgs e)
         {
-            this.Presenter.SelectProduct();
+            this.Presenter.ProductSection.SelectProductAction();
         }
 
         private void OnSearchParamChange(Object sender, EventArgs e)
         {
-            this.Presenter.ChangeSearchParam();
+            this.Presenter.ProductSection.ChangeSearchParamAction();
         }
 
 
@@ -102,17 +102,38 @@ namespace SimpleWarehouse.Forms
 
         private void RefreshButton_Click(object sender, EventArgs e)
         {
-            this.Presenter.Refresh();
+            this.Presenter.RefreshAction();
         }
 
         private void LogoutBtn_Click(object sender, EventArgs e)
         {
-            this.Presenter.Logout();
+            this.Presenter.LogoutAction();
         }
 
         private void AddCategoryBtn_Click(object sender, EventArgs e)
         {
-            this.Presenter.AddNewCategoryAction();
+            this.Presenter.ProductSection.AddNewCategoryRequest();
+        }
+
+      
+        public void EnableOrDisableElement(string elName, Type elType, bool isEnabled)
+        {
+            foreach (Control control in this.Controls)
+            {
+                if (elType == control.GetType())
+                {
+                    Button btn = (Button)control;
+                    if (btn.Name == elName)
+                    {
+                        btn.Enabled = isEnabled;
+                    }
+                }
+            }
+        }
+
+        public void EnableOrDisableMaterialBtn(string btnName, bool isEnabled)
+        {
+            EnableOrDisableElement(btnName, typeof(MaterialFlatButton), isEnabled);
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SimpleWarehouse.Factory;
 using SimpleWarehouse.Interfaces;
 using SimpleWarehouse.Managers;
+using SimpleWarehouse.Managers.ProductSectionManagers;
 using SimpleWarehouse.Model;
 using SimpleWarehouse.Presenter.ProductSpecificPresenters;
 using SimpleWarehouse.View;
@@ -14,17 +15,17 @@ namespace SimpleWarehouse.Presenter
 {
     public class EditProductPresenter : AbstractPresenter, IProductSpecificPresenter
     {
-        private ProductManager ProductManager;
+        private ProductSectionManager ProductSectionManager;
         private ISpecificProductView Form;
         private bool IsFormCancelled;
         private Product ProductToEdit;
 
-        public EditProductPresenter(IStateManager manager, Product productToEdit, ProductManager productManager) : base(manager)
+        public EditProductPresenter(IStateManager manager, Product productToEdit, ProductSectionManager productManager) : base(manager)
         {
             this.ProductToEdit = productToEdit;
-            this.ProductManager = productManager;
+            this.ProductSectionManager = productManager;
             this.Form = (ISpecificProductView)FormFactory.CreateForm("SpecificProductForm", new object[] { this });
-            List<Category> categories = this.ProductManager.GetCategories();
+            List<Category> categories = this.ProductSectionManager.CategoriesManager.GetCategories();
 
             this.Form.ProductName = productToEdit.ProductName;
             this.Form.DisplayCategories(categories);
@@ -78,8 +79,8 @@ namespace SimpleWarehouse.Presenter
             };
             try
             {
-                this.ProductManager.UpdateProduct(product, this.ProductToEdit.ProductName != product.ProductName);
-                this.ProductManager.DisplayProducts();
+                this.ProductSectionManager.ProductsManager.UpdateProduct(product, this.ProductToEdit.ProductName != product.ProductName);
+                this.ProductSectionManager.UpdateProducts();
                 this.Cancel();
             }
             catch (ArgumentException e)

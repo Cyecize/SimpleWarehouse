@@ -1,2 +1,5 @@
 /.git
 /.vs
+/SimpleWarehouse/obj
+/bin
+/SimpleWarehouse/bin

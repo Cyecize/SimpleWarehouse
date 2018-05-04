@@ -30,11 +30,12 @@ namespace SimpleWarehouse.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            this.materialFlatButton1 = new MaterialSkin.Controls.MaterialFlatButton();
+            this.AddRevenueBtn = new MaterialSkin.Controls.MaterialFlatButton();
             this.LogoutBtn = new MaterialSkin.Controls.MaterialFlatButton();
             this.RefreshButton = new MaterialSkin.Controls.MaterialFlatButton();
             this.materialTabControl1 = new MaterialSkin.Controls.MaterialTabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.AddCategoryBtn = new MaterialSkin.Controls.MaterialRaisedButton();
             this.SearchType = new System.Windows.Forms.ComboBox();
             this.SearchBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -62,7 +63,6 @@ namespace SimpleWarehouse.Forms
             this.materialRadioButton3 = new MaterialSkin.Controls.MaterialRadioButton();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.materialTabSelector1 = new MaterialSkin.Controls.MaterialTabSelector();
-            this.AddCategoryBtn = new MaterialSkin.Controls.MaterialRaisedButton();
             this.materialTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataTableView)).BeginInit();
@@ -70,23 +70,23 @@ namespace SimpleWarehouse.Forms
             this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
-            // materialFlatButton1
+            // AddRevenueBtn
             // 
-            this.materialFlatButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.materialFlatButton1.AutoSize = true;
-            this.materialFlatButton1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.materialFlatButton1.Depth = 0;
-            this.materialFlatButton1.Enabled = false;
-            this.materialFlatButton1.Icon = null;
-            this.materialFlatButton1.Location = new System.Drawing.Point(697, 700);
-            this.materialFlatButton1.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.materialFlatButton1.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialFlatButton1.Name = "materialFlatButton1";
-            this.materialFlatButton1.Primary = false;
-            this.materialFlatButton1.Size = new System.Drawing.Size(91, 36);
-            this.materialFlatButton1.TabIndex = 23;
-            this.materialFlatButton1.Text = "DISABLED";
-            this.materialFlatButton1.UseVisualStyleBackColor = true;
+            this.AddRevenueBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.AddRevenueBtn.AutoSize = true;
+            this.AddRevenueBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.AddRevenueBtn.Depth = 0;
+            this.AddRevenueBtn.Enabled = false;
+            this.AddRevenueBtn.Icon = null;
+            this.AddRevenueBtn.Location = new System.Drawing.Point(641, 700);
+            this.AddRevenueBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.AddRevenueBtn.MouseState = MaterialSkin.MouseState.HOVER;
+            this.AddRevenueBtn.Name = "AddRevenueBtn";
+            this.AddRevenueBtn.Primary = false;
+            this.AddRevenueBtn.Size = new System.Drawing.Size(147, 36);
+            this.AddRevenueBtn.TabIndex = 23;
+            this.AddRevenueBtn.Text = "ДОБАВИ ОБОРОТ";
+            this.AddRevenueBtn.UseVisualStyleBackColor = true;
             // 
             // LogoutBtn
             // 
@@ -157,6 +157,23 @@ namespace SimpleWarehouse.Forms
             this.tabPage1.Size = new System.Drawing.Size(967, 515);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Продукти";
+            // 
+            // AddCategoryBtn
+            // 
+            this.AddCategoryBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.AddCategoryBtn.AutoSize = true;
+            this.AddCategoryBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.AddCategoryBtn.Depth = 0;
+            this.AddCategoryBtn.Icon = null;
+            this.AddCategoryBtn.Location = new System.Drawing.Point(579, 473);
+            this.AddCategoryBtn.MouseState = MaterialSkin.MouseState.HOVER;
+            this.AddCategoryBtn.Name = "AddCategoryBtn";
+            this.AddCategoryBtn.Primary = true;
+            this.AddCategoryBtn.Size = new System.Drawing.Size(152, 36);
+            this.AddCategoryBtn.TabIndex = 26;
+            this.AddCategoryBtn.Text = "НОВА КАТЕГОРИЯ";
+            this.AddCategoryBtn.UseVisualStyleBackColor = true;
+            this.AddCategoryBtn.Click += new System.EventHandler(this.AddCategoryBtn_Click);
             // 
             // SearchType
             // 
@@ -518,30 +535,13 @@ namespace SimpleWarehouse.Forms
             this.materialTabSelector1.TabIndex = 17;
             this.materialTabSelector1.Text = "materialTabSelector1";
             // 
-            // AddCategoryBtn
-            // 
-            this.AddCategoryBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.AddCategoryBtn.AutoSize = true;
-            this.AddCategoryBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.AddCategoryBtn.Depth = 0;
-            this.AddCategoryBtn.Icon = null;
-            this.AddCategoryBtn.Location = new System.Drawing.Point(579, 473);
-            this.AddCategoryBtn.MouseState = MaterialSkin.MouseState.HOVER;
-            this.AddCategoryBtn.Name = "AddCategoryBtn";
-            this.AddCategoryBtn.Primary = true;
-            this.AddCategoryBtn.Size = new System.Drawing.Size(152, 36);
-            this.AddCategoryBtn.TabIndex = 26;
-            this.AddCategoryBtn.Text = "НОВА КАТЕГОРИЯ";
-            this.AddCategoryBtn.UseVisualStyleBackColor = true;
-            this.AddCategoryBtn.Click += new System.EventHandler(this.AddCategoryBtn_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1000, 751);
             this.Controls.Add(this.materialTabControl1);
-            this.Controls.Add(this.materialFlatButton1);
+            this.Controls.Add(this.AddRevenueBtn);
             this.Controls.Add(this.materialTabSelector1);
             this.Controls.Add(this.LogoutBtn);
             this.Controls.Add(this.RefreshButton);
@@ -562,7 +562,7 @@ namespace SimpleWarehouse.Forms
         }
 
         #endregion
-        private MaterialSkin.Controls.MaterialFlatButton materialFlatButton1;
+        private MaterialSkin.Controls.MaterialFlatButton AddRevenueBtn;
         private MaterialSkin.Controls.MaterialFlatButton LogoutBtn;
         private MaterialSkin.Controls.MaterialFlatButton RefreshButton;
         private MaterialSkin.Controls.MaterialTabControl materialTabControl1;
