@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using SimpleWarehouse.Factory;
 using SimpleWarehouse.Interfaces;
-using SimpleWarehouse.Managers;
-using SimpleWarehouse.Managers.ProductSectionManagers;
+
+using SimpleWarehouse.Services.ProductSectionManagers;
 using SimpleWarehouse.Model;
 using SimpleWarehouse.Presenter.ProductSpecificPresenters;
 using SimpleWarehouse.View;

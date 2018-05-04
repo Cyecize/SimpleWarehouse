@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimpleWarehouse.Managers.ProductSectionManagers
+namespace SimpleWarehouse.Services.ProductSectionManagers
 {
     public class CategoryRepositoryManager : ICategoriesRepositoryManager
     {

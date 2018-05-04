@@ -119,10 +119,10 @@
     <Compile Include="Interfaces\IUser.cs" />
     <Compile Include="IO\ConsoleWriter.cs" />
     <Compile Include="Interfaces\IOutputWriter.cs" />
-    <Compile Include="Managers\ProductSectionManagers\CatetegoryRepositoryManager.cs" />
-    <Compile Include="Managers\ProductSectionManagers\ProductRepositoryManager.cs" />
-    <Compile Include="Managers\ProductSectionManagers\ProductSectionManager.cs" />
-    <Compile Include="Managers\ProductSectionManagers\ProductViewManager.cs" />
+    <Compile Include="Services\ProductSectionManagers\CatetegoryRepositoryManager.cs" />
+    <Compile Include="Services\ProductSectionManagers\ProductRepositoryManager.cs" />
+    <Compile Include="Services\ProductSectionManagers\ProductSectionManager.cs" />
+    <Compile Include="Services\ProductSectionManagers\ProductViewManager.cs" />
     <Compile Include="Model\Category.cs" />
     <Compile Include="Model\Event.cs" />
     <Compile Include="Model\EventManager.cs" />

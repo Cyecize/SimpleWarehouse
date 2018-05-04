@@ -2,7 +2,7 @@
 using SimpleWarehouse.Constants;
 using SimpleWarehouse.Factory;
 using SimpleWarehouse.Interfaces;
-using SimpleWarehouse.Managers.ProductSectionManagers;
+using SimpleWarehouse.Services.ProductSectionManagers;
 using SimpleWarehouse.Model;
 using SimpleWarehouse.Service;
 using SimpleWarehouse.View;
