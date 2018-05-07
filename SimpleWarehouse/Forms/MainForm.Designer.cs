@@ -78,7 +78,7 @@ namespace SimpleWarehouse.Forms
             this.RevenueBtn.Depth = 0;
             this.RevenueBtn.Enabled = false;
             this.RevenueBtn.Icon = null;
-            this.RevenueBtn.Location = new System.Drawing.Point(707, 700);
+            this.RevenueBtn.Location = new System.Drawing.Point(707, 679);
             this.RevenueBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.RevenueBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.RevenueBtn.Name = "RevenueBtn";
@@ -87,6 +87,7 @@ namespace SimpleWarehouse.Forms
             this.RevenueBtn.TabIndex = 23;
             this.RevenueBtn.Text = "ОБОРОТ";
             this.RevenueBtn.UseVisualStyleBackColor = true;
+            this.RevenueBtn.Click += new System.EventHandler(this.RevenueBtn_Click);
             // 
             // LogoutBtn
             // 
@@ -95,7 +96,7 @@ namespace SimpleWarehouse.Forms
             this.LogoutBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.LogoutBtn.Depth = 0;
             this.LogoutBtn.Icon = null;
-            this.LogoutBtn.Location = new System.Drawing.Point(914, 700);
+            this.LogoutBtn.Location = new System.Drawing.Point(914, 679);
             this.LogoutBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.LogoutBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.LogoutBtn.Name = "LogoutBtn";
@@ -113,7 +114,7 @@ namespace SimpleWarehouse.Forms
             this.RefreshButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.RefreshButton.Depth = 0;
             this.RefreshButton.Icon = null;
-            this.RefreshButton.Location = new System.Drawing.Point(796, 700);
+            this.RefreshButton.Location = new System.Drawing.Point(796, 679);
             this.RefreshButton.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.RefreshButton.MouseState = MaterialSkin.MouseState.HOVER;
             this.RefreshButton.Name = "RefreshButton";
@@ -138,7 +139,7 @@ namespace SimpleWarehouse.Forms
             this.materialTabControl1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialTabControl1.Name = "materialTabControl1";
             this.materialTabControl1.SelectedIndex = 0;
-            this.materialTabControl1.Size = new System.Drawing.Size(975, 541);
+            this.materialTabControl1.Size = new System.Drawing.Size(975, 520);
             this.materialTabControl1.TabIndex = 25;
             // 
             // tabPage1
@@ -154,7 +155,7 @@ namespace SimpleWarehouse.Forms
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(967, 515);
+            this.tabPage1.Size = new System.Drawing.Size(967, 494);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Продукти";
             // 
@@ -165,7 +166,7 @@ namespace SimpleWarehouse.Forms
             this.AddCategoryBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.AddCategoryBtn.Depth = 0;
             this.AddCategoryBtn.Icon = null;
-            this.AddCategoryBtn.Location = new System.Drawing.Point(579, 473);
+            this.AddCategoryBtn.Location = new System.Drawing.Point(579, 452);
             this.AddCategoryBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.AddCategoryBtn.Name = "AddCategoryBtn";
             this.AddCategoryBtn.Primary = true;
@@ -179,7 +180,7 @@ namespace SimpleWarehouse.Forms
             // 
             this.SearchType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.SearchType.Font = new System.Drawing.Font("Segoe UI", 12.22642F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.SearchType.Location = new System.Drawing.Point(354, 473);
+            this.SearchType.Location = new System.Drawing.Point(354, 452);
             this.SearchType.Name = "SearchType";
             this.SearchType.Size = new System.Drawing.Size(150, 33);
             this.SearchType.TabIndex = 25;
@@ -188,7 +189,7 @@ namespace SimpleWarehouse.Forms
             // 
             this.SearchBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.SearchBox.Font = new System.Drawing.Font("Segoe UI", 12.22642F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.SearchBox.Location = new System.Drawing.Point(108, 473);
+            this.SearchBox.Location = new System.Drawing.Point(108, 452);
             this.SearchBox.Name = "SearchBox";
             this.SearchBox.Size = new System.Drawing.Size(231, 31);
             this.SearchBox.TabIndex = 24;
@@ -198,7 +199,7 @@ namespace SimpleWarehouse.Forms
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe MDL2 Assets", 16.30189F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(6, 475);
+            this.label1.Location = new System.Drawing.Point(6, 454);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(96, 25);
             this.label1.TabIndex = 23;
@@ -221,7 +222,7 @@ namespace SimpleWarehouse.Forms
             this.DataTableView.Location = new System.Drawing.Point(6, 3);
             this.DataTableView.Name = "DataTableView";
             this.DataTableView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.DataTableView.Size = new System.Drawing.Size(955, 461);
+            this.DataTableView.Size = new System.Drawing.Size(955, 440);
             this.DataTableView.TabIndex = 22;
             // 
             // ProductId
@@ -276,7 +277,7 @@ namespace SimpleWarehouse.Forms
             this.EditBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.EditBtn.Depth = 0;
             this.EditBtn.Icon = null;
-            this.EditBtn.Location = new System.Drawing.Point(859, 473);
+            this.EditBtn.Location = new System.Drawing.Point(859, 452);
             this.EditBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.EditBtn.Name = "EditBtn";
             this.EditBtn.Primary = true;
@@ -293,7 +294,7 @@ namespace SimpleWarehouse.Forms
             this.NewProductBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.NewProductBtn.Depth = 0;
             this.NewProductBtn.Icon = null;
-            this.NewProductBtn.Location = new System.Drawing.Point(737, 473);
+            this.NewProductBtn.Location = new System.Drawing.Point(737, 452);
             this.NewProductBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.NewProductBtn.Name = "NewProductBtn";
             this.NewProductBtn.Primary = true;
@@ -539,7 +540,7 @@ namespace SimpleWarehouse.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1000, 751);
+            this.ClientSize = new System.Drawing.Size(1000, 730);
             this.Controls.Add(this.materialTabControl1);
             this.Controls.Add(this.RevenueBtn);
             this.Controls.Add(this.materialTabSelector1);

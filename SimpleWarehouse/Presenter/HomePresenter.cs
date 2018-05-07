@@ -12,12 +12,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SimpleWarehouse.Presenter.RevenueRelated;
 
 namespace SimpleWarehouse.Presenter
 {
     public class HomePresenter : AbstractPresenter
     {
-       
+
         private IEntityRepository<User> OnlineUserRepo;
         private bool IsProductsDisplayed;
 
@@ -46,9 +47,19 @@ namespace SimpleWarehouse.Presenter
 
         //---->main functionality
 
+        public void RevenueAction()
+        {
+            if (Roles.IsRequredRoleMet(base.StateManager.UserSession.SessionEntity.Role, Config.USER_TYPICAL_ROLE))
+            {
+                if (base.StateManager.IsPresenterActive(this))
+                    base.StateManager.Push(new RevenuePresenter(base.StateManager));
+            }
+        }
+
         public void RefreshAction()
         {
-            base.StateManager.Set(new HomePresenter(base.StateManager));
+            if (base.StateManager.IsPresenterActive(this))
+                base.StateManager.Set(new HomePresenter(base.StateManager));
         }
 
         public void LogoutAction()
@@ -83,6 +94,7 @@ namespace SimpleWarehouse.Presenter
                 {
                     this.Form.EnableOrDisableMaterialBtn("RevenueBtn", true);
                 }
+                this.Form.Text = $"Simple Warehouse, Потребител: {base.StateManager.UserSession.SessionEntity.Username}";
             }
         }
 
@@ -98,7 +110,5 @@ namespace SimpleWarehouse.Presenter
                 base.StateManager.OutputWriter.WriteLine($"Player logges as {base.StateManager.UserSession.SessionEntity.Username}");
         }
         //private methods
-
-
     }
 }

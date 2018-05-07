@@ -135,5 +135,10 @@ namespace SimpleWarehouse.Forms
         {
             EnableOrDisableElement(btnName, typeof(MaterialFlatButton), isEnabled);
         }
+
+        private void RevenueBtn_Click(object sender, EventArgs e)
+        {
+            this.Presenter.RevenueAction();
+        }
     }
 }

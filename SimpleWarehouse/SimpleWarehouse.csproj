@@ -78,6 +78,12 @@
     <Compile Include="Constants\Messages.cs" />
     <Compile Include="Constants\Roles.cs" />
     <Compile Include="Factory\FormFactory.cs" />
+    <Compile Include="Forms\RevenueForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RevenueForm.Designer.cs">
+      <DependentUpon>RevenueForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\SpecificCategoryForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -120,6 +126,7 @@
     <Compile Include="Interfaces\IUser.cs" />
     <Compile Include="IO\ConsoleWriter.cs" />
     <Compile Include="Interfaces\IOutputWriter.cs" />
+    <Compile Include="Presenter\RevenueRelated\RevenuePresenter.cs" />
     <Compile Include="Services\ProductSectionManagers\CatetegoryRepositoryManager.cs" />
     <Compile Include="Services\ProductSectionManagers\ProductRepositoryManager.cs" />
     <Compile Include="Services\ProductSectionManagers\ProductSectionManager.cs" />
@@ -151,7 +158,11 @@
     <Compile Include="View\IAddCategoryView.cs" />
     <Compile Include="View\IHomeView.cs" />
     <Compile Include="View\ILoginView.cs" />
+    <Compile Include="View\IRevenueView.cs" />
     <Compile Include="View\ISpecificProductView.cs" />
+    <EmbeddedResource Include="Forms\RevenueForm.resx">
+      <DependentUpon>RevenueForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\SpecificCategoryForm.resx">
       <DependentUpon>SpecificCategoryForm.cs</DependentUpon>
     </EmbeddedResource>

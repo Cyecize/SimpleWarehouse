@@ -43,11 +43,19 @@ namespace SimpleWarehouse.States
             this.Push(presenter);
         }
 
+        public IPresenter Peek()
+        {
+            return this.Presenters.Peek();
+        }
+
         public void Update()
         {
             this.Presenters.Peek().Update();
         }
 
-       
+        public bool IsPresenterActive(IPresenter presenter)
+        {
+            return this.Peek().GetType().Name == presenter.GetType().Name;
+        }
     }
 }

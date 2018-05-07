@@ -23,7 +23,11 @@ namespace SimpleWarehouse.Interfaces
 
         void Set(IPresenter presenter);
 
+        IPresenter Peek();
+
         void Update();
+
+        bool IsPresenterActive(IPresenter presenter);
 
     }
 }
