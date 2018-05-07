@@ -46,14 +46,6 @@ namespace SimpleWarehouse.Presenter
 
         //---->main functionality
 
-        //product section
-
-        //requests
-        
-        //actions
-       
-        //end product section
-
         public void RefreshAction()
         {
             base.StateManager.Set(new HomePresenter(base.StateManager));
@@ -89,7 +81,7 @@ namespace SimpleWarehouse.Presenter
                 this.IsProductsDisplayed = true;
                 if (Roles.IsRequredRoleMet(base.StateManager.UserSession.SessionEntity.Role, Constants.Config.USER_TYPICAL_ROLE))
                 {
-                    this.Form.EnableOrDisableMaterialBtn("AddRevenueBtn", true);
+                    this.Form.EnableOrDisableMaterialBtn("RevenueBtn", true);
                 }
             }
         }

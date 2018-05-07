@@ -30,7 +30,7 @@ namespace SimpleWarehouse.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            this.AddRevenueBtn = new MaterialSkin.Controls.MaterialFlatButton();
+            this.RevenueBtn = new MaterialSkin.Controls.MaterialFlatButton();
             this.LogoutBtn = new MaterialSkin.Controls.MaterialFlatButton();
             this.RefreshButton = new MaterialSkin.Controls.MaterialFlatButton();
             this.materialTabControl1 = new MaterialSkin.Controls.MaterialTabControl();
@@ -70,23 +70,23 @@ namespace SimpleWarehouse.Forms
             this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
-            // AddRevenueBtn
+            // RevenueBtn
             // 
-            this.AddRevenueBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.AddRevenueBtn.AutoSize = true;
-            this.AddRevenueBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.AddRevenueBtn.Depth = 0;
-            this.AddRevenueBtn.Enabled = false;
-            this.AddRevenueBtn.Icon = null;
-            this.AddRevenueBtn.Location = new System.Drawing.Point(641, 700);
-            this.AddRevenueBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.AddRevenueBtn.MouseState = MaterialSkin.MouseState.HOVER;
-            this.AddRevenueBtn.Name = "AddRevenueBtn";
-            this.AddRevenueBtn.Primary = false;
-            this.AddRevenueBtn.Size = new System.Drawing.Size(147, 36);
-            this.AddRevenueBtn.TabIndex = 23;
-            this.AddRevenueBtn.Text = "ДОБАВИ ОБОРОТ";
-            this.AddRevenueBtn.UseVisualStyleBackColor = true;
+            this.RevenueBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.RevenueBtn.AutoSize = true;
+            this.RevenueBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.RevenueBtn.Depth = 0;
+            this.RevenueBtn.Enabled = false;
+            this.RevenueBtn.Icon = null;
+            this.RevenueBtn.Location = new System.Drawing.Point(707, 700);
+            this.RevenueBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.RevenueBtn.MouseState = MaterialSkin.MouseState.HOVER;
+            this.RevenueBtn.Name = "RevenueBtn";
+            this.RevenueBtn.Primary = false;
+            this.RevenueBtn.Size = new System.Drawing.Size(81, 36);
+            this.RevenueBtn.TabIndex = 23;
+            this.RevenueBtn.Text = "ОБОРОТ";
+            this.RevenueBtn.UseVisualStyleBackColor = true;
             // 
             // LogoutBtn
             // 
@@ -541,7 +541,7 @@ namespace SimpleWarehouse.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1000, 751);
             this.Controls.Add(this.materialTabControl1);
-            this.Controls.Add(this.AddRevenueBtn);
+            this.Controls.Add(this.RevenueBtn);
             this.Controls.Add(this.materialTabSelector1);
             this.Controls.Add(this.LogoutBtn);
             this.Controls.Add(this.RefreshButton);
@@ -562,7 +562,7 @@ namespace SimpleWarehouse.Forms
         }
 
         #endregion
-        private MaterialSkin.Controls.MaterialFlatButton AddRevenueBtn;
+        private MaterialSkin.Controls.MaterialFlatButton RevenueBtn;
         private MaterialSkin.Controls.MaterialFlatButton LogoutBtn;
         private MaterialSkin.Controls.MaterialFlatButton RefreshButton;
         private MaterialSkin.Controls.MaterialTabControl materialTabControl1;
