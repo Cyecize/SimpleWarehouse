@@ -83,7 +83,7 @@ namespace SimpleWarehouse.Forms
             this.RevenueBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.RevenueBtn.Name = "RevenueBtn";
             this.RevenueBtn.Primary = false;
-            this.RevenueBtn.Size = new System.Drawing.Size(81, 36);
+            this.RevenueBtn.Size = new System.Drawing.Size(75, 36);
             this.RevenueBtn.TabIndex = 23;
             this.RevenueBtn.Text = "ОБОРОТ";
             this.RevenueBtn.UseVisualStyleBackColor = true;
@@ -101,7 +101,7 @@ namespace SimpleWarehouse.Forms
             this.LogoutBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.LogoutBtn.Name = "LogoutBtn";
             this.LogoutBtn.Primary = false;
-            this.LogoutBtn.Size = new System.Drawing.Size(73, 36);
+            this.LogoutBtn.Size = new System.Drawing.Size(67, 36);
             this.LogoutBtn.TabIndex = 22;
             this.LogoutBtn.Text = "Изход";
             this.LogoutBtn.UseVisualStyleBackColor = true;
@@ -119,7 +119,7 @@ namespace SimpleWarehouse.Forms
             this.RefreshButton.MouseState = MaterialSkin.MouseState.HOVER;
             this.RefreshButton.Name = "RefreshButton";
             this.RefreshButton.Primary = true;
-            this.RefreshButton.Size = new System.Drawing.Size(110, 36);
+            this.RefreshButton.Size = new System.Drawing.Size(101, 36);
             this.RefreshButton.TabIndex = 21;
             this.RefreshButton.Text = "Презареди";
             this.RefreshButton.UseVisualStyleBackColor = true;
@@ -170,7 +170,7 @@ namespace SimpleWarehouse.Forms
             this.AddCategoryBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.AddCategoryBtn.Name = "AddCategoryBtn";
             this.AddCategoryBtn.Primary = true;
-            this.AddCategoryBtn.Size = new System.Drawing.Size(152, 36);
+            this.AddCategoryBtn.Size = new System.Drawing.Size(140, 36);
             this.AddCategoryBtn.TabIndex = 26;
             this.AddCategoryBtn.Text = "НОВА КАТЕГОРИЯ";
             this.AddCategoryBtn.UseVisualStyleBackColor = true;
@@ -180,18 +180,18 @@ namespace SimpleWarehouse.Forms
             // 
             this.SearchType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.SearchType.Font = new System.Drawing.Font("Segoe UI", 12.22642F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.SearchType.Location = new System.Drawing.Point(354, 452);
+            this.SearchType.Location = new System.Drawing.Point(255, 452);
             this.SearchType.Name = "SearchType";
-            this.SearchType.Size = new System.Drawing.Size(150, 33);
+            this.SearchType.Size = new System.Drawing.Size(150, 29);
             this.SearchType.TabIndex = 25;
             // 
             // SearchBox
             // 
             this.SearchBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.SearchBox.Font = new System.Drawing.Font("Segoe UI", 12.22642F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.SearchBox.Location = new System.Drawing.Point(108, 452);
+            this.SearchBox.Location = new System.Drawing.Point(82, 452);
             this.SearchBox.Name = "SearchBox";
-            this.SearchBox.Size = new System.Drawing.Size(231, 31);
+            this.SearchBox.Size = new System.Drawing.Size(169, 29);
             this.SearchBox.TabIndex = 24;
             // 
             // label1
@@ -201,7 +201,7 @@ namespace SimpleWarehouse.Forms
             this.label1.Font = new System.Drawing.Font("Segoe MDL2 Assets", 16.30189F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(6, 454);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(96, 25);
+            this.label1.Size = new System.Drawing.Size(84, 22);
             this.label1.TabIndex = 23;
             this.label1.Text = "Търсене: ";
             // 
@@ -219,8 +219,10 @@ namespace SimpleWarehouse.Forms
             this.ImportPrice,
             this.SellPrice,
             this.Visible});
-            this.DataTableView.Location = new System.Drawing.Point(6, 3);
+            this.DataTableView.Location = new System.Drawing.Point(3, 6);
+            this.DataTableView.MultiSelect = false;
             this.DataTableView.Name = "DataTableView";
+            this.DataTableView.ReadOnly = true;
             this.DataTableView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.DataTableView.Size = new System.Drawing.Size(955, 440);
             this.DataTableView.TabIndex = 22;
@@ -281,7 +283,7 @@ namespace SimpleWarehouse.Forms
             this.EditBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.EditBtn.Name = "EditBtn";
             this.EditBtn.Primary = true;
-            this.EditBtn.Size = new System.Drawing.Size(102, 36);
+            this.EditBtn.Size = new System.Drawing.Size(94, 36);
             this.EditBtn.TabIndex = 21;
             this.EditBtn.Text = "Редакция";
             this.EditBtn.UseVisualStyleBackColor = true;
@@ -298,7 +300,7 @@ namespace SimpleWarehouse.Forms
             this.NewProductBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.NewProductBtn.Name = "NewProductBtn";
             this.NewProductBtn.Primary = true;
-            this.NewProductBtn.Size = new System.Drawing.Size(116, 36);
+            this.NewProductBtn.Size = new System.Drawing.Size(106, 36);
             this.NewProductBtn.TabIndex = 0;
             this.NewProductBtn.Text = "Нова Стока";
             this.NewProductBtn.UseVisualStyleBackColor = true;
@@ -316,7 +318,7 @@ namespace SimpleWarehouse.Forms
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(967, 515);
+            this.tabPage2.Size = new System.Drawing.Size(967, 494);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Доставки";
             // 
@@ -333,7 +335,7 @@ namespace SimpleWarehouse.Forms
             this.materialCheckBox6.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialCheckBox6.Name = "materialCheckBox6";
             this.materialCheckBox6.Ripple = true;
-            this.materialCheckBox6.Size = new System.Drawing.Size(163, 30);
+            this.materialCheckBox6.Size = new System.Drawing.Size(150, 30);
             this.materialCheckBox6.TabIndex = 9;
             this.materialCheckBox6.Text = "materialCheckBox6";
             this.materialCheckBox6.UseVisualStyleBackColor = true;
@@ -353,7 +355,7 @@ namespace SimpleWarehouse.Forms
             this.materialCheckBox5.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialCheckBox5.Name = "materialCheckBox5";
             this.materialCheckBox5.Ripple = true;
-            this.materialCheckBox5.Size = new System.Drawing.Size(163, 30);
+            this.materialCheckBox5.Size = new System.Drawing.Size(150, 30);
             this.materialCheckBox5.TabIndex = 8;
             this.materialCheckBox5.Text = "materialCheckBox5";
             this.materialCheckBox5.UseVisualStyleBackColor = true;
@@ -370,7 +372,7 @@ namespace SimpleWarehouse.Forms
             this.materialCheckbox3.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialCheckbox3.Name = "materialCheckbox3";
             this.materialCheckbox3.Ripple = true;
-            this.materialCheckbox3.Size = new System.Drawing.Size(162, 30);
+            this.materialCheckbox3.Size = new System.Drawing.Size(149, 30);
             this.materialCheckbox3.TabIndex = 6;
             this.materialCheckbox3.Text = "materialCheckbox3";
             this.materialCheckbox3.UseVisualStyleBackColor = true;
@@ -389,7 +391,7 @@ namespace SimpleWarehouse.Forms
             this.materialCheckbox1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialCheckbox1.Name = "materialCheckbox1";
             this.materialCheckbox1.Ripple = true;
-            this.materialCheckbox1.Size = new System.Drawing.Size(162, 30);
+            this.materialCheckbox1.Size = new System.Drawing.Size(149, 30);
             this.materialCheckbox1.TabIndex = 4;
             this.materialCheckbox1.Text = "materialCheckbox1";
             this.materialCheckbox1.UseVisualStyleBackColor = true;
@@ -407,7 +409,7 @@ namespace SimpleWarehouse.Forms
             this.materialCheckbox2.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialCheckbox2.Name = "materialCheckbox2";
             this.materialCheckbox2.Ripple = true;
-            this.materialCheckbox2.Size = new System.Drawing.Size(162, 30);
+            this.materialCheckbox2.Size = new System.Drawing.Size(149, 30);
             this.materialCheckbox2.TabIndex = 5;
             this.materialCheckbox2.Text = "materialCheckbox2";
             this.materialCheckbox2.UseVisualStyleBackColor = true;
@@ -423,7 +425,7 @@ namespace SimpleWarehouse.Forms
             this.materialCheckbox4.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialCheckbox4.Name = "materialCheckbox4";
             this.materialCheckbox4.Ripple = true;
-            this.materialCheckbox4.Size = new System.Drawing.Size(162, 30);
+            this.materialCheckbox4.Size = new System.Drawing.Size(149, 30);
             this.materialCheckbox4.TabIndex = 7;
             this.materialCheckbox4.Text = "materialCheckbox4";
             this.materialCheckbox4.UseVisualStyleBackColor = true;
@@ -438,7 +440,7 @@ namespace SimpleWarehouse.Forms
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(967, 515);
+            this.tabPage3.Size = new System.Drawing.Size(967, 494);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Продажби";
             // 
@@ -456,7 +458,7 @@ namespace SimpleWarehouse.Forms
             this.materialRadioButton4.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRadioButton4.Name = "materialRadioButton4";
             this.materialRadioButton4.Ripple = true;
-            this.materialRadioButton4.Size = new System.Drawing.Size(178, 30);
+            this.materialRadioButton4.Size = new System.Drawing.Size(163, 30);
             this.materialRadioButton4.TabIndex = 15;
             this.materialRadioButton4.TabStop = true;
             this.materialRadioButton4.Text = "materialRadioButton4";
@@ -474,7 +476,7 @@ namespace SimpleWarehouse.Forms
             this.materialRadioButton1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRadioButton1.Name = "materialRadioButton1";
             this.materialRadioButton1.Ripple = true;
-            this.materialRadioButton1.Size = new System.Drawing.Size(178, 30);
+            this.materialRadioButton1.Size = new System.Drawing.Size(163, 30);
             this.materialRadioButton1.TabIndex = 9;
             this.materialRadioButton1.Text = "materialRadioButton1";
             this.materialRadioButton1.UseVisualStyleBackColor = true;
@@ -491,7 +493,7 @@ namespace SimpleWarehouse.Forms
             this.materialRadioButton2.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRadioButton2.Name = "materialRadioButton2";
             this.materialRadioButton2.Ripple = true;
-            this.materialRadioButton2.Size = new System.Drawing.Size(178, 30);
+            this.materialRadioButton2.Size = new System.Drawing.Size(163, 30);
             this.materialRadioButton2.TabIndex = 10;
             this.materialRadioButton2.Text = "materialRadioButton2";
             this.materialRadioButton2.UseVisualStyleBackColor = true;
@@ -508,7 +510,7 @@ namespace SimpleWarehouse.Forms
             this.materialRadioButton3.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRadioButton3.Name = "materialRadioButton3";
             this.materialRadioButton3.Ripple = true;
-            this.materialRadioButton3.Size = new System.Drawing.Size(178, 30);
+            this.materialRadioButton3.Size = new System.Drawing.Size(163, 30);
             this.materialRadioButton3.TabIndex = 11;
             this.materialRadioButton3.Text = "materialRadioButton3";
             this.materialRadioButton3.UseVisualStyleBackColor = true;
@@ -518,7 +520,7 @@ namespace SimpleWarehouse.Forms
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(967, 515);
+            this.tabPage4.Size = new System.Drawing.Size(967, 494);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Ревизия";
             this.tabPage4.UseVisualStyleBackColor = true;

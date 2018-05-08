@@ -76,6 +76,7 @@
     <Compile Include="Attributes\DbNameReference.cs" />
     <Compile Include="Constants\Config.cs" />
     <Compile Include="Constants\Messages.cs" />
+    <Compile Include="Constants\RevenueDataTableNames.cs" />
     <Compile Include="Constants\Roles.cs" />
     <Compile Include="Factory\FormFactory.cs" />
     <Compile Include="Forms\RevenueForm.cs">
@@ -114,6 +115,7 @@
     <Compile Include="Forms\SpecificProductForm.Designer.cs">
       <DependentUpon>SpecificProductForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IRevenueViewManager.cs" />
     <Compile Include="Interfaces\ICategoriesRepositoryManager.cs" />
     <Compile Include="Interfaces\IEntityRepository.cs" />
     <Compile Include="Interfaces\IEvent.cs" />
@@ -122,10 +124,12 @@
     <Compile Include="Interfaces\IPresenter.cs" />
     <Compile Include="Interfaces\IProductsRepositoryManager.cs" />
     <Compile Include="Interfaces\IProductViewManager.cs" />
+    <Compile Include="Interfaces\IRevenueDbManager.cs" />
     <Compile Include="Interfaces\ISession.cs" />
     <Compile Include="Interfaces\IUser.cs" />
     <Compile Include="IO\ConsoleWriter.cs" />
     <Compile Include="Interfaces\IOutputWriter.cs" />
+    <Compile Include="Model\Revenue.cs" />
     <Compile Include="Presenter\RevenueRelated\RevenuePresenter.cs" />
     <Compile Include="Services\ProductSectionManagers\CatetegoryRepositoryManager.cs" />
     <Compile Include="Services\ProductSectionManagers\ProductRepositoryManager.cs" />
@@ -153,12 +157,16 @@
     <Compile Include="Services\FormDecraptifier.cs" />
     <Compile Include="Services\MySqlManager.cs" />
     <Compile Include="Services\PasswordEncoder.cs" />
+    <Compile Include="Services\RevenueRelated\AddRevenueSection.cs" />
+    <Compile Include="Services\RevenueRelated\ArchivedRevenuesSection.cs" />
+    <Compile Include="Services\RevenueRelated\RevenueViewManager.cs" />
+    <Compile Include="Services\RevenueRelated\RevenueDbManager.cs" />
     <Compile Include="States\StateManager.cs" />
     <Compile Include="Interfaces\IView.cs" />
     <Compile Include="View\IAddCategoryView.cs" />
     <Compile Include="View\IHomeView.cs" />
     <Compile Include="View\ILoginView.cs" />
-    <Compile Include="View\IRevenueView.cs" />
+    <Compile Include="View\RevenueRelated\IRevenueView.cs" />
     <Compile Include="View\ISpecificProductView.cs" />
     <EmbeddedResource Include="Forms\RevenueForm.resx">
       <DependentUpon>RevenueForm.cs</DependentUpon>

@@ -23,8 +23,6 @@ namespace SimpleWarehouse.Service
             this.isConnAvailable = this.OpenAndTestConnection();//open the connection 
         }
 
-
-
         public int ExecuteQuery(string query)
         {
             if (!this.isConnAvailable)

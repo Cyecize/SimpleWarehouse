@@ -6,18 +6,27 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using SimpleWarehouse.Factory;
 using SimpleWarehouse.Interfaces;
+using SimpleWarehouse.RevenueRelated.View;
+using SimpleWarehouse.Services.RevenueRelated;
 using SimpleWarehouse.View;
 
 namespace SimpleWarehouse.Presenter.RevenueRelated
 {
     public class RevenuePresenter : AbstractPresenter
     {
+        public AddRevenueSection AddRevenueSection { get; set; }
+        public ArchivedRevenuesSection ArchivedRevenuesSection { get; set; }
         public IRevenueView Form { get; set; }
 
         public RevenuePresenter(IStateManager manager) : base(manager)
         {
             this.Form = (IRevenueView)FormFactory.CreateForm("RevenueForm", new object[] { this });
-            ((Form)this.Form).FormClosing += (sen, ev) => this.Dispose();  
+            ((Form)this.Form).FormClosing += (sen, ev) => this.Dispose();
+            this.AddRevenueSection = new AddRevenueSection(this);
+            this.ArchivedRevenuesSection = new ArchivedRevenuesSection(this);
+
+            this.AddRevenueSection.UpdateNonRevisedRevenues();
+            
         }
 
         public override void Dispose()

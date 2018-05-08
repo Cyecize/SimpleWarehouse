@@ -18,6 +18,6 @@ namespace SimpleWarehouse.Interfaces
 
         int GetSelectedProductId();
 
-         SearchParameter SearchParam { get; set; }
+        SearchParameter SearchParam { get; set; }
     }
 }
