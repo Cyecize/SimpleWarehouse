@@ -20,26 +20,25 @@ namespace SimpleWarehouse.Forms
     {
         private char DELIMETER = Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
 
-        private RevenuePresenter Presenter;
+        private IRevenuePresenter Presenter;
 
-        public RevenueForm(RevenuePresenter presenter)
+        public RevenueForm(IRevenuePresenter presenter)
         {
             InitializeComponent();
             this.Presenter = presenter;
-            this.StartPosition = FormStartPosition.CenterParent;
-            this.Text = "Приходи";
+            this.StartPosition = FormStartPosition.CenterScreen;
             this.RevenueAmountBox.KeyPress += this.OnTypeHandler;           
             this.RevisedEndDate.Value = DateTime.Now.AddDays(2);
         }
 
-        public DateTime NewRevenueDate { get => DateTimeForRevenue.Value; set => DateTimeForRevenue.Value = value; }
+        public DateTime NewEntityDate { get => DateTimeForRevenue.Value; set => DateTimeForRevenue.Value = value; }
         public DataGridView NotRevisedDataTable { get => this.DataTableView; set => this.DataTableView = value; }
         public DataGridView ArchiveDataTable { get => this.ArchivedRevenuesTable; set => this.ArchivedRevenuesTable = value; }
-        public double NewRevenueAmount { get => double.Parse(this.RevenueAmountBox.Text); set => this.RevenueAmountBox.Text = value.ToString(); }
-        public DateTime ArchivedRevenuesStartDate { get => RevisedStartDate.Value; set => RevisedStartDate.Value = value; }
-        public DateTime ArchivedRevenuesEndDate { get => RevisedEndDate.Value; set => RevisedEndDate.Value = value; }
-        public string TotalArchivedRevenuesRows { get => this.TotalRowsBox.Text; set => this.TotalRowsBox.Text = value; }
-        public string TotalArchivedRevenuesPrice { get => this.TotalAmountBox.Text; set => this.TotalAmountBox.Text = value; }
+        public double NewEntityAmount { get => double.Parse(this.RevenueAmountBox.Text); set => this.RevenueAmountBox.Text = value.ToString(); }
+        public DateTime ArchivedEntitiesStartDate { get => RevisedStartDate.Value; set => RevisedStartDate.Value = value; }
+        public DateTime ArchivedEntitiesEndDate { get => RevisedEndDate.Value; set => RevisedEndDate.Value = value; }
+        public string TotalArchivedEntitiesRows { get => this.TotalRowsBox.Text; set => this.TotalRowsBox.Text = value; }
+        public string TotalArchivedEntitiesPrice { get => this.TotalAmountBox.Text; set => this.TotalAmountBox.Text = value; }
 
         //overrides
         public void HideAndDispose()
@@ -76,7 +75,7 @@ namespace SimpleWarehouse.Forms
         private void AddRevenueBtn_Click(object sender, EventArgs e)
         {
             if (this.ValidateForm())
-                this.Presenter.AddRevenueSection.AddRevenueAction();
+                this.Presenter.AddEntitySection.AddEntityAction();
         }
 
         //private methods
@@ -89,7 +88,7 @@ namespace SimpleWarehouse.Forms
                 if (this.RevenueAmountBox.Text.Length < 1)
                     this.RevenueAmountBox.Text = "0";
                 double.Parse(this.RevenueAmountBox.Text);
-                if (this.NewRevenueAmount < 1)
+                if (this.NewEntityAmount < 1)
                 {
                     this.Log(Messages.INVALID_NUMBERS_MSG);
                     return false;
@@ -106,7 +105,7 @@ namespace SimpleWarehouse.Forms
 
         private void FindArchivedRevenues_Click(object sender, EventArgs e)
         {
-            this.Presenter.ArchivedRevenuesSection.DisplayArchivedRevenues();
+            this.Presenter.ArchivedEntitiesSection.DisplayArchivedEntities();
         }
     }
 }

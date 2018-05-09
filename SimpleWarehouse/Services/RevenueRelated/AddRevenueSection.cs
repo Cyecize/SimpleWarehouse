@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace SimpleWarehouse.Services.RevenueRelated
 {
-    public class AddRevenueSection
+    public class AddRevenueSection : IAddEntitySection
     {
         private RevenuePresenter Presenter;
         private IRevenueView Form;
@@ -26,15 +26,15 @@ namespace SimpleWarehouse.Services.RevenueRelated
             this.RevenueDbManager = new RevenueDbManager(this.Presenter.GetStateManager().SqlManager);
         }
 
-        public void UpdateNonRevisedRevenues()
+        public void UpdateNonRevisedEntities()
         {
             this.AddRevenueViewManager.DisplayRevenues(this.RevenueDbManager.FindAllNonRevisedRevenues());
         }
 
-        public void AddRevenueAction()
+        public void AddEntityAction()
         {
-            DateTime revenueDate = this.Form.NewRevenueDate;
-            double amount = this.Form.NewRevenueAmount;
+            DateTime revenueDate = this.Form.NewEntityDate;
+            double amount = this.Form.NewEntityAmount;
             Revenue revenue = new Revenue()
             {
                 Date = revenueDate,
@@ -50,8 +50,8 @@ namespace SimpleWarehouse.Services.RevenueRelated
             try
             {
                 this.RevenueDbManager.CreateRevenue(revenue);
-                this.UpdateNonRevisedRevenues();
-                this.Form.NewRevenueAmount = 0;
+                this.UpdateNonRevisedEntities();
+                this.Form.NewEntityAmount = 0;
             }
             catch (ArgumentException e)
             {

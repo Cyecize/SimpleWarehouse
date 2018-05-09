@@ -8,26 +8,24 @@ using SimpleWarehouse.Factory;
 using SimpleWarehouse.Interfaces;
 using SimpleWarehouse.RevenueRelated.View;
 using SimpleWarehouse.Services.RevenueRelated;
-using SimpleWarehouse.View;
 
 namespace SimpleWarehouse.Presenter.RevenueRelated
 {
-    public class RevenuePresenter : AbstractPresenter, IRevenuePresenter
+    public class InvoicesPresenter : AbstractPresenter, IRevenuePresenter
     {
+        public IRevenueView Form { get; set; }
         public IAddEntitySection AddEntitySection { get; set; }
         public IArchivedEntitiesSection ArchivedEntitiesSection { get; set; }
-        public IRevenueView Form { get; set; }
 
-        public RevenuePresenter(IStateManager manager) : base(manager)
+        public InvoicesPresenter(IStateManager manager) : base(manager)
         {
             this.Form = (IRevenueView)FormFactory.CreateForm("RevenueForm", new object[] { this });
             ((Form)this.Form).FormClosing += (sen, ev) => this.Dispose();
-            this.AddEntitySection = new AddRevenueSection(this);
-            this.ArchivedEntitiesSection = new ArchivedRevenuesSection(this);
+            this.Form.Text = "Фактури";
 
+            this.AddEntitySection = new AddInvoiceSection(this);
+            this.ArchivedEntitiesSection = new ArchivedInvoicesSection(this);
             this.AddEntitySection.UpdateNonRevisedEntities();
-            this.Form.Text = "Приходи";
-            
         }
 
         public override void Dispose()
@@ -37,7 +35,7 @@ namespace SimpleWarehouse.Presenter.RevenueRelated
                 base.StateManager.EventManager.RemoveEvent(id);
             }
             this.Form.HideAndDispose();
-            base.StateManager.OutputWriter.WriteLine("Revenue Presenter Disposed!");
+            base.StateManager.OutputWriter.WriteLine("Invoice Presenter Disposed!");
             if (base.StateManager.IsPresenterActive(this))
                 base.StateManager.Pop();
         }

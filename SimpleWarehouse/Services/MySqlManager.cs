@@ -35,9 +35,11 @@ namespace SimpleWarehouse.Service
                 int rowsAffected = command.ExecuteNonQuery();
                 return rowsAffected;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 this.CloseConnection();
+                Console.WriteLine("There was an error with the MySql manager at ExecuteQuery");
+                //Console.WriteLine(e.Message);
                 return 0;
             }
         }

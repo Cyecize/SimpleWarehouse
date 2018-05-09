@@ -10,20 +10,20 @@ namespace SimpleWarehouse.RevenueRelated.View
 {
     public interface IRevenueView : IView
     {
-        DateTime NewRevenueDate { get; set; }
+        DateTime NewEntityDate { get; set; }
 
-        DateTime ArchivedRevenuesStartDate { get; set; }
+        DateTime ArchivedEntitiesStartDate { get; set; }
 
-        DateTime ArchivedRevenuesEndDate { get; set; }
+        DateTime ArchivedEntitiesEndDate { get; set; }
 
-        double NewRevenueAmount { get; set; }
+        double NewEntityAmount { get; set; }
 
         DataGridView NotRevisedDataTable { get; set; }
 
         DataGridView ArchiveDataTable { get; set; }
 
-        string TotalArchivedRevenuesRows { get; set; }
+        string TotalArchivedEntitiesRows { get; set; }
 
-        string TotalArchivedRevenuesPrice { get; set; }
+        string TotalArchivedEntitiesPrice { get; set; }
     }
 }

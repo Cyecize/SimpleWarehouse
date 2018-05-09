@@ -115,6 +115,8 @@
     <Compile Include="Forms\SpecificProductForm.Designer.cs">
       <DependentUpon>SpecificProductForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IInvoiceDbManager.cs" />
+    <Compile Include="Interfaces\IInvoiceViewManager.cs" />
     <Compile Include="Interfaces\IRevenueViewManager.cs" />
     <Compile Include="Interfaces\ICategoriesRepositoryManager.cs" />
     <Compile Include="Interfaces\IEntityRepository.cs" />
@@ -129,7 +131,10 @@
     <Compile Include="Interfaces\IUser.cs" />
     <Compile Include="IO\ConsoleWriter.cs" />
     <Compile Include="Interfaces\IOutputWriter.cs" />
+    <Compile Include="Model\Invoice.cs" />
     <Compile Include="Model\Revenue.cs" />
+    <Compile Include="Presenter\RevenueRelated\InvoicesPresenter.cs" />
+    <Compile Include="Presenter\RevenueRelated\IRevenuePresenter.cs" />
     <Compile Include="Presenter\RevenueRelated\RevenuePresenter.cs" />
     <Compile Include="Services\ProductSectionManagers\CatetegoryRepositoryManager.cs" />
     <Compile Include="Services\ProductSectionManagers\ProductRepositoryManager.cs" />
@@ -157,8 +162,14 @@
     <Compile Include="Services\FormDecraptifier.cs" />
     <Compile Include="Services\MySqlManager.cs" />
     <Compile Include="Services\PasswordEncoder.cs" />
+    <Compile Include="Services\RevenueRelated\AddInvoiceSection.cs" />
     <Compile Include="Services\RevenueRelated\AddRevenueSection.cs" />
+    <Compile Include="Services\RevenueRelated\ArchivedInvoicesSection.cs" />
     <Compile Include="Services\RevenueRelated\ArchivedRevenuesSection.cs" />
+    <Compile Include="Services\RevenueRelated\IAddEntitySection.cs" />
+    <Compile Include="Services\RevenueRelated\IArchivedEntitiesSection.cs" />
+    <Compile Include="Services\RevenueRelated\InvoiceDbManager.cs" />
+    <Compile Include="Services\RevenueRelated\InvoiceViewManager.cs" />
     <Compile Include="Services\RevenueRelated\RevenueViewManager.cs" />
     <Compile Include="Services\RevenueRelated\RevenueDbManager.cs" />
     <Compile Include="States\StateManager.cs" />

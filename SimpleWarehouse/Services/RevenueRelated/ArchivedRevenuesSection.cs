@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace SimpleWarehouse.Services.RevenueRelated
 {
-    public class ArchivedRevenuesSection
+    public class ArchivedRevenuesSection : IArchivedEntitiesSection
     {
         private RevenuePresenter Presenter;
         private IRevenueView Form;
@@ -26,14 +26,14 @@ namespace SimpleWarehouse.Services.RevenueRelated
             this.RevenueDbManager = new RevenueDbManager(this.Presenter.GetStateManager().SqlManager);
         }
 
-        public void DisplayArchivedRevenues()
+        public void DisplayArchivedEntities()
         {
-            var start = this.Form.ArchivedRevenuesStartDate;
-            var end = this.Form.ArchivedRevenuesEndDate;
+            var start = this.Form.ArchivedEntitiesStartDate;
+            var end = this.Form.ArchivedEntitiesEndDate;
             List<Revenue> revenues = this.RevenueDbManager.FindRevisedRevenuesByDate(start, end);
             this.ArchiveRevenueViewManager.DisplayRevenues(revenues);
-            this.Form.TotalArchivedRevenuesRows = $"{revenues.Count}";
-            this.Form.TotalArchivedRevenuesPrice = $"{revenues.Sum((x)=> x.RevenueAmount):F2}";
+            this.Form.TotalArchivedEntitiesRows = $"{revenues.Count}";
+            this.Form.TotalArchivedEntitiesPrice = $"{revenues.Sum((x)=> x.RevenueAmount):F2}";
         }
     }
 }

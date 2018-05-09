@@ -41,23 +41,23 @@
             this.label1 = new System.Windows.Forms.Label();
             this.DateTimeForRevenue = new System.Windows.Forms.DateTimePicker();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.materialTabSelector1 = new MaterialSkin.Controls.MaterialTabSelector();
-            this.GoBackBtn = new MaterialSkin.Controls.MaterialFlatButton();
-            this.LogLabel = new MaterialSkin.Controls.MaterialLabel();
-            this.RevisedStartDate = new System.Windows.Forms.DateTimePicker();
-            this.RevisedEndDate = new System.Windows.Forms.DateTimePicker();
-            this.FindArchivedRevenues = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.TotalRowsBox = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.TotalAmountBox = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.ArchivedRevenuesTable = new System.Windows.Forms.DataGridView();
             this.UsernameArch = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AmountArch = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DateArch = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IsRevisedArch = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label5 = new System.Windows.Forms.Label();
-            this.TotalAmountBox = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.TotalRowsBox = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.FindArchivedRevenues = new System.Windows.Forms.Button();
+            this.RevisedEndDate = new System.Windows.Forms.DateTimePicker();
+            this.RevisedStartDate = new System.Windows.Forms.DateTimePicker();
+            this.materialTabSelector1 = new MaterialSkin.Controls.MaterialTabSelector();
+            this.GoBackBtn = new MaterialSkin.Controls.MaterialFlatButton();
+            this.LogLabel = new MaterialSkin.Controls.MaterialLabel();
             this.materialTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataTableView)).BeginInit();
@@ -215,98 +215,47 @@
             this.tabPage2.Text = "Архив";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // materialTabSelector1
+            // TotalRowsBox
             // 
-            this.materialTabSelector1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.materialTabSelector1.BaseTabControl = this.materialTabControl1;
-            this.materialTabSelector1.Depth = 0;
-            this.materialTabSelector1.Location = new System.Drawing.Point(-2, 59);
-            this.materialTabSelector1.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialTabSelector1.Name = "materialTabSelector1";
-            this.materialTabSelector1.Size = new System.Drawing.Size(707, 48);
-            this.materialTabSelector1.TabIndex = 27;
-            this.materialTabSelector1.Text = "materialTabSelector1";
+            this.TotalRowsBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.TotalRowsBox.Enabled = false;
+            this.TotalRowsBox.Location = new System.Drawing.Point(456, 192);
+            this.TotalRowsBox.Name = "TotalRowsBox";
+            this.TotalRowsBox.ReadOnly = true;
+            this.TotalRowsBox.Size = new System.Drawing.Size(37, 20);
+            this.TotalRowsBox.TabIndex = 34;
             // 
-            // GoBackBtn
+            // label6
             // 
-            this.GoBackBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.GoBackBtn.AutoSize = true;
-            this.GoBackBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.GoBackBtn.Depth = 0;
-            this.GoBackBtn.Icon = null;
-            this.GoBackBtn.Location = new System.Drawing.Point(620, 410);
-            this.GoBackBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.GoBackBtn.MouseState = MaterialSkin.MouseState.HOVER;
-            this.GoBackBtn.Name = "GoBackBtn";
-            this.GoBackBtn.Primary = false;
-            this.GoBackBtn.Size = new System.Drawing.Size(68, 36);
-            this.GoBackBtn.TabIndex = 28;
-            this.GoBackBtn.Text = "Назад";
-            this.GoBackBtn.UseVisualStyleBackColor = true;
-            this.GoBackBtn.Click += new System.EventHandler(this.GoBackBtn_Click);
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe MDL2 Assets", 16.30189F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(316, 190);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(134, 22);
+            this.label6.TabIndex = 33;
+            this.label6.Text = "Брой на записи:";
             // 
-            // LogLabel
+            // TotalAmountBox
             // 
-            this.LogLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.LogLabel.BackColor = System.Drawing.SystemColors.Window;
-            this.LogLabel.Depth = 0;
-            this.LogLabel.Font = new System.Drawing.Font("Roboto", 11F);
-            this.LogLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.LogLabel.Location = new System.Drawing.Point(12, 404);
-            this.LogLabel.MouseState = MaterialSkin.MouseState.HOVER;
-            this.LogLabel.Name = "LogLabel";
-            this.LogLabel.Size = new System.Drawing.Size(448, 30);
-            this.LogLabel.TabIndex = 42;
+            this.TotalAmountBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.TotalAmountBox.Enabled = false;
+            this.TotalAmountBox.Location = new System.Drawing.Point(581, 192);
+            this.TotalAmountBox.Name = "TotalAmountBox";
+            this.TotalAmountBox.ReadOnly = true;
+            this.TotalAmountBox.Size = new System.Drawing.Size(80, 20);
+            this.TotalAmountBox.TabIndex = 32;
             // 
-            // RevisedStartDate
+            // label5
             // 
-            this.RevisedStartDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.RevisedStartDate.Location = new System.Drawing.Point(6, 236);
-            this.RevisedStartDate.Name = "RevisedStartDate";
-            this.RevisedStartDate.Size = new System.Drawing.Size(200, 20);
-            this.RevisedStartDate.TabIndex = 0;
-            // 
-            // RevisedEndDate
-            // 
-            this.RevisedEndDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.RevisedEndDate.Location = new System.Drawing.Point(212, 236);
-            this.RevisedEndDate.Name = "RevisedEndDate";
-            this.RevisedEndDate.Size = new System.Drawing.Size(200, 20);
-            this.RevisedEndDate.TabIndex = 1;
-            // 
-            // FindArchivedRevenues
-            // 
-            this.FindArchivedRevenues.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.FindArchivedRevenues.Location = new System.Drawing.Point(418, 236);
-            this.FindArchivedRevenues.Name = "FindArchivedRevenues";
-            this.FindArchivedRevenues.Size = new System.Drawing.Size(75, 20);
-            this.FindArchivedRevenues.TabIndex = 2;
-            this.FindArchivedRevenues.Text = "Търсене";
-            this.FindArchivedRevenues.UseVisualStyleBackColor = true;
-            this.FindArchivedRevenues.Click += new System.EventHandler(this.FindArchivedRevenues_Click);
-            // 
-            // label3
-            // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe MDL2 Assets", 16.30189F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(6, 211);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(125, 22);
-            this.label3.TabIndex = 26;
-            this.label3.Text = "Начална дата:";
-            // 
-            // label4
-            // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe MDL2 Assets", 16.30189F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(208, 211);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(113, 22);
-            this.label4.TabIndex = 27;
-            this.label4.Text = "Крайна дата:";
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe MDL2 Assets", 16.30189F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(518, 189);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(57, 22);
+            this.label5.TabIndex = 31;
+            this.label5.Text = "Общо:";
             // 
             // ArchivedRevenuesTable
             // 
@@ -355,47 +304,98 @@
             this.IsRevisedArch.Name = "IsRevisedArch";
             this.IsRevisedArch.ReadOnly = true;
             // 
-            // label5
+            // label4
             // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe MDL2 Assets", 16.30189F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(518, 189);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(57, 22);
-            this.label5.TabIndex = 31;
-            this.label5.Text = "Общо:";
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe MDL2 Assets", 16.30189F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(208, 211);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(113, 22);
+            this.label4.TabIndex = 27;
+            this.label4.Text = "Крайна дата:";
             // 
-            // TotalAmountBox
+            // label3
             // 
-            this.TotalAmountBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.TotalAmountBox.Enabled = false;
-            this.TotalAmountBox.Location = new System.Drawing.Point(581, 192);
-            this.TotalAmountBox.Name = "TotalAmountBox";
-            this.TotalAmountBox.ReadOnly = true;
-            this.TotalAmountBox.Size = new System.Drawing.Size(80, 20);
-            this.TotalAmountBox.TabIndex = 32;
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe MDL2 Assets", 16.30189F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(6, 211);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(125, 22);
+            this.label3.TabIndex = 26;
+            this.label3.Text = "Начална дата:";
             // 
-            // label6
+            // FindArchivedRevenues
             // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Segoe MDL2 Assets", 16.30189F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(316, 190);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(134, 22);
-            this.label6.TabIndex = 33;
-            this.label6.Text = "Брой на записи:";
+            this.FindArchivedRevenues.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.FindArchivedRevenues.Location = new System.Drawing.Point(418, 236);
+            this.FindArchivedRevenues.Name = "FindArchivedRevenues";
+            this.FindArchivedRevenues.Size = new System.Drawing.Size(75, 20);
+            this.FindArchivedRevenues.TabIndex = 2;
+            this.FindArchivedRevenues.Text = "Търсене";
+            this.FindArchivedRevenues.UseVisualStyleBackColor = true;
+            this.FindArchivedRevenues.Click += new System.EventHandler(this.FindArchivedRevenues_Click);
             // 
-            // TotalRowsBox
+            // RevisedEndDate
             // 
-            this.TotalRowsBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.TotalRowsBox.Enabled = false;
-            this.TotalRowsBox.Location = new System.Drawing.Point(456, 192);
-            this.TotalRowsBox.Name = "TotalRowsBox";
-            this.TotalRowsBox.ReadOnly = true;
-            this.TotalRowsBox.Size = new System.Drawing.Size(37, 20);
-            this.TotalRowsBox.TabIndex = 34;
+            this.RevisedEndDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.RevisedEndDate.Location = new System.Drawing.Point(212, 236);
+            this.RevisedEndDate.Name = "RevisedEndDate";
+            this.RevisedEndDate.Size = new System.Drawing.Size(200, 20);
+            this.RevisedEndDate.TabIndex = 1;
+            // 
+            // RevisedStartDate
+            // 
+            this.RevisedStartDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.RevisedStartDate.Location = new System.Drawing.Point(6, 236);
+            this.RevisedStartDate.Name = "RevisedStartDate";
+            this.RevisedStartDate.Size = new System.Drawing.Size(200, 20);
+            this.RevisedStartDate.TabIndex = 0;
+            // 
+            // materialTabSelector1
+            // 
+            this.materialTabSelector1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.materialTabSelector1.BaseTabControl = this.materialTabControl1;
+            this.materialTabSelector1.Depth = 0;
+            this.materialTabSelector1.Location = new System.Drawing.Point(-2, 59);
+            this.materialTabSelector1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialTabSelector1.Name = "materialTabSelector1";
+            this.materialTabSelector1.Size = new System.Drawing.Size(712, 48);
+            this.materialTabSelector1.TabIndex = 27;
+            this.materialTabSelector1.Text = "materialTabSelector1";
+            // 
+            // GoBackBtn
+            // 
+            this.GoBackBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.GoBackBtn.AutoSize = true;
+            this.GoBackBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.GoBackBtn.Depth = 0;
+            this.GoBackBtn.Icon = null;
+            this.GoBackBtn.Location = new System.Drawing.Point(620, 410);
+            this.GoBackBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.GoBackBtn.MouseState = MaterialSkin.MouseState.HOVER;
+            this.GoBackBtn.Name = "GoBackBtn";
+            this.GoBackBtn.Primary = false;
+            this.GoBackBtn.Size = new System.Drawing.Size(68, 36);
+            this.GoBackBtn.TabIndex = 28;
+            this.GoBackBtn.Text = "Назад";
+            this.GoBackBtn.UseVisualStyleBackColor = true;
+            this.GoBackBtn.Click += new System.EventHandler(this.GoBackBtn_Click);
+            // 
+            // LogLabel
+            // 
+            this.LogLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.LogLabel.BackColor = System.Drawing.SystemColors.Window;
+            this.LogLabel.Depth = 0;
+            this.LogLabel.Font = new System.Drawing.Font("Roboto", 11F);
+            this.LogLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.LogLabel.Location = new System.Drawing.Point(12, 404);
+            this.LogLabel.MouseState = MaterialSkin.MouseState.HOVER;
+            this.LogLabel.Name = "LogLabel";
+            this.LogLabel.Size = new System.Drawing.Size(448, 30);
+            this.LogLabel.TabIndex = 42;
             // 
             // RevenueForm
             // 

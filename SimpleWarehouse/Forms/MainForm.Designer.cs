@@ -63,6 +63,7 @@ namespace SimpleWarehouse.Forms
             this.materialRadioButton3 = new MaterialSkin.Controls.MaterialRadioButton();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.materialTabSelector1 = new MaterialSkin.Controls.MaterialTabSelector();
+            this.InvoicesBtn = new MaterialSkin.Controls.MaterialFlatButton();
             this.materialTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataTableView)).BeginInit();
@@ -538,11 +539,31 @@ namespace SimpleWarehouse.Forms
             this.materialTabSelector1.TabIndex = 17;
             this.materialTabSelector1.Text = "materialTabSelector1";
             // 
+            // InvoicesBtn
+            // 
+            this.InvoicesBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.InvoicesBtn.AutoSize = true;
+            this.InvoicesBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.InvoicesBtn.Depth = 0;
+            this.InvoicesBtn.Enabled = false;
+            this.InvoicesBtn.Icon = null;
+            this.InvoicesBtn.Location = new System.Drawing.Point(614, 679);
+            this.InvoicesBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.InvoicesBtn.MouseState = MaterialSkin.MouseState.HOVER;
+            this.InvoicesBtn.Name = "InvoicesBtn";
+            this.InvoicesBtn.Primary = false;
+            this.InvoicesBtn.Size = new System.Drawing.Size(85, 36);
+            this.InvoicesBtn.TabIndex = 26;
+            this.InvoicesBtn.Text = "ФАКТУРИ";
+            this.InvoicesBtn.UseVisualStyleBackColor = true;
+            this.InvoicesBtn.Click += new System.EventHandler(this.InvoicesBtn_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1000, 730);
+            this.Controls.Add(this.InvoicesBtn);
             this.Controls.Add(this.materialTabControl1);
             this.Controls.Add(this.RevenueBtn);
             this.Controls.Add(this.materialTabSelector1);
@@ -598,6 +619,7 @@ namespace SimpleWarehouse.Forms
         private System.Windows.Forms.DataGridViewTextBoxColumn Visible;
         private System.Windows.Forms.ComboBox SearchType;
         private MaterialRaisedButton AddCategoryBtn;
+        private MaterialFlatButton InvoicesBtn;
     }
 }
 
