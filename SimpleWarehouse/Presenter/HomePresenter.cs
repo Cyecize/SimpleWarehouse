@@ -65,6 +65,15 @@ namespace SimpleWarehouse.Presenter
             }
         }
 
+        public void ExpensesAction()
+        {
+            if (Roles.IsRequredRoleMet(base.StateManager.UserSession.SessionEntity.Role, Config.USER_TYPICAL_ROLE))
+            {
+                if (base.StateManager.IsPresenterActive(this))
+                    base.StateManager.Push(new ExpensesPresenter(base.StateManager));
+            }
+        }
+
         public void RefreshAction()
         {
             if (base.StateManager.IsPresenterActive(this))
@@ -103,6 +112,7 @@ namespace SimpleWarehouse.Presenter
                 {
                     this.Form.EnableOrDisableMaterialBtn("RevenueBtn", true);
                     this.Form.EnableOrDisableMaterialBtn("InvoicesBtn", true);
+                    this.Form.EnableOrDisableMaterialBtn("ExpensesBtn", true);
                 }
                 this.Form.Text = $"Simple Warehouse, Потребител: {base.StateManager.UserSession.SessionEntity.Username}";
             }

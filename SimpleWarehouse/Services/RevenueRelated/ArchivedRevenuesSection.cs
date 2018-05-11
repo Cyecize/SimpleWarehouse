@@ -16,7 +16,7 @@ namespace SimpleWarehouse.Services.RevenueRelated
         private RevenuePresenter Presenter;
         private IRevenueView Form;
         public IRevenueViewManager ArchiveRevenueViewManager { get; set; }
-        public IRevenueDbManager RevenueDbManager { get; set; }
+        public IRevenueStreamDbManager RevenueDbManager { get; set; }
 
         public ArchivedRevenuesSection(RevenuePresenter presenter)
         {
@@ -30,7 +30,7 @@ namespace SimpleWarehouse.Services.RevenueRelated
         {
             var start = this.Form.ArchivedEntitiesStartDate;
             var end = this.Form.ArchivedEntitiesEndDate;
-            List<Revenue> revenues = this.RevenueDbManager.FindRevisedRevenuesByDate(start, end);
+            List<RevenueStream> revenues = this.RevenueDbManager.FindRevisedEntitiesByDate(start, end);
             this.ArchiveRevenueViewManager.DisplayRevenues(revenues);
             this.Form.TotalArchivedEntitiesRows = $"{revenues.Count}";
             this.Form.TotalArchivedEntitiesPrice = $"{revenues.Sum((x)=> x.RevenueAmount):F2}";

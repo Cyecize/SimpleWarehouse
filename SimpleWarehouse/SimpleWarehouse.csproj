@@ -133,6 +133,7 @@
     <Compile Include="Interfaces\IOutputWriter.cs" />
     <Compile Include="Model\Invoice.cs" />
     <Compile Include="Model\Revenue.cs" />
+    <Compile Include="Presenter\RevenueRelated\ExpensesPresenter.cs" />
     <Compile Include="Presenter\RevenueRelated\InvoicesPresenter.cs" />
     <Compile Include="Presenter\RevenueRelated\IRevenuePresenter.cs" />
     <Compile Include="Presenter\RevenueRelated\RevenuePresenter.cs" />
@@ -162,10 +163,13 @@
     <Compile Include="Services\FormDecraptifier.cs" />
     <Compile Include="Services\MySqlManager.cs" />
     <Compile Include="Services\PasswordEncoder.cs" />
+    <Compile Include="Services\RevenueRelated\AddExpenseSection.cs" />
     <Compile Include="Services\RevenueRelated\AddInvoiceSection.cs" />
     <Compile Include="Services\RevenueRelated\AddRevenueSection.cs" />
+    <Compile Include="Services\RevenueRelated\ArchivedExpensesSection.cs" />
     <Compile Include="Services\RevenueRelated\ArchivedInvoicesSection.cs" />
     <Compile Include="Services\RevenueRelated\ArchivedRevenuesSection.cs" />
+    <Compile Include="Services\RevenueRelated\ExpensesDbManager.cs" />
     <Compile Include="Services\RevenueRelated\IAddEntitySection.cs" />
     <Compile Include="Services\RevenueRelated\IArchivedEntitiesSection.cs" />
     <Compile Include="Services\RevenueRelated\InvoiceDbManager.cs" />

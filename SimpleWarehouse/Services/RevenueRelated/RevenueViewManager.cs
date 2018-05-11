@@ -36,7 +36,7 @@ namespace SimpleWarehouse.Services.RevenueRelated
             this.Table.Columns.Add(IS_REVISED);
         }
 
-        public void DisplayRevenues(List<Revenue> revenues)
+        public void DisplayRevenues(List<RevenueStream> revenues)
         {
             this.ViewTable.Rows.Clear();
             foreach (var rev in revenues)
@@ -48,7 +48,7 @@ namespace SimpleWarehouse.Services.RevenueRelated
 
         //private logic 
 
-        private void AddRow(Revenue revenue)
+        private void AddRow(RevenueStream revenue)
         {
             int rowId = this.ViewTable.Rows.Add();
             this.ViewTable.CurrentCell = this.ViewTable.Rows[rowId].Cells[0];

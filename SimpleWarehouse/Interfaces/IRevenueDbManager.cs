@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace SimpleWarehouse.Interfaces
 {
-    public interface IRevenueDbManager
+    public interface IRevenueStreamDbManager
     {
-        List<Revenue> FindAllNonRevisedRevenues();
+        List<RevenueStream> FindAllNonRevisedEntities();
 
-        List<Revenue> FindRevisedRevenuesByDate(DateTime startDate, DateTime endDate); 
+        List<RevenueStream> FindRevisedEntitiesByDate(DateTime startDate, DateTime endDate); 
 
-        void CreateRevenue(Revenue revenue);
+        void CreateEntity(RevenueStream revenue);
 
-        void ArchiveRevenues();
+        void ArchiveEntities();
 
     }
 }

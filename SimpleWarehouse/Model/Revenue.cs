@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SimpleWarehouse.Model
 {
-    public class Revenue
+    public class RevenueStream
     {
         [DbNameReference(name:"id")]
         public int Id { get; set; }
@@ -27,7 +27,7 @@ namespace SimpleWarehouse.Model
         [DbNameReference(name: "is_revised")]
         public bool IsRevised { get; set; }
 
-        public Revenue()
+        public RevenueStream()
         {
             this.IsRevised = false;
             this.Date = DateTime.Now;

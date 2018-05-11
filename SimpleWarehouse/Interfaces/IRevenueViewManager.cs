@@ -9,6 +9,6 @@ namespace SimpleWarehouse.Interfaces
 {
     public interface IRevenueViewManager
     {
-        void DisplayRevenues(List<Revenue> revenues);
+        void DisplayRevenues(List<RevenueStream> revenues);
     }
 }

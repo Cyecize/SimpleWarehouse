@@ -145,5 +145,10 @@ namespace SimpleWarehouse.Forms
         {
             this.Presenter.InvoicesAction();
         }
+
+        private void ExpensesBtn_Click(object sender, EventArgs e)
+        {
+            this.Presenter.ExpensesAction();
+        }
     }
 }

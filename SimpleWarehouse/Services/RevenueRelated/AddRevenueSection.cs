@@ -16,7 +16,7 @@ namespace SimpleWarehouse.Services.RevenueRelated
         private RevenuePresenter Presenter;
         private IRevenueView Form;
         public IRevenueViewManager AddRevenueViewManager { get; set; }
-        public IRevenueDbManager RevenueDbManager { get; set; }
+        public IRevenueStreamDbManager RevenueDbManager { get; set; }
 
         public AddRevenueSection(RevenuePresenter presenter)
         {
@@ -28,14 +28,14 @@ namespace SimpleWarehouse.Services.RevenueRelated
 
         public void UpdateNonRevisedEntities()
         {
-            this.AddRevenueViewManager.DisplayRevenues(this.RevenueDbManager.FindAllNonRevisedRevenues());
+            this.AddRevenueViewManager.DisplayRevenues(this.RevenueDbManager.FindAllNonRevisedEntities());
         }
 
         public void AddEntityAction()
         {
             DateTime revenueDate = this.Form.NewEntityDate;
             double amount = this.Form.NewEntityAmount;
-            Revenue revenue = new Revenue()
+            RevenueStream revenue = new RevenueStream()
             {
                 Date = revenueDate,
                 RevenueAmount = amount,
@@ -49,7 +49,7 @@ namespace SimpleWarehouse.Services.RevenueRelated
             }
             try
             {
-                this.RevenueDbManager.CreateRevenue(revenue);
+                this.RevenueDbManager.CreateEntity(revenue);
                 this.UpdateNonRevisedEntities();
                 this.Form.NewEntityAmount = 0;
             }
