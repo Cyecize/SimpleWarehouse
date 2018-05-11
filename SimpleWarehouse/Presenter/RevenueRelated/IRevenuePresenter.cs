@@ -15,5 +15,7 @@ namespace SimpleWarehouse.Presenter.RevenueRelated
         IRevenueView Form { get; set; }
 
         void Dispose();
+
+        void GoBackAction();
     }
 }

@@ -21,13 +21,13 @@ namespace SimpleWarehouse.Presenter.RevenueRelated
         public RevenuePresenter(IStateManager manager) : base(manager)
         {
             this.Form = (IRevenueView)FormFactory.CreateForm("RevenueForm", new object[] { this });
-            ((Form)this.Form).FormClosing += (sen, ev) => this.Dispose();
+            ((Form)this.Form).FormClosing += (sen, ev) => this.GoBackAction();
             this.AddEntitySection = new AddRevenueSection(this);
             this.ArchivedEntitiesSection = new ArchivedRevenuesSection(this);
 
             this.AddEntitySection.UpdateNonRevisedEntities();
             this.Form.Text = "Приходи";
-            
+
         }
 
         public override void Dispose()
@@ -38,8 +38,6 @@ namespace SimpleWarehouse.Presenter.RevenueRelated
             }
             this.Form.HideAndDispose();
             base.StateManager.OutputWriter.WriteLine("Revenue Presenter Disposed!");
-            if (base.StateManager.IsPresenterActive(this))
-                base.StateManager.Pop();
         }
 
         public override void Update()
@@ -49,6 +47,12 @@ namespace SimpleWarehouse.Presenter.RevenueRelated
                 this.Form.Show();
                 base.IsFormShown = true;
             }
+        }
+
+        public void GoBackAction()
+        {
+            if (base.StateManager.IsPresenterActive(this))
+                base.StateManager.Set(new HomePresenter(base.StateManager));
         }
     }
 }

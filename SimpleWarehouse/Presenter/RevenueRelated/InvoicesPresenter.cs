@@ -20,7 +20,7 @@ namespace SimpleWarehouse.Presenter.RevenueRelated
         public InvoicesPresenter(IStateManager manager) : base(manager)
         {
             this.Form = (IRevenueView)FormFactory.CreateForm("RevenueForm", new object[] { this });
-            ((Form)this.Form).FormClosing += (sen, ev) => this.Dispose();
+            ((Form)this.Form).FormClosing += (sen, ev) => this.GoBackAction();
             this.Form.Text = "Фактури";
 
             this.AddEntitySection = new AddInvoiceSection(this);
@@ -36,8 +36,6 @@ namespace SimpleWarehouse.Presenter.RevenueRelated
             }
             this.Form.HideAndDispose();
             base.StateManager.OutputWriter.WriteLine("Invoice Presenter Disposed!");
-            if (base.StateManager.IsPresenterActive(this))
-                base.StateManager.Pop();
         }
 
         public override void Update()
@@ -47,6 +45,12 @@ namespace SimpleWarehouse.Presenter.RevenueRelated
                 this.Form.Show();
                 base.IsFormShown = true;
             }
+        }
+
+        public void GoBackAction()
+        {
+            if (base.StateManager.IsPresenterActive(this))
+                base.StateManager.Set(new HomePresenter(base.StateManager));
         }
     }
 }

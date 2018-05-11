@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using SimpleWarehouse.Factory;
 using SimpleWarehouse.Interfaces;
 using SimpleWarehouse.RevenueRelated.View;
@@ -19,10 +20,17 @@ namespace SimpleWarehouse.Presenter.RevenueRelated
         public ExpensesPresenter(IStateManager manager) : base(manager)
         {
             this.Form = (IRevenueView)FormFactory.CreateForm("RevenueForm", new object[] { this });
+            ((Form)this.Form).FormClosing += (sen, ev) => this.GoBackAction();
             this.Form.Text = "Разходи";
             this.AddEntitySection = new AddExpenseSection(this);
             this.ArchivedEntitiesSection = new ArchivedExpensesSection(this);
             this.AddEntitySection.UpdateNonRevisedEntities();
+        }
+
+        public void GoBackAction()
+        {   
+            if(base.StateManager.IsPresenterActive(this))
+                base.StateManager.Set(new HomePresenter(base.StateManager));
         }
 
         public override void Dispose()
@@ -32,9 +40,7 @@ namespace SimpleWarehouse.Presenter.RevenueRelated
                 base.StateManager.EventManager.RemoveEvent(id);
             }
             this.Form.HideAndDispose();
-            base.StateManager.OutputWriter.WriteLine("Expenses Presenter Disposed!");
-            if (base.StateManager.IsPresenterActive(this))
-                base.StateManager.Pop();
+            base.StateManager.OutputWriter.WriteLine("Expenses Presenter Disposed!"); 
         }
 
         public override void Update()

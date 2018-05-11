@@ -26,7 +26,7 @@ namespace SimpleWarehouse.Services.RevenueRelated
         public void ArchiveEntities()
         {
             string query = "INSERT INTO expense_archives (user_id, revenue_amount, date, is_revised) SELECT r.user_id, r.revenue_amount, r.date, TRUE FROM expenses AS r;";
-            string query2 = "TRUNCATE TABLE expenses;";
+            string query2 = "DELETE FROM expenses;";
             this.SqlManager.ExecuteQuery(query);
             this.SqlManager.ExecuteQuery(query2);
         }
@@ -35,6 +35,7 @@ namespace SimpleWarehouse.Services.RevenueRelated
         {
             string query = $"INSERT INTO expenses VALUES (null, {revenue.UserId}, {revenue.RevenueAmount}, '{revenue.Date.ToString("yyyy-MM-dd hh:mm:ss")}', {revenue.IsRevised.ToString().ToUpper()})";
             this.SqlManager.ExecuteQuery(query);
+            this.ArchiveEntities();
         }
 
         public List<RevenueStream> FindAllNonRevisedEntities()

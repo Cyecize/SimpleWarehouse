@@ -59,7 +59,7 @@ namespace SimpleWarehouse.Forms
 
         private void GoBackBtn_Click(object sender, EventArgs e)
         {
-            this.Presenter.Dispose();
+            this.Presenter.GoBackAction();
         }
 
         //events 

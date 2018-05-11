@@ -52,7 +52,7 @@ namespace SimpleWarehouse.Presenter
             if (Roles.IsRequredRoleMet(base.StateManager.UserSession.SessionEntity.Role, Config.USER_TYPICAL_ROLE))
             {
                 if (base.StateManager.IsPresenterActive(this))
-                    base.StateManager.Push(new RevenuePresenter(base.StateManager));
+                    base.StateManager.Set(new RevenuePresenter(base.StateManager));
             }
         }
 
@@ -61,7 +61,7 @@ namespace SimpleWarehouse.Presenter
             if (Roles.IsRequredRoleMet(base.StateManager.UserSession.SessionEntity.Role, Config.USER_TYPICAL_ROLE))
             {
                 if (base.StateManager.IsPresenterActive(this))
-                    base.StateManager.Push(new InvoicesPresenter(base.StateManager));
+                    base.StateManager.Set(new InvoicesPresenter(base.StateManager));
             }
         }
 
@@ -70,7 +70,7 @@ namespace SimpleWarehouse.Presenter
             if (Roles.IsRequredRoleMet(base.StateManager.UserSession.SessionEntity.Role, Config.USER_TYPICAL_ROLE))
             {
                 if (base.StateManager.IsPresenterActive(this))
-                    base.StateManager.Push(new ExpensesPresenter(base.StateManager));
+                    base.StateManager.Set(new ExpensesPresenter(base.StateManager));
             }
         }
 

@@ -39,7 +39,7 @@ namespace SimpleWarehouse.Service
             {
                 this.CloseConnection();
                 Console.WriteLine("There was an error with the MySql manager at ExecuteQuery");
-                //Console.WriteLine(e.Message);
+                Console.WriteLine(e.Message);
                 return 0;
             }
         }
