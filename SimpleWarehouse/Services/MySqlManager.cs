@@ -44,6 +44,27 @@ namespace SimpleWarehouse.Service
             }
         }
 
+        public long InsertQuery(string query)
+        {
+            if (!this.isConnAvailable)
+                this.OpenAndTestConnection();
+            this.CloseDataReader();
+            try
+            {
+
+                MySqlCommand command = new MySqlCommand(query, this.Connection);
+                int rowsAffected = command.ExecuteNonQuery();
+                return command.LastInsertedId;
+            }
+            catch (Exception e)
+            {
+                this.CloseConnection();
+                Console.WriteLine("There was an error with the MySql manager at InsertQuery");
+                //Console.WriteLine(e.Message);
+                return 0;
+            }
+        }
+
         public MySqlDataReader ExecuteQueryData(string query)
         {
             if (!this.isConnAvailable)
@@ -102,6 +123,13 @@ namespace SimpleWarehouse.Service
             }
         }
 
+        public string EscapeString(string str)
+        {
+            return MySqlHelper.EscapeString(str);
+        }
+
+        //private logic
+
         private void CloseDataReader()
         {
             if (this.DataReader != null)
@@ -110,11 +138,7 @@ namespace SimpleWarehouse.Service
                 this.DataReader = null;
             }
         }
-
-        public string EscapeString(string str)
-        {
-            return MySqlHelper.EscapeString(str);
-        }
+      
     }
 }
 

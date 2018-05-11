@@ -15,7 +15,9 @@ namespace SimpleWarehouse.Interfaces
 
         void CloseConnection();
 
-        string EscapeString(string str); 
+        string EscapeString(string str);
+
+        long InsertQuery(string query);
 
     }
 }
