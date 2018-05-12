@@ -1,4 +1,5 @@
-﻿using MaterialSkin.Controls;
+﻿using DataGridViewTextButton.DataGridViewElements;
+using MaterialSkin.Controls;
 
 namespace SimpleWarehouse.Forms
 {
@@ -51,16 +52,15 @@ namespace SimpleWarehouse.Forms
             this.NewProductBtn = new MaterialSkin.Controls.MaterialRaisedButton();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.materialRadioButton4 = new MaterialSkin.Controls.MaterialRadioButton();
-            this.materialRadioButton1 = new MaterialSkin.Controls.MaterialRadioButton();
-            this.materialRadioButton2 = new MaterialSkin.Controls.MaterialRadioButton();
-            this.materialRadioButton3 = new MaterialSkin.Controls.MaterialRadioButton();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.materialTabSelector1 = new MaterialSkin.Controls.MaterialTabSelector();
             this.InvoicesBtn = new MaterialSkin.Controls.MaterialFlatButton();
             this.ExpensesBtn = new MaterialSkin.Controls.MaterialFlatButton();
-            this.Column1 = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.materialRadioButton3 = new MaterialSkin.Controls.MaterialRadioButton();
+            this.materialRadioButton2 = new MaterialSkin.Controls.MaterialRadioButton();
+            this.materialRadioButton1 = new MaterialSkin.Controls.MaterialRadioButton();
+            this.materialRadioButton4 = new MaterialSkin.Controls.MaterialRadioButton();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.materialTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataTableView)).BeginInit();
@@ -328,100 +328,15 @@ namespace SimpleWarehouse.Forms
             // 
             // dataGridView1
             // 
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ControlLight;
+            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1});
+            this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dataGridView1.Location = new System.Drawing.Point(7, 7);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(1111, 353);
             this.dataGridView1.TabIndex = 0;
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.BackColor = System.Drawing.Color.White;
-            this.tabPage3.Controls.Add(this.materialRadioButton4);
-            this.tabPage3.Controls.Add(this.materialRadioButton1);
-            this.tabPage3.Controls.Add(this.materialRadioButton2);
-            this.tabPage3.Controls.Add(this.materialRadioButton3);
-            this.tabPage3.Location = new System.Drawing.Point(4, 25);
-            this.tabPage3.Margin = new System.Windows.Forms.Padding(4);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage3.Size = new System.Drawing.Size(1125, 484);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Продажби";
-            // 
-            // materialRadioButton4
-            // 
-            this.materialRadioButton4.AutoSize = true;
-            this.materialRadioButton4.Checked = true;
-            this.materialRadioButton4.Cursor = System.Windows.Forms.Cursors.Default;
-            this.materialRadioButton4.Depth = 0;
-            this.materialRadioButton4.Enabled = false;
-            this.materialRadioButton4.Font = new System.Drawing.Font("Roboto", 10F);
-            this.materialRadioButton4.Location = new System.Drawing.Point(0, 121);
-            this.materialRadioButton4.Margin = new System.Windows.Forms.Padding(0);
-            this.materialRadioButton4.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.materialRadioButton4.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialRadioButton4.Name = "materialRadioButton4";
-            this.materialRadioButton4.Ripple = true;
-            this.materialRadioButton4.Size = new System.Drawing.Size(198, 30);
-            this.materialRadioButton4.TabIndex = 15;
-            this.materialRadioButton4.TabStop = true;
-            this.materialRadioButton4.Text = "materialRadioButton4";
-            this.materialRadioButton4.UseVisualStyleBackColor = true;
-            // 
-            // materialRadioButton1
-            // 
-            this.materialRadioButton1.AutoSize = true;
-            this.materialRadioButton1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.materialRadioButton1.Depth = 0;
-            this.materialRadioButton1.Font = new System.Drawing.Font("Roboto", 10F);
-            this.materialRadioButton1.Location = new System.Drawing.Point(0, 10);
-            this.materialRadioButton1.Margin = new System.Windows.Forms.Padding(0);
-            this.materialRadioButton1.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.materialRadioButton1.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialRadioButton1.Name = "materialRadioButton1";
-            this.materialRadioButton1.Ripple = true;
-            this.materialRadioButton1.Size = new System.Drawing.Size(198, 30);
-            this.materialRadioButton1.TabIndex = 9;
-            this.materialRadioButton1.Text = "materialRadioButton1";
-            this.materialRadioButton1.UseVisualStyleBackColor = true;
-            // 
-            // materialRadioButton2
-            // 
-            this.materialRadioButton2.AutoSize = true;
-            this.materialRadioButton2.Cursor = System.Windows.Forms.Cursors.Default;
-            this.materialRadioButton2.Depth = 0;
-            this.materialRadioButton2.Font = new System.Drawing.Font("Roboto", 10F);
-            this.materialRadioButton2.Location = new System.Drawing.Point(0, 47);
-            this.materialRadioButton2.Margin = new System.Windows.Forms.Padding(0);
-            this.materialRadioButton2.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.materialRadioButton2.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialRadioButton2.Name = "materialRadioButton2";
-            this.materialRadioButton2.Ripple = true;
-            this.materialRadioButton2.Size = new System.Drawing.Size(198, 30);
-            this.materialRadioButton2.TabIndex = 10;
-            this.materialRadioButton2.Text = "materialRadioButton2";
-            this.materialRadioButton2.UseVisualStyleBackColor = true;
-            // 
-            // materialRadioButton3
-            // 
-            this.materialRadioButton3.AutoSize = true;
-            this.materialRadioButton3.Cursor = System.Windows.Forms.Cursors.Default;
-            this.materialRadioButton3.Depth = 0;
-            this.materialRadioButton3.Font = new System.Drawing.Font("Roboto", 10F);
-            this.materialRadioButton3.Location = new System.Drawing.Point(0, 84);
-            this.materialRadioButton3.Margin = new System.Windows.Forms.Padding(0);
-            this.materialRadioButton3.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.materialRadioButton3.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialRadioButton3.Name = "materialRadioButton3";
-            this.materialRadioButton3.Ripple = true;
-            this.materialRadioButton3.Size = new System.Drawing.Size(198, 30);
-            this.materialRadioButton3.TabIndex = 11;
-            this.materialRadioButton3.Text = "materialRadioButton3";
-            this.materialRadioButton3.UseVisualStyleBackColor = true;
             // 
             // tabPage4
             // 
@@ -486,11 +401,91 @@ namespace SimpleWarehouse.Forms
             this.ExpensesBtn.UseVisualStyleBackColor = true;
             this.ExpensesBtn.Click += new System.EventHandler(this.ExpensesBtn_Click);
             // 
-            // Column1
+            // materialRadioButton3
             // 
-            this.Column1.HeaderText = "Column1";
-            this.Column1.Name = "Column1";
-            this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.materialRadioButton3.AutoSize = true;
+            this.materialRadioButton3.Cursor = System.Windows.Forms.Cursors.Default;
+            this.materialRadioButton3.Depth = 0;
+            this.materialRadioButton3.Font = new System.Drawing.Font("Roboto", 10F);
+            this.materialRadioButton3.Location = new System.Drawing.Point(0, 84);
+            this.materialRadioButton3.Margin = new System.Windows.Forms.Padding(0);
+            this.materialRadioButton3.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.materialRadioButton3.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialRadioButton3.Name = "materialRadioButton3";
+            this.materialRadioButton3.Ripple = true;
+            this.materialRadioButton3.Size = new System.Drawing.Size(198, 30);
+            this.materialRadioButton3.TabIndex = 11;
+            this.materialRadioButton3.Text = "materialRadioButton3";
+            this.materialRadioButton3.UseVisualStyleBackColor = true;
+            // 
+            // materialRadioButton2
+            // 
+            this.materialRadioButton2.AutoSize = true;
+            this.materialRadioButton2.Cursor = System.Windows.Forms.Cursors.Default;
+            this.materialRadioButton2.Depth = 0;
+            this.materialRadioButton2.Font = new System.Drawing.Font("Roboto", 10F);
+            this.materialRadioButton2.Location = new System.Drawing.Point(0, 47);
+            this.materialRadioButton2.Margin = new System.Windows.Forms.Padding(0);
+            this.materialRadioButton2.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.materialRadioButton2.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialRadioButton2.Name = "materialRadioButton2";
+            this.materialRadioButton2.Ripple = true;
+            this.materialRadioButton2.Size = new System.Drawing.Size(198, 30);
+            this.materialRadioButton2.TabIndex = 10;
+            this.materialRadioButton2.Text = "materialRadioButton2";
+            this.materialRadioButton2.UseVisualStyleBackColor = true;
+            // 
+            // materialRadioButton1
+            // 
+            this.materialRadioButton1.AutoSize = true;
+            this.materialRadioButton1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.materialRadioButton1.Depth = 0;
+            this.materialRadioButton1.Font = new System.Drawing.Font("Roboto", 10F);
+            this.materialRadioButton1.Location = new System.Drawing.Point(0, 10);
+            this.materialRadioButton1.Margin = new System.Windows.Forms.Padding(0);
+            this.materialRadioButton1.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.materialRadioButton1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialRadioButton1.Name = "materialRadioButton1";
+            this.materialRadioButton1.Ripple = true;
+            this.materialRadioButton1.Size = new System.Drawing.Size(198, 30);
+            this.materialRadioButton1.TabIndex = 9;
+            this.materialRadioButton1.Text = "materialRadioButton1";
+            this.materialRadioButton1.UseVisualStyleBackColor = true;
+            // 
+            // materialRadioButton4
+            // 
+            this.materialRadioButton4.AutoSize = true;
+            this.materialRadioButton4.Checked = true;
+            this.materialRadioButton4.Cursor = System.Windows.Forms.Cursors.Default;
+            this.materialRadioButton4.Depth = 0;
+            this.materialRadioButton4.Enabled = false;
+            this.materialRadioButton4.Font = new System.Drawing.Font("Roboto", 10F);
+            this.materialRadioButton4.Location = new System.Drawing.Point(0, 121);
+            this.materialRadioButton4.Margin = new System.Windows.Forms.Padding(0);
+            this.materialRadioButton4.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.materialRadioButton4.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialRadioButton4.Name = "materialRadioButton4";
+            this.materialRadioButton4.Ripple = true;
+            this.materialRadioButton4.Size = new System.Drawing.Size(198, 30);
+            this.materialRadioButton4.TabIndex = 15;
+            this.materialRadioButton4.TabStop = true;
+            this.materialRadioButton4.Text = "materialRadioButton4";
+            this.materialRadioButton4.UseVisualStyleBackColor = true;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.BackColor = System.Drawing.Color.White;
+            this.tabPage3.Controls.Add(this.materialRadioButton4);
+            this.tabPage3.Controls.Add(this.materialRadioButton1);
+            this.tabPage3.Controls.Add(this.materialRadioButton2);
+            this.tabPage3.Controls.Add(this.materialRadioButton3);
+            this.tabPage3.Location = new System.Drawing.Point(4, 25);
+            this.tabPage3.Margin = new System.Windows.Forms.Padding(4);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(4);
+            this.tabPage3.Size = new System.Drawing.Size(1125, 484);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Продажби";
             // 
             // MainForm
             // 
@@ -508,6 +503,7 @@ namespace SimpleWarehouse.Forms
             this.MinimumSize = new System.Drawing.Size(1067, 738);
             this.Name = "MainForm";
             this.Text = "Project WH";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.materialTabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -530,11 +526,6 @@ namespace SimpleWarehouse.Forms
         private MaterialSkin.Controls.MaterialRaisedButton EditBtn;
         private MaterialSkin.Controls.MaterialRaisedButton NewProductBtn;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TabPage tabPage3;
-        private MaterialSkin.Controls.MaterialRadioButton materialRadioButton4;
-        private MaterialSkin.Controls.MaterialRadioButton materialRadioButton1;
-        private MaterialSkin.Controls.MaterialRadioButton materialRadioButton2;
-        private MaterialSkin.Controls.MaterialRadioButton materialRadioButton3;
         private MaterialTabSelector materialTabSelector1;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.DataGridView DataTableView;
@@ -552,7 +543,11 @@ namespace SimpleWarehouse.Forms
         private MaterialFlatButton InvoicesBtn;
         private MaterialFlatButton ExpensesBtn;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewLinkColumn Column1;
+        private System.Windows.Forms.TabPage tabPage3;
+        private MaterialRadioButton materialRadioButton4;
+        private MaterialRadioButton materialRadioButton1;
+        private MaterialRadioButton materialRadioButton2;
+        private MaterialRadioButton materialRadioButton3;
     }
 }
 

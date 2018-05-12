@@ -1,4 +1,6 @@
-﻿using MaterialSkin.Controls;
+﻿
+using DataGridViewTextButton.DataGridViewElements;
+using MaterialSkin.Controls;
 using SimpleWarehouse.Model;
 using SimpleWarehouse.Presenter;
 using SimpleWarehouse.Services;
@@ -13,12 +15,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace SimpleWarehouse.Forms
 {
 
-
     public partial class MainForm : MaterialForm, IHomeView
     {
+        private static int COUNTER = 0;
 
         private HomePresenter Presenter;
 
@@ -52,7 +55,63 @@ namespace SimpleWarehouse.Forms
 
             };
             this.SearchType.SelectedIndexChanged += this.OnSearchParamChange;
-            
+
+            this.dataGridView1.Columns.AddRange(new DataGridViewColumn[]
+                                      {
+                                          new DataGridViewTextButtonColumn
+                                              {
+                                                  ValueType = typeof (int),
+                                                  HeaderText = "No.",
+                                                  Width = 20,
+                                                  Name = "ProdTransactionCounter"
+                                              },
+                                          new DataGridViewTextButtonColumn
+                                              {
+                                                  ValueType = typeof (int),
+                                                  HeaderText = "Продукт",
+                                                  ButtonClickHandler = this.OnBtnClick,
+                                                  AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+                                              },
+                                          new DataGridViewTextBoxColumn
+                                              {
+                                                  ValueType = typeof (double),
+                                                  HeaderText = "Количесто",
+                                                  Width = 100,
+                                                  AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
+                                                  Name = "ProdTransactionQuantity",
+                                              },
+                                          new DataGridViewTextBoxColumn
+                                              {
+                                                  ValueType = typeof (double),
+                                                  HeaderText = "Доставна цена",
+                                                  Width = 100,
+                                                  AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
+                                                  ReadOnly = true,
+                                                  Name ="ProdTransactionImportPrice"
+                                              },
+                                          new DataGridViewTextBoxColumn
+                                              {
+                                                  ValueType = typeof (double),
+                                                  HeaderText = "Продажна цена",
+                                                  Width = 100,
+                                                  AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
+                                                  ReadOnly = true,
+                                                  Name = "ProdTransactionSellPrice"
+                                              },
+                                           new DataGridViewTextBoxColumn
+                                              {
+                                                  ValueType = typeof (double),
+                                                  HeaderText = "Общо",
+                                                  Width = 100,
+                                                  AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
+                                                  ReadOnly = true,
+                                                  Name = "ProdTransactionTotalPrice"
+                                              },
+
+                                      });
+            this.dataGridView1.DataError += this.grid_DataError;
+            this.dataGridView1.DefaultValuesNeeded += this.dataGridView1_DefaultValuesNeeded;
+
         }
 
         public void ShowAsDialog()
@@ -115,7 +174,7 @@ namespace SimpleWarehouse.Forms
             this.Presenter.ProductSection.AddNewCategoryRequest();
         }
 
-      
+
         public void EnableOrDisableElement(string elName, Type elType, bool isEnabled)
         {
             foreach (Control control in this.Controls)
@@ -136,6 +195,7 @@ namespace SimpleWarehouse.Forms
             EnableOrDisableElement(btnName, typeof(MaterialFlatButton), isEnabled);
         }
 
+        //private logic
         private void RevenueBtn_Click(object sender, EventArgs e)
         {
             this.Presenter.RevenueAction();
@@ -150,5 +210,29 @@ namespace SimpleWarehouse.Forms
         {
             this.Presenter.ExpensesAction();
         }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void OnBtnClick(object sender, EventArgs e)
+        {
+            Console.WriteLine("yey");
+        }
+
+        private void grid_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            e.Cancel = true;
+            MessageBox.Show(this, "Грешна информация: " + this.dataGridView1[e.ColumnIndex, e.RowIndex].EditedFormattedValue, "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        }
+
+        private void dataGridView1_DefaultValuesNeeded(object sender,
+    System.Windows.Forms.DataGridViewRowEventArgs e)
+        {
+            e.Row.Cells["ProdTransactionCounter"].Value = ++COUNTER;
+            e.Row.Cells["ProdTransactionQuantity"].Value = 0;
+        }
+
     }
 }
