@@ -14,7 +14,7 @@ namespace SimpleWarehouse.Interfaces
 
         DataGridView DataGrid { get; set; }
 
-        void Dispose();
+        void ClearRows();
 
         void AddSelectedProduct(DataGridViewRow row, Product product);
 

@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using SimpleWarehouse.Constants;
 using SimpleWarehouse.Interfaces;
 using SimpleWarehouse.Presenter;
+using SimpleWarehouse.View;
 
 namespace SimpleWarehouse.Services.TransactionServices
 {
@@ -26,6 +27,11 @@ namespace SimpleWarehouse.Services.TransactionServices
                 this.TransactionGridManager.DataGrid.Rows[rowId].Cells[TransactionDataTableNames.TRANSACTION_TOTAL_VALUE].Value = $"{(quantity * prodPrice):F2}";
             }
             catch (Exception) { }
+        }
+
+        protected override void SetTextbox(IHomeView form)
+        {
+            base.TotalSumBox = form.TotalSaleMoney;
         }
     }
 }

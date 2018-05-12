@@ -24,5 +24,11 @@ namespace SimpleWarehouse.View
         void EnableOrDisableElement(string elName, Type elType, bool isEnabled);
 
         void EnableOrDisableMaterialBtn(string btnName, bool isEnabled);
+
+        string TabLabelText { get; set; }
+
+        TextBox TotalDeliveryMoney { get; set; }
+
+        TextBox TotalSaleMoney { get; set; }
     }
 }

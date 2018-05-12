@@ -12,12 +12,14 @@ namespace SimpleWarehouse.Interfaces
 
         ITransactionDbManager TransactionDbManager { get; set; }
 
-        void Dispose();
+        void CancelOperation();
 
         void Initialize();
 
         void PickAProductRequest();
 
         void UpdateTotalPriceAction(int rowId);
+
+        void RefreshGridAction();
     }
 }

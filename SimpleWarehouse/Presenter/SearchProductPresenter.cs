@@ -27,6 +27,7 @@ namespace SimpleWarehouse.Presenter
             this.Form.SetSearchParams(this.ProductSection.ProductsManager.GetSearchParameters());
             this.ProductSection.UpdateVisibleProducts();
             this.Callback = callBack;
+            this.Form.Text = "Избор на стока";
         }
 
         public void Submit()

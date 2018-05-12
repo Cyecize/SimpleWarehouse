@@ -51,6 +51,7 @@ namespace SimpleWarehouse.Presenter
             this.DeliveriesSection.Initialize();
             this.SalesSection.Initialize();
 
+            this.Form.TabLabelText = "Продукти";
             this.Form.SetSearchParams(this.ProductSection.ProductsManager.GetSearchParameters());
             if (!base.StateManager.UserSession.IsActive)//prevent any actions till login
                 return;
@@ -60,7 +61,29 @@ namespace SimpleWarehouse.Presenter
         }
 
         //---->main functionality
-      
+
+        public void OnTabChangeAction()
+        {
+            TabPage tab = this.Form.SelectedTabPage;
+            string res = "";
+            switch (tab.Name)
+            {
+                case TabPageNames.PRODUCT_PAGE:
+                    res = "Продукти";
+                    break;
+                case TabPageNames.DELIVERIES_PAGE:
+                    res = "Доставки";
+                    break;
+                case TabPageNames.SALES_PAGE:
+                    res = "Продажби";
+                    break;
+                case TabPageNames.REVISION_TAB:
+                    res = "Ревизия";
+                    break;
+            }
+            this.Form.TabLabelText = res;
+        }
+
         public void RevenueAction()
         {
             if (Roles.IsRequredRoleMet(base.StateManager.UserSession.SessionEntity.Role, Config.USER_TYPICAL_ROLE))

@@ -77,6 +77,7 @@
     <Compile Include="Constants\Messages.cs" />
     <Compile Include="Constants\RevenueDataTableNames.cs" />
     <Compile Include="Constants\Roles.cs" />
+    <Compile Include="Constants\TabPageNames.cs" />
     <Compile Include="Constants\TransactionDataTableNames.cs" />
     <Compile Include="Factory\FormFactory.cs" />
     <Compile Include="Forms\RevenueForm.cs">

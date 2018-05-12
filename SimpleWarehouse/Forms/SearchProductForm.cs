@@ -1,6 +1,7 @@
 ﻿using MaterialSkin.Controls;
 using SimpleWarehouse.Model;
 using SimpleWarehouse.Presenter;
+using SimpleWarehouse.Services;
 using SimpleWarehouse.View;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,7 @@ namespace SimpleWarehouse.Forms
             this.Presenter = presenter;
             this.InitializeEvents();
             this.StartPosition = FormStartPosition.CenterScreen;
+            FormDecraptifier.Decraptify(this);
         }
 
 

@@ -35,7 +35,6 @@ namespace SimpleWarehouse.Services.RevenueRelated
         {
             string query = $"INSERT INTO expenses VALUES (null, {revenue.UserId}, {revenue.RevenueAmount}, '{revenue.Date.ToString("yyyy-MM-dd hh:mm:ss")}', {revenue.IsRevised.ToString().ToUpper()})";
             this.SqlManager.ExecuteQuery(query);
-            this.ArchiveEntities();
         }
 
         public List<RevenueStream> FindAllNonRevisedEntities()

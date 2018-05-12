@@ -28,10 +28,13 @@ namespace SimpleWarehouse.Forms
         public string SearchText { get => this.SearchBox.Text; set => this.SearchBox.Text = value; }
         public SearchParameter SearchParameter { get => (SearchParameter)this.SearchType.SelectedItem; }
         public DataGridView DeliveriesDataTable { get => this.DeliveriesDataGridView; set => this.DeliveriesDataGridView = value; }
-        public DataGridView SalesDataTable { get =>this.SalesDataGridView; set => this.SalesDataGridView = value; }
+        public DataGridView SalesDataTable { get => this.SalesDataGridView; set => this.SalesDataGridView = value; }
         public TabPage SelectedTabPage { get => this.materialTabControl1.SelectedTab; set => this.materialTabControl1.SelectedTab = value; }
         TabPage IHomeView.DeliveriesTab { get; set; }
         TabPage IHomeView.SalesTab { get; set; }
+        public string TabLabelText { get => this.CurrentTabLabel.Text; set => this.CurrentTabLabel.Text = value; }
+        public TextBox TotalDeliveryMoney { get => this.DeliveriesTotalMoney; set => this.DeliveriesTotalMoney = value; }
+        public TextBox TotalSaleMoney { get => this.SalesTotalMoney; set => this.SalesTotalMoney = value; }
 
         public MainForm(HomePresenter presenter)
         {
@@ -39,6 +42,10 @@ namespace SimpleWarehouse.Forms
             this.Presenter = presenter;
             this.StartPosition = FormStartPosition.CenterScreen;
             this.InitializeProductSectionEvents();
+            this.materialTabControl1.Selected += (o, e) =>
+            {
+                this.Presenter.OnTabChangeAction();
+            };
         }
 
         public void ShowAsDialog()
@@ -165,6 +172,14 @@ namespace SimpleWarehouse.Forms
             this.SearchType.SelectedIndexChanged += this.OnSearchParamChange;
         }
 
+        private void CancelDeliveryBtn_Click(object sender, EventArgs e)
+        {
+            this.Presenter.DeliveriesSection.CancelOperation();
+        }
 
+        private void RefreshDeliveriesAction_Click(object sender, EventArgs e)
+        {
+            this.Presenter.DeliveriesSection.RefreshGridAction();
+        }
     }
 }

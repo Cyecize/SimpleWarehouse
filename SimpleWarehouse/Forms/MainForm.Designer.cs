@@ -51,14 +51,25 @@ namespace SimpleWarehouse.Forms
             this.EditBtn = new MaterialSkin.Controls.MaterialRaisedButton();
             this.NewProductBtn = new MaterialSkin.Controls.MaterialRaisedButton();
             this.DeliveriesTab = new System.Windows.Forms.TabPage();
+            this.DeliveriesTotalMoney = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.RefreshDeliveriesAction = new System.Windows.Forms.Button();
+            this.SaveDeliveryBtn = new System.Windows.Forms.Button();
+            this.CancelDeliveryBtn = new System.Windows.Forms.Button();
             this.DeliveriesDataGridView = new System.Windows.Forms.DataGridView();
             this.SalesTab = new System.Windows.Forms.TabPage();
+            this.SalesDataGridView = new System.Windows.Forms.DataGridView();
             this.RevisionTab = new System.Windows.Forms.TabPage();
             this.materialTabSelector1 = new MaterialSkin.Controls.MaterialTabSelector();
             this.InvoicesBtn = new MaterialSkin.Controls.MaterialFlatButton();
             this.ExpensesBtn = new MaterialSkin.Controls.MaterialFlatButton();
             this.LogLabel = new System.Windows.Forms.Label();
-            this.SalesDataGridView = new System.Windows.Forms.DataGridView();
+            this.CurrentTabLabel = new System.Windows.Forms.Label();
+            this.SalesTotalMoney = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.materialTabControl1.SuspendLayout();
             this.ProductsTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataTableView)).BeginInit();
@@ -76,7 +87,7 @@ namespace SimpleWarehouse.Forms
             this.RevenueBtn.Depth = 0;
             this.RevenueBtn.Enabled = false;
             this.RevenueBtn.Icon = null;
-            this.RevenueBtn.Location = new System.Drawing.Point(611, 524);
+            this.RevenueBtn.Location = new System.Drawing.Point(595, 524);
             this.RevenueBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.RevenueBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.RevenueBtn.Name = "RevenueBtn";
@@ -112,7 +123,7 @@ namespace SimpleWarehouse.Forms
             this.RefreshButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.RefreshButton.Depth = 0;
             this.RefreshButton.Icon = null;
-            this.RefreshButton.Location = new System.Drawing.Point(680, 524);
+            this.RefreshButton.Location = new System.Drawing.Point(678, 524);
             this.RefreshButton.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.RefreshButton.MouseState = MaterialSkin.MouseState.HOVER;
             this.RefreshButton.Name = "RefreshButton";
@@ -164,7 +175,7 @@ namespace SimpleWarehouse.Forms
             this.AddCategoryBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.AddCategoryBtn.Depth = 0;
             this.AddCategoryBtn.Icon = null;
-            this.AddCategoryBtn.Location = new System.Drawing.Point(481, 351);
+            this.AddCategoryBtn.Location = new System.Drawing.Point(486, 349);
             this.AddCategoryBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.AddCategoryBtn.Name = "AddCategoryBtn";
             this.AddCategoryBtn.Primary = true;
@@ -277,7 +288,7 @@ namespace SimpleWarehouse.Forms
             this.EditBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.EditBtn.Depth = 0;
             this.EditBtn.Icon = null;
-            this.EditBtn.Location = new System.Drawing.Point(728, 351);
+            this.EditBtn.Location = new System.Drawing.Point(742, 349);
             this.EditBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.EditBtn.Name = "EditBtn";
             this.EditBtn.Primary = true;
@@ -294,7 +305,7 @@ namespace SimpleWarehouse.Forms
             this.NewProductBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.NewProductBtn.Depth = 0;
             this.NewProductBtn.Icon = null;
-            this.NewProductBtn.Location = new System.Drawing.Point(624, 351);
+            this.NewProductBtn.Location = new System.Drawing.Point(630, 349);
             this.NewProductBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.NewProductBtn.Name = "NewProductBtn";
             this.NewProductBtn.Primary = true;
@@ -307,6 +318,11 @@ namespace SimpleWarehouse.Forms
             // DeliveriesTab
             // 
             this.DeliveriesTab.BackColor = System.Drawing.Color.White;
+            this.DeliveriesTab.Controls.Add(this.DeliveriesTotalMoney);
+            this.DeliveriesTab.Controls.Add(this.label2);
+            this.DeliveriesTab.Controls.Add(this.RefreshDeliveriesAction);
+            this.DeliveriesTab.Controls.Add(this.SaveDeliveryBtn);
+            this.DeliveriesTab.Controls.Add(this.CancelDeliveryBtn);
             this.DeliveriesTab.Controls.Add(this.DeliveriesDataGridView);
             this.DeliveriesTab.Location = new System.Drawing.Point(4, 22);
             this.DeliveriesTab.Name = "DeliveriesTab";
@@ -315,8 +331,65 @@ namespace SimpleWarehouse.Forms
             this.DeliveriesTab.TabIndex = 1;
             this.DeliveriesTab.Text = "Доставки";
             // 
+            // DeliveriesTotalMoney
+            // 
+            this.DeliveriesTotalMoney.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.DeliveriesTotalMoney.Location = new System.Drawing.Point(504, 362);
+            this.DeliveriesTotalMoney.Multiline = true;
+            this.DeliveriesTotalMoney.Name = "DeliveriesTotalMoney";
+            this.DeliveriesTotalMoney.ReadOnly = true;
+            this.DeliveriesTotalMoney.Size = new System.Drawing.Size(81, 22);
+            this.DeliveriesTotalMoney.TabIndex = 25;
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe MDL2 Assets", 16.30189F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(441, 356);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(57, 22);
+            this.label2.TabIndex = 24;
+            this.label2.Text = "Общо:";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // RefreshDeliveriesAction
+            // 
+            this.RefreshDeliveriesAction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.RefreshDeliveriesAction.Location = new System.Drawing.Point(591, 362);
+            this.RefreshDeliveriesAction.Name = "RefreshDeliveriesAction";
+            this.RefreshDeliveriesAction.Size = new System.Drawing.Size(83, 23);
+            this.RefreshDeliveriesAction.TabIndex = 3;
+            this.RefreshDeliveriesAction.Text = "Обновяване";
+            this.RefreshDeliveriesAction.UseVisualStyleBackColor = true;
+            this.RefreshDeliveriesAction.Click += new System.EventHandler(this.RefreshDeliveriesAction_Click);
+            // 
+            // SaveDeliveryBtn
+            // 
+            this.SaveDeliveryBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.SaveDeliveryBtn.Location = new System.Drawing.Point(680, 362);
+            this.SaveDeliveryBtn.Name = "SaveDeliveryBtn";
+            this.SaveDeliveryBtn.Size = new System.Drawing.Size(75, 23);
+            this.SaveDeliveryBtn.TabIndex = 2;
+            this.SaveDeliveryBtn.Text = "Запазване";
+            this.SaveDeliveryBtn.UseVisualStyleBackColor = true;
+            // 
+            // CancelDeliveryBtn
+            // 
+            this.CancelDeliveryBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.CancelDeliveryBtn.Location = new System.Drawing.Point(761, 362);
+            this.CancelDeliveryBtn.Name = "CancelDeliveryBtn";
+            this.CancelDeliveryBtn.Size = new System.Drawing.Size(75, 23);
+            this.CancelDeliveryBtn.TabIndex = 1;
+            this.CancelDeliveryBtn.Text = "Отказ";
+            this.CancelDeliveryBtn.UseVisualStyleBackColor = true;
+            this.CancelDeliveryBtn.Click += new System.EventHandler(this.CancelDeliveryBtn_Click);
+            // 
             // DeliveriesDataGridView
             // 
+            this.DeliveriesDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.DeliveriesDataGridView.BackgroundColor = System.Drawing.SystemColors.ControlLight;
             this.DeliveriesDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.DeliveriesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -325,12 +398,17 @@ namespace SimpleWarehouse.Forms
             this.DeliveriesDataGridView.Margin = new System.Windows.Forms.Padding(2);
             this.DeliveriesDataGridView.Name = "DeliveriesDataGridView";
             this.DeliveriesDataGridView.RowTemplate.Height = 24;
-            this.DeliveriesDataGridView.Size = new System.Drawing.Size(833, 300);
+            this.DeliveriesDataGridView.Size = new System.Drawing.Size(832, 350);
             this.DeliveriesDataGridView.TabIndex = 0;
             // 
             // SalesTab
             // 
             this.SalesTab.BackColor = System.Drawing.Color.White;
+            this.SalesTab.Controls.Add(this.SalesTotalMoney);
+            this.SalesTab.Controls.Add(this.label3);
+            this.SalesTab.Controls.Add(this.button1);
+            this.SalesTab.Controls.Add(this.button2);
+            this.SalesTab.Controls.Add(this.button3);
             this.SalesTab.Controls.Add(this.SalesDataGridView);
             this.SalesTab.Location = new System.Drawing.Point(4, 22);
             this.SalesTab.Name = "SalesTab";
@@ -338,6 +416,22 @@ namespace SimpleWarehouse.Forms
             this.SalesTab.Size = new System.Drawing.Size(842, 391);
             this.SalesTab.TabIndex = 2;
             this.SalesTab.Text = "Продажби";
+            // 
+            // SalesDataGridView
+            // 
+            this.SalesDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.SalesDataGridView.BackgroundColor = System.Drawing.SystemColors.ControlLight;
+            this.SalesDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.SalesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.SalesDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.SalesDataGridView.Location = new System.Drawing.Point(5, 5);
+            this.SalesDataGridView.Margin = new System.Windows.Forms.Padding(2);
+            this.SalesDataGridView.Name = "SalesDataGridView";
+            this.SalesDataGridView.RowTemplate.Height = 24;
+            this.SalesDataGridView.Size = new System.Drawing.Size(832, 350);
+            this.SalesDataGridView.TabIndex = 1;
             // 
             // RevisionTab
             // 
@@ -370,7 +464,7 @@ namespace SimpleWarehouse.Forms
             this.InvoicesBtn.Depth = 0;
             this.InvoicesBtn.Enabled = false;
             this.InvoicesBtn.Icon = null;
-            this.InvoicesBtn.Location = new System.Drawing.Point(524, 524);
+            this.InvoicesBtn.Location = new System.Drawing.Point(502, 524);
             this.InvoicesBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.InvoicesBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.InvoicesBtn.Name = "InvoicesBtn";
@@ -389,7 +483,7 @@ namespace SimpleWarehouse.Forms
             this.ExpensesBtn.Depth = 0;
             this.ExpensesBtn.Enabled = false;
             this.ExpensesBtn.Icon = null;
-            this.ExpensesBtn.Location = new System.Drawing.Point(439, 524);
+            this.ExpensesBtn.Location = new System.Drawing.Point(409, 524);
             this.ExpensesBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.ExpensesBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.ExpensesBtn.Name = "ExpensesBtn";
@@ -402,30 +496,84 @@ namespace SimpleWarehouse.Forms
             // 
             // LogLabel
             // 
+            this.LogLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.LogLabel.AutoSize = true;
             this.LogLabel.Location = new System.Drawing.Point(9, 600);
             this.LogLabel.Name = "LogLabel";
             this.LogLabel.Size = new System.Drawing.Size(0, 13);
             this.LogLabel.TabIndex = 28;
             // 
-            // SalesDataGridView
+            // CurrentTabLabel
             // 
-            this.SalesDataGridView.BackgroundColor = System.Drawing.SystemColors.ControlLight;
-            this.SalesDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.SalesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.SalesDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.SalesDataGridView.Location = new System.Drawing.Point(5, 5);
-            this.SalesDataGridView.Margin = new System.Windows.Forms.Padding(2);
-            this.SalesDataGridView.Name = "SalesDataGridView";
-            this.SalesDataGridView.RowTemplate.Height = 24;
-            this.SalesDataGridView.Size = new System.Drawing.Size(832, 300);
-            this.SalesDataGridView.TabIndex = 1;
+            this.CurrentTabLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.CurrentTabLabel.AutoSize = true;
+            this.CurrentTabLabel.BackColor = System.Drawing.Color.Transparent;
+            this.CurrentTabLabel.Font = new System.Drawing.Font("Segoe MDL2 Assets", 16.30189F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CurrentTabLabel.Location = new System.Drawing.Point(762, 77);
+            this.CurrentTabLabel.MinimumSize = new System.Drawing.Size(100, 22);
+            this.CurrentTabLabel.Name = "CurrentTabLabel";
+            this.CurrentTabLabel.Size = new System.Drawing.Size(100, 22);
+            this.CurrentTabLabel.TabIndex = 27;
+            this.CurrentTabLabel.Text = "Търсене: ";
+            // 
+            // SalesTotalMoney
+            // 
+            this.SalesTotalMoney.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.SalesTotalMoney.Location = new System.Drawing.Point(504, 362);
+            this.SalesTotalMoney.Multiline = true;
+            this.SalesTotalMoney.Name = "SalesTotalMoney";
+            this.SalesTotalMoney.ReadOnly = true;
+            this.SalesTotalMoney.Size = new System.Drawing.Size(81, 22);
+            this.SalesTotalMoney.TabIndex = 30;
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe MDL2 Assets", 16.30189F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(441, 356);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(57, 22);
+            this.label3.TabIndex = 29;
+            this.label3.Text = "Общо:";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Location = new System.Drawing.Point(591, 362);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(83, 23);
+            this.button1.TabIndex = 28;
+            this.button1.Text = "Обновяване";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.Location = new System.Drawing.Point(680, 362);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 27;
+            this.button2.Text = "Запазване";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button3.Location = new System.Drawing.Point(761, 362);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 26;
+            this.button3.Text = "Отказ";
+            this.button3.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(874, 622);
+            this.Controls.Add(this.CurrentTabLabel);
             this.Controls.Add(this.LogLabel);
             this.Controls.Add(this.ExpensesBtn);
             this.Controls.Add(this.InvoicesBtn);
@@ -443,8 +591,10 @@ namespace SimpleWarehouse.Forms
             this.ProductsTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataTableView)).EndInit();
             this.DeliveriesTab.ResumeLayout(false);
+            this.DeliveriesTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DeliveriesDataGridView)).EndInit();
             this.SalesTab.ResumeLayout(false);
+            this.SalesTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SalesDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -480,6 +630,17 @@ namespace SimpleWarehouse.Forms
         private System.Windows.Forms.TabPage SalesTab;
         private System.Windows.Forms.Label LogLabel;
         private System.Windows.Forms.DataGridView SalesDataGridView;
+        private System.Windows.Forms.Label CurrentTabLabel;
+        private System.Windows.Forms.Button CancelDeliveryBtn;
+        private System.Windows.Forms.Button RefreshDeliveriesAction;
+        private System.Windows.Forms.Button SaveDeliveryBtn;
+        private System.Windows.Forms.TextBox DeliveriesTotalMoney;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox SalesTotalMoney;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
     }
 }
 

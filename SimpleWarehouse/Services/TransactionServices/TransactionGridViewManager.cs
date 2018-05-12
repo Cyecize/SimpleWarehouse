@@ -31,10 +31,10 @@ namespace SimpleWarehouse.Services.TransactionServices
         }
 
 
-        public void Dispose()
+        public void ClearRows()
         {
 
-            this.DataGrid.Columns.Clear();
+            this.DataGrid.Rows.Clear();
             this.COUNTER = 0;
         }
 
@@ -114,6 +114,7 @@ namespace SimpleWarehouse.Services.TransactionServices
             this.DataGrid.DefaultValuesNeeded += this.dataGridView1_DefaultValuesNeeded;
             this.DataGrid.DataError += this.grid_DataError;
             this.DataGrid.CellValueChanged += this.OnColumnValueChange;
+            this.DataGrid.CellClick += (o, e) =>  this.TransactionSection.RefreshGridAction();
         }
 
         public void AddSelectedProduct(DataGridViewRow row, Product product)
