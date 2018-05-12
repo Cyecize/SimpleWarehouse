@@ -77,12 +77,19 @@
     <Compile Include="Constants\Messages.cs" />
     <Compile Include="Constants\RevenueDataTableNames.cs" />
     <Compile Include="Constants\Roles.cs" />
+    <Compile Include="Constants\TransactionDataTableNames.cs" />
     <Compile Include="Factory\FormFactory.cs" />
     <Compile Include="Forms\RevenueForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\RevenueForm.Designer.cs">
       <DependentUpon>RevenueForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SearchProductForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SearchProductForm.Designer.cs">
+      <DependentUpon>SearchProductForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\SpecificCategoryForm.cs">
       <SubType>Form</SubType>
@@ -127,6 +134,9 @@
     <Compile Include="Interfaces\IProductViewManager.cs" />
     <Compile Include="Interfaces\IRevenueDbManager.cs" />
     <Compile Include="Interfaces\ISession.cs" />
+    <Compile Include="Interfaces\ITransactionDbManager.cs" />
+    <Compile Include="Interfaces\ITransactionGridViewManager.cs" />
+    <Compile Include="Interfaces\ITransactionSection.cs" />
     <Compile Include="Interfaces\IUser.cs" />
     <Compile Include="IO\ConsoleWriter.cs" />
     <Compile Include="Interfaces\IOutputWriter.cs" />
@@ -136,6 +146,7 @@
     <Compile Include="Presenter\RevenueRelated\InvoicesPresenter.cs" />
     <Compile Include="Presenter\RevenueRelated\IRevenuePresenter.cs" />
     <Compile Include="Presenter\RevenueRelated\RevenuePresenter.cs" />
+    <Compile Include="Presenter\SearchProductPresenter.cs" />
     <Compile Include="Services\ProductSectionManagers\CatetegoryRepositoryManager.cs" />
     <Compile Include="Services\ProductSectionManagers\ProductRepositoryManager.cs" />
     <Compile Include="Services\ProductSectionManagers\ProductSectionManager.cs" />
@@ -175,15 +186,23 @@
     <Compile Include="Services\RevenueRelated\InvoiceViewManager.cs" />
     <Compile Include="Services\RevenueRelated\RevenueViewManager.cs" />
     <Compile Include="Services\RevenueRelated\RevenueDbManager.cs" />
+    <Compile Include="Services\TransactionServices\AbstractTransactionSection.cs" />
+    <Compile Include="Services\TransactionServices\DeliveryTransactionSection.cs" />
+    <Compile Include="Services\TransactionServices\SaleTransactionSection.cs" />
+    <Compile Include="Services\TransactionServices\TransactionGridViewManager.cs" />
     <Compile Include="States\StateManager.cs" />
     <Compile Include="Interfaces\IView.cs" />
     <Compile Include="View\IAddCategoryView.cs" />
     <Compile Include="View\IHomeView.cs" />
     <Compile Include="View\ILoginView.cs" />
+    <Compile Include="View\ISearchProductView.cs" />
     <Compile Include="View\RevenueRelated\IRevenueView.cs" />
     <Compile Include="View\ISpecificProductView.cs" />
     <EmbeddedResource Include="Forms\RevenueForm.resx">
       <DependentUpon>RevenueForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SearchProductForm.resx">
+      <DependentUpon>SearchProductForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SpecificCategoryForm.resx">
       <DependentUpon>SpecificCategoryForm.cs</DependentUpon>
@@ -223,5 +242,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

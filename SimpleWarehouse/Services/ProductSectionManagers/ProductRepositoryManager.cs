@@ -14,7 +14,7 @@ namespace SimpleWarehouse.Services.ProductSectionManagers
     {
         private const string SQL_JOIN_VIEW_PROD = "SELECT * FROM prod_cat_joined ";
 
-        private IEntityRepository<Product> ProductRepository;
+        public IEntityRepository<Product> ProductRepository { get; set; }
         IEntityRepository<SearchParameter> SearchParamRepository;
 
         public ProductRepositoryManager(IMySqlManager sqlManager)
@@ -57,6 +57,16 @@ namespace SimpleWarehouse.Services.ProductSectionManagers
                 colName = parameterType.ColumnName;
             return this.ProductRepository
                 .FindManyByQuery($"{SQL_JOIN_VIEW_PROD} WHERE {colName} LIKE '%{param}%' LIMIT 100");
+        }
+
+        public List<Product> SearchVisible(string param, SearchParameter parameterType)
+        {
+            param = ProductRepository.SqlManager.EscapeString(param);
+            string colName = "product_name";
+            if (parameterType != null)
+                colName = parameterType.ColumnName;
+            return this.ProductRepository
+                .FindManyByQuery($"{SQL_JOIN_VIEW_PROD} WHERE {colName}  LIKE '%{param}%' AND is_visible = TRUE  LIMIT 100");
         }
 
         public void UpdateProduct(Product product, bool performNameCheck)

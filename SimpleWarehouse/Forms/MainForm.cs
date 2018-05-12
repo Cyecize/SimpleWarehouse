@@ -21,97 +21,24 @@ namespace SimpleWarehouse.Forms
 
     public partial class MainForm : MaterialForm, IHomeView
     {
-        private static int COUNTER = 0;
 
         private HomePresenter Presenter;
 
-        public DataGridView DataTable { get => this.DataTableView; set => this.DataTableView = value; }
+        public DataGridView ProductDataTable { get => this.DataTableView; set => this.DataTableView = value; }
         public string SearchText { get => this.SearchBox.Text; set => this.SearchBox.Text = value; }
         public SearchParameter SearchParameter { get => (SearchParameter)this.SearchType.SelectedItem; }
+        public DataGridView DeliveriesDataTable { get => this.DeliveriesDataGridView; set => this.DeliveriesDataGridView = value; }
+        public DataGridView SalesDataTable { get =>this.SalesDataGridView; set => this.SalesDataGridView = value; }
+        public TabPage SelectedTabPage { get => this.materialTabControl1.SelectedTab; set => this.materialTabControl1.SelectedTab = value; }
+        TabPage IHomeView.DeliveriesTab { get; set; }
+        TabPage IHomeView.SalesTab { get; set; }
 
         public MainForm(HomePresenter presenter)
         {
             InitializeComponent();
             this.Presenter = presenter;
             this.StartPosition = FormStartPosition.CenterScreen;
-            //this.Text = "Logged user: Georgi";
-
-
-            this.DataTableView.CellClick += this.OnCellClick;
-            this.DataTableView.AllowUserToAddRows = false;
-            this.SearchBox.TextChanged += (obj, e) =>
-            {
-                this.Presenter.ProductSection.SearchProdAction();
-            };
-            this.DataTableView.KeyPress += (obj, e) =>
-            {
-                if (char.IsLetterOrDigit(((KeyPressEventArgs)e).KeyChar) || ((KeyPressEventArgs)e).KeyChar == (char)Keys.Space)
-                    this.SearchBox.Text += ((KeyPressEventArgs)e).KeyChar;
-                if (((KeyPressEventArgs)e).KeyChar == (char)Keys.OemBackslash || ((KeyPressEventArgs)e).KeyChar == (char)Keys.Back)
-                {
-                    if (this.SearchBox.Text.Length >= 1)
-                        this.SearchBox.Text = this.SearchBox.Text.Substring(0, this.SearchBox.Text.Length - 1);
-                }
-
-            };
-            this.SearchType.SelectedIndexChanged += this.OnSearchParamChange;
-
-            this.dataGridView1.Columns.AddRange(new DataGridViewColumn[]
-                                      {
-                                          new DataGridViewTextButtonColumn
-                                              {
-                                                  ValueType = typeof (int),
-                                                  HeaderText = "No.",
-                                                  Width = 20,
-                                                  Name = "ProdTransactionCounter"
-                                              },
-                                          new DataGridViewTextButtonColumn
-                                              {
-                                                  ValueType = typeof (int),
-                                                  HeaderText = "Продукт",
-                                                  ButtonClickHandler = this.OnBtnClick,
-                                                  AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
-                                              },
-                                          new DataGridViewTextBoxColumn
-                                              {
-                                                  ValueType = typeof (double),
-                                                  HeaderText = "Количесто",
-                                                  Width = 100,
-                                                  AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
-                                                  Name = "ProdTransactionQuantity",
-                                              },
-                                          new DataGridViewTextBoxColumn
-                                              {
-                                                  ValueType = typeof (double),
-                                                  HeaderText = "Доставна цена",
-                                                  Width = 100,
-                                                  AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
-                                                  ReadOnly = true,
-                                                  Name ="ProdTransactionImportPrice"
-                                              },
-                                          new DataGridViewTextBoxColumn
-                                              {
-                                                  ValueType = typeof (double),
-                                                  HeaderText = "Продажна цена",
-                                                  Width = 100,
-                                                  AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
-                                                  ReadOnly = true,
-                                                  Name = "ProdTransactionSellPrice"
-                                              },
-                                           new DataGridViewTextBoxColumn
-                                              {
-                                                  ValueType = typeof (double),
-                                                  HeaderText = "Общо",
-                                                  Width = 100,
-                                                  AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
-                                                  ReadOnly = true,
-                                                  Name = "ProdTransactionTotalPrice"
-                                              },
-
-                                      });
-            this.dataGridView1.DataError += this.grid_DataError;
-            this.dataGridView1.DefaultValuesNeeded += this.dataGridView1_DefaultValuesNeeded;
-
+            this.InitializeProductSectionEvents();
         }
 
         public void ShowAsDialog()
@@ -156,7 +83,7 @@ namespace SimpleWarehouse.Forms
 
         public void Log(string message)
         {
-            throw new NotImplementedException();
+            this.LogLabel.Text = message;
         }
 
         private void RefreshButton_Click(object sender, EventArgs e)
@@ -216,23 +143,28 @@ namespace SimpleWarehouse.Forms
 
         }
 
-        private void OnBtnClick(object sender, EventArgs e)
+        private void InitializeProductSectionEvents()
         {
-            Console.WriteLine("yey");
+            this.DataTableView.CellClick += this.OnCellClick;
+            this.DataTableView.AllowUserToAddRows = false;
+            this.SearchBox.TextChanged += (obj, e) =>
+            {
+                this.Presenter.ProductSection.SearchProdAction();
+            };
+            this.DataTableView.KeyPress += (obj, e) =>
+            {
+                if (char.IsLetterOrDigit(((KeyPressEventArgs)e).KeyChar) || ((KeyPressEventArgs)e).KeyChar == (char)Keys.Space)
+                    this.SearchBox.Text += ((KeyPressEventArgs)e).KeyChar;
+                if (((KeyPressEventArgs)e).KeyChar == (char)Keys.OemBackslash || ((KeyPressEventArgs)e).KeyChar == (char)Keys.Back)
+                {
+                    if (this.SearchBox.Text.Length >= 1)
+                        this.SearchBox.Text = this.SearchBox.Text.Substring(0, this.SearchBox.Text.Length - 1);
+                }
+
+            };
+            this.SearchType.SelectedIndexChanged += this.OnSearchParamChange;
         }
 
-        private void grid_DataError(object sender, DataGridViewDataErrorEventArgs e)
-        {
-            e.Cancel = true;
-            MessageBox.Show(this, "Грешна информация: " + this.dataGridView1[e.ColumnIndex, e.RowIndex].EditedFormattedValue, "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-        }
-
-        private void dataGridView1_DefaultValuesNeeded(object sender,
-    System.Windows.Forms.DataGridViewRowEventArgs e)
-        {
-            e.Row.Cells["ProdTransactionCounter"].Value = ++COUNTER;
-            e.Row.Cells["ProdTransactionQuantity"].Value = 0;
-        }
 
     }
 }

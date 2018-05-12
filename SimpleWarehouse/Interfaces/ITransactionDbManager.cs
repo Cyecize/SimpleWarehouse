@@ -4,17 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace SimpleWarehouse.Interfaces
 {
-    public interface IPresenter
+    public interface ITransactionDbManager
     {
-        void Update(); 
-
-        void Dispose();
-
-        IStateManager GetStateManager();
-
-
     }
 }

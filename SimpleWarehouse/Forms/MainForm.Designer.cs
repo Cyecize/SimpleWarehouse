@@ -35,7 +35,7 @@ namespace SimpleWarehouse.Forms
             this.LogoutBtn = new MaterialSkin.Controls.MaterialFlatButton();
             this.RefreshButton = new MaterialSkin.Controls.MaterialFlatButton();
             this.materialTabControl1 = new MaterialSkin.Controls.MaterialTabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.ProductsTab = new System.Windows.Forms.TabPage();
             this.AddCategoryBtn = new MaterialSkin.Controls.MaterialRaisedButton();
             this.SearchType = new System.Windows.Forms.ComboBox();
             this.SearchBox = new System.Windows.Forms.TextBox();
@@ -50,23 +50,22 @@ namespace SimpleWarehouse.Forms
             this.Visible = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EditBtn = new MaterialSkin.Controls.MaterialRaisedButton();
             this.NewProductBtn = new MaterialSkin.Controls.MaterialRaisedButton();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.DeliveriesTab = new System.Windows.Forms.TabPage();
+            this.DeliveriesDataGridView = new System.Windows.Forms.DataGridView();
+            this.SalesTab = new System.Windows.Forms.TabPage();
+            this.RevisionTab = new System.Windows.Forms.TabPage();
             this.materialTabSelector1 = new MaterialSkin.Controls.MaterialTabSelector();
             this.InvoicesBtn = new MaterialSkin.Controls.MaterialFlatButton();
             this.ExpensesBtn = new MaterialSkin.Controls.MaterialFlatButton();
-            this.materialRadioButton3 = new MaterialSkin.Controls.MaterialRadioButton();
-            this.materialRadioButton2 = new MaterialSkin.Controls.MaterialRadioButton();
-            this.materialRadioButton1 = new MaterialSkin.Controls.MaterialRadioButton();
-            this.materialRadioButton4 = new MaterialSkin.Controls.MaterialRadioButton();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.LogLabel = new System.Windows.Forms.Label();
+            this.SalesDataGridView = new System.Windows.Forms.DataGridView();
             this.materialTabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.ProductsTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataTableView)).BeginInit();
-            this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.tabPage3.SuspendLayout();
+            this.DeliveriesTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DeliveriesDataGridView)).BeginInit();
+            this.SalesTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SalesDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // RevenueBtn
@@ -77,12 +76,12 @@ namespace SimpleWarehouse.Forms
             this.RevenueBtn.Depth = 0;
             this.RevenueBtn.Enabled = false;
             this.RevenueBtn.Icon = null;
-            this.RevenueBtn.Location = new System.Drawing.Point(840, 654);
-            this.RevenueBtn.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
+            this.RevenueBtn.Location = new System.Drawing.Point(611, 524);
+            this.RevenueBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.RevenueBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.RevenueBtn.Name = "RevenueBtn";
             this.RevenueBtn.Primary = false;
-            this.RevenueBtn.Size = new System.Drawing.Size(90, 36);
+            this.RevenueBtn.Size = new System.Drawing.Size(75, 36);
             this.RevenueBtn.TabIndex = 23;
             this.RevenueBtn.Text = "ОБОРОТ";
             this.RevenueBtn.UseVisualStyleBackColor = true;
@@ -95,12 +94,12 @@ namespace SimpleWarehouse.Forms
             this.LogoutBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.LogoutBtn.Depth = 0;
             this.LogoutBtn.Icon = null;
-            this.LogoutBtn.Location = new System.Drawing.Point(1072, 654);
-            this.LogoutBtn.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
+            this.LogoutBtn.Location = new System.Drawing.Point(787, 524);
+            this.LogoutBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.LogoutBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.LogoutBtn.Name = "LogoutBtn";
             this.LogoutBtn.Primary = false;
-            this.LogoutBtn.Size = new System.Drawing.Size(80, 36);
+            this.LogoutBtn.Size = new System.Drawing.Size(67, 36);
             this.LogoutBtn.TabIndex = 22;
             this.LogoutBtn.Text = "Изход";
             this.LogoutBtn.UseVisualStyleBackColor = true;
@@ -113,12 +112,12 @@ namespace SimpleWarehouse.Forms
             this.RefreshButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.RefreshButton.Depth = 0;
             this.RefreshButton.Icon = null;
-            this.RefreshButton.Location = new System.Drawing.Point(940, 654);
-            this.RefreshButton.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
+            this.RefreshButton.Location = new System.Drawing.Point(680, 524);
+            this.RefreshButton.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.RefreshButton.MouseState = MaterialSkin.MouseState.HOVER;
             this.RefreshButton.Name = "RefreshButton";
             this.RefreshButton.Primary = true;
-            this.RefreshButton.Size = new System.Drawing.Size(122, 36);
+            this.RefreshButton.Size = new System.Drawing.Size(101, 36);
             this.RefreshButton.TabIndex = 21;
             this.RefreshButton.Text = "Презареди";
             this.RefreshButton.UseVisualStyleBackColor = true;
@@ -129,36 +128,34 @@ namespace SimpleWarehouse.Forms
             this.materialTabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.materialTabControl1.Controls.Add(this.tabPage1);
-            this.materialTabControl1.Controls.Add(this.tabPage2);
-            this.materialTabControl1.Controls.Add(this.tabPage3);
-            this.materialTabControl1.Controls.Add(this.tabPage4);
+            this.materialTabControl1.Controls.Add(this.ProductsTab);
+            this.materialTabControl1.Controls.Add(this.DeliveriesTab);
+            this.materialTabControl1.Controls.Add(this.SalesTab);
+            this.materialTabControl1.Controls.Add(this.RevisionTab);
             this.materialTabControl1.Depth = 0;
-            this.materialTabControl1.Location = new System.Drawing.Point(16, 130);
-            this.materialTabControl1.Margin = new System.Windows.Forms.Padding(4);
+            this.materialTabControl1.Location = new System.Drawing.Point(12, 106);
             this.materialTabControl1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialTabControl1.Name = "materialTabControl1";
             this.materialTabControl1.SelectedIndex = 0;
-            this.materialTabControl1.Size = new System.Drawing.Size(1133, 513);
+            this.materialTabControl1.Size = new System.Drawing.Size(850, 417);
             this.materialTabControl1.TabIndex = 25;
             // 
-            // tabPage1
+            // ProductsTab
             // 
-            this.tabPage1.BackColor = System.Drawing.Color.White;
-            this.tabPage1.Controls.Add(this.AddCategoryBtn);
-            this.tabPage1.Controls.Add(this.SearchType);
-            this.tabPage1.Controls.Add(this.SearchBox);
-            this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.DataTableView);
-            this.tabPage1.Controls.Add(this.EditBtn);
-            this.tabPage1.Controls.Add(this.NewProductBtn);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage1.Size = new System.Drawing.Size(1125, 484);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Продукти";
+            this.ProductsTab.BackColor = System.Drawing.Color.White;
+            this.ProductsTab.Controls.Add(this.AddCategoryBtn);
+            this.ProductsTab.Controls.Add(this.SearchType);
+            this.ProductsTab.Controls.Add(this.SearchBox);
+            this.ProductsTab.Controls.Add(this.label1);
+            this.ProductsTab.Controls.Add(this.DataTableView);
+            this.ProductsTab.Controls.Add(this.EditBtn);
+            this.ProductsTab.Controls.Add(this.NewProductBtn);
+            this.ProductsTab.Location = new System.Drawing.Point(4, 22);
+            this.ProductsTab.Name = "ProductsTab";
+            this.ProductsTab.Padding = new System.Windows.Forms.Padding(3);
+            this.ProductsTab.Size = new System.Drawing.Size(842, 391);
+            this.ProductsTab.TabIndex = 0;
+            this.ProductsTab.Text = "Продукти";
             // 
             // AddCategoryBtn
             // 
@@ -167,12 +164,11 @@ namespace SimpleWarehouse.Forms
             this.AddCategoryBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.AddCategoryBtn.Depth = 0;
             this.AddCategoryBtn.Icon = null;
-            this.AddCategoryBtn.Location = new System.Drawing.Point(688, 440);
-            this.AddCategoryBtn.Margin = new System.Windows.Forms.Padding(4);
+            this.AddCategoryBtn.Location = new System.Drawing.Point(481, 351);
             this.AddCategoryBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.AddCategoryBtn.Name = "AddCategoryBtn";
             this.AddCategoryBtn.Primary = true;
-            this.AddCategoryBtn.Size = new System.Drawing.Size(170, 36);
+            this.AddCategoryBtn.Size = new System.Drawing.Size(140, 36);
             this.AddCategoryBtn.TabIndex = 26;
             this.AddCategoryBtn.Text = "НОВА КАТЕГОРИЯ";
             this.AddCategoryBtn.UseVisualStyleBackColor = true;
@@ -182,20 +178,18 @@ namespace SimpleWarehouse.Forms
             // 
             this.SearchType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.SearchType.Font = new System.Drawing.Font("Segoe UI", 12.22642F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.SearchType.Location = new System.Drawing.Point(340, 429);
-            this.SearchType.Margin = new System.Windows.Forms.Padding(4);
+            this.SearchType.Location = new System.Drawing.Point(255, 349);
             this.SearchType.Name = "SearchType";
-            this.SearchType.Size = new System.Drawing.Size(199, 36);
+            this.SearchType.Size = new System.Drawing.Size(150, 29);
             this.SearchType.TabIndex = 25;
             // 
             // SearchBox
             // 
             this.SearchBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.SearchBox.Font = new System.Drawing.Font("Segoe UI", 12.22642F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.SearchBox.Location = new System.Drawing.Point(109, 429);
-            this.SearchBox.Margin = new System.Windows.Forms.Padding(4);
+            this.SearchBox.Location = new System.Drawing.Point(82, 349);
             this.SearchBox.Name = "SearchBox";
-            this.SearchBox.Size = new System.Drawing.Size(224, 35);
+            this.SearchBox.Size = new System.Drawing.Size(169, 29);
             this.SearchBox.TabIndex = 24;
             // 
             // label1
@@ -203,10 +197,9 @@ namespace SimpleWarehouse.Forms
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe MDL2 Assets", 16.30189F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(8, 432);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(6, 351);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(111, 28);
+            this.label1.Size = new System.Drawing.Size(84, 22);
             this.label1.TabIndex = 23;
             this.label1.Text = "Търсене: ";
             // 
@@ -224,13 +217,12 @@ namespace SimpleWarehouse.Forms
             this.ImportPrice,
             this.SellPrice,
             this.Visible});
-            this.DataTableView.Location = new System.Drawing.Point(8, 8);
-            this.DataTableView.Margin = new System.Windows.Forms.Padding(4);
+            this.DataTableView.Location = new System.Drawing.Point(6, 6);
             this.DataTableView.MultiSelect = false;
             this.DataTableView.Name = "DataTableView";
             this.DataTableView.ReadOnly = true;
             this.DataTableView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.DataTableView.Size = new System.Drawing.Size(1109, 415);
+            this.DataTableView.Size = new System.Drawing.Size(832, 337);
             this.DataTableView.TabIndex = 22;
             // 
             // ProductId
@@ -285,12 +277,11 @@ namespace SimpleWarehouse.Forms
             this.EditBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.EditBtn.Depth = 0;
             this.EditBtn.Icon = null;
-            this.EditBtn.Location = new System.Drawing.Point(1003, 440);
-            this.EditBtn.Margin = new System.Windows.Forms.Padding(4);
+            this.EditBtn.Location = new System.Drawing.Point(728, 351);
             this.EditBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.EditBtn.Name = "EditBtn";
             this.EditBtn.Primary = true;
-            this.EditBtn.Size = new System.Drawing.Size(114, 36);
+            this.EditBtn.Size = new System.Drawing.Size(94, 36);
             this.EditBtn.TabIndex = 21;
             this.EditBtn.Text = "Редакция";
             this.EditBtn.UseVisualStyleBackColor = true;
@@ -303,51 +294,60 @@ namespace SimpleWarehouse.Forms
             this.NewProductBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.NewProductBtn.Depth = 0;
             this.NewProductBtn.Icon = null;
-            this.NewProductBtn.Location = new System.Drawing.Point(866, 440);
-            this.NewProductBtn.Margin = new System.Windows.Forms.Padding(4);
+            this.NewProductBtn.Location = new System.Drawing.Point(624, 351);
             this.NewProductBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.NewProductBtn.Name = "NewProductBtn";
             this.NewProductBtn.Primary = true;
-            this.NewProductBtn.Size = new System.Drawing.Size(129, 36);
+            this.NewProductBtn.Size = new System.Drawing.Size(106, 36);
             this.NewProductBtn.TabIndex = 0;
             this.NewProductBtn.Text = "Нова Стока";
             this.NewProductBtn.UseVisualStyleBackColor = true;
             this.NewProductBtn.Click += new System.EventHandler(this.MaterialButton1_Click);
             // 
-            // tabPage2
+            // DeliveriesTab
             // 
-            this.tabPage2.BackColor = System.Drawing.Color.White;
-            this.tabPage2.Controls.Add(this.dataGridView1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage2.Size = new System.Drawing.Size(1125, 484);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Доставки";
+            this.DeliveriesTab.BackColor = System.Drawing.Color.White;
+            this.DeliveriesTab.Controls.Add(this.DeliveriesDataGridView);
+            this.DeliveriesTab.Location = new System.Drawing.Point(4, 22);
+            this.DeliveriesTab.Name = "DeliveriesTab";
+            this.DeliveriesTab.Padding = new System.Windows.Forms.Padding(3);
+            this.DeliveriesTab.Size = new System.Drawing.Size(842, 391);
+            this.DeliveriesTab.TabIndex = 1;
+            this.DeliveriesTab.Text = "Доставки";
             // 
-            // dataGridView1
+            // DeliveriesDataGridView
             // 
-            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ControlLight;
-            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dataGridView1.Location = new System.Drawing.Point(7, 7);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(1111, 353);
-            this.dataGridView1.TabIndex = 0;
+            this.DeliveriesDataGridView.BackgroundColor = System.Drawing.SystemColors.ControlLight;
+            this.DeliveriesDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.DeliveriesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DeliveriesDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.DeliveriesDataGridView.Location = new System.Drawing.Point(5, 5);
+            this.DeliveriesDataGridView.Margin = new System.Windows.Forms.Padding(2);
+            this.DeliveriesDataGridView.Name = "DeliveriesDataGridView";
+            this.DeliveriesDataGridView.RowTemplate.Height = 24;
+            this.DeliveriesDataGridView.Size = new System.Drawing.Size(833, 300);
+            this.DeliveriesDataGridView.TabIndex = 0;
             // 
-            // tabPage4
+            // SalesTab
             // 
-            this.tabPage4.Location = new System.Drawing.Point(4, 25);
-            this.tabPage4.Margin = new System.Windows.Forms.Padding(4);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage4.Size = new System.Drawing.Size(1125, 484);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Ревизия";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this.SalesTab.BackColor = System.Drawing.Color.White;
+            this.SalesTab.Controls.Add(this.SalesDataGridView);
+            this.SalesTab.Location = new System.Drawing.Point(4, 22);
+            this.SalesTab.Name = "SalesTab";
+            this.SalesTab.Padding = new System.Windows.Forms.Padding(3);
+            this.SalesTab.Size = new System.Drawing.Size(842, 391);
+            this.SalesTab.TabIndex = 2;
+            this.SalesTab.Text = "Продажби";
+            // 
+            // RevisionTab
+            // 
+            this.RevisionTab.Location = new System.Drawing.Point(4, 22);
+            this.RevisionTab.Name = "RevisionTab";
+            this.RevisionTab.Padding = new System.Windows.Forms.Padding(3);
+            this.RevisionTab.Size = new System.Drawing.Size(842, 391);
+            this.RevisionTab.TabIndex = 3;
+            this.RevisionTab.Text = "Ревизия";
+            this.RevisionTab.UseVisualStyleBackColor = true;
             // 
             // materialTabSelector1
             // 
@@ -355,11 +355,10 @@ namespace SimpleWarehouse.Forms
             | System.Windows.Forms.AnchorStyles.Right)));
             this.materialTabSelector1.BaseTabControl = this.materialTabControl1;
             this.materialTabSelector1.Depth = 0;
-            this.materialTabSelector1.Location = new System.Drawing.Point(-1, 63);
-            this.materialTabSelector1.Margin = new System.Windows.Forms.Padding(4);
+            this.materialTabSelector1.Location = new System.Drawing.Point(-1, 51);
             this.materialTabSelector1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialTabSelector1.Name = "materialTabSelector1";
-            this.materialTabSelector1.Size = new System.Drawing.Size(1346, 59);
+            this.materialTabSelector1.Size = new System.Drawing.Size(1010, 48);
             this.materialTabSelector1.TabIndex = 17;
             this.materialTabSelector1.Text = "materialTabSelector1";
             // 
@@ -371,12 +370,12 @@ namespace SimpleWarehouse.Forms
             this.InvoicesBtn.Depth = 0;
             this.InvoicesBtn.Enabled = false;
             this.InvoicesBtn.Icon = null;
-            this.InvoicesBtn.Location = new System.Drawing.Point(727, 654);
-            this.InvoicesBtn.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
+            this.InvoicesBtn.Location = new System.Drawing.Point(524, 524);
+            this.InvoicesBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.InvoicesBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.InvoicesBtn.Name = "InvoicesBtn";
             this.InvoicesBtn.Primary = false;
-            this.InvoicesBtn.Size = new System.Drawing.Size(103, 36);
+            this.InvoicesBtn.Size = new System.Drawing.Size(85, 36);
             this.InvoicesBtn.TabIndex = 26;
             this.InvoicesBtn.Text = "ФАКТУРИ";
             this.InvoicesBtn.UseVisualStyleBackColor = true;
@@ -390,108 +389,44 @@ namespace SimpleWarehouse.Forms
             this.ExpensesBtn.Depth = 0;
             this.ExpensesBtn.Enabled = false;
             this.ExpensesBtn.Icon = null;
-            this.ExpensesBtn.Location = new System.Drawing.Point(614, 654);
-            this.ExpensesBtn.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
+            this.ExpensesBtn.Location = new System.Drawing.Point(439, 524);
+            this.ExpensesBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.ExpensesBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.ExpensesBtn.Name = "ExpensesBtn";
             this.ExpensesBtn.Primary = false;
-            this.ExpensesBtn.Size = new System.Drawing.Size(103, 36);
+            this.ExpensesBtn.Size = new System.Drawing.Size(85, 36);
             this.ExpensesBtn.TabIndex = 27;
             this.ExpensesBtn.Text = "РАЗХОДИ";
             this.ExpensesBtn.UseVisualStyleBackColor = true;
             this.ExpensesBtn.Click += new System.EventHandler(this.ExpensesBtn_Click);
             // 
-            // materialRadioButton3
+            // LogLabel
             // 
-            this.materialRadioButton3.AutoSize = true;
-            this.materialRadioButton3.Cursor = System.Windows.Forms.Cursors.Default;
-            this.materialRadioButton3.Depth = 0;
-            this.materialRadioButton3.Font = new System.Drawing.Font("Roboto", 10F);
-            this.materialRadioButton3.Location = new System.Drawing.Point(0, 84);
-            this.materialRadioButton3.Margin = new System.Windows.Forms.Padding(0);
-            this.materialRadioButton3.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.materialRadioButton3.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialRadioButton3.Name = "materialRadioButton3";
-            this.materialRadioButton3.Ripple = true;
-            this.materialRadioButton3.Size = new System.Drawing.Size(198, 30);
-            this.materialRadioButton3.TabIndex = 11;
-            this.materialRadioButton3.Text = "materialRadioButton3";
-            this.materialRadioButton3.UseVisualStyleBackColor = true;
+            this.LogLabel.AutoSize = true;
+            this.LogLabel.Location = new System.Drawing.Point(9, 600);
+            this.LogLabel.Name = "LogLabel";
+            this.LogLabel.Size = new System.Drawing.Size(0, 13);
+            this.LogLabel.TabIndex = 28;
             // 
-            // materialRadioButton2
+            // SalesDataGridView
             // 
-            this.materialRadioButton2.AutoSize = true;
-            this.materialRadioButton2.Cursor = System.Windows.Forms.Cursors.Default;
-            this.materialRadioButton2.Depth = 0;
-            this.materialRadioButton2.Font = new System.Drawing.Font("Roboto", 10F);
-            this.materialRadioButton2.Location = new System.Drawing.Point(0, 47);
-            this.materialRadioButton2.Margin = new System.Windows.Forms.Padding(0);
-            this.materialRadioButton2.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.materialRadioButton2.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialRadioButton2.Name = "materialRadioButton2";
-            this.materialRadioButton2.Ripple = true;
-            this.materialRadioButton2.Size = new System.Drawing.Size(198, 30);
-            this.materialRadioButton2.TabIndex = 10;
-            this.materialRadioButton2.Text = "materialRadioButton2";
-            this.materialRadioButton2.UseVisualStyleBackColor = true;
-            // 
-            // materialRadioButton1
-            // 
-            this.materialRadioButton1.AutoSize = true;
-            this.materialRadioButton1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.materialRadioButton1.Depth = 0;
-            this.materialRadioButton1.Font = new System.Drawing.Font("Roboto", 10F);
-            this.materialRadioButton1.Location = new System.Drawing.Point(0, 10);
-            this.materialRadioButton1.Margin = new System.Windows.Forms.Padding(0);
-            this.materialRadioButton1.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.materialRadioButton1.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialRadioButton1.Name = "materialRadioButton1";
-            this.materialRadioButton1.Ripple = true;
-            this.materialRadioButton1.Size = new System.Drawing.Size(198, 30);
-            this.materialRadioButton1.TabIndex = 9;
-            this.materialRadioButton1.Text = "materialRadioButton1";
-            this.materialRadioButton1.UseVisualStyleBackColor = true;
-            // 
-            // materialRadioButton4
-            // 
-            this.materialRadioButton4.AutoSize = true;
-            this.materialRadioButton4.Checked = true;
-            this.materialRadioButton4.Cursor = System.Windows.Forms.Cursors.Default;
-            this.materialRadioButton4.Depth = 0;
-            this.materialRadioButton4.Enabled = false;
-            this.materialRadioButton4.Font = new System.Drawing.Font("Roboto", 10F);
-            this.materialRadioButton4.Location = new System.Drawing.Point(0, 121);
-            this.materialRadioButton4.Margin = new System.Windows.Forms.Padding(0);
-            this.materialRadioButton4.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.materialRadioButton4.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialRadioButton4.Name = "materialRadioButton4";
-            this.materialRadioButton4.Ripple = true;
-            this.materialRadioButton4.Size = new System.Drawing.Size(198, 30);
-            this.materialRadioButton4.TabIndex = 15;
-            this.materialRadioButton4.TabStop = true;
-            this.materialRadioButton4.Text = "materialRadioButton4";
-            this.materialRadioButton4.UseVisualStyleBackColor = true;
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.BackColor = System.Drawing.Color.White;
-            this.tabPage3.Controls.Add(this.materialRadioButton4);
-            this.tabPage3.Controls.Add(this.materialRadioButton1);
-            this.tabPage3.Controls.Add(this.materialRadioButton2);
-            this.tabPage3.Controls.Add(this.materialRadioButton3);
-            this.tabPage3.Location = new System.Drawing.Point(4, 25);
-            this.tabPage3.Margin = new System.Windows.Forms.Padding(4);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage3.Size = new System.Drawing.Size(1125, 484);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Продажби";
+            this.SalesDataGridView.BackgroundColor = System.Drawing.SystemColors.ControlLight;
+            this.SalesDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.SalesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.SalesDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.SalesDataGridView.Location = new System.Drawing.Point(5, 5);
+            this.SalesDataGridView.Margin = new System.Windows.Forms.Padding(2);
+            this.SalesDataGridView.Name = "SalesDataGridView";
+            this.SalesDataGridView.RowTemplate.Height = 24;
+            this.SalesDataGridView.Size = new System.Drawing.Size(832, 300);
+            this.SalesDataGridView.TabIndex = 1;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1166, 765);
+            this.ClientSize = new System.Drawing.Size(874, 622);
+            this.Controls.Add(this.LogLabel);
             this.Controls.Add(this.ExpensesBtn);
             this.Controls.Add(this.InvoicesBtn);
             this.Controls.Add(this.materialTabControl1);
@@ -499,19 +434,18 @@ namespace SimpleWarehouse.Forms
             this.Controls.Add(this.materialTabSelector1);
             this.Controls.Add(this.LogoutBtn);
             this.Controls.Add(this.RefreshButton);
-            this.Margin = new System.Windows.Forms.Padding(4);
-            this.MinimumSize = new System.Drawing.Size(1067, 738);
+            this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "MainForm";
             this.Text = "Project WH";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.materialTabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            this.ProductsTab.ResumeLayout(false);
+            this.ProductsTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataTableView)).EndInit();
-            this.tabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
+            this.DeliveriesTab.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.DeliveriesDataGridView)).EndInit();
+            this.SalesTab.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.SalesDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -522,12 +456,12 @@ namespace SimpleWarehouse.Forms
         private MaterialSkin.Controls.MaterialFlatButton LogoutBtn;
         private MaterialSkin.Controls.MaterialFlatButton RefreshButton;
         private MaterialSkin.Controls.MaterialTabControl materialTabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage ProductsTab;
         private MaterialSkin.Controls.MaterialRaisedButton EditBtn;
         private MaterialSkin.Controls.MaterialRaisedButton NewProductBtn;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage DeliveriesTab;
         private MaterialTabSelector materialTabSelector1;
-        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TabPage RevisionTab;
         private System.Windows.Forms.DataGridView DataTableView;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox SearchBox;
@@ -542,12 +476,10 @@ namespace SimpleWarehouse.Forms
         private MaterialRaisedButton AddCategoryBtn;
         private MaterialFlatButton InvoicesBtn;
         private MaterialFlatButton ExpensesBtn;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.TabPage tabPage3;
-        private MaterialRadioButton materialRadioButton4;
-        private MaterialRadioButton materialRadioButton1;
-        private MaterialRadioButton materialRadioButton2;
-        private MaterialRadioButton materialRadioButton3;
+        private System.Windows.Forms.DataGridView DeliveriesDataGridView;
+        private System.Windows.Forms.TabPage SalesTab;
+        private System.Windows.Forms.Label LogLabel;
+        private System.Windows.Forms.DataGridView SalesDataGridView;
     }
 }
 

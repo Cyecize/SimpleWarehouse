@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using SimpleWarehouse.Presenter.RevenueRelated;
+using SimpleWarehouse.Services.TransactionServices;
 
 namespace SimpleWarehouse.Presenter
 {
@@ -25,13 +26,16 @@ namespace SimpleWarehouse.Presenter
         public ProductSectionManager ProductSection { get; set; }
         public IHomeView Form { get; set; }
 
+        public ITransactionSection DeliveriesSection { get; set; }
+        public ITransactionSection SalesSection { get; set; }
+
         public HomePresenter(IStateManager mangaer) : base(mangaer)
         {
             this.OnlineUserRepo = new EntityRepo<User>(base.StateManager.SqlManager, base.StateManager.OutputWriter);
             this.Form = (IHomeView)FormFactory.CreateForm("MainForm", new object[] { this });
             //onClosingEvent to stopp the application
             ((Form)(this.Form)).FormClosing += (sender, args) => ApplicationState.IsRunning = false;
-            this.ProductSection = new ProductSectionManager(base.StateManager.SqlManager, this.Form.DataTable, this);
+            this.ProductSection = new ProductSectionManager(base.StateManager.SqlManager, this.Form.ProductDataTable, this, this.Form);
 
             base.StateManager.EventManager.AddEvent(new Event(
                 Constants.Config.EVENT_LISTENER_IMMEDIEATE,
@@ -40,13 +44,23 @@ namespace SimpleWarehouse.Presenter
                 true));
 
             this.IsProductsDisplayed = false;
+            this.DeliveriesSection = new DeliveryTransactionSection(
+                this, this.Form.DeliveriesTab, this.Form.DeliveriesDataTable);
+            this.SalesSection = new SaleTransactionSection(
+                this, this.Form.SalesTab, this.Form.SalesDataTable);
+            this.DeliveriesSection.Initialize();
+            this.SalesSection.Initialize();
+
             this.Form.SetSearchParams(this.ProductSection.ProductsManager.GetSearchParameters());
             if (!base.StateManager.UserSession.IsActive)//prevent any actions till login
                 return;
+
+
+
         }
 
         //---->main functionality
-
+      
         public void RevenueAction()
         {
             if (Roles.IsRequredRoleMet(base.StateManager.UserSession.SessionEntity.Role, Config.USER_TYPICAL_ROLE))

@@ -2,6 +2,7 @@
 using SimpleWarehouse.Interfaces;
 using SimpleWarehouse.Model;
 using SimpleWarehouse.Presenter;
+using SimpleWarehouse.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,18 +14,21 @@ namespace SimpleWarehouse.Services.ProductSectionManagers
 {
     public class ProductSectionManager
     {
-        private HomePresenter Presenter;
+        private IPresenter Presenter;
+        private ISearchProductView Form { get; set; }
 
         public IProductsRepositoryManager ProductsManager { get; set; }
         public ICategoriesRepositoryManager CategoriesManager { get; set; }
         public IProductViewManager ProductViewManager { get; set; }
 
-        public ProductSectionManager(IMySqlManager sqlManager, DataGridView dataGridView, HomePresenter presenter)
+
+        public ProductSectionManager(IMySqlManager sqlManager, DataGridView dataGridView, IPresenter presenter, ISearchProductView form)
         {
             this.ProductsManager = new ProductRepositoryManager(sqlManager);
             this.CategoriesManager = new CategoryRepositoryManager(sqlManager);
             this.ProductViewManager = new ProductViewManager(dataGridView);
             this.Presenter = presenter;
+            this.Form = form;
         }
 
         //functionality
@@ -32,6 +36,11 @@ namespace SimpleWarehouse.Services.ProductSectionManagers
         public void UpdateProducts()
         {
             this.ProductViewManager.DisplayProducts(this.ProductsManager.FindAll());
+        }
+
+        public void UpdateVisibleProducts()
+        {
+            this.ProductViewManager.DisplayProducts(this.ProductsManager.SearchVisible("", this.ProductsManager.GetSearchParameters()[0]));
         }
 
         //actions
@@ -43,13 +52,19 @@ namespace SimpleWarehouse.Services.ProductSectionManagers
 
         public void SearchProdAction()
         {
-            List<Product> prods = this.ProductsManager.Search(this.Presenter.Form.SearchText, this.ProductViewManager.SearchParam);
+            List<Product> prods = this.ProductsManager.Search(this.Form.SearchText, this.ProductViewManager.SearchParam);
+            this.ProductViewManager.DisplayProducts(prods);
+        }
+
+        public void SearchVisibleProdAction()
+        {
+            List<Product> prods = this.ProductsManager.SearchVisible(this.Form.SearchText, this.ProductViewManager.SearchParam);
             this.ProductViewManager.DisplayProducts(prods);
         }
 
         public void ChangeSearchParamAction()
         {
-            this.ProductViewManager.ChangeSearchParam(this.Presenter.Form.SearchParameter);
+            this.ProductViewManager.ChangeSearchParam(this.Form.SearchParameter);
         }
 
         //requests

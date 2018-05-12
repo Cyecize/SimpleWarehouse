@@ -8,18 +8,21 @@ using System.Windows.Forms;
 
 namespace SimpleWarehouse.View
 {
-    public interface IHomeView : SimpleWarehouse.Interfaces.IView
+    public interface IHomeView : SimpleWarehouse.Interfaces.IView, ISearchProductView
     {
-        DataGridView DataTable { get; set; }
 
-        string SearchText { get; set; }
+        DataGridView DeliveriesDataTable { get; set; }
 
-        void SetSearchParams(List<SearchParameter> searchParameters);
+        DataGridView SalesDataTable { get; set; }
 
-        void EnableOrDisableElement(string elName, Type elType, bool isEnabled); 
+        TabPage SelectedTabPage { get; set; }
 
-        void EnableOrDisableMaterialBtn(string btnName, bool isEnabled); 
+        TabPage DeliveriesTab { get; set; }
 
-        SearchParameter SearchParameter { get;}
+        TabPage SalesTab { get; set; }
+
+        void EnableOrDisableElement(string elName, Type elType, bool isEnabled);
+
+        void EnableOrDisableMaterialBtn(string btnName, bool isEnabled);
     }
 }

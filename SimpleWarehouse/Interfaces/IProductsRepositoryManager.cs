@@ -15,10 +15,14 @@ namespace SimpleWarehouse.Interfaces
 
         List<Product> Search(string param, SearchParameter parameterType);
 
+        List<Product> SearchVisible(string param, SearchParameter parameterType);
+
         List<Product> FindAll();
 
         Product GetProductForEdit(int productId);
 
         List<SearchParameter> GetSearchParameters();
+
+        IEntityRepository<Product> ProductRepository { get; set; }
     }
 }
