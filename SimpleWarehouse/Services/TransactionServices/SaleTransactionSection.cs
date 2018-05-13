@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using SimpleWarehouse.Constants;
 using SimpleWarehouse.Interfaces;
+using SimpleWarehouse.Model;
 using SimpleWarehouse.Presenter;
 using SimpleWarehouse.View;
 
@@ -27,6 +28,11 @@ namespace SimpleWarehouse.Services.TransactionServices
                 this.TransactionGridManager.DataGrid.Rows[rowId].Cells[TransactionDataTableNames.TRANSACTION_TOTAL_VALUE].Value = $"{(quantity * prodPrice):F2}";
             }
             catch (Exception) { }
+        }
+
+        protected override List<ProductTransaction> GatherProductsForTransaction()
+        {
+            throw new NotImplementedException();
         }
 
         protected override void SetTextbox(IHomeView form)

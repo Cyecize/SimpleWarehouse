@@ -11,9 +11,11 @@ namespace SimpleWarehouse.Interfaces
     {
         List<RevenueStream> FindAllNonRevisedEntities();
 
-        List<RevenueStream> FindRevisedEntitiesByDate(DateTime startDate, DateTime endDate); 
+        List<RevenueStream> FindRevisedEntitiesByDate(DateTime startDate, DateTime endDate);
 
-        void CreateEntity(RevenueStream revenue);
+        RevenueStream FindOneById(int id);
+
+        long CreateEntity(RevenueStream revenue);
 
         void ArchiveEntities();
 

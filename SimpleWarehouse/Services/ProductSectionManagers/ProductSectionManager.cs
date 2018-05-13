@@ -88,7 +88,7 @@ namespace SimpleWarehouse.Services.ProductSectionManagers
             }
             try
             {
-                product = this.ProductsManager.GetProductForEdit(this.ProductViewManager.GetSelectedProductId());
+                product = this.ProductsManager.FindProductById(this.ProductViewManager.GetSelectedProductId());
             }
             catch (ArgumentException e)
             {

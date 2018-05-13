@@ -142,7 +142,9 @@
     <Compile Include="IO\ConsoleWriter.cs" />
     <Compile Include="Interfaces\IOutputWriter.cs" />
     <Compile Include="Model\Invoice.cs" />
+    <Compile Include="Model\ProductTransaction.cs" />
     <Compile Include="Model\Revenue.cs" />
+    <Compile Include="Model\Transaction.cs" />
     <Compile Include="Presenter\RevenueRelated\ExpensesPresenter.cs" />
     <Compile Include="Presenter\RevenueRelated\InvoicesPresenter.cs" />
     <Compile Include="Presenter\RevenueRelated\IRevenuePresenter.cs" />
@@ -188,6 +190,8 @@
     <Compile Include="Services\RevenueRelated\RevenueViewManager.cs" />
     <Compile Include="Services\RevenueRelated\RevenueDbManager.cs" />
     <Compile Include="Services\TransactionServices\AbstractTransactionSection.cs" />
+    <Compile Include="Services\TransactionServices\AbstractTransactionDbManager.cs" />
+    <Compile Include="Services\TransactionServices\DeliveryTransactionDbManager.cs" />
     <Compile Include="Services\TransactionServices\DeliveryTransactionSection.cs" />
     <Compile Include="Services\TransactionServices\SaleTransactionSection.cs" />
     <Compile Include="Services\TransactionServices\TransactionGridViewManager.cs" />

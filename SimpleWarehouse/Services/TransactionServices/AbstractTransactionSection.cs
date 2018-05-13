@@ -2,6 +2,7 @@
 using SimpleWarehouse.Interfaces;
 using SimpleWarehouse.Model;
 using SimpleWarehouse.Presenter;
+using SimpleWarehouse.Services.ProductSectionManagers;
 using SimpleWarehouse.View;
 using System;
 using System.Collections.Generic;
@@ -17,10 +18,10 @@ namespace SimpleWarehouse.Services.TransactionServices
         private HomePresenter Presenter { get; set; }
 
         protected TextBox TotalSumBox { get; set; }
+        protected IProductsRepositoryManager ProductsRepositoryManager { get; set; }
 
         public ITransactionGridViewManager TransactionGridManager { get; set; }
         public ITransactionDbManager TransactionDbManager { get; set; }
-
 
 
         public AbstractTransactionSection(HomePresenter presenter, TabPage tabPage, DataGridView dataGrid, ITransactionDbManager transactionDbManager)
@@ -29,6 +30,7 @@ namespace SimpleWarehouse.Services.TransactionServices
             this.TransactionGridManager = new TransactionGridViewManager(tabPage, dataGrid, this.Presenter.Form, this);
             this.TransactionDbManager = transactionDbManager;
             this.SetTextbox(this.Presenter.Form);
+            this.ProductsRepositoryManager = new ProductRepositoryManager(this.Presenter.GetStateManager().SqlManager);
         }
 
         public void PickAProductRequest()
@@ -65,17 +67,38 @@ namespace SimpleWarehouse.Services.TransactionServices
             this.TotalSumBox.Text = $"{total:F2}";
         }
 
+        public void CreateTransactionAction()
+        {
+            try
+            {
+                List<ProductTransaction> products = this.GatherProductsForTransaction();
+                double totalSum = products.Sum(p => p.SubTotalPrice);
+                this.TransactionDbManager.AddTransaction(products);
+                this.TransactionGridManager.ClearRows();
+                this.Presenter.Form.Log("Успешна транзакция!");
+            }
+            catch(ArgumentException e) { this.Presenter.Form.Log(e.Message); return; }
+            this.Presenter.Form.Log("So far so good");
+        }
+
         public abstract void UpdateTotalPriceAction(int rowId);
 
         protected abstract void SetTextbox(IHomeView form);
 
+        protected abstract List<ProductTransaction> GatherProductsForTransaction();
+
         //private logic
         private void AfterProductPickAction(Product product)
         {
+            if (this.TransactionGridManager.GetAllProductIds().Contains(product.Id))
+            {
+                this.Presenter.Form.Log("Вече сте избрали този продукт");
+                return;
+            }
             this.TransactionGridManager.AddSelectedProduct(this.TransactionGridManager.DataGrid.CurrentRow, product);
             this.TransactionGridManager.DataGrid.EndEdit();
         }
 
-
+        
     }
 }

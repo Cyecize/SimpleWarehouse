@@ -19,5 +19,7 @@ namespace SimpleWarehouse.Interfaces
         void AddSelectedProduct(DataGridViewRow row, Product product);
 
         void Initialize();
+
+        List<int> GetAllProductIds();
     }
 }

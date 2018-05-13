@@ -13,6 +13,7 @@ namespace SimpleWarehouse.Services.RevenueRelated
     public class RevenueDbManager : IRevenueStreamDbManager
     {
         private const string REVENUE_TABLE_NAME = "SELECT * FROM revenues_users_joined ";
+        private const string REVENUE_TABLE_NAME_ONLY = "revenues_users_joined";
         private const string REVENUE_ARCHIVES_TABLE_NAME = "SELECT * FROM revenue_archives_users_joined ";
         private IMySqlManager SqlManager;
         private IEntityRepository<RevenueStream> RevenueRepo;
@@ -31,15 +32,20 @@ namespace SimpleWarehouse.Services.RevenueRelated
             this.SqlManager.ExecuteQuery(query2);
         }
 
-        public void CreateEntity(RevenueStream revenue)
+        public long CreateEntity(RevenueStream revenue)
         {
             string query = $"INSERT INTO revenues VALUES (null, {revenue.UserId}, {revenue.RevenueAmount}, '{revenue.Date.ToString("yyyy-MM-dd hh:mm:ss")}', {revenue.IsRevised.ToString().ToUpper()})";
-            this.SqlManager.ExecuteQuery(query);
+            return this.SqlManager.InsertQuery(query);
         }
 
         public List<RevenueStream> FindAllNonRevisedEntities()
         {
             return this.RevenueRepo.FindManyByQuery($"{REVENUE_TABLE_NAME} WHERE is_revised = 0 ORDER BY date ASC LIMIT 129");
+        }
+
+        public RevenueStream FindOneById(int id)
+        {
+            return this.RevenueRepo.FindOneBy(REVENUE_TABLE_NAME_ONLY, "id", id);
         }
 
         public List<RevenueStream> FindRevisedEntitiesByDate(DateTime startDate, DateTime endDate)

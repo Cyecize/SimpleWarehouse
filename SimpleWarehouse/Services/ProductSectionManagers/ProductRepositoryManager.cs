@@ -39,7 +39,7 @@ namespace SimpleWarehouse.Services.ProductSectionManagers
             return this.ProductRepository.FindManyByQuery(SQL_JOIN_VIEW_PROD + " LIMIT 100");
         }
 
-        public Product GetProductForEdit(int productId)
+        public Product FindProductById(int productId)
         {
             return this.ProductRepository.FindOneByQuery(SQL_JOIN_VIEW_PROD + $"WHERE id = {productId}");
         }

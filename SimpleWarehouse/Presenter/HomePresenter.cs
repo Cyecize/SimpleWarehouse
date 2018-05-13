@@ -44,19 +44,11 @@ namespace SimpleWarehouse.Presenter
                 true));
 
             this.IsProductsDisplayed = false;
-            this.DeliveriesSection = new DeliveryTransactionSection(
-                this, this.Form.DeliveriesTab, this.Form.DeliveriesDataTable);
-            this.SalesSection = new SaleTransactionSection(
-                this, this.Form.SalesTab, this.Form.SalesDataTable);
-            this.DeliveriesSection.Initialize();
-            this.SalesSection.Initialize();
-
+             
             this.Form.TabLabelText = "Продукти";
             this.Form.SetSearchParams(this.ProductSection.ProductsManager.GetSearchParameters());
             if (!base.StateManager.UserSession.IsActive)//prevent any actions till login
                 return;
-
-
 
         }
 
@@ -152,6 +144,7 @@ namespace SimpleWarehouse.Presenter
                     this.Form.EnableOrDisableMaterialBtn("ExpensesBtn", true);
                 }
                 this.Form.Text = $"Simple Warehouse, Потребител: {base.StateManager.UserSession.SessionEntity.Username}";
+                this.InitializeUserRequiredSections();
             }
         }
 
@@ -167,5 +160,15 @@ namespace SimpleWarehouse.Presenter
                 base.StateManager.OutputWriter.WriteLine($"Player logges as {base.StateManager.UserSession.SessionEntity.Username}");
         }
         //private methods
+
+        private void InitializeUserRequiredSections()
+        {
+            this.DeliveriesSection = new DeliveryTransactionSection(
+                this, this.Form.DeliveriesTab, this.Form.DeliveriesDataTable, new DeliveryTransactionDbManager(base.StateManager.SqlManager, base.StateManager.UserSession.SessionEntity));
+            this.SalesSection = new SaleTransactionSection(
+            this, this.Form.SalesTab, this.Form.SalesDataTable);
+            this.DeliveriesSection.Initialize();
+            this.SalesSection.Initialize();
+        }
     }
 }

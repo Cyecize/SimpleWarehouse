@@ -114,7 +114,7 @@ namespace SimpleWarehouse.Services.TransactionServices
             this.DataGrid.DefaultValuesNeeded += this.dataGridView1_DefaultValuesNeeded;
             this.DataGrid.DataError += this.grid_DataError;
             this.DataGrid.CellValueChanged += this.OnColumnValueChange;
-            this.DataGrid.CellClick += (o, e) =>  this.TransactionSection.RefreshGridAction();
+            this.DataGrid.CellClick += (o, e) => this.TransactionSection.RefreshGridAction();
         }
 
         public void AddSelectedProduct(DataGridViewRow row, Product product)
@@ -124,6 +124,19 @@ namespace SimpleWarehouse.Services.TransactionServices
             row.Cells[TransactionDataTableNames.PRODUCT_SELL_PRICE].Value = product.SellPrice;
             row.Cells[TransactionDataTableNames.PRODUCT_AVAILABLE_QUANTITY].Value = product.Quantity;
             row.Cells[TransactionDataTableNames.PRODUCT_ID].Value = product.Id;
+        }
+
+        public List<int> GetAllProductIds()
+        {
+            List<int> res = new List<int>();
+            for (int i = 0; i < this.DataGrid.RowCount; i++)
+            {
+                var row = this.DataGrid.Rows[i];
+                object prodId = row.Cells[TransactionDataTableNames.PRODUCT_ID].Value;
+                if (prodId != null)
+                    res.Add((int)prodId); 
+            }
+            return res;
         }
 
 

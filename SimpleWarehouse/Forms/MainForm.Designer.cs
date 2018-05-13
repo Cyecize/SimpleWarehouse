@@ -58,6 +58,11 @@ namespace SimpleWarehouse.Forms
             this.CancelDeliveryBtn = new System.Windows.Forms.Button();
             this.DeliveriesDataGridView = new System.Windows.Forms.DataGridView();
             this.SalesTab = new System.Windows.Forms.TabPage();
+            this.SalesTotalMoney = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.SalesDataGridView = new System.Windows.Forms.DataGridView();
             this.RevisionTab = new System.Windows.Forms.TabPage();
             this.materialTabSelector1 = new MaterialSkin.Controls.MaterialTabSelector();
@@ -65,11 +70,6 @@ namespace SimpleWarehouse.Forms
             this.ExpensesBtn = new MaterialSkin.Controls.MaterialFlatButton();
             this.LogLabel = new System.Windows.Forms.Label();
             this.CurrentTabLabel = new System.Windows.Forms.Label();
-            this.SalesTotalMoney = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.materialTabControl1.SuspendLayout();
             this.ProductsTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataTableView)).BeginInit();
@@ -373,6 +373,7 @@ namespace SimpleWarehouse.Forms
             this.SaveDeliveryBtn.TabIndex = 2;
             this.SaveDeliveryBtn.Text = "Запазване";
             this.SaveDeliveryBtn.UseVisualStyleBackColor = true;
+            this.SaveDeliveryBtn.Click += new System.EventHandler(this.SaveDeliveryBtn_Click);
             // 
             // CancelDeliveryBtn
             // 
@@ -416,6 +417,58 @@ namespace SimpleWarehouse.Forms
             this.SalesTab.Size = new System.Drawing.Size(842, 391);
             this.SalesTab.TabIndex = 2;
             this.SalesTab.Text = "Продажби";
+            // 
+            // SalesTotalMoney
+            // 
+            this.SalesTotalMoney.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.SalesTotalMoney.Location = new System.Drawing.Point(504, 362);
+            this.SalesTotalMoney.Multiline = true;
+            this.SalesTotalMoney.Name = "SalesTotalMoney";
+            this.SalesTotalMoney.ReadOnly = true;
+            this.SalesTotalMoney.Size = new System.Drawing.Size(81, 22);
+            this.SalesTotalMoney.TabIndex = 30;
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe MDL2 Assets", 16.30189F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(441, 356);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(57, 22);
+            this.label3.TabIndex = 29;
+            this.label3.Text = "Общо:";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Location = new System.Drawing.Point(591, 362);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(83, 23);
+            this.button1.TabIndex = 28;
+            this.button1.Text = "Обновяване";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.Location = new System.Drawing.Point(680, 362);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 27;
+            this.button2.Text = "Запазване";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button3.Location = new System.Drawing.Point(761, 362);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 26;
+            this.button3.Text = "Отказ";
+            this.button3.UseVisualStyleBackColor = true;
             // 
             // SalesDataGridView
             // 
@@ -515,58 +568,6 @@ namespace SimpleWarehouse.Forms
             this.CurrentTabLabel.Size = new System.Drawing.Size(100, 22);
             this.CurrentTabLabel.TabIndex = 27;
             this.CurrentTabLabel.Text = "Търсене: ";
-            // 
-            // SalesTotalMoney
-            // 
-            this.SalesTotalMoney.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.SalesTotalMoney.Location = new System.Drawing.Point(504, 362);
-            this.SalesTotalMoney.Multiline = true;
-            this.SalesTotalMoney.Name = "SalesTotalMoney";
-            this.SalesTotalMoney.ReadOnly = true;
-            this.SalesTotalMoney.Size = new System.Drawing.Size(81, 22);
-            this.SalesTotalMoney.TabIndex = 30;
-            // 
-            // label3
-            // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe MDL2 Assets", 16.30189F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(441, 356);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(57, 22);
-            this.label3.TabIndex = 29;
-            this.label3.Text = "Общо:";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(591, 362);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(83, 23);
-            this.button1.TabIndex = 28;
-            this.button1.Text = "Обновяване";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(680, 362);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 27;
-            this.button2.Text = "Запазване";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Location = new System.Drawing.Point(761, 362);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 26;
-            this.button3.Text = "Отказ";
-            this.button3.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 

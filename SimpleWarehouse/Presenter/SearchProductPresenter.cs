@@ -36,7 +36,7 @@ namespace SimpleWarehouse.Presenter
             try
             {
                 int prodId = this.ProductSection.ProductViewManager.GetSelectedProductId();
-                Product product = this.ProductSection.ProductsManager.GetProductForEdit(prodId);
+                Product product = this.ProductSection.ProductsManager.FindProductById(prodId);
                 this.Callback(product);
                 this.GoBackAction();
             }

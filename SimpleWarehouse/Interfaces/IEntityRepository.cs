@@ -12,7 +12,9 @@ namespace SimpleWarehouse.Interfaces
 
         List<T> FindManyByQuery(string query);
 
-        T FindOneByQuery(string query); 
+        T FindOneByQuery(string query);
+
+        T FindOneBy(string tableName ,string col, object value);
 
     }
 }

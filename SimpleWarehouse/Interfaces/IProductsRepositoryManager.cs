@@ -19,7 +19,7 @@ namespace SimpleWarehouse.Interfaces
 
         List<Product> FindAll();
 
-        Product GetProductForEdit(int productId);
+        Product FindProductById(int productId);
 
         List<SearchParameter> GetSearchParameters();
 

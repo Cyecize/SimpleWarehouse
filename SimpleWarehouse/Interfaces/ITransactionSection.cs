@@ -21,5 +21,7 @@ namespace SimpleWarehouse.Interfaces
         void UpdateTotalPriceAction(int rowId);
 
         void RefreshGridAction();
+
+        void CreateTransactionAction();
     }
 }

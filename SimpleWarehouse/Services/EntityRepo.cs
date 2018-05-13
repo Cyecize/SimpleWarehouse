@@ -101,6 +101,12 @@ namespace SimpleWarehouse.Service
             return default(T);
         }
 
+        public T FindOneBy(string tableName, string col, object value)
+        {
+            string query = $"SELECT * FROM {tableName} WHERE {col} = '{value.ToString()}' LIMIT 1";
+            return  this.FindOneByQuery(query);          
+        }
+
         private T CreateInstance()
         {
             return (T)Activator.CreateInstance(this.EntityClass);
@@ -111,5 +117,6 @@ namespace SimpleWarehouse.Service
             return this.EntityClass.GetProperties().Where(p => p.GetCustomAttributes(annotationType, false).Length > 0).ToArray();
         }
 
+       
     }
 }

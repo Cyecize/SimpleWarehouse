@@ -181,5 +181,10 @@ namespace SimpleWarehouse.Forms
         {
             this.Presenter.DeliveriesSection.RefreshGridAction();
         }
+
+        private void SaveDeliveryBtn_Click(object sender, EventArgs e)
+        {
+            this.Presenter.DeliveriesSection.CreateTransactionAction();
+        }
     }
 }
