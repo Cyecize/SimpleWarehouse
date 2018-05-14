@@ -13,8 +13,7 @@ namespace SimpleWarehouse.Services.TransactionServices
 {
     public abstract class AbstractTransactionDbManager : ITransactionDbManager
     {
-        private IUser LoggedUser { get; set; }
-
+        protected IUser LoggedUser { get; set; }
         protected IMySqlManager SqlManager { get; set; }
         protected IRevenueStreamDbManager RevenueManager { get; set; }
         protected IRevenueStreamDbManager ExpenseManager { get; set; }
@@ -31,6 +30,8 @@ namespace SimpleWarehouse.Services.TransactionServices
 
         public void AddTransaction(List<ProductTransaction> products)
         {
+            if (!this.IsUserAuthorized())
+                throw new ArgumentException("Нямате права за тази операция");
             Transaction transaction = this.TransactionRepository.FindOneBy("transactions", "id", this.InsertTransaction());
             this.InsertProductTransactionRelation(products, transaction);
             double totalRevenueAmount = products.Sum(p => p.SubTotalPrice);
@@ -53,6 +54,7 @@ namespace SimpleWarehouse.Services.TransactionServices
         protected abstract RevenueStream InsertRevenueStream(RevenueStream revenueStream);
         protected abstract int InsertTransaction();
         protected abstract void InsertRevenueStreamTransactionRelation(RevenueStream revenueStream, Transaction transaction);
+        protected abstract bool IsUserAuthorized();
 
         private void InsertProductTransactionRelation(List<ProductTransaction> products, Transaction transaction)
         {

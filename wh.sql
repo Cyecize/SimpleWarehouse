@@ -4,7 +4,7 @@ USE `warehouse`;
 --
 -- Host: 127.0.0.1    Database: warehouse
 -- ------------------------------------------------------
--- Server version	5.7.21-log
+-- Server version	8.0.11
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -26,7 +26,7 @@ DROP TABLE IF EXISTS `authentications`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `authentications` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `auth_type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `auth_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -57,7 +57,7 @@ CREATE TABLE `expense_archives` (
   PRIMARY KEY (`id`),
   KEY `fk_expense_archives_users` (`user_id`),
   CONSTRAINT `fk_expense_archives_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,7 +66,7 @@ CREATE TABLE `expense_archives` (
 
 LOCK TABLES `expense_archives` WRITE;
 /*!40000 ALTER TABLE `expense_archives` DISABLE KEYS */;
-INSERT INTO `expense_archives` VALUES (3,2,24524,'2018-05-11 08:50:35',1),(4,2,52,'2018-05-11 08:50:35',1),(5,2,215,'2018-05-11 08:50:35',1),(6,2,22.25,'2018-04-10 08:50:35',1),(7,2,25,'2018-05-14 08:51:38',1),(8,2,5000,'2018-05-22 08:52:01',1),(10,2,35,'2018-05-10 23:37:27',1),(11,2,100,'2018-05-11 01:16:34',1),(12,2,500,'2018-05-11 01:21:41',1),(13,2,35,'2018-05-11 01:38:06',1),(14,2,35,'2018-05-11 01:49:10',1),(17,2,35,'2018-05-10 23:37:27',1),(18,2,100,'2018-05-11 01:16:34',1),(19,2,500,'2018-05-11 01:21:41',1),(20,2,35,'2018-05-11 01:38:06',1),(21,2,35,'2018-05-11 01:49:10',1),(22,2,35,'2018-05-11 01:49:38',1);
+INSERT INTO `expense_archives` VALUES (3,2,24524,'2018-05-11 08:50:35',1),(4,2,52,'2018-05-11 08:50:35',1),(5,2,215,'2018-05-11 08:50:35',1),(6,2,22.25,'2018-04-10 08:50:35',1),(7,2,25,'2018-05-14 08:51:38',1),(8,2,5000,'2018-05-22 08:52:01',1),(10,2,35,'2018-05-10 23:37:27',1),(11,2,100,'2018-05-11 01:16:34',1),(12,2,500,'2018-05-11 01:21:41',1),(13,2,35,'2018-05-11 01:38:06',1),(14,2,35,'2018-05-11 01:49:10',1),(17,2,35,'2018-05-10 23:37:27',1),(18,2,100,'2018-05-11 01:16:34',1),(19,2,500,'2018-05-11 01:21:41',1),(20,2,35,'2018-05-11 01:38:06',1),(21,2,35,'2018-05-11 01:49:10',1),(22,2,35,'2018-05-11 01:49:38',1),(24,2,2,'2018-05-12 08:06:37',1),(25,2,53,'2018-05-12 08:06:37',1);
 /*!40000 ALTER TABLE `expense_archives` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -103,7 +103,7 @@ CREATE TABLE `expenses` (
   PRIMARY KEY (`id`),
   KEY `fk_expenses_users` (`user_id`),
   CONSTRAINT `fk_expenses_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -156,7 +156,6 @@ CREATE TABLE `invoices` (
 
 LOCK TABLES `invoices` WRITE;
 /*!40000 ALTER TABLE `invoices` DISABLE KEYS */;
-INSERT INTO `invoices` VALUES (1,2,353,'2018-05-10 08:21:22'),(2,2,335,'2018-04-30 08:21:22'),(3,2,355,'2018-04-29 08:21:22'),(4,2,35,'2018-05-01 08:21:22'),(5,2,3553,'2018-05-26 08:21:22'),(6,2,325,'2018-03-07 09:21:22'),(7,2,52,'2018-03-07 09:21:22'),(8,2,36,'2018-03-07 09:21:22'),(9,2,3,'2018-03-07 09:21:22'),(10,2,2620,'2018-03-07 09:21:22'),(11,2,236,'2018-03-07 09:21:22'),(12,2,35,'2018-05-11 08:37:24'),(13,2,35,'2018-05-12 08:37:24'),(14,2,500,'2018-05-26 01:17:39'),(15,2,45,'2018-05-11 01:38:12'),(16,2,4,'2018-05-11 02:12:17'),(17,2,4,'2018-05-11 02:12:36');
 /*!40000 ALTER TABLE `invoices` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -205,7 +204,7 @@ DROP TABLE IF EXISTS `product_categories`;
 CREATE TABLE `product_categories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `parent_id` int(11) NOT NULL DEFAULT '0',
-  `category_name` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `category_name` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -230,7 +229,7 @@ DROP TABLE IF EXISTS `products`;
 CREATE TABLE `products` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category_id` int(11) NOT NULL,
-  `product_name` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `product_name` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `quantity` double NOT NULL DEFAULT '0',
   `import_price` double NOT NULL DEFAULT '0',
   `sell_price` double NOT NULL DEFAULT '0',
@@ -247,7 +246,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (1,1,'Маргаритки',100,10,20,1),(2,1,'Salatki',100,0.4,1,1),(3,3,'Сандвич с риба тон',200,1,3,1),(4,1,'domatki',11,24.25,11.2,1),(5,2,'Nestle Coffe',12,1,11,1),(6,2,'Три в едно',11,1,253,1),(7,1,'Бисковитки',19,1,2,1),(8,2,'Бисковитки (редактирано)',200,1,2,1),(9,2,'Риба тон(Сандвич)',11,4,10,0),(10,1,'Бързата кафява лисица прескочи мъреливите куч',0,0,0,1),(11,1,'Вафла кредо',0,2,0,0),(12,4,'Хлеб',0,0,0,1),(13,4,'ЛЯБ',1,2,3,1),(14,1,'Козунак',10,22,43,0),(15,5,'Мелник',500,3,5,1),(16,1,'хх',0,0,0,1),(17,2,'Генади',0,15,50,1);
+INSERT INTO `products` VALUES (1,1,'Маргаритки',100,10,20,1),(2,1,'Salatki',100,0.4,1,1),(3,3,'Сандвич с риба тон',200,1,3,1),(4,1,'domatki',11,24.25,11.2,1),(5,2,'Nestle Coffe',12,1,11,1),(6,2,'Три в едно',11,1.1,253,1),(7,1,'Бисковитки',19,1,2,1),(8,2,'Бисковитки (редактирано)',200,1,2,1),(9,2,'Риба тон(Сандвич)',11,4,10,0),(10,1,'Бързата кафява лисица прескочи мъреливите куч',0,0,0,1),(11,1,'Вафла кредо',0,2,0,0),(12,4,'Хлеб',50,0.56,0.89,1),(13,4,'ЛЯБ',1,2,3,1),(14,1,'Козунак',10,22,43,0),(15,5,'Мелник',500,3,5,1),(16,1,'хх',0,0,0,1),(17,2,'Генади',0,15,50,1);
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -349,7 +348,6 @@ CREATE TABLE `revenues` (
 
 LOCK TABLES `revenues` WRITE;
 /*!40000 ALTER TABLE `revenues` DISABLE KEYS */;
-INSERT INTO `revenues` VALUES (19,2,34,'2018-05-11 02:12:23',0);
 /*!40000 ALTER TABLE `revenues` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -379,8 +377,8 @@ DROP TABLE IF EXISTS `search_types`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `search_types` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `display_name` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
-  `column_name` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `display_name` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `column_name` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -406,9 +404,9 @@ CREATE TABLE `transactions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `transaction_type` varchar(10) NOT NULL,
-  `is_revised` tinyint(4) NOT NULL DEFAULT '0',
+  `is_revised` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -419,6 +417,25 @@ LOCK TABLES `transactions` WRITE;
 /*!40000 ALTER TABLE `transactions` DISABLE KEYS */;
 /*!40000 ALTER TABLE `transactions` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `tr_on_transactions_expenses_delete` BEFORE DELETE ON `transactions` FOR EACH ROW BEGIN
+    DECLARE expense_id INT;
+    SET expense_id = (SELECT te.expense_id FROM transactions_expenses AS te WHERE te.transaction_id = OLD.id LIMIT 1);
+	DELETE FROM expenses WHERE id = expense_id;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `transactions_expenses`
@@ -432,7 +449,7 @@ CREATE TABLE `transactions_expenses` (
   `expense_id` int(11) NOT NULL,
   PRIMARY KEY (`transaction_id`,`expense_id`),
   KEY `fk_transactions_expenses_expenses` (`expense_id`),
-  CONSTRAINT `fk_transactions_expenses_expenses` FOREIGN KEY (`expense_id`) REFERENCES `expenses` (`id`),
+  CONSTRAINT `fk_transactions_expenses_expenses` FOREIGN KEY (`expense_id`) REFERENCES `expenses` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_transactions_expenses_transactions` FOREIGN KEY (`transaction_id`) REFERENCES `transactions` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -498,8 +515,8 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `username` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `auth_id` int(11) NOT NULL,
   `date_registered` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -661,4 +678,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-12 23:03:29
+-- Dump completed on 2018-05-14 19:58:48

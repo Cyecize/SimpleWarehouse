@@ -72,6 +72,11 @@ namespace SimpleWarehouse.Services.TransactionServices
             try
             {
                 List<ProductTransaction> products = this.GatherProductsForTransaction();
+                if(products.Count < 1)
+                {
+                    this.Presenter.Form.Log("Изберете поне един продукт!");
+                    return;
+                }
                 double totalSum = products.Sum(p => p.SubTotalPrice);
                 this.TransactionDbManager.AddTransaction(products);
                 this.TransactionGridManager.ClearRows();
