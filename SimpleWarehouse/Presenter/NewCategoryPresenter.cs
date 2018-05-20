@@ -9,6 +9,7 @@ using SimpleWarehouse.Services.ProductSectionManagers;
 using SimpleWarehouse.Model;
 using SimpleWarehouse.Presenter.ProductSpecificPresenters;
 using SimpleWarehouse.View;
+using System.Windows.Forms;
 
 namespace SimpleWarehouse.Presenter
 {
@@ -27,6 +28,7 @@ namespace SimpleWarehouse.Presenter
             categories.Insert(0, new Category() { CategoryName = "ГЛАВНА!", Id = 0 });
             this.Form.DisplayCategories(categories);
             this.Form.SelectedCategory = categories[0];
+            ((Form)this.Form).FormClosing += (e, s) => this.Cancel();
         }
 
         public void Cancel()

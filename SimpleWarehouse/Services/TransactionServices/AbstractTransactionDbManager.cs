@@ -2,6 +2,7 @@
 using SimpleWarehouse.IO;
 using SimpleWarehouse.Model;
 using SimpleWarehouse.Service;
+using SimpleWarehouse.Services.ProductSectionManagers;
 using SimpleWarehouse.Services.RevenueRelated;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace SimpleWarehouse.Services.TransactionServices
         protected IRevenueStreamDbManager RevenueManager { get; set; }
         protected IRevenueStreamDbManager ExpenseManager { get; set; }
         protected IEntityRepository<Transaction> TransactionRepository { get; set; }
+        protected IProductsRepositoryManager ProductsRepositoryManager { get; set; }
 
         protected AbstractTransactionDbManager(IMySqlManager sqlManager, IUser loggedUser)
         {
@@ -26,6 +28,7 @@ namespace SimpleWarehouse.Services.TransactionServices
             this.TransactionRepository = new EntityRepo<Transaction>(sqlManager, new ConsoleWriter());
             this.LoggedUser = loggedUser;
             this.SqlManager = sqlManager;
+            this.ProductsRepositoryManager = new ProductRepositoryManager(this.SqlManager); ;
         }
 
         public void AddTransaction(List<ProductTransaction> products)
@@ -44,6 +47,7 @@ namespace SimpleWarehouse.Services.TransactionServices
             };
             revenueStream = this.InsertRevenueStream(revenueStream);
             this.InsertRevenueStreamTransactionRelation(revenueStream, transaction);
+            this.UpdateProductsQuantities(products);
         }
 
         public void RollBack()
@@ -55,6 +59,7 @@ namespace SimpleWarehouse.Services.TransactionServices
         protected abstract int InsertTransaction();
         protected abstract void InsertRevenueStreamTransactionRelation(RevenueStream revenueStream, Transaction transaction);
         protected abstract bool IsUserAuthorized();
+        protected abstract void UpdateProductsQuantities(List<ProductTransaction> products);
 
         private void InsertProductTransactionRelation(List<ProductTransaction> products, Transaction transaction)
         {

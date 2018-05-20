@@ -10,6 +10,7 @@ using SimpleWarehouse.Services.ProductSectionManagers;
 using SimpleWarehouse.Model;
 using SimpleWarehouse.Presenter.ProductSpecificPresenters;
 using SimpleWarehouse.View;
+using System.Windows.Forms;
 
 namespace SimpleWarehouse.Presenter
 {
@@ -26,6 +27,7 @@ namespace SimpleWarehouse.Presenter
             this.ProductSectionManager = productManager;
             this.Form = (ISpecificProductView)FormFactory.CreateForm("SpecificProductForm", new object[] { this });
             List<Category> categories = this.ProductSectionManager.CategoriesManager.GetCategories();
+            ((Form)this.Form).FormClosing += (e, s) => this.Cancel();
 
             this.Form.ProductName = productToEdit.ProductName;
             this.Form.DisplayCategories(categories);
@@ -59,7 +61,8 @@ namespace SimpleWarehouse.Presenter
         {
             if (!this.IsFormCancelled)
             {
-                base.StateManager.Pop();
+                if (base.StateManager.IsPresenterActive(this))
+                    base.StateManager.Pop();
                 this.IsFormCancelled = true;
             }
 

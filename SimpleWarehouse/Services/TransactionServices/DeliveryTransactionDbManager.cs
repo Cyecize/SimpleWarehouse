@@ -38,5 +38,15 @@ namespace SimpleWarehouse.Services.TransactionServices
         {
             return Roles.IsRequredRoleMet(base.LoggedUser.Role, Config.USER_TYPICAL_ROLE);
         }
+
+        protected override void UpdateProductsQuantities(List<ProductTransaction> products)
+        {
+            foreach (var prodTrans in products)
+            {
+                Product product =  base.ProductsRepositoryManager.FindProductById(prodTrans.ProductId);
+                product.Quantity += prodTrans.ProductQuantity;
+                base.ProductsRepositoryManager.UpdateProduct(product, false); 
+            }
+        }
     }
 }
