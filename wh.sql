@@ -66,7 +66,6 @@ CREATE TABLE `expense_archives` (
 
 LOCK TABLES `expense_archives` WRITE;
 /*!40000 ALTER TABLE `expense_archives` DISABLE KEYS */;
-INSERT INTO `expense_archives` VALUES (3,2,24524,'2018-05-11 08:50:35',1),(4,2,52,'2018-05-11 08:50:35',1),(5,2,215,'2018-05-11 08:50:35',1),(6,2,22.25,'2018-04-10 08:50:35',1),(7,2,25,'2018-05-14 08:51:38',1),(8,2,5000,'2018-05-22 08:52:01',1),(10,2,35,'2018-05-10 23:37:27',1),(11,2,100,'2018-05-11 01:16:34',1),(12,2,500,'2018-05-11 01:21:41',1),(13,2,35,'2018-05-11 01:38:06',1),(14,2,35,'2018-05-11 01:49:10',1),(17,2,35,'2018-05-10 23:37:27',1),(18,2,100,'2018-05-11 01:16:34',1),(19,2,500,'2018-05-11 01:21:41',1),(20,2,35,'2018-05-11 01:38:06',1),(21,2,35,'2018-05-11 01:49:10',1),(22,2,35,'2018-05-11 01:49:38',1),(24,2,2,'2018-05-12 08:06:37',1),(25,2,53,'2018-05-12 08:06:37',1);
 /*!40000 ALTER TABLE `expense_archives` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -103,7 +102,7 @@ CREATE TABLE `expenses` (
   PRIMARY KEY (`id`),
   KEY `fk_expenses_users` (`user_id`),
   CONSTRAINT `fk_expenses_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -206,7 +205,7 @@ CREATE TABLE `product_categories` (
   `parent_id` int(11) NOT NULL DEFAULT '0',
   `category_name` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -215,7 +214,7 @@ CREATE TABLE `product_categories` (
 
 LOCK TABLES `product_categories` WRITE;
 /*!40000 ALTER TABLE `product_categories` DISABLE KEYS */;
-INSERT INTO `product_categories` VALUES (1,0,'Main'),(2,1,'Coffe'),(3,0,'Напитки'),(4,0,'Храни'),(5,0,'Цигари'),(6,2,'Main');
+INSERT INTO `product_categories` VALUES (3,0,'Напитки'),(4,0,'Храни'),(7,0,'Цигари');
 /*!40000 ALTER TABLE `product_categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -237,7 +236,7 @@ CREATE TABLE `products` (
   PRIMARY KEY (`id`),
   KEY `fk_category_id_id` (`category_id`),
   CONSTRAINT `fk_category_id_id` FOREIGN KEY (`category_id`) REFERENCES `product_categories` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -246,7 +245,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (1,1,'Маргаритки',100,10,20,1),(2,1,'Salatki',100,0.4,1,1),(3,3,'Сандвич с риба тон',200,1,3,1),(4,1,'domatki',11,24.25,11.2,1),(5,2,'Nestle Coffe',12,1,11,1),(6,2,'Три в едно',11,1.1,253,1),(7,1,'Бисковитки',19,1,2,1),(8,2,'Бисковитки (редактирано)',200,1,2,1),(9,2,'Риба тон(Сандвич)',11,4,10,0),(10,1,'Бързата кафява лисица прескочи мъреливите куч',0,0,0,1),(11,1,'Вафла кредо',0,2,0,0),(12,4,'Хлеб',50,0.56,0.89,1),(13,4,'ЛЯБ',1,2,3,1),(14,1,'Козунак',10,22,43,0),(15,5,'Мелник',500,3,5,1),(16,1,'хх',0,0,0,1),(17,2,'Генади',0,15,50,1);
+INSERT INTO `products` VALUES (18,3,'Coca Cola',7,0.8,1.2,1),(19,3,'Kopren Cola',6,0.3,0.5,1),(20,4,'Vafla Kredo',8,0.03,0.1,1),(21,4,'Sandvich sus Shunka',23,0.3,1,1),(22,4,'Sandvich s Riba Ton',5,0.5,1.1,1),(23,7,'King',0,4.7,5,1),(24,7,'Melnik',25,4.4,4.8,1),(25,4,'Говна с леб',0,10,20,0);
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -302,7 +301,6 @@ CREATE TABLE `revenue_archives` (
 
 LOCK TABLES `revenue_archives` WRITE;
 /*!40000 ALTER TABLE `revenue_archives` DISABLE KEYS */;
-INSERT INTO `revenue_archives` VALUES (1,2,3535,'2018-05-11 08:58:14',1),(2,2,200.22,'2018-05-11 09:02:25',1),(3,2,20034.22,'2018-05-11 09:05:25',1),(4,2,20034.22,'2018-05-11 09:05:39',1),(5,2,150,'2018-05-22 01:14:05',1),(6,2,34,'2018-05-11 01:16:06',1),(8,2,3535,'2018-05-11 08:58:14',1),(9,2,200.22,'2018-05-11 09:02:25',1),(10,2,20034.22,'2018-05-11 09:05:25',1),(11,2,20034.22,'2018-05-11 09:05:39',1),(12,2,150,'2018-05-22 01:14:05',1),(13,2,34,'2018-05-11 01:16:06',1),(14,2,35,'2018-05-03 01:16:06',1),(15,2,3535,'2018-05-11 08:58:14',1),(16,2,200.22,'2018-05-11 09:02:25',1),(17,2,20034.22,'2018-05-11 09:05:25',1),(18,2,20034.22,'2018-05-11 09:05:39',1),(19,2,150,'2018-05-22 01:14:05',1),(20,2,34,'2018-05-11 01:16:06',1),(21,2,35,'2018-05-03 01:16:06',1),(22,2,46,'2018-05-11 01:38:20',1),(30,2,3535,'2018-05-11 08:58:14',1),(31,2,200.22,'2018-05-11 09:02:25',1),(32,2,20034.22,'2018-05-11 09:05:25',1),(33,2,20034.22,'2018-05-11 09:05:39',1),(34,2,150,'2018-05-22 01:14:05',1),(35,2,34,'2018-05-11 01:16:06',1),(36,2,35,'2018-05-03 01:16:06',1),(37,2,46,'2018-05-11 01:38:20',1),(38,2,46,'2018-05-11 01:38:20',1),(45,2,3535,'2018-05-11 08:58:14',1),(46,2,200.22,'2018-05-11 09:02:25',1),(47,2,20034.22,'2018-05-11 09:05:25',1),(48,2,20034.22,'2018-05-11 09:05:39',1),(49,2,150,'2018-05-22 01:14:05',1),(50,2,34,'2018-05-11 01:16:06',1),(51,2,35,'2018-05-03 01:16:06',1),(52,2,46,'2018-05-11 01:38:20',1),(53,2,46,'2018-05-11 01:38:20',1),(54,2,34,'2018-05-11 01:38:20',1),(60,2,3535,'2018-05-11 08:58:14',1),(61,2,200.22,'2018-05-11 09:02:25',1),(62,2,20034.22,'2018-05-11 09:05:25',1),(63,2,20034.22,'2018-05-11 09:05:39',1),(64,2,150,'2018-05-22 01:14:05',1),(65,2,34,'2018-05-11 01:16:06',1),(66,2,35,'2018-05-03 01:16:06',1),(67,2,46,'2018-05-11 01:38:20',1),(68,2,46,'2018-05-11 01:38:20',1),(69,2,34,'2018-05-11 01:38:20',1),(70,2,36,'2018-05-11 01:38:20',1),(75,2,3535,'2018-05-11 08:58:14',1),(76,2,200.22,'2018-05-11 09:02:25',1),(77,2,20034.22,'2018-05-11 09:05:25',1),(78,2,20034.22,'2018-05-11 09:05:39',1),(79,2,150,'2018-05-22 01:14:05',1),(80,2,34,'2018-05-11 01:16:06',1),(81,2,35,'2018-05-03 01:16:06',1),(82,2,46,'2018-05-11 01:38:20',1),(83,2,46,'2018-05-11 01:38:20',1),(84,2,34,'2018-05-11 01:38:20',1),(85,2,36,'2018-05-11 01:38:20',1),(86,2,36,'2018-05-13 01:38:20',1),(90,2,3535,'2018-05-11 08:58:14',1),(91,2,200.22,'2018-05-11 09:02:25',1),(92,2,20034.22,'2018-05-11 09:05:25',1),(93,2,20034.22,'2018-05-11 09:05:39',1),(94,2,150,'2018-05-22 01:14:05',1),(95,2,34,'2018-05-11 01:16:06',1),(96,2,35,'2018-05-03 01:16:06',1),(97,2,46,'2018-05-11 01:38:20',1),(98,2,46,'2018-05-11 01:38:20',1),(99,2,34,'2018-05-11 01:38:20',1),(100,2,36,'2018-05-11 01:38:20',1),(101,2,36,'2018-05-13 01:38:20',1),(102,2,35,'2018-05-11 01:39:51',1),(105,2,3535,'2018-05-11 08:58:14',1),(106,2,200.22,'2018-05-11 09:02:25',1),(107,2,20034.22,'2018-05-11 09:05:25',1),(108,2,20034.22,'2018-05-11 09:05:39',1),(109,2,150,'2018-05-22 01:14:05',1),(110,2,34,'2018-05-11 01:16:06',1),(111,2,35,'2018-05-03 01:16:06',1),(112,2,46,'2018-05-11 01:38:20',1),(113,2,46,'2018-05-11 01:38:20',1),(114,2,34,'2018-05-11 01:38:20',1),(115,2,36,'2018-05-11 01:38:20',1),(116,2,36,'2018-05-13 01:38:20',1),(117,2,35,'2018-05-11 01:39:51',1),(118,2,35,'2018-05-11 01:45:23',1),(120,2,3535,'2018-05-11 08:58:14',1),(121,2,200.22,'2018-05-11 09:02:25',1),(122,2,20034.22,'2018-05-11 09:05:25',1),(123,2,20034.22,'2018-05-11 09:05:39',1),(124,2,150,'2018-05-22 01:14:05',1),(125,2,34,'2018-05-11 01:16:06',1),(126,2,35,'2018-05-03 01:16:06',1),(127,2,46,'2018-05-11 01:38:20',1),(128,2,46,'2018-05-11 01:38:20',1),(129,2,34,'2018-05-11 01:38:20',1),(130,2,36,'2018-05-11 01:38:20',1),(131,2,36,'2018-05-13 01:38:20',1),(132,2,35,'2018-05-11 01:39:51',1),(133,2,35,'2018-05-11 01:45:23',1),(134,2,3,'2018-05-11 01:46:25',1),(135,2,12345,'2018-05-11 01:46:25',1);
 /*!40000 ALTER TABLE `revenue_archives` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -339,7 +337,7 @@ CREATE TABLE `revenues` (
   PRIMARY KEY (`id`),
   KEY `fk_revenues_users` (`user_id`),
   CONSTRAINT `fk_revenues_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -406,7 +404,7 @@ CREATE TABLE `transactions` (
   `transaction_type` varchar(10) NOT NULL,
   `is_revised` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -430,6 +428,25 @@ DELIMITER ;;
     DECLARE expense_id INT;
     SET expense_id = (SELECT te.expense_id FROM transactions_expenses AS te WHERE te.transaction_id = OLD.id LIMIT 1);
 	DELETE FROM expenses WHERE id = expense_id;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `tr_on_transactions_revenues_delete` BEFORE DELETE ON `transactions` FOR EACH ROW BEGIN
+	DECLARE rev_id INT;
+    SET rev_id = (SELECT tr.revenue_id FROM transactions_revenues AS tr WHERE tr.transaction_id = OLD.id LIMIT 1);
+    DELETE FROM revenues WHERE id = rev_id;
 END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -678,4 +695,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-14 19:58:48
+-- Dump completed on 2018-05-22 14:07:30

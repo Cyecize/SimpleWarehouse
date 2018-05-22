@@ -79,6 +79,7 @@
     <Compile Include="Constants\Roles.cs" />
     <Compile Include="Constants\TabPageNames.cs" />
     <Compile Include="Constants\TransactionDataTableNames.cs" />
+    <Compile Include="Constants\TransactionTypes.cs" />
     <Compile Include="Factory\FormFactory.cs" />
     <Compile Include="Forms\RevenueForm.cs">
       <SubType>Form</SubType>
@@ -193,6 +194,7 @@
     <Compile Include="Services\TransactionServices\AbstractTransactionDbManager.cs" />
     <Compile Include="Services\TransactionServices\DeliveryTransactionDbManager.cs" />
     <Compile Include="Services\TransactionServices\DeliveryTransactionSection.cs" />
+    <Compile Include="Services\TransactionServices\SalesTransactionDbManager.cs" />
     <Compile Include="Services\TransactionServices\SaleTransactionSection.cs" />
     <Compile Include="Services\TransactionServices\TransactionGridViewManager.cs" />
     <Compile Include="States\StateManager.cs" />

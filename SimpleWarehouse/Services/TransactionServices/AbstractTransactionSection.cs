@@ -59,7 +59,7 @@ namespace SimpleWarehouse.Services.TransactionServices
                 var row = this.TransactionGridManager.DataGrid.Rows[i];
                 try
                 {
-                   total+=  double.Parse( row.Cells[TransactionDataTableNames.TRANSACTION_TOTAL_VALUE].Value.ToString());   
+                    total += double.Parse(row.Cells[TransactionDataTableNames.TRANSACTION_TOTAL_VALUE].Value.ToString());
                 }
                 catch (Exception) { }
             }
@@ -72,7 +72,7 @@ namespace SimpleWarehouse.Services.TransactionServices
             try
             {
                 List<ProductTransaction> products = this.GatherProductsForTransaction();
-                if(products.Count < 1)
+                if (products.Count < 1)
                 {
                     this.Presenter.Form.Log("Изберете поне един продукт!");
                     return;
@@ -82,8 +82,7 @@ namespace SimpleWarehouse.Services.TransactionServices
                 this.TransactionGridManager.ClearRows();
                 this.Presenter.Form.Log("Успешна транзакция!");
             }
-            catch(ArgumentException e) { this.Presenter.Form.Log(e.Message); return; }
-            this.Presenter.Form.Log("So far so good");
+            catch (ArgumentException e) { this.Presenter.Form.Log(e.Message); return; }  
         }
 
         public abstract void UpdateTotalPriceAction(int rowId);
@@ -91,6 +90,51 @@ namespace SimpleWarehouse.Services.TransactionServices
         protected abstract void SetTextbox(IHomeView form);
 
         protected abstract List<ProductTransaction> GatherProductsForTransaction();
+
+        protected List<ProductTransaction> GetProductsFromDataGrid(bool performProdAvailabilityCheck)
+        {
+            List<ProductTransaction> products = new List<ProductTransaction>();
+            for (int i = 0; i < this.TransactionGridManager.DataGrid.RowCount; i++)
+            {
+                var row = this.TransactionGridManager.DataGrid.Rows[i];
+                object transactionNumber = row.Cells[TransactionDataTableNames.TRANSACTION_NUMBER].Value;
+                int productId = -1;
+                double selectedProductQuantity = 0.0;
+                Product product;
+                try
+                {
+                    var prodIdCell = row.Cells[TransactionDataTableNames.PRODUCT_ID].Value;
+                    if (prodIdCell == null)
+                        continue;
+                    productId = (int)prodIdCell;
+                    product = this.ProductsRepositoryManager.FindProductById(productId);
+                    if (product == null)
+                        throw new Exception();
+                    selectedProductQuantity = (double)row.Cells[TransactionDataTableNames.PRODUCT_QUANTITY].Value;
+                }
+                catch (Exception) { throw new ArgumentException($"Имаше проблем на ред с номер {transactionNumber}"); }
+
+                if (selectedProductQuantity <= 0)
+                    throw new ArgumentException($"Изберете количесто над 0 на ред {transactionNumber}");
+
+                if (performProdAvailabilityCheck)
+                {
+                    if (product.Quantity < selectedProductQuantity)
+                        throw new ArgumentException($"Недостатчно количесто на ред {transactionNumber}");
+                }
+
+                double subTotal = product.ImportPrice * selectedProductQuantity;
+                ProductTransaction productTransaction = new ProductTransaction
+                {
+                    ProductId = product.Id,
+                    ProductQuantity = selectedProductQuantity,
+                    SubTotalPrice = subTotal,
+                };
+                products.Add(productTransaction);
+            }
+
+            return products;
+        }
 
         //private logic
         private void AfterProductPickAction(Product product)
@@ -104,6 +148,6 @@ namespace SimpleWarehouse.Services.TransactionServices
             this.TransactionGridManager.DataGrid.EndEdit();
         }
 
-        
+
     }
 }

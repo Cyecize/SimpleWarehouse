@@ -47,7 +47,7 @@ namespace SimpleWarehouse.Services.TransactionServices
             };
             revenueStream = this.InsertRevenueStream(revenueStream);
             this.InsertRevenueStreamTransactionRelation(revenueStream, transaction);
-            this.UpdateProductsQuantities(products);
+            this.UpdateProductsQuantities(products, false);
         }
 
         public void RollBack()
@@ -59,7 +59,7 @@ namespace SimpleWarehouse.Services.TransactionServices
         protected abstract int InsertTransaction();
         protected abstract void InsertRevenueStreamTransactionRelation(RevenueStream revenueStream, Transaction transaction);
         protected abstract bool IsUserAuthorized();
-        protected abstract void UpdateProductsQuantities(List<ProductTransaction> products);
+        protected abstract void UpdateProductsQuantities(List<ProductTransaction> products, bool isRollBack);
 
         private void InsertProductTransactionRelation(List<ProductTransaction> products, Transaction transaction)
         {

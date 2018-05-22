@@ -27,9 +27,9 @@ namespace SimpleWarehouse.Services.RevenueRelated
         public void ArchiveEntities()
         {
             string query = "INSERT INTO revenue_archives (user_id, revenue_amount, date, is_revised) SELECT r.user_id, r.revenue_amount, r.date, TRUE FROM revenues AS r;";
-            string query2 = "DELETE FROM revenues";
+            //string query2 = "DELETE FROM revenues";
             this.SqlManager.ExecuteQuery(query);
-            this.SqlManager.ExecuteQuery(query2);
+            //this.SqlManager.ExecuteQuery(query2); TODO transactions rely on some revenues so cant quite easily DELETE
         }
 
         public long CreateEntity(RevenueStream revenue)

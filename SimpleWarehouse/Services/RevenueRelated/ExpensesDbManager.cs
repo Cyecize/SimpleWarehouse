@@ -27,9 +27,9 @@ namespace SimpleWarehouse.Services.RevenueRelated
         public void ArchiveEntities()
         {
             string query = "INSERT INTO expense_archives (user_id, revenue_amount, date, is_revised) SELECT r.user_id, r.revenue_amount, r.date, TRUE FROM expenses AS r;";
-            string query2 = "DELETE FROM expenses;";
+            //string query2 = "DELETE FROM expenses;";
             this.SqlManager.ExecuteQuery(query);
-            this.SqlManager.ExecuteQuery(query2);
+            //this.SqlManager.ExecuteQuery(query2); TODO delete only ones who are not participants in transaction_expense
         }
 
         public long CreateEntity(RevenueStream revenue)

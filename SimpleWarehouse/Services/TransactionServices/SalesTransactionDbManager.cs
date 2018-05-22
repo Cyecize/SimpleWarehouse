@@ -9,34 +9,34 @@ using SimpleWarehouse.Model;
 
 namespace SimpleWarehouse.Services.TransactionServices
 {
-    public class DeliveryTransactionDbManager : AbstractTransactionDbManager
+    public class SalesTransactionDbManager : AbstractTransactionDbManager
     {
-        public DeliveryTransactionDbManager(IMySqlManager sqlManager, IUser loggedUser) : base(sqlManager, loggedUser)
+        public  SalesTransactionDbManager(IMySqlManager sqlManager, IUser loggedUser) : base(sqlManager, loggedUser)
         {
 
         }
 
         protected override RevenueStream InsertRevenueStream(RevenueStream revenueStream)
         {
-            int expenseId = (int)base.ExpenseManager.CreateEntity(revenueStream);
-            return base.ExpenseManager.FindOneById(expenseId);
+            int revenueId = (int)base.RevenueManager.CreateEntity(revenueStream);
+            return base.RevenueManager.FindOneById(revenueId);
         }
 
         protected override void InsertRevenueStreamTransactionRelation(RevenueStream revenueStream, Transaction transaction)
         {
-            string query = $"INSERT INTO transactions_expenses VALUES ({transaction.Id}, {revenueStream.Id})";
+            string query = $"INSERT INTO transactions_revenues VALUES ({transaction.Id}, {revenueStream.Id})";
             base.SqlManager.ExecuteQuery(query);
         }
 
         protected override int InsertTransaction()
         {
-            string query = $"INSERT INTO transactions VALUES(NULL, CURRENT_TIMESTAMP, '{TransactionTypes.Delivery}', FALSE)";
+            string query = $"INSERT INTO transactions VALUES(NULL, CURRENT_TIMESTAMP, '{TransactionTypes.Sale}', FALSE)";
             return (int)base.SqlManager.InsertQuery(query);
         }
 
         protected override bool IsUserAuthorized()
         {
-            return Roles.IsRequredRoleMet(base.LoggedUser.Role, Config.USER_TYPICAL_ROLE);
+            return Roles.IsRequredRoleMet(base.LoggedUser.Role, Config.USER_LIMITED_ROLE); 
         }
 
         protected override void UpdateProductsQuantities(List<ProductTransaction> products, bool isRollBack)
@@ -45,9 +45,9 @@ namespace SimpleWarehouse.Services.TransactionServices
             {
                 Product product = base.ProductsRepositoryManager.FindProductById(prodTrans.ProductId);
                 if (isRollBack)
-                    product.Quantity -= prodTrans.ProductQuantity;
-                else
                     product.Quantity += prodTrans.ProductQuantity;
+                else
+                    product.Quantity -= prodTrans.ProductQuantity;
                 base.ProductsRepositoryManager.UpdateProduct(product, false);
             }
         }

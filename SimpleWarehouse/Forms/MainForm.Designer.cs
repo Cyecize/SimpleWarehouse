@@ -61,7 +61,7 @@ namespace SimpleWarehouse.Forms
             this.SalesTotalMoney = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.SaveSaleBtn = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.SalesDataGridView = new System.Windows.Forms.DataGridView();
             this.RevisionTab = new System.Windows.Forms.TabPage();
@@ -408,7 +408,7 @@ namespace SimpleWarehouse.Forms
             this.SalesTab.Controls.Add(this.SalesTotalMoney);
             this.SalesTab.Controls.Add(this.label3);
             this.SalesTab.Controls.Add(this.button1);
-            this.SalesTab.Controls.Add(this.button2);
+            this.SalesTab.Controls.Add(this.SaveSaleBtn);
             this.SalesTab.Controls.Add(this.button3);
             this.SalesTab.Controls.Add(this.SalesDataGridView);
             this.SalesTab.Location = new System.Drawing.Point(4, 22);
@@ -450,15 +450,16 @@ namespace SimpleWarehouse.Forms
             this.button1.Text = "Обновяване";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // SaveSaleBtn
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(680, 362);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 27;
-            this.button2.Text = "Запазване";
-            this.button2.UseVisualStyleBackColor = true;
+            this.SaveSaleBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.SaveSaleBtn.Location = new System.Drawing.Point(680, 362);
+            this.SaveSaleBtn.Name = "SaveSaleBtn";
+            this.SaveSaleBtn.Size = new System.Drawing.Size(75, 23);
+            this.SaveSaleBtn.TabIndex = 27;
+            this.SaveSaleBtn.Text = "Запазване";
+            this.SaveSaleBtn.UseVisualStyleBackColor = true;
+            this.SaveSaleBtn.Click += new System.EventHandler(this.SaveSaleBtn_Click);
             // 
             // button3
             // 
@@ -640,7 +641,7 @@ namespace SimpleWarehouse.Forms
         private System.Windows.Forms.TextBox SalesTotalMoney;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button SaveSaleBtn;
         private System.Windows.Forms.Button button3;
     }
 }

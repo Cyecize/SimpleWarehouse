@@ -34,44 +34,7 @@ namespace SimpleWarehouse.Services.TransactionServices
 
         protected override List<ProductTransaction> GatherProductsForTransaction()
         {
-            List<ProductTransaction> products = new List<ProductTransaction>();
-            for (int i = 0; i < base.TransactionGridManager.DataGrid.RowCount; i++)
-            {
-                var row = base.TransactionGridManager.DataGrid.Rows[i];
-                object transactionNumber = row.Cells[TransactionDataTableNames.TRANSACTION_NUMBER].Value;
-                int productId = -1;
-                double selectedProductQuantity = 0.0;
-                Product product;
-                try
-                {
-                    var prodIdCell = row.Cells[TransactionDataTableNames.PRODUCT_ID].Value;
-                    if (prodIdCell == null)
-                        continue;
-                    productId = (int)prodIdCell;
-                    product = base.ProductsRepositoryManager.FindProductById(productId);
-                    if (product == null)
-                        throw new Exception();
-                    selectedProductQuantity = (double)row.Cells[TransactionDataTableNames.PRODUCT_QUANTITY].Value;
-                }
-                catch (Exception) { throw new ArgumentException($"Имаше проблем на ред с номер {transactionNumber}"); }
-
-                if (selectedProductQuantity <= 0)
-                    throw new ArgumentException($"Изберете количесто над 0 на ред {transactionNumber}");
-
-                // if (product.Quantity < selectedProductQuantity)
-                //throw new ArgumentException($"Недостатчно количесто на ред {transactionNumber}");
-
-                double subTotal = product.ImportPrice * selectedProductQuantity;
-                ProductTransaction productTransaction = new ProductTransaction
-                {
-                    ProductId = product.Id,
-                    ProductQuantity = selectedProductQuantity,
-                    SubTotalPrice = subTotal,
-                };
-                products.Add(productTransaction);
-            }
-
-            return products;
+            return base.GetProductsFromDataGrid(false);
         }
 
         protected override void SetTextbox(IHomeView form)

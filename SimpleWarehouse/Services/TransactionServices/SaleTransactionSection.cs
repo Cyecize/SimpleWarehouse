@@ -14,7 +14,7 @@ namespace SimpleWarehouse.Services.TransactionServices
 {
     public class SaleTransactionSection : AbstractTransactionSection
     {
-        public SaleTransactionSection(HomePresenter presenter, TabPage tabPage, DataGridView dataGrid) : base(presenter, tabPage, dataGrid, null)
+        public SaleTransactionSection(HomePresenter presenter, TabPage tabPage, DataGridView dataGrid, ITransactionDbManager transactionDbManager) : base(presenter, tabPage, dataGrid, transactionDbManager)
         {
 
         }
@@ -32,7 +32,7 @@ namespace SimpleWarehouse.Services.TransactionServices
 
         protected override List<ProductTransaction> GatherProductsForTransaction()
         {
-            throw new NotImplementedException();
+            return base.GetProductsFromDataGrid(true);
         }
 
         protected override void SetTextbox(IHomeView form)

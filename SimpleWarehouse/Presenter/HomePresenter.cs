@@ -44,7 +44,7 @@ namespace SimpleWarehouse.Presenter
                 true));
 
             this.IsProductsDisplayed = false;
-             
+
             this.Form.TabLabelText = "Продукти";
             this.Form.SetSearchParams(this.ProductSection.ProductsManager.GetSearchParameters());
             if (!base.StateManager.UserSession.IsActive)//prevent any actions till login
@@ -159,14 +159,14 @@ namespace SimpleWarehouse.Presenter
             else
                 base.StateManager.OutputWriter.WriteLine($"Player logges as {base.StateManager.UserSession.SessionEntity.Username}");
         }
-        //private methods
 
+        //private methods
         private void InitializeUserRequiredSections()
         {
             this.DeliveriesSection = new DeliveryTransactionSection(
                 this, this.Form.DeliveriesTab, this.Form.DeliveriesDataTable, new DeliveryTransactionDbManager(base.StateManager.SqlManager, base.StateManager.UserSession.SessionEntity));
             this.SalesSection = new SaleTransactionSection(
-            this, this.Form.SalesTab, this.Form.SalesDataTable);
+                this, this.Form.SalesTab, this.Form.SalesDataTable, new SalesTransactionDbManager(base.StateManager.SqlManager, base.StateManager.UserSession.SessionEntity));
             this.DeliveriesSection.Initialize();
             this.SalesSection.Initialize();
         }

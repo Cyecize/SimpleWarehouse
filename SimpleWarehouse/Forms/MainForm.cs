@@ -186,5 +186,10 @@ namespace SimpleWarehouse.Forms
         {
             this.Presenter.DeliveriesSection.CreateTransactionAction();
         }
+
+        private void SaveSaleBtn_Click(object sender, EventArgs e)
+        {
+            this.Presenter.SalesSection.CreateTransactionAction();
+        }
     }
 }
