@@ -6,16 +6,14 @@ using System.Threading.Tasks;
 
 namespace SimpleWarehouse.Attributes
 {
-    [AttributeUsage(AttributeTargets.Property)]
-
-    public class DbNameReference : Attribute
+    [AttributeUsage(AttributeTargets.Class)]
+    public class DbTableNameReference : Attribute
     {
-
         public string name;
 
-        public DbNameReference(string name)
+        public DbTableNameReference(string name)
         {
-            this.name = name;            
+            this.name = name;
         }
 
         public virtual string Name
@@ -25,7 +23,7 @@ namespace SimpleWarehouse.Attributes
 
         public override string ToString()
         {
-            return this.name; 
+            return this.name;
         }
     }
 }

@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace SimpleWarehouse.Model
 {
+    [DbTableNameReference(name: "user_auth_joined")]
     public class User : IUser
     {
         private string _roleHash;

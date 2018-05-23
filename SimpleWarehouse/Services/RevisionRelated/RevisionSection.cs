@@ -1,7 +1,9 @@
 ﻿using SimpleWarehouse.Constants;
 using SimpleWarehouse.Interfaces;
+using SimpleWarehouse.IO;
 using SimpleWarehouse.Model;
 using SimpleWarehouse.Presenter;
+using SimpleWarehouse.Service;
 using SimpleWarehouse.Services.ProductSectionManagers;
 using SimpleWarehouse.Services.RevenueRelated;
 using SimpleWarehouse.Services.TransactionServices;
@@ -58,7 +60,6 @@ namespace SimpleWarehouse.Services.RevisionRelated
         {
             this.GridViewManager.Initialize();
             this.GridViewManager.ClearRows();
-
         }
 
         public void RefreshGridAction()
@@ -91,6 +92,18 @@ namespace SimpleWarehouse.Services.RevisionRelated
             return true;
         }
 
+        private List<RevenueStream> GetNonRevisedSalesRevenue()
+        {
+            List<Transaction> transactions = this.SaleTransactioDbManager.FindAllNonRevised()
+                .Where(tr => tr.TransactionType == TransactionTypes.Sale.ToString()).ToList();
+            List<RevenueStream> revenues = new List<RevenueStream>();
+            foreach(var tr in transactions)
+            {
+                revenues.Add(this.RevenueStreamDbManager.FindOneByTransaction(tr.Id)); 
+            }
+            return revenues;
+        }
+
         private void FillRevenueStreamInfo()
         {
             List<RevenueStream> expenses = this.ExpenseStreamDbManager.FindAllNonRevisedEntities();
@@ -110,7 +123,7 @@ namespace SimpleWarehouse.Services.RevisionRelated
             var rev = $"{revenuesTotal:F2}";
             var stDate  = $"Начална дата: {startDate.ToString("dd-MM-yyyy")}";
             var subTot  = "0";
-            var salesRev = "0";
+            var salesRev = $"{this.GetNonRevisedSalesRevenue().Sum(r => r.RevenueAmount):F2}";
             this.InsertTextBoxValues(exp, rev, stDate, subTot, salesRev);
         }
 

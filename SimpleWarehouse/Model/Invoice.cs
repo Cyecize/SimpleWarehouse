@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace SimpleWarehouse.Model
 {
+    [DbTableNameReference(name: "invoices_users_joined")] //view
     public class Invoice
     {
         [DbNameReference(name: "id")]

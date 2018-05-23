@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace SimpleWarehouse.Model
 {
+    [DbTableNameReference(name: "search_types")]
     public class SearchParameter
     {
         [DbNameReference(name:"id")]

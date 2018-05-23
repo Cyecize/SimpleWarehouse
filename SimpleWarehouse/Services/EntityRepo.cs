@@ -107,6 +107,24 @@ namespace SimpleWarehouse.Service
             return  this.FindOneByQuery(query);          
         }
 
+        public T FindOneBy(string col, object value)
+        {
+            return this.FindOneBy(this.GetTableName(), col, value);
+        }
+
+        public List<T> FindBy(string tableName, string col, object value)
+        {
+            string query = $"SELECT * FROM {tableName} WHERE {col} = '{value.ToString()}'";
+            return this.FindManyByQuery(query);
+        }
+
+        public List<T> FindBy(string col, object value)
+        {
+            return this.FindBy(this.GetTableName(), col, value);
+        }
+
+      
+        //PRIVATE METHODS
         private T CreateInstance()
         {
             return (T)Activator.CreateInstance(this.EntityClass);
@@ -117,6 +135,13 @@ namespace SimpleWarehouse.Service
             return this.EntityClass.GetProperties().Where(p => p.GetCustomAttributes(annotationType, false).Length > 0).ToArray();
         }
 
+        private string GetTableName()
+        {
+            Attribute a = this.EntityClass.GetCustomAttribute(typeof(DbTableNameReference));
+            if (a == null)
+                throw new NotSupportedException("This entity does not have TableNameAttribute");
+            return a.ToString();
+        }
        
     }
 }

@@ -48,6 +48,11 @@ namespace SimpleWarehouse.Services.RevenueRelated
             return this.RevenueRepo.FindOneBy(REVENUE_TABLE_NAME_ONLY, "id", id);
         }
 
+        public RevenueStream FindOneByTransaction(int transactionId)
+        {
+            return this.RevenueRepo.FindOneByQuery($"SELECT * FROM {REVENUE_TABLE_NAME_ONLY} AS r INNER JOIN transactions_revenues AS tr ON tr.revenue_id = r.id WHERE transaction_id = {transactionId}");
+        }
+
         public List<RevenueStream> FindRevisedEntitiesByDate(DateTime startDate, DateTime endDate)
         {
             string query = $"{REVENUE_ARCHIVES_TABLE_NAME} AS r WHERE r.date >= '{startDate.ToString("yyyy-MM-dd")}' AND r.date <= '{endDate.ToString("yyyy-MM-dd")}' ORDER BY r.date ASC;";

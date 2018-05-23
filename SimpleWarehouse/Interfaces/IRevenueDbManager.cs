@@ -11,6 +11,8 @@ namespace SimpleWarehouse.Interfaces
     {
         List<RevenueStream> FindAllNonRevisedEntities();
 
+        RevenueStream FindOneByTransaction(int transactionId);
+
         List<RevenueStream> FindRevisedEntitiesByDate(DateTime startDate, DateTime endDate);
 
         RevenueStream FindOneById(int id);

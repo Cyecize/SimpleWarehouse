@@ -72,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App\ApplicationState.cs" />
+    <Compile Include="Attributes\DbTableNameReference.cs" />
     <Compile Include="Attributes\DbNameReference.cs" />
     <Compile Include="Constants\Config.cs" />
     <Compile Include="Constants\Messages.cs" />

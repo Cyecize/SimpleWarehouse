@@ -16,5 +16,11 @@ namespace SimpleWarehouse.Interfaces
 
         T FindOneBy(string tableName ,string col, object value);
 
+        T FindOneBy(string col, object value);
+
+        List<T> FindBy(string col, object value);
+
+        List<T> FindBy(string tableName, string col, object value);
+
     }
 }

@@ -43,6 +43,11 @@ namespace SimpleWarehouse.Services.RevenueRelated
             return this.RevenueRepo.FindManyByQuery($"{EXPENSE_TABLE_NAME} WHERE is_revised = 0 ORDER BY date ASC LIMIT 129");
         }
 
+        public RevenueStream FindOneByTransaction(int transactionId)
+        {
+            return this.RevenueRepo.FindOneByQuery($"SELECT * FROM {EXPENSE_TABLE_NAME_ONLY} AS e INNER JOIN transactions_expenses AS te ON te.expense_id = e.id WHERE transaction_id = {transactionId}"); 
+        }
+
         public RevenueStream FindOneById(int id)
         {
             return this.RevenueRepo.FindOneBy(EXPENSE_TABLE_NAME_ONLY, "id", id);

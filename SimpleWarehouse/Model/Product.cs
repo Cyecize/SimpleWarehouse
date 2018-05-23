@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace SimpleWarehouse.Model
 {
+    [DbTableNameReference(name: "prod_cat_joined")]
     public class Product
     {
         [DbNameReference(name: "id")]
@@ -33,8 +34,6 @@ namespace SimpleWarehouse.Model
 
         [DbNameReference(name: "is_visible")]
         public bool IsVisible { get; set; }
-
-       
 
     }
 }

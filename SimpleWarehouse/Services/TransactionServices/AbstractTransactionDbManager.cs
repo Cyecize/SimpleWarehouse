@@ -101,7 +101,7 @@ namespace SimpleWarehouse.Services.TransactionServices
 
         private List<Transaction> FindByRevisedStatus(bool isRevised)
         {
-            return this.TransactionRepository.FindManyByQuery($"SELECT * FROM {TRANSACTIONS_TABLE_NAME} WHERE is_revised = {isRevised.ToString().ToUpper()}");
+            return this.TransactionRepository.FindBy("is_revised", isRevised);
         }
 
     }
