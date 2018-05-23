@@ -76,6 +76,7 @@
     <Compile Include="Constants\Config.cs" />
     <Compile Include="Constants\Messages.cs" />
     <Compile Include="Constants\RevenueDataTableNames.cs" />
+    <Compile Include="Constants\RevisionDataGridViewColNames.cs" />
     <Compile Include="Constants\Roles.cs" />
     <Compile Include="Constants\TabPageNames.cs" />
     <Compile Include="Constants\TransactionDataTableNames.cs" />
@@ -135,6 +136,8 @@
     <Compile Include="Interfaces\IProductsRepositoryManager.cs" />
     <Compile Include="Interfaces\IProductViewManager.cs" />
     <Compile Include="Interfaces\IRevenueDbManager.cs" />
+    <Compile Include="Interfaces\IRevisionGridViewManager.cs" />
+    <Compile Include="Interfaces\IRevisionSection.cs" />
     <Compile Include="Interfaces\ISession.cs" />
     <Compile Include="Interfaces\ITransactionDbManager.cs" />
     <Compile Include="Interfaces\ITransactionGridViewManager.cs" />
@@ -190,6 +193,8 @@
     <Compile Include="Services\RevenueRelated\InvoiceViewManager.cs" />
     <Compile Include="Services\RevenueRelated\RevenueViewManager.cs" />
     <Compile Include="Services\RevenueRelated\RevenueDbManager.cs" />
+    <Compile Include="Services\RevisionRelated\RevisionGridViewManager.cs" />
+    <Compile Include="Services\RevisionRelated\RevisionSection.cs" />
     <Compile Include="Services\TransactionServices\AbstractTransactionSection.cs" />
     <Compile Include="Services\TransactionServices\AbstractTransactionDbManager.cs" />
     <Compile Include="Services\TransactionServices\DeliveryTransactionDbManager.cs" />
@@ -202,6 +207,7 @@
     <Compile Include="View\IAddCategoryView.cs" />
     <Compile Include="View\IHomeView.cs" />
     <Compile Include="View\ILoginView.cs" />
+    <Compile Include="View\IRevisionView.cs" />
     <Compile Include="View\ISearchProductView.cs" />
     <Compile Include="View\RevenueRelated\IRevenueView.cs" />
     <Compile Include="View\ISpecificProductView.cs" />

@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using SimpleWarehouse.Presenter.RevenueRelated;
 using SimpleWarehouse.Services.TransactionServices;
+using SimpleWarehouse.Services.RevisionRelated;
 
 namespace SimpleWarehouse.Presenter
 {
@@ -28,6 +29,7 @@ namespace SimpleWarehouse.Presenter
 
         public ITransactionSection DeliveriesSection { get; set; }
         public ITransactionSection SalesSection { get; set; }
+        public IRevisionSection RevisionSection { get; set; }
 
         public HomePresenter(IStateManager mangaer) : base(mangaer)
         {
@@ -167,8 +169,10 @@ namespace SimpleWarehouse.Presenter
                 this, this.Form.DeliveriesTab, this.Form.DeliveriesDataTable, new DeliveryTransactionDbManager(base.StateManager.SqlManager, base.StateManager.UserSession.SessionEntity));
             this.SalesSection = new SaleTransactionSection(
                 this, this.Form.SalesTab, this.Form.SalesDataTable, new SalesTransactionDbManager(base.StateManager.SqlManager, base.StateManager.UserSession.SessionEntity));
+            this.RevisionSection = new RevisionSection(this);
             this.DeliveriesSection.Initialize();
             this.SalesSection.Initialize();
+            this.RevisionSection.Initialize();
         }
     }
 }

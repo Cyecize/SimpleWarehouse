@@ -134,7 +134,7 @@ namespace SimpleWarehouse.Services.TransactionServices
                 var row = this.DataGrid.Rows[i];
                 object prodId = row.Cells[TransactionDataTableNames.PRODUCT_ID].Value;
                 if (prodId != null)
-                    res.Add((int)prodId); 
+                    res.Add((int)prodId);
             }
             return res;
         }
@@ -151,15 +151,16 @@ namespace SimpleWarehouse.Services.TransactionServices
         private void dataGridView1_DefaultValuesNeeded(object sender, System.Windows.Forms.DataGridViewRowEventArgs e)
         {
             this.COUNTER++;
-            e.Row.Cells[TransactionDataTableNames.TRANSACTION_NUMBER].Value = this.COUNTER;
             e.Row.Cells[TransactionDataTableNames.PRODUCT_QUANTITY].Value = 0;
+            var row = e.Row;
+            if (row.Cells[TransactionDataTableNames.TRANSACTION_NUMBER].Value == null)
+                e.Row.Cells[TransactionDataTableNames.TRANSACTION_NUMBER].Value = this.COUNTER;
         }
 
         private void grid_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             e.Cancel = true;
-            this.Form.Log("Error with data");
-            // MessageBox.Show(this, "Грешна информация: " + this.DataGrid[e.ColumnIndex, e.RowIndex].EditedFormattedValue, "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            this.Form.Log("Грешка на ред " + (e.RowIndex + 1));  
         }
 
         private void OnColumnValueChange(Object sender, DataGridViewCellEventArgs e)

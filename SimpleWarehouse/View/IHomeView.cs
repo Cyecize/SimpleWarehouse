@@ -1,4 +1,5 @@
-﻿using SimpleWarehouse.Model;
+﻿using SimpleWarehouse.Interfaces;
+using SimpleWarehouse.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,12 +9,14 @@ using System.Windows.Forms;
 
 namespace SimpleWarehouse.View
 {
-    public interface IHomeView : SimpleWarehouse.Interfaces.IView, ISearchProductView
+    public interface IHomeView : IView, ISearchProductView, IRevisionView
     {
 
         DataGridView DeliveriesDataTable { get; set; }
 
         DataGridView SalesDataTable { get; set; }
+
+        DataGridView RevisionDataTable { get; set; }
 
         TabPage SelectedTabPage { get; set; }
 
@@ -25,10 +28,11 @@ namespace SimpleWarehouse.View
 
         void EnableOrDisableMaterialBtn(string btnName, bool isEnabled);
 
-        string TabLabelText { get; set; }
-
         TextBox TotalDeliveryMoney { get; set; }
 
         TextBox TotalSaleMoney { get; set; }
+
+        string TabLabelText { get; set; }
+        
     }
 }

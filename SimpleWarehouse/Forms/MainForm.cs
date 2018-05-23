@@ -36,6 +36,14 @@ namespace SimpleWarehouse.Forms
         public TextBox TotalDeliveryMoney { get => this.DeliveriesTotalMoney; set => this.DeliveriesTotalMoney = value; }
         public TextBox TotalSaleMoney { get => this.SalesTotalMoney; set => this.SalesTotalMoney = value; }
 
+        //REVISION
+        public DataGridView RevisionDataTable { get => this.RevisionDataGridView; set => this.RevisionDataGridView = value; }
+        public string RevisionRevenue { get => this.RevisionRevenueTextBox.Text; set => this.RevisionRevenueTextBox.Text = value; }
+        public string RevisionExpenses { get => this.RevisionExpensesTextBox.Text; set => this.RevisionExpensesTextBox.Text = value; }
+        public string RevisionSalesRevenue { get => this.RevisionSalesRevenueTextBox.Text; set => this.RevisionSalesRevenueTextBox.Text = value; }
+        public string RevisionSubTotal { get => this.RevisionSubTotalTextBox.Text; set => this.RevisionSubTotalTextBox.Text = value; }
+        string IRevisionView.RevisionStartDate { get => this.RevisionStartDateLabel.Text; set => this.RevisionStartDateLabel.Text = value; }
+
         public MainForm(HomePresenter presenter)
         {
             InitializeComponent();
@@ -190,6 +198,21 @@ namespace SimpleWarehouse.Forms
         private void SaveSaleBtn_Click(object sender, EventArgs e)
         {
             this.Presenter.SalesSection.CreateTransactionAction();
+        }
+
+        private void LogLabel_Click(object sender, EventArgs e)
+        {
+            ((Label)sender).Text = "";
+        }
+
+        private void BeginRevisionBtn_Click(object sender, EventArgs e)
+        {
+            this.Presenter.RevisionSection.BeginRevision();
+        }
+
+        private void RevisionCancelBtn_Click(object sender, EventArgs e)
+        {
+            this.Presenter.RevisionSection.CancelOperation();
         }
     }
 }

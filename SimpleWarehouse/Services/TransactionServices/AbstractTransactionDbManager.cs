@@ -1,4 +1,5 @@
-﻿using SimpleWarehouse.Interfaces;
+﻿using SimpleWarehouse.Constants;
+using SimpleWarehouse.Interfaces;
 using SimpleWarehouse.IO;
 using SimpleWarehouse.Model;
 using SimpleWarehouse.Service;
@@ -14,6 +15,8 @@ namespace SimpleWarehouse.Services.TransactionServices
 {
     public abstract class AbstractTransactionDbManager : ITransactionDbManager
     {
+        private const string TRANSACTIONS_TABLE_NAME = "transactions";
+
         protected IUser LoggedUser { get; set; }
         protected IMySqlManager SqlManager { get; set; }
         protected IRevenueStreamDbManager RevenueManager { get; set; }
@@ -50,7 +53,33 @@ namespace SimpleWarehouse.Services.TransactionServices
             this.UpdateProductsQuantities(products, false);
         }
 
-        public void RollBack()
+        public Transaction FindOneById(int id)
+        {
+            return this.TransactionRepository.FindOneBy(TRANSACTIONS_TABLE_NAME, "id", id);
+        }
+
+        public List<Transaction> FindAllRevised()
+        {
+            return this.FindByRevisedStatus(true);
+        }
+
+        public List<Transaction> FindAllNonRevised()
+        {
+            return this.FindByRevisedStatus(false);
+        }
+
+        public List<Transaction> FindByType(TransactionTypes transactionType)
+        {
+            Console.WriteLine(transactionType.ToString());
+            throw new NotImplementedException();
+        }
+
+        public void RollBack(int transactionId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RollBack(Transaction transaction)
         {
             throw new NotImplementedException();
         }
@@ -68,6 +97,11 @@ namespace SimpleWarehouse.Services.TransactionServices
                 string query = $"INSERT INTO products_transactions VALUES({p.ProductId}, {transaction.Id}, {p.ProductQuantity})";
                 this.SqlManager.ExecuteQuery(query);
             }
+        }
+
+        private List<Transaction> FindByRevisedStatus(bool isRevised)
+        {
+            return this.TransactionRepository.FindManyByQuery($"SELECT * FROM {TRANSACTIONS_TABLE_NAME} WHERE is_revised = {isRevised.ToString().ToUpper()}");
         }
 
     }
