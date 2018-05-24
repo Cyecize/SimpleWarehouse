@@ -43,6 +43,7 @@ namespace SimpleWarehouse.Forms
         public string RevisionSalesRevenue { get => this.RevisionSalesRevenueTextBox.Text; set => this.RevisionSalesRevenueTextBox.Text = value; }
         public string RevisionSubTotal { get => this.RevisionSubTotalTextBox.Text; set => this.RevisionSubTotalTextBox.Text = value; }
         string IRevisionView.RevisionStartDate { get => this.RevisionStartDateLabel.Text; set => this.RevisionStartDateLabel.Text = value; }
+        public string RevisonSubTotalPlusSalesRevenue { get => this.RevisionSalesPlusRevisionTotalTextBox.Text; set => this.RevisionSalesPlusRevisionTotalTextBox.Text = value; }
 
         public MainForm(HomePresenter presenter)
         {
@@ -228,6 +229,16 @@ namespace SimpleWarehouse.Forms
         private void SalesRefreshBtn_Click(object sender, EventArgs e)
         {
             this.Presenter.SalesSection.RefreshGridAction();
+        }
+
+        private void RevisionTab_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RevisionSaveBtn_Click(object sender, EventArgs e)
+        {
+            this.Presenter.RevisionSection.CommitRevisionAction();
         }
     }
 }

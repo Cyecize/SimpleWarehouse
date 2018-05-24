@@ -83,6 +83,12 @@
     <Compile Include="Constants\TransactionDataTableNames.cs" />
     <Compile Include="Constants\TransactionTypes.cs" />
     <Compile Include="Factory\FormFactory.cs" />
+    <Compile Include="Forms\ConfirmActionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ConfirmActionForm.Designer.cs">
+      <DependentUpon>ConfirmActionForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\RevenueForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -149,7 +155,9 @@
     <Compile Include="Model\Invoice.cs" />
     <Compile Include="Model\ProductTransaction.cs" />
     <Compile Include="Model\Revenue.cs" />
+    <Compile Include="Model\Revision.cs" />
     <Compile Include="Model\Transaction.cs" />
+    <Compile Include="Presenter\ConfirmActionPresenter.cs" />
     <Compile Include="Presenter\RevenueRelated\ExpensesPresenter.cs" />
     <Compile Include="Presenter\RevenueRelated\InvoicesPresenter.cs" />
     <Compile Include="Presenter\RevenueRelated\IRevenuePresenter.cs" />
@@ -205,6 +213,7 @@
     <Compile Include="Services\TransactionServices\TransactionGridViewManager.cs" />
     <Compile Include="States\StateManager.cs" />
     <Compile Include="Interfaces\IView.cs" />
+    <Compile Include="View\ConfirmActionView.cs" />
     <Compile Include="View\IAddCategoryView.cs" />
     <Compile Include="View\IHomeView.cs" />
     <Compile Include="View\ILoginView.cs" />
@@ -212,6 +221,9 @@
     <Compile Include="View\ISearchProductView.cs" />
     <Compile Include="View\RevenueRelated\IRevenueView.cs" />
     <Compile Include="View\ISpecificProductView.cs" />
+    <EmbeddedResource Include="Forms\ConfirmActionForm.resx">
+      <DependentUpon>ConfirmActionForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\RevenueForm.resx">
       <DependentUpon>RevenueForm.cs</DependentUpon>
     </EmbeddedResource>

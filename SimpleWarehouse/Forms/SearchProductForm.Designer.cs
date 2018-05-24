@@ -211,11 +211,11 @@
         private MaterialSkin.Controls.MaterialFlatButton GoBackBtn;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProductId;
         private System.Windows.Forms.DataGridViewTextBoxColumn Category;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ProductName;
+        private new System.Windows.Forms.DataGridViewTextBoxColumn ProductName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Quantity;
         private System.Windows.Forms.DataGridViewTextBoxColumn ImportPrice;
         private System.Windows.Forms.DataGridViewTextBoxColumn SellPrice;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Visible;
+        private new System.Windows.Forms.DataGridViewTextBoxColumn Visible;
         private MaterialSkin.Controls.MaterialFlatButton SelectProductBtn;
         private System.Windows.Forms.Label LogLabel;
         private System.Windows.Forms.ComboBox SearchType;

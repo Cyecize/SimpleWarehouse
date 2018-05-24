@@ -65,6 +65,8 @@ namespace SimpleWarehouse.Forms
             this.SalesCancelBtn = new System.Windows.Forms.Button();
             this.SalesDataGridView = new System.Windows.Forms.DataGridView();
             this.RevisionTab = new System.Windows.Forms.TabPage();
+            this.RevisionSalesPlusRevisionTotalTextBox = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.RevisionCancelBtn = new System.Windows.Forms.Button();
             this.RevisionSaveBtn = new System.Windows.Forms.Button();
             this.RevisionRefreshBtn = new System.Windows.Forms.Button();
@@ -507,6 +509,8 @@ namespace SimpleWarehouse.Forms
             // 
             // RevisionTab
             // 
+            this.RevisionTab.Controls.Add(this.RevisionSalesPlusRevisionTotalTextBox);
+            this.RevisionTab.Controls.Add(this.label8);
             this.RevisionTab.Controls.Add(this.RevisionCancelBtn);
             this.RevisionTab.Controls.Add(this.RevisionSaveBtn);
             this.RevisionTab.Controls.Add(this.RevisionRefreshBtn);
@@ -528,6 +532,29 @@ namespace SimpleWarehouse.Forms
             this.RevisionTab.TabIndex = 3;
             this.RevisionTab.Text = "Ревизия";
             this.RevisionTab.UseVisualStyleBackColor = true;
+            this.RevisionTab.Click += new System.EventHandler(this.RevisionTab_Click);
+            // 
+            // RevisionSalesPlusRevisionTotalTextBox
+            // 
+            this.RevisionSalesPlusRevisionTotalTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.RevisionSalesPlusRevisionTotalTextBox.Location = new System.Drawing.Point(388, 367);
+            this.RevisionSalesPlusRevisionTotalTextBox.Multiline = true;
+            this.RevisionSalesPlusRevisionTotalTextBox.Name = "RevisionSalesPlusRevisionTotalTextBox";
+            this.RevisionSalesPlusRevisionTotalTextBox.ReadOnly = true;
+            this.RevisionSalesPlusRevisionTotalTextBox.Size = new System.Drawing.Size(81, 17);
+            this.RevisionSalesPlusRevisionTotalTextBox.TabIndex = 39;
+            // 
+            // label8
+            // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Segoe MDL2 Assets", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(322, 367);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(59, 16);
+            this.label8.TabIndex = 38;
+            this.label8.Text = "Р+Прод.:";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // RevisionCancelBtn
             // 
@@ -549,6 +576,7 @@ namespace SimpleWarehouse.Forms
             this.RevisionSaveBtn.TabIndex = 36;
             this.RevisionSaveBtn.Text = "Запази";
             this.RevisionSaveBtn.UseVisualStyleBackColor = true;
+            this.RevisionSaveBtn.Click += new System.EventHandler(this.RevisionSaveBtn_Click);
             // 
             // RevisionRefreshBtn
             // 
@@ -811,11 +839,11 @@ namespace SimpleWarehouse.Forms
         private System.Windows.Forms.TextBox SearchBox;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProductId;
         private System.Windows.Forms.DataGridViewTextBoxColumn Category;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ProductName;
+        private new System.Windows.Forms.DataGridViewTextBoxColumn ProductName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Quantity;
         private System.Windows.Forms.DataGridViewTextBoxColumn ImportPrice;
         private System.Windows.Forms.DataGridViewTextBoxColumn SellPrice;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Visible;
+        private new System.Windows.Forms.DataGridViewTextBoxColumn Visible;
         private System.Windows.Forms.ComboBox SearchType;
         private MaterialRaisedButton AddCategoryBtn;
         private MaterialFlatButton InvoicesBtn;
@@ -849,6 +877,8 @@ namespace SimpleWarehouse.Forms
         private System.Windows.Forms.Button RevisionRefreshBtn;
         private System.Windows.Forms.Label RevisionStartDateLabel;
         private System.Windows.Forms.Button RevisionCancelBtn;
+        private System.Windows.Forms.TextBox RevisionSalesPlusRevisionTotalTextBox;
+        private System.Windows.Forms.Label label8;
     }
 }
 

@@ -14,7 +14,7 @@ namespace SimpleWarehouse.Services.RevenueRelated
     {
         private const string EXPENSE_TABLE_NAME = "SELECT * FROM expenses_users_joined ";
         private const string EXPENSE_TABLE_NAME_ONLY = "expenses_users_joined ";
-        private const string EXPENSE_ARCHIVES_TABLE_NAME = "SELECT * FROM expense_archives_users_joined ";
+
         private IMySqlManager SqlManager;
         private IEntityRepository<RevenueStream> RevenueRepo;
 
@@ -26,10 +26,8 @@ namespace SimpleWarehouse.Services.RevenueRelated
 
         public void ArchiveEntities()
         {
-            string query = "INSERT INTO expense_archives (user_id, revenue_amount, date, is_revised) SELECT r.user_id, r.revenue_amount, r.date, TRUE FROM expenses AS r;";
-            //string query2 = "DELETE FROM expenses;";
+            string query = "UPDATE expenses SET is_revised = 1 WHERE is_revised = 0";
             this.SqlManager.ExecuteQuery(query);
-            //this.SqlManager.ExecuteQuery(query2); TODO delete only ones who are not participants in transaction_expense
         }
 
         public long CreateEntity(RevenueStream revenue)
@@ -55,7 +53,7 @@ namespace SimpleWarehouse.Services.RevenueRelated
 
         public List<RevenueStream> FindRevisedEntitiesByDate(DateTime startDate, DateTime endDate)
         {
-            string query = $"{EXPENSE_ARCHIVES_TABLE_NAME} AS r WHERE r.date >= '{startDate.ToString("yyyy-MM-dd")}' AND r.date <= '{endDate.ToString("yyyy-MM-dd")}' ORDER BY r.date ASC;";
+            string query = $"{EXPENSE_TABLE_NAME} AS r WHERE r.date >= '{startDate.ToString("yyyy-MM-dd")}' AND r.date <= '{endDate.ToString("yyyy-MM-dd")}' AND is_revised = 1 ORDER BY r.date ASC;";
             return this.RevenueRepo.FindManyByQuery(query);
         }
     }

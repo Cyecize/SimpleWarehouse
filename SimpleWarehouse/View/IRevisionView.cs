@@ -17,5 +17,7 @@ namespace SimpleWarehouse.View
         string RevisionSubTotal { get; set; }
 
         string RevisionStartDate { get; set; }
+
+        string RevisonSubTotalPlusSalesRevenue { get; set; }
     }
 }

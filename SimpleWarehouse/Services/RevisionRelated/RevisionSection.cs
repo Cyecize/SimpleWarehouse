@@ -22,6 +22,9 @@ namespace SimpleWarehouse.Services.RevisionRelated
         private IHomeView Form { get; set; }
         private IMySqlManager SqlManager { get; set; }
         private ISession<IUser> LoggedUserSession { get; set; }
+        private IStateManager StateManager { get; set; }
+
+        private double SalesRevenue { get; set; }
 
         public IRevisionGridViewManager GridViewManager { get; set; }
         public IProductsRepositoryManager ProductsRepository { get; set; }
@@ -35,6 +38,7 @@ namespace SimpleWarehouse.Services.RevisionRelated
             this.Form = presenter.Form;
             this.SqlManager = presenter.GetStateManager().SqlManager;
             this.LoggedUserSession = presenter.GetStateManager().UserSession;
+            this.StateManager = presenter.GetStateManager();
 
             this.GridViewManager = new RevisionGridViewManager(presenter.Form.RevisionDataTable, this.Form, this);
             this.ProductsRepository = new ProductRepositoryManager(this.SqlManager);
@@ -42,7 +46,7 @@ namespace SimpleWarehouse.Services.RevisionRelated
             this.SaleTransactioDbManager = new SalesTransactionDbManager(this.SqlManager, this.LoggedUserSession.SessionEntity);
             this.RevenueStreamDbManager = new RevenueDbManager(this.SqlManager);
             this.ExpenseStreamDbManager = new ExpensesDbManager(this.SqlManager);
-
+            this.SalesRevenue = 0.0;
         }
 
         public void CancelOperation()
@@ -53,7 +57,11 @@ namespace SimpleWarehouse.Services.RevisionRelated
 
         public void CommitRevisionAction()
         {
-            throw new NotImplementedException();
+            if (!this.VerifyUserRole())
+                return;
+            Revision revision = new Revision();
+            string confirmText = $"{revision.ToString()}\r\nТова ще редактира всички продукти и ще премести сегашните приходи и разходи в архива.";
+            this.StateManager.Push(new ConfirmActionPresenter(this.StateManager, this.OnRevisionConfirm, confirmText));
         }
 
         public void Initialize()
@@ -66,7 +74,7 @@ namespace SimpleWarehouse.Services.RevisionRelated
         {
             if (!this.VerifyUserRole())
                 return;
-            
+
             this.FillRevenueStreamInfo(); //updates the revenues and expenses just in case
             this.RefreshSubTotalAction();
         }
@@ -87,7 +95,7 @@ namespace SimpleWarehouse.Services.RevisionRelated
                 {
                     this.GridViewManager.DataGrid.Rows[rowId].Cells[RevisionDataGridViewColNames.SUB_TOTAL].Value = null;
                 }
-               this.RefreshSubTotalAction();
+                this.RefreshSubTotalAction();
             }
             catch (Exception) { }
         }
@@ -127,6 +135,7 @@ namespace SimpleWarehouse.Services.RevisionRelated
             }
             this.GridViewManager.DataGrid.EndEdit();
             this.Form.RevisionSubTotal = $"{total:F2}";
+            this.Form.RevisonSubTotalPlusSalesRevenue = $"{(total + this.SalesRevenue):F2}";
         }
 
         private List<RevenueStream> GetNonRevisedSalesRevenue()
@@ -160,7 +169,8 @@ namespace SimpleWarehouse.Services.RevisionRelated
             var rev = $"{revenuesTotal:F2}";
             var stDate = $"Начална дата: {startDate.ToString("dd-MM-yyyy")}";
             var subTot = "0";
-            var salesRev = $"{this.GetNonRevisedSalesRevenue().Sum(r => r.RevenueAmount):F2}";
+            this.SalesRevenue = this.GetNonRevisedSalesRevenue().Sum(r => r.RevenueAmount);
+            var salesRev = $"{this.SalesRevenue:F2}";
             this.InsertTextBoxValues(exp, rev, stDate, subTot, salesRev);
         }
 
@@ -176,6 +186,13 @@ namespace SimpleWarehouse.Services.RevisionRelated
             this.Form.RevisionStartDate = startDate;
             this.Form.RevisionSubTotal = subTotal;
             this.Form.RevisionSalesRevenue = salesRevenue;
+            this.Form.RevisonSubTotalPlusSalesRevenue = this.SalesRevenue.ToString();
+        }
+
+        //events
+        private void OnRevisionConfirm(bool isConfirmed)
+        {
+            Console.WriteLine(isConfirmed);
         }
     }
 }
