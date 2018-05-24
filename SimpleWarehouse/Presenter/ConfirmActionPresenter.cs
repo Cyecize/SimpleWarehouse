@@ -28,6 +28,7 @@ namespace SimpleWarehouse.Presenter
             this.Form.ConfirmTextContent = confirmText;
             this.CallBack = callBack;
             this.IsConfirmPerformed = false;
+            this.Form.Text = "Потвърждаване";
         }
 
         public void ConfirmAction()

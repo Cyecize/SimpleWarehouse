@@ -23,8 +23,13 @@ namespace SimpleWarehouse.Services.RevisionRelated
         private IMySqlManager SqlManager { get; set; }
         private ISession<IUser> LoggedUserSession { get; set; }
         private IStateManager StateManager { get; set; }
+        private IRevisionDbManager RevisionDbManager { get; set; }
 
         private double SalesRevenue { get; set; }
+        private DateTime StartDate { get; set; }
+        private bool IsRevisionStarted { get; set; }
+        private Revision Revision { get; set; }
+        private List<RevisionProduct> RevisionProducts { get; set; }
 
         public IRevisionGridViewManager GridViewManager { get; set; }
         public IProductsRepositoryManager ProductsRepository { get; set; }
@@ -39,6 +44,7 @@ namespace SimpleWarehouse.Services.RevisionRelated
             this.SqlManager = presenter.GetStateManager().SqlManager;
             this.LoggedUserSession = presenter.GetStateManager().UserSession;
             this.StateManager = presenter.GetStateManager();
+            this.RevisionDbManager = new RevisionDbManager(this.SqlManager);
 
             this.GridViewManager = new RevisionGridViewManager(presenter.Form.RevisionDataTable, this.Form, this);
             this.ProductsRepository = new ProductRepositoryManager(this.SqlManager);
@@ -47,20 +53,31 @@ namespace SimpleWarehouse.Services.RevisionRelated
             this.RevenueStreamDbManager = new RevenueDbManager(this.SqlManager);
             this.ExpenseStreamDbManager = new ExpensesDbManager(this.SqlManager);
             this.SalesRevenue = 0.0;
+            this.IsRevisionStarted = false;
         }
 
         public void CancelOperation()
         {
+            this.SalesRevenue = 0.0;
             this.ClearTextBoxValues();
             this.GridViewManager.ClearRows();
+            this.IsRevisionStarted = false;
+            this.Revision = null;
+            this.RevisionProducts = null;
         }
 
         public void CommitRevisionAction()
         {
             if (!this.VerifyUserRole())
                 return;
-            Revision revision = new Revision();
-            string confirmText = $"{revision.ToString()}\r\nТова ще редактира всички продукти и ще премести сегашните приходи и разходи в архива.";
+            if (!this.IsRevisionStarted)
+            {
+                this.Form.Log("Моля стартирайте ревизията първо!");
+                return;
+            }
+            this.Revision =  this.ForgeRevision();
+            this.RevisionProducts = this.ForgeRevisionProducts();
+            string confirmText = $"{this.Revision.ToString()}\r\nТова ще редактира {this.RevisionProducts.Count} продуктa и ще премести сегашните приходи и разходи в архива.";
             this.StateManager.Push(new ConfirmActionPresenter(this.StateManager, this.OnRevisionConfirm, confirmText));
         }
 
@@ -107,53 +124,22 @@ namespace SimpleWarehouse.Services.RevisionRelated
             this.GridViewManager.ClearRows();
             this.GridViewManager.InsertProducts(this.ProductsRepository.FindAll().Where(p => p.IsVisible).ToList());
             this.FillRevenueStreamInfo();
+            this.IsRevisionStarted = true;
         }
 
         //PRIVATE METHODS
-        private bool VerifyUserRole()
-        {
-            if (!Roles.IsRequredRoleMet(this.LoggedUserSession.SessionEntity.Role, Config.USER_TYPICAL_ROLE))
-            {
-                this.Form.Log("Нямате права за тази операция!");
-                return false;
-            }
-            return true;
-        }
-
         private void RefreshSubTotalAction()
         {
-            double total = 0.0;
-            for (int i = 0; i < this.GridViewManager.DataGrid.Rows.Count; i++)
-            {
-                //this.UpdateTotalPriceAction(i);
-                var row = this.GridViewManager.DataGrid.Rows[i];
-                try
-                {
-                    total += double.Parse(row.Cells[RevisionDataGridViewColNames.SUB_TOTAL].Value.ToString());
-                }
-                catch (Exception) { }
-            }
+            double total = this.GetRevisionSubTotal();
             this.GridViewManager.DataGrid.EndEdit();
             this.Form.RevisionSubTotal = $"{total:F2}";
             this.Form.RevisonSubTotalPlusSalesRevenue = $"{(total + this.SalesRevenue):F2}";
         }
 
-        private List<RevenueStream> GetNonRevisedSalesRevenue()
-        {
-            List<Transaction> transactions = this.SaleTransactioDbManager.FindAllNonRevised()
-                .Where(tr => tr.TransactionType == TransactionTypes.Sale.ToString()).ToList();
-            List<RevenueStream> revenues = new List<RevenueStream>();
-            foreach (var tr in transactions)
-            {
-                revenues.Add(this.RevenueStreamDbManager.FindOneByTransaction(tr.Id));
-            }
-            return revenues;
-        }
-
         private void FillRevenueStreamInfo()
         {
-            List<RevenueStream> expenses = this.ExpenseStreamDbManager.FindAllNonRevisedEntities();
-            List<RevenueStream> revenues = this.RevenueStreamDbManager.FindAllNonRevisedEntities();
+            List<RevenueStream> expenses = this.GetRevenueStream(TransactionTypes.Delivery);
+            List<RevenueStream> revenues = this.GetRevenueStream(TransactionTypes.Sale);
             double expensesTotal = expenses.Sum(e => e.RevenueAmount);
             double revenuesTotal = revenues.Sum(e => e.RevenueAmount);
             List<RevenueStream> merged = new List<RevenueStream>();
@@ -164,6 +150,7 @@ namespace SimpleWarehouse.Services.RevisionRelated
             if (oldestRevenueStream != null)
                 startDate = oldestRevenueStream.Date;
 
+            this.StartDate = startDate;
             //inserting the data
             var exp = $"{expensesTotal:F2}";
             var rev = $"{revenuesTotal:F2}";
@@ -189,10 +176,119 @@ namespace SimpleWarehouse.Services.RevisionRelated
             this.Form.RevisonSubTotalPlusSalesRevenue = this.SalesRevenue.ToString();
         }
 
+        private bool VerifyUserRole()
+        {
+            if (!Roles.IsRequredRoleMet(this.LoggedUserSession.SessionEntity.Role, Config.USER_TYPICAL_ROLE))
+            {
+                this.Form.Log("Нямате права за тази операция!");
+                return false;
+            }
+            return true;
+        }
+
+        private double GetRevisionSubTotal()
+        {
+            double total = 0.0;
+            for (int i = 0; i < this.GridViewManager.DataGrid.Rows.Count; i++)
+            {
+                var row = this.GridViewManager.DataGrid.Rows[i];
+                try
+                {
+                    total += double.Parse(row.Cells[RevisionDataGridViewColNames.SUB_TOTAL].Value.ToString());
+                }
+                catch (Exception) { }
+            }
+            return total;
+        }
+
+        private Revision ForgeRevision()
+        {
+            Revision revision = new Revision
+            {
+                StartDate = this.StartDate,
+                Revenue = this.GetRevenueStream(TransactionTypes.Sale).Sum(r => r.RevenueAmount),
+                Expenses = this.GetRevenueStream(TransactionTypes.Delivery).Sum(e => e.RevenueAmount),
+                ActualRevenue = this.GetRevisionSubTotal() + this.SalesRevenue,
+            };
+            return revision;
+        }
+
+        private List<RevisionProduct> ForgeRevisionProducts()
+        {
+            List<RevisionProduct> revisionProducts = new List<RevisionProduct>();
+            foreach (DataGridViewRow row in this.GridViewManager.DataGrid.Rows)
+            {
+                try
+                {
+                    int productId = (int)row.Cells[RevisionDataGridViewColNames.PRODUCT_ID].Value;
+                    double actualQuantity = double.Parse(row.Cells[RevisionDataGridViewColNames.ACTUAL_QUANTITY].Value.ToString());
+                    if (actualQuantity < 0)
+                        continue;
+                    Product product = this.ProductsRepository.FindProductById(productId);
+                    RevisionProduct revisionProduct = new RevisionProduct
+                    {
+                        Id = product.Id,
+                        AvailableQuantity = product.Quantity,
+                        Quantity = actualQuantity,
+                        SellPrice = product.SellPrice,
+                    };
+
+                    revisionProducts.Add(revisionProduct);
+                }
+                catch (Exception) { }
+            }
+            return revisionProducts;
+        }
+
+        private List<RevenueStream> GetRevenueStream(TransactionTypes transactionType)
+        {
+            switch (transactionType)
+            {
+                case TransactionTypes.Delivery:
+                    return this.ExpenseStreamDbManager.FindAllNonRevisedEntities();
+                case TransactionTypes.Sale:
+                    return this.RevenueStreamDbManager.FindAllNonRevisedEntities();
+                default:
+                    return new List<RevenueStream>();
+            }
+        }       
+
+        private List<RevenueStream> GetNonRevisedSalesRevenue()
+        {
+            List<Transaction> transactions = this.SaleTransactioDbManager.FindAllNonRevised()
+                .Where(tr => tr.TransactionType == TransactionTypes.Sale.ToString()).ToList();
+            List<RevenueStream> revenues = new List<RevenueStream>();
+            foreach (var tr in transactions)
+            {
+                revenues.Add(this.RevenueStreamDbManager.FindOneByTransaction(tr.Id));
+            }
+            return revenues;
+        }
+
+        //FINALIZE REVISION AFTER COMMIT
+        private void FinalizeRevisionAction()
+        {
+            this.RevisionDbManager.CreateRevision(this.Revision);
+            this.SaleTransactioDbManager.ArchiveTransactions(); //same for deliveries
+            this.RevenueStreamDbManager.ArchiveEntities();
+            this.ExpenseStreamDbManager.ArchiveEntities();
+
+            foreach (var revProd in this.RevisionProducts)
+            {
+                var product = this.ProductsRepository.FindProductById(revProd.Id);
+                product.Quantity = revProd.Quantity;
+                this.ProductsRepository.UpdateProduct(product, false);
+            }
+
+            this.CancelOperation();
+            this.Form.Log("усшешна ревизия!");
+        }
+
         //events
         private void OnRevisionConfirm(bool isConfirmed)
         {
-            Console.WriteLine(isConfirmed);
+            if (isConfirmed)
+                this.FinalizeRevisionAction();
         }
     }
 }

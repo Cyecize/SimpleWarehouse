@@ -23,5 +23,7 @@ namespace SimpleWarehouse.Interfaces
         void RollBack(int transactionId);
 
         void RollBack(Transaction transaction);
+
+        void ArchiveTransactions();
     }
 }

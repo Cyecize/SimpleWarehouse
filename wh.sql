@@ -42,51 +42,6 @@ INSERT INTO `authentications` VALUES (1,'e3afed0047b08059d0fada10f400c1e5'),(2,'
 UNLOCK TABLES;
 
 --
--- Table structure for table `expense_archives`
---
-
-DROP TABLE IF EXISTS `expense_archives`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `expense_archives` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `revenue_amount` double NOT NULL DEFAULT '0',
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `is_revised` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `fk_expense_archives_users` (`user_id`),
-  CONSTRAINT `fk_expense_archives_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `expense_archives`
---
-
-LOCK TABLES `expense_archives` WRITE;
-/*!40000 ALTER TABLE `expense_archives` DISABLE KEYS */;
-/*!40000 ALTER TABLE `expense_archives` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Temporary view structure for view `expense_archives_users_joined`
---
-
-DROP TABLE IF EXISTS `expense_archives_users_joined`;
-/*!50001 DROP VIEW IF EXISTS `expense_archives_users_joined`*/;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-/*!50001 CREATE VIEW `expense_archives_users_joined` AS SELECT 
- 1 AS `id`,
- 1 AS `user_id`,
- 1 AS `revenue_amount`,
- 1 AS `date`,
- 1 AS `is_revised`,
- 1 AS `username`*/;
-SET character_set_client = @saved_cs_client;
-
---
 -- Table structure for table `expenses`
 --
 
@@ -102,7 +57,7 @@ CREATE TABLE `expenses` (
   PRIMARY KEY (`id`),
   KEY `fk_expenses_users` (`user_id`),
   CONSTRAINT `fk_expenses_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -245,7 +200,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (18,3,'Coca Cola',7,0.8,1.2,1),(19,3,'Kopren Cola',6,0.3,0.5,1),(20,4,'Vafla Kredo',8,0.03,0.1,1),(21,4,'Sandvich sus Shunka',23,0.3,1,1),(22,4,'Sandvich s Riba Ton',5,0.5,1.1,1),(23,7,'King',0,4.7,5,1),(24,7,'Melnik',25,4.4,4.8,1),(25,4,'Говна с леб',0,10,20,0);
+INSERT INTO `products` VALUES (18,3,'Coca Cola',1,0.8,1.2,1),(19,3,'Kopren Cola',1,0.3,0.5,1),(20,4,'Vafla Kredo',1,0.03,0.1,1),(21,4,'Sandvich sus Shunka',0,0.3,1,1),(22,4,'Sandvich s Riba Ton',0,0.5,1.1,1),(23,7,'King',1,4.7,5,1),(24,7,'Melnik',1,4.4,4.8,1),(25,4,'Чушки с дръжки',0,10,20,0);
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -277,51 +232,6 @@ LOCK TABLES `products_transactions` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `revenue_archives`
---
-
-DROP TABLE IF EXISTS `revenue_archives`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `revenue_archives` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `revenue_amount` double NOT NULL DEFAULT '0',
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `is_revised` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `fk_revenue_archives_users` (`user_id`),
-  CONSTRAINT `fk_revenue_archives_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=136 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `revenue_archives`
---
-
-LOCK TABLES `revenue_archives` WRITE;
-/*!40000 ALTER TABLE `revenue_archives` DISABLE KEYS */;
-/*!40000 ALTER TABLE `revenue_archives` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Temporary view structure for view `revenue_archives_users_joined`
---
-
-DROP TABLE IF EXISTS `revenue_archives_users_joined`;
-/*!50001 DROP VIEW IF EXISTS `revenue_archives_users_joined`*/;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-/*!50001 CREATE VIEW `revenue_archives_users_joined` AS SELECT 
- 1 AS `id`,
- 1 AS `user_id`,
- 1 AS `revenue_amount`,
- 1 AS `date`,
- 1 AS `is_revised`,
- 1 AS `username`*/;
-SET character_set_client = @saved_cs_client;
-
---
 -- Table structure for table `revenues`
 --
 
@@ -337,7 +247,7 @@ CREATE TABLE `revenues` (
   PRIMARY KEY (`id`),
   KEY `fk_revenues_users` (`user_id`),
   CONSTRAINT `fk_revenues_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -365,6 +275,33 @@ SET character_set_client = utf8;
  1 AS `is_revised`,
  1 AS `username`*/;
 SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `revisions`
+--
+
+DROP TABLE IF EXISTS `revisions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `revisions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `expenses` double NOT NULL,
+  `revenue` double NOT NULL,
+  `actual_revenue` double NOT NULL,
+  `start_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `revision_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `revisions`
+--
+
+LOCK TABLES `revisions` WRITE;
+/*!40000 ALTER TABLE `revisions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `revisions` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `search_types`
@@ -404,7 +341,7 @@ CREATE TABLE `transactions` (
   `transaction_type` varchar(10) NOT NULL,
   `is_revised` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -561,24 +498,6 @@ UNLOCK TABLES;
 --
 
 --
--- Final view structure for view `expense_archives_users_joined`
---
-
-/*!50001 DROP VIEW IF EXISTS `expense_archives_users_joined`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8 */;
-/*!50001 SET character_set_results     = utf8 */;
-/*!50001 SET collation_connection      = utf8_general_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `expense_archives_users_joined` AS select `e`.`id` AS `id`,`e`.`user_id` AS `user_id`,`e`.`revenue_amount` AS `revenue_amount`,`e`.`date` AS `date`,`e`.`is_revised` AS `is_revised`,`u`.`username` AS `username` from (`expense_archives` `e` join `users` `u` on((`u`.`id` = `e`.`user_id`))) */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
-
---
 -- Final view structure for view `expenses_users_joined`
 --
 
@@ -633,24 +552,6 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
--- Final view structure for view `revenue_archives_users_joined`
---
-
-/*!50001 DROP VIEW IF EXISTS `revenue_archives_users_joined`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8 */;
-/*!50001 SET character_set_results     = utf8 */;
-/*!50001 SET collation_connection      = utf8_general_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `revenue_archives_users_joined` AS select `r`.`id` AS `id`,`r`.`user_id` AS `user_id`,`r`.`revenue_amount` AS `revenue_amount`,`r`.`date` AS `date`,`r`.`is_revised` AS `is_revised`,`u`.`username` AS `username` from (`revenue_archives` `r` join `users` `u` on((`u`.`id` = `r`.`user_id`))) */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
-
---
 -- Final view structure for view `revenues_users_joined`
 --
 
@@ -695,4 +596,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-22 14:07:30
+-- Dump completed on 2018-05-24 22:56:19

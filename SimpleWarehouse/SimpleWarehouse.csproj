@@ -143,6 +143,7 @@
     <Compile Include="Interfaces\IProductsRepositoryManager.cs" />
     <Compile Include="Interfaces\IProductViewManager.cs" />
     <Compile Include="Interfaces\IRevenueDbManager.cs" />
+    <Compile Include="Interfaces\IRevisionDbManager.cs" />
     <Compile Include="Interfaces\IRevisionGridViewManager.cs" />
     <Compile Include="Interfaces\IRevisionSection.cs" />
     <Compile Include="Interfaces\ISession.cs" />
@@ -156,6 +157,7 @@
     <Compile Include="Model\ProductTransaction.cs" />
     <Compile Include="Model\Revenue.cs" />
     <Compile Include="Model\Revision.cs" />
+    <Compile Include="Model\RevisionProduct.cs" />
     <Compile Include="Model\Transaction.cs" />
     <Compile Include="Presenter\ConfirmActionPresenter.cs" />
     <Compile Include="Presenter\RevenueRelated\ExpensesPresenter.cs" />
@@ -202,6 +204,7 @@
     <Compile Include="Services\RevenueRelated\InvoiceViewManager.cs" />
     <Compile Include="Services\RevenueRelated\RevenueViewManager.cs" />
     <Compile Include="Services\RevenueRelated\RevenueDbManager.cs" />
+    <Compile Include="Services\RevisionRelated\RevisionDbManager.cs" />
     <Compile Include="Services\RevisionRelated\RevisionGridViewManager.cs" />
     <Compile Include="Services\RevisionRelated\RevisionSection.cs" />
     <Compile Include="Services\TransactionServices\AbstractTransactionSection.cs" />

@@ -7,22 +7,25 @@ using System.Threading.Tasks;
 
 namespace SimpleWarehouse.Model
 {
-    [DbTableNameReference(name:"revisions")]
+    [DbTableNameReference(name: "revisions")]
     public class Revision
     {
-        [DbNameReference(name:"id")]
+        [DbNameReference(name: "id")]
         public int Id { get; set; }
 
-        [DbNameReference(name:("expenses"))]
+        [DbNameReference(name: ("expenses"))]
         public double Expenses { get; set; }
 
-        [DbNameReference(name:"revenue")]
+        [DbNameReference(name: "revenue")]
         public double Revenue { get; set; }
 
-        [DbNameReference(name:"start_date")]
+        [DbNameReference(name: "actual_revenue")]
+        public double ActualRevenue { get; set; }
+
+        [DbNameReference(name: "start_date")]
         public DateTime StartDate { get; set; }
 
-        [DbNameReference(name:"revision_date")]
+        [DbNameReference(name: "revision_date")]
         public DateTime Date { get; set; }
 
         public Revision()
@@ -34,7 +37,11 @@ namespace SimpleWarehouse.Model
 
         public override string ToString()
         {
-            return $"Приходи: {this.Revenue:F2} \r\nРазходи: {this.Expenses:F2}\r\nНачална дата: {this.StartDate.ToString("dd/MM/yyyy")}\r\nДата на ревизията: {this.Date.ToString("dd/MM/yyyy")}";
+            return $"Приходи: {this.Revenue:F2} \r\n" +
+                $"Разходи: {this.Expenses:F2}\r\n" +
+                $"Изчислени приходи (ревизия): {this.ActualRevenue:F2}\r\n" +
+                $"Начална дата: {this.StartDate.ToString("dd/MM/yyyy")}\r\n" +
+                $"Дата на ревизия: {this.Date.ToString("dd/MM/yyyy")}\r\n";
         }
     }
 }

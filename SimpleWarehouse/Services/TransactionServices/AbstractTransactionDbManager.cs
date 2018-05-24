@@ -84,6 +84,12 @@ namespace SimpleWarehouse.Services.TransactionServices
             throw new NotImplementedException();
         }
 
+        public void ArchiveTransactions()
+        {
+            string query = $"UPDATE {TRANSACTIONS_TABLE_NAME} SET is_revised = 1 WHERE is_revised = 0";
+            this.SqlManager.ExecuteQuery(query);
+        }
+
         protected abstract RevenueStream InsertRevenueStream(RevenueStream revenueStream);
         protected abstract int InsertTransaction();
         protected abstract void InsertRevenueStreamTransactionRelation(RevenueStream revenueStream, Transaction transaction);
@@ -103,6 +109,7 @@ namespace SimpleWarehouse.Services.TransactionServices
         {
             return this.TransactionRepository.FindBy("is_revised", isRevised);
         }
+
 
     }
 }
