@@ -64,12 +64,32 @@ namespace SimpleWarehouse.Services.RevisionRelated
 
         public void RefreshGridAction()
         {
-            throw new NotImplementedException();
+            if (!this.VerifyUserRole())
+                return;
+            
+            this.FillRevenueStreamInfo(); //updates the revenues and expenses just in case
+            this.RefreshSubTotalAction();
         }
 
         public void UpdateTotalPriceAction(int rowId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var actualQuantity = double.Parse(this.GridViewManager.DataGrid.Rows[rowId].Cells[RevisionDataGridViewColNames.ACTUAL_QUANTITY].Value.ToString().Trim());
+                var prodPrice = double.Parse(this.GridViewManager.DataGrid.Rows[rowId].Cells[RevisionDataGridViewColNames.SELL_PRICE].Value.ToString().Trim());
+                var availableQuantity = double.Parse(this.GridViewManager.DataGrid.Rows[rowId].Cells[RevisionDataGridViewColNames.AVAILABLE_QUANTITY].Value.ToString().Trim());
+                if (actualQuantity >= 0)
+                {
+                    double difference = availableQuantity - actualQuantity;
+                    this.GridViewManager.DataGrid.Rows[rowId].Cells[RevisionDataGridViewColNames.SUB_TOTAL].Value = $"{(difference * prodPrice):F2}";
+                }
+                else
+                {
+                    this.GridViewManager.DataGrid.Rows[rowId].Cells[RevisionDataGridViewColNames.SUB_TOTAL].Value = null;
+                }
+               this.RefreshSubTotalAction();
+            }
+            catch (Exception) { }
         }
 
         public void BeginRevision()
@@ -92,14 +112,31 @@ namespace SimpleWarehouse.Services.RevisionRelated
             return true;
         }
 
+        private void RefreshSubTotalAction()
+        {
+            double total = 0.0;
+            for (int i = 0; i < this.GridViewManager.DataGrid.Rows.Count; i++)
+            {
+                //this.UpdateTotalPriceAction(i);
+                var row = this.GridViewManager.DataGrid.Rows[i];
+                try
+                {
+                    total += double.Parse(row.Cells[RevisionDataGridViewColNames.SUB_TOTAL].Value.ToString());
+                }
+                catch (Exception) { }
+            }
+            this.GridViewManager.DataGrid.EndEdit();
+            this.Form.RevisionSubTotal = $"{total:F2}";
+        }
+
         private List<RevenueStream> GetNonRevisedSalesRevenue()
         {
             List<Transaction> transactions = this.SaleTransactioDbManager.FindAllNonRevised()
                 .Where(tr => tr.TransactionType == TransactionTypes.Sale.ToString()).ToList();
             List<RevenueStream> revenues = new List<RevenueStream>();
-            foreach(var tr in transactions)
+            foreach (var tr in transactions)
             {
-                revenues.Add(this.RevenueStreamDbManager.FindOneByTransaction(tr.Id)); 
+                revenues.Add(this.RevenueStreamDbManager.FindOneByTransaction(tr.Id));
             }
             return revenues;
         }
@@ -119,10 +156,10 @@ namespace SimpleWarehouse.Services.RevisionRelated
                 startDate = oldestRevenueStream.Date;
 
             //inserting the data
-            var exp  = $"{expensesTotal:F2}";
+            var exp = $"{expensesTotal:F2}";
             var rev = $"{revenuesTotal:F2}";
-            var stDate  = $"Начална дата: {startDate.ToString("dd-MM-yyyy")}";
-            var subTot  = "0";
+            var stDate = $"Начална дата: {startDate.ToString("dd-MM-yyyy")}";
+            var subTot = "0";
             var salesRev = $"{this.GetNonRevisedSalesRevenue().Sum(r => r.RevenueAmount):F2}";
             this.InsertTextBoxValues(exp, rev, stDate, subTot, salesRev);
         }

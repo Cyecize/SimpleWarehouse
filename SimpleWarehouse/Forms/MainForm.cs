@@ -214,5 +214,20 @@ namespace SimpleWarehouse.Forms
         {
             this.Presenter.RevisionSection.CancelOperation();
         }
+
+        private void RevisionRefreshBtn_Click(object sender, EventArgs e)
+        {
+            this.Presenter.RevisionSection.RefreshGridAction();
+        }
+
+        private void SalesCancelBtn_Click(object sender, EventArgs e)
+        {
+            this.Presenter.SalesSection.CancelOperation();
+        }
+
+        private void SalesRefreshBtn_Click(object sender, EventArgs e)
+        {
+            this.Presenter.SalesSection.RefreshGridAction();
+        }
     }
 }

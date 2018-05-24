@@ -77,12 +77,11 @@ namespace SimpleWarehouse.Services.TransactionServices
                     this.Presenter.Form.Log("Изберете поне един продукт!");
                     return;
                 }
-                double totalSum = products.Sum(p => p.SubTotalPrice);
                 this.TransactionDbManager.AddTransaction(products);
                 this.TransactionGridManager.ClearRows();
                 this.Presenter.Form.Log("Успешна транзакция!");
             }
-            catch (ArgumentException e) { this.Presenter.Form.Log(e.Message); return; }  
+            catch (ArgumentException e) { this.Presenter.Form.Log(e.Message); return; }
         }
 
         public abstract void UpdateTotalPriceAction(int rowId);
@@ -91,7 +90,7 @@ namespace SimpleWarehouse.Services.TransactionServices
 
         protected abstract List<ProductTransaction> GatherProductsForTransaction();
 
-        protected List<ProductTransaction> GetProductsFromDataGrid(bool performProdAvailabilityCheck)
+        protected List<ProductTransaction> GetProductsFromDataGrid(TransactionTypes transactionType)
         {
             List<ProductTransaction> products = new List<ProductTransaction>();
             for (int i = 0; i < this.TransactionGridManager.DataGrid.RowCount; i++)
@@ -117,13 +116,23 @@ namespace SimpleWarehouse.Services.TransactionServices
                 if (selectedProductQuantity <= 0)
                     throw new ArgumentException($"Изберете количесто над 0 на ред {transactionNumber}");
 
-                if (performProdAvailabilityCheck)
+                if (transactionType == TransactionTypes.Sale)
                 {
                     if (product.Quantity < selectedProductQuantity)
                         throw new ArgumentException($"Недостатчно количесто на ред {transactionNumber}");
                 }
 
-                double subTotal = product.ImportPrice * selectedProductQuantity;
+                double subTotal = 0.0;
+                switch (transactionType)
+                {
+                    case TransactionTypes.Sale:
+                        subTotal = product.SellPrice * selectedProductQuantity;
+                        break;
+                    case TransactionTypes.Delivery:
+                        subTotal = product.ImportPrice * selectedProductQuantity;
+                        break;
+                }
+
                 ProductTransaction productTransaction = new ProductTransaction
                 {
                     ProductId = product.Id,

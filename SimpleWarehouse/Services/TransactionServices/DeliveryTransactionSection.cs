@@ -34,7 +34,7 @@ namespace SimpleWarehouse.Services.TransactionServices
 
         protected override List<ProductTransaction> GatherProductsForTransaction()
         {
-            return base.GetProductsFromDataGrid(false);
+            return base.GetProductsFromDataGrid(TransactionTypes.Delivery);
         }
 
         protected override void SetTextbox(IHomeView form)

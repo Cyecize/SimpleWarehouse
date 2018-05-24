@@ -60,30 +60,30 @@ namespace SimpleWarehouse.Forms
             this.SalesTab = new System.Windows.Forms.TabPage();
             this.SalesTotalMoney = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.SalesRefreshBtn = new System.Windows.Forms.Button();
             this.SaveSaleBtn = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.SalesCancelBtn = new System.Windows.Forms.Button();
             this.SalesDataGridView = new System.Windows.Forms.DataGridView();
             this.RevisionTab = new System.Windows.Forms.TabPage();
+            this.RevisionCancelBtn = new System.Windows.Forms.Button();
+            this.RevisionSaveBtn = new System.Windows.Forms.Button();
+            this.RevisionRefreshBtn = new System.Windows.Forms.Button();
+            this.RevisionStartDateLabel = new System.Windows.Forms.Label();
+            this.RevisionSubTotalTextBox = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.RevisionSalesRevenueTextBox = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.RevisionRevenueTextBox = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.RevisionExpensesTextBox = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.BeginRevisionBtn = new System.Windows.Forms.Button();
             this.RevisionDataGridView = new System.Windows.Forms.DataGridView();
             this.materialTabSelector1 = new MaterialSkin.Controls.MaterialTabSelector();
             this.InvoicesBtn = new MaterialSkin.Controls.MaterialFlatButton();
             this.ExpensesBtn = new MaterialSkin.Controls.MaterialFlatButton();
             this.LogLabel = new System.Windows.Forms.Label();
             this.CurrentTabLabel = new System.Windows.Forms.Label();
-            this.BeginRevisionBtn = new System.Windows.Forms.Button();
-            this.RevisionExpensesTextBox = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.RevisionRevenueTextBox = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.RevisionSalesRevenueTextBox = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.RevisionSubTotalTextBox = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.RevisionStartDateLabel = new System.Windows.Forms.Label();
-            this.RevisionRefreshBtn = new System.Windows.Forms.Button();
-            this.RevisionSaveBtn = new System.Windows.Forms.Button();
-            this.RevisionCancelBtn = new System.Windows.Forms.Button();
             this.materialTabControl1.SuspendLayout();
             this.ProductsTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataTableView)).BeginInit();
@@ -423,9 +423,9 @@ namespace SimpleWarehouse.Forms
             this.SalesTab.BackColor = System.Drawing.Color.White;
             this.SalesTab.Controls.Add(this.SalesTotalMoney);
             this.SalesTab.Controls.Add(this.label3);
-            this.SalesTab.Controls.Add(this.button1);
+            this.SalesTab.Controls.Add(this.SalesRefreshBtn);
             this.SalesTab.Controls.Add(this.SaveSaleBtn);
-            this.SalesTab.Controls.Add(this.button3);
+            this.SalesTab.Controls.Add(this.SalesCancelBtn);
             this.SalesTab.Controls.Add(this.SalesDataGridView);
             this.SalesTab.Location = new System.Drawing.Point(4, 22);
             this.SalesTab.Name = "SalesTab";
@@ -456,15 +456,16 @@ namespace SimpleWarehouse.Forms
             this.label3.Text = "Общо:";
             this.label3.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // button1
+            // SalesRefreshBtn
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(591, 362);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(83, 23);
-            this.button1.TabIndex = 28;
-            this.button1.Text = "Обновяване";
-            this.button1.UseVisualStyleBackColor = true;
+            this.SalesRefreshBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.SalesRefreshBtn.Location = new System.Drawing.Point(591, 362);
+            this.SalesRefreshBtn.Name = "SalesRefreshBtn";
+            this.SalesRefreshBtn.Size = new System.Drawing.Size(83, 23);
+            this.SalesRefreshBtn.TabIndex = 28;
+            this.SalesRefreshBtn.Text = "Обновяване";
+            this.SalesRefreshBtn.UseVisualStyleBackColor = true;
+            this.SalesRefreshBtn.Click += new System.EventHandler(this.SalesRefreshBtn_Click);
             // 
             // SaveSaleBtn
             // 
@@ -477,15 +478,16 @@ namespace SimpleWarehouse.Forms
             this.SaveSaleBtn.UseVisualStyleBackColor = true;
             this.SaveSaleBtn.Click += new System.EventHandler(this.SaveSaleBtn_Click);
             // 
-            // button3
+            // SalesCancelBtn
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Location = new System.Drawing.Point(761, 362);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 26;
-            this.button3.Text = "Отказ";
-            this.button3.UseVisualStyleBackColor = true;
+            this.SalesCancelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.SalesCancelBtn.Location = new System.Drawing.Point(761, 362);
+            this.SalesCancelBtn.Name = "SalesCancelBtn";
+            this.SalesCancelBtn.Size = new System.Drawing.Size(75, 23);
+            this.SalesCancelBtn.TabIndex = 26;
+            this.SalesCancelBtn.Text = "Отказ";
+            this.SalesCancelBtn.UseVisualStyleBackColor = true;
+            this.SalesCancelBtn.Click += new System.EventHandler(this.SalesCancelBtn_Click);
             // 
             // SalesDataGridView
             // 
@@ -526,6 +528,149 @@ namespace SimpleWarehouse.Forms
             this.RevisionTab.TabIndex = 3;
             this.RevisionTab.Text = "Ревизия";
             this.RevisionTab.UseVisualStyleBackColor = true;
+            // 
+            // RevisionCancelBtn
+            // 
+            this.RevisionCancelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.RevisionCancelBtn.Location = new System.Drawing.Point(599, 361);
+            this.RevisionCancelBtn.Name = "RevisionCancelBtn";
+            this.RevisionCancelBtn.Size = new System.Drawing.Size(75, 23);
+            this.RevisionCancelBtn.TabIndex = 37;
+            this.RevisionCancelBtn.Text = "Отмяна";
+            this.RevisionCancelBtn.UseVisualStyleBackColor = true;
+            this.RevisionCancelBtn.Click += new System.EventHandler(this.RevisionCancelBtn_Click);
+            // 
+            // RevisionSaveBtn
+            // 
+            this.RevisionSaveBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.RevisionSaveBtn.Location = new System.Drawing.Point(518, 361);
+            this.RevisionSaveBtn.Name = "RevisionSaveBtn";
+            this.RevisionSaveBtn.Size = new System.Drawing.Size(75, 23);
+            this.RevisionSaveBtn.TabIndex = 36;
+            this.RevisionSaveBtn.Text = "Запази";
+            this.RevisionSaveBtn.UseVisualStyleBackColor = true;
+            // 
+            // RevisionRefreshBtn
+            // 
+            this.RevisionRefreshBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.RevisionRefreshBtn.Location = new System.Drawing.Point(680, 362);
+            this.RevisionRefreshBtn.Name = "RevisionRefreshBtn";
+            this.RevisionRefreshBtn.Size = new System.Drawing.Size(75, 23);
+            this.RevisionRefreshBtn.TabIndex = 35;
+            this.RevisionRefreshBtn.Text = "Обнови";
+            this.RevisionRefreshBtn.UseVisualStyleBackColor = true;
+            this.RevisionRefreshBtn.Click += new System.EventHandler(this.RevisionRefreshBtn_Click);
+            // 
+            // RevisionStartDateLabel
+            // 
+            this.RevisionStartDateLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.RevisionStartDateLabel.AutoSize = true;
+            this.RevisionStartDateLabel.Font = new System.Drawing.Font("Segoe MDL2 Assets", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RevisionStartDateLabel.Location = new System.Drawing.Point(158, 368);
+            this.RevisionStartDateLabel.Name = "RevisionStartDateLabel";
+            this.RevisionStartDateLabel.Size = new System.Drawing.Size(93, 16);
+            this.RevisionStartDateLabel.TabIndex = 34;
+            this.RevisionStartDateLabel.Text = "Начална дата:";
+            this.RevisionStartDateLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // RevisionSubTotalTextBox
+            // 
+            this.RevisionSubTotalTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.RevisionSubTotalTextBox.Location = new System.Drawing.Point(388, 346);
+            this.RevisionSubTotalTextBox.Multiline = true;
+            this.RevisionSubTotalTextBox.Name = "RevisionSubTotalTextBox";
+            this.RevisionSubTotalTextBox.ReadOnly = true;
+            this.RevisionSubTotalTextBox.Size = new System.Drawing.Size(81, 17);
+            this.RevisionSubTotalTextBox.TabIndex = 33;
+            // 
+            // label7
+            // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe MDL2 Assets", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(322, 346);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(60, 16);
+            this.label7.TabIndex = 32;
+            this.label7.Text = "Ревизия:";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // RevisionSalesRevenueTextBox
+            // 
+            this.RevisionSalesRevenueTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.RevisionSalesRevenueTextBox.Location = new System.Drawing.Point(235, 346);
+            this.RevisionSalesRevenueTextBox.Multiline = true;
+            this.RevisionSalesRevenueTextBox.Name = "RevisionSalesRevenueTextBox";
+            this.RevisionSalesRevenueTextBox.ReadOnly = true;
+            this.RevisionSalesRevenueTextBox.Size = new System.Drawing.Size(81, 17);
+            this.RevisionSalesRevenueTextBox.TabIndex = 31;
+            // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe MDL2 Assets", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(158, 346);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(71, 16);
+            this.label6.TabIndex = 30;
+            this.label6.Text = "Продажби:";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // RevisionRevenueTextBox
+            // 
+            this.RevisionRevenueTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.RevisionRevenueTextBox.Location = new System.Drawing.Point(71, 345);
+            this.RevisionRevenueTextBox.Multiline = true;
+            this.RevisionRevenueTextBox.Name = "RevisionRevenueTextBox";
+            this.RevisionRevenueTextBox.ReadOnly = true;
+            this.RevisionRevenueTextBox.Size = new System.Drawing.Size(81, 17);
+            this.RevisionRevenueTextBox.TabIndex = 29;
+            // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe MDL2 Assets", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(6, 346);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(61, 16);
+            this.label5.TabIndex = 28;
+            this.label5.Text = "Приходи:";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // RevisionExpensesTextBox
+            // 
+            this.RevisionExpensesTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.RevisionExpensesTextBox.Location = new System.Drawing.Point(71, 368);
+            this.RevisionExpensesTextBox.Multiline = true;
+            this.RevisionExpensesTextBox.Name = "RevisionExpensesTextBox";
+            this.RevisionExpensesTextBox.ReadOnly = true;
+            this.RevisionExpensesTextBox.Size = new System.Drawing.Size(81, 17);
+            this.RevisionExpensesTextBox.TabIndex = 27;
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe MDL2 Assets", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(6, 368);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(59, 16);
+            this.label4.TabIndex = 26;
+            this.label4.Text = "Разходи:";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // BeginRevisionBtn
+            // 
+            this.BeginRevisionBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.BeginRevisionBtn.Location = new System.Drawing.Point(761, 362);
+            this.BeginRevisionBtn.Name = "BeginRevisionBtn";
+            this.BeginRevisionBtn.Size = new System.Drawing.Size(75, 23);
+            this.BeginRevisionBtn.TabIndex = 24;
+            this.BeginRevisionBtn.Text = "Начало";
+            this.BeginRevisionBtn.UseVisualStyleBackColor = true;
+            this.BeginRevisionBtn.Click += new System.EventHandler(this.BeginRevisionBtn_Click);
             // 
             // RevisionDataGridView
             // 
@@ -614,148 +759,6 @@ namespace SimpleWarehouse.Forms
             this.CurrentTabLabel.TabIndex = 27;
             this.CurrentTabLabel.Text = "Търсене: ";
             // 
-            // BeginRevisionBtn
-            // 
-            this.BeginRevisionBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BeginRevisionBtn.Location = new System.Drawing.Point(761, 362);
-            this.BeginRevisionBtn.Name = "BeginRevisionBtn";
-            this.BeginRevisionBtn.Size = new System.Drawing.Size(75, 23);
-            this.BeginRevisionBtn.TabIndex = 24;
-            this.BeginRevisionBtn.Text = "Начало";
-            this.BeginRevisionBtn.UseVisualStyleBackColor = true;
-            this.BeginRevisionBtn.Click += new System.EventHandler(this.BeginRevisionBtn_Click);
-            // 
-            // RevisionExpensesTextBox
-            // 
-            this.RevisionExpensesTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.RevisionExpensesTextBox.Location = new System.Drawing.Point(71, 368);
-            this.RevisionExpensesTextBox.Multiline = true;
-            this.RevisionExpensesTextBox.Name = "RevisionExpensesTextBox";
-            this.RevisionExpensesTextBox.ReadOnly = true;
-            this.RevisionExpensesTextBox.Size = new System.Drawing.Size(81, 17);
-            this.RevisionExpensesTextBox.TabIndex = 27;
-            // 
-            // label4
-            // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe MDL2 Assets", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(6, 368);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(59, 16);
-            this.label4.TabIndex = 26;
-            this.label4.Text = "Разходи:";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // RevisionRevenueTextBox
-            // 
-            this.RevisionRevenueTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.RevisionRevenueTextBox.Location = new System.Drawing.Point(71, 345);
-            this.RevisionRevenueTextBox.Multiline = true;
-            this.RevisionRevenueTextBox.Name = "RevisionRevenueTextBox";
-            this.RevisionRevenueTextBox.ReadOnly = true;
-            this.RevisionRevenueTextBox.Size = new System.Drawing.Size(81, 17);
-            this.RevisionRevenueTextBox.TabIndex = 29;
-            // 
-            // label5
-            // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe MDL2 Assets", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(6, 346);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(61, 16);
-            this.label5.TabIndex = 28;
-            this.label5.Text = "Приходи:";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // RevisionSalesRevenueTextBox
-            // 
-            this.RevisionSalesRevenueTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.RevisionSalesRevenueTextBox.Location = new System.Drawing.Point(235, 346);
-            this.RevisionSalesRevenueTextBox.Multiline = true;
-            this.RevisionSalesRevenueTextBox.Name = "RevisionSalesRevenueTextBox";
-            this.RevisionSalesRevenueTextBox.ReadOnly = true;
-            this.RevisionSalesRevenueTextBox.Size = new System.Drawing.Size(81, 17);
-            this.RevisionSalesRevenueTextBox.TabIndex = 31;
-            // 
-            // label6
-            // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Segoe MDL2 Assets", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(158, 346);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(71, 16);
-            this.label6.TabIndex = 30;
-            this.label6.Text = "Продажби:";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // RevisionSubTotalTextBox
-            // 
-            this.RevisionSubTotalTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.RevisionSubTotalTextBox.Location = new System.Drawing.Point(388, 346);
-            this.RevisionSubTotalTextBox.Multiline = true;
-            this.RevisionSubTotalTextBox.Name = "RevisionSubTotalTextBox";
-            this.RevisionSubTotalTextBox.ReadOnly = true;
-            this.RevisionSubTotalTextBox.Size = new System.Drawing.Size(81, 17);
-            this.RevisionSubTotalTextBox.TabIndex = 33;
-            // 
-            // label7
-            // 
-            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Segoe MDL2 Assets", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(322, 346);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(60, 16);
-            this.label7.TabIndex = 32;
-            this.label7.Text = "Ревизия:";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // RevisionStartDateLabel
-            // 
-            this.RevisionStartDateLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.RevisionStartDateLabel.AutoSize = true;
-            this.RevisionStartDateLabel.Font = new System.Drawing.Font("Segoe MDL2 Assets", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RevisionStartDateLabel.Location = new System.Drawing.Point(158, 368);
-            this.RevisionStartDateLabel.Name = "RevisionStartDateLabel";
-            this.RevisionStartDateLabel.Size = new System.Drawing.Size(93, 16);
-            this.RevisionStartDateLabel.TabIndex = 34;
-            this.RevisionStartDateLabel.Text = "Начална дата:";
-            this.RevisionStartDateLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // RevisionRefreshBtn
-            // 
-            this.RevisionRefreshBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.RevisionRefreshBtn.Location = new System.Drawing.Point(680, 362);
-            this.RevisionRefreshBtn.Name = "RevisionRefreshBtn";
-            this.RevisionRefreshBtn.Size = new System.Drawing.Size(75, 23);
-            this.RevisionRefreshBtn.TabIndex = 35;
-            this.RevisionRefreshBtn.Text = "Обнови";
-            this.RevisionRefreshBtn.UseVisualStyleBackColor = true;
-            // 
-            // RevisionSaveBtn
-            // 
-            this.RevisionSaveBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.RevisionSaveBtn.Location = new System.Drawing.Point(518, 361);
-            this.RevisionSaveBtn.Name = "RevisionSaveBtn";
-            this.RevisionSaveBtn.Size = new System.Drawing.Size(75, 23);
-            this.RevisionSaveBtn.TabIndex = 36;
-            this.RevisionSaveBtn.Text = "Запази";
-            this.RevisionSaveBtn.UseVisualStyleBackColor = true;
-            // 
-            // RevisionCancelBtn
-            // 
-            this.RevisionCancelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.RevisionCancelBtn.Location = new System.Drawing.Point(599, 361);
-            this.RevisionCancelBtn.Name = "RevisionCancelBtn";
-            this.RevisionCancelBtn.Size = new System.Drawing.Size(75, 23);
-            this.RevisionCancelBtn.TabIndex = 37;
-            this.RevisionCancelBtn.Text = "Отмяна";
-            this.RevisionCancelBtn.UseVisualStyleBackColor = true;
-            this.RevisionCancelBtn.Click += new System.EventHandler(this.RevisionCancelBtn_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -829,9 +832,9 @@ namespace SimpleWarehouse.Forms
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox SalesTotalMoney;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button SalesRefreshBtn;
         private System.Windows.Forms.Button SaveSaleBtn;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button SalesCancelBtn;
         private System.Windows.Forms.DataGridView RevisionDataGridView;
         private System.Windows.Forms.Button BeginRevisionBtn;
         private System.Windows.Forms.TextBox RevisionExpensesTextBox;

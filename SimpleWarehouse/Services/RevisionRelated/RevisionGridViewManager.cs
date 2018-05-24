@@ -80,7 +80,7 @@ namespace SimpleWarehouse.Services.RevisionRelated
 
                                           new DataGridViewTextBoxColumn
                                               {
-                                                  ValueType = typeof (double),
+                                                  ValueType = typeof (string),
                                                   HeaderText = "Цена",
                                                   Width = 80,
                                                   AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
@@ -101,6 +101,7 @@ namespace SimpleWarehouse.Services.RevisionRelated
                                       });
             this.DataGrid.DataError += this.grid_DataError;
             this.DataGrid.AllowUserToAddRows = false;
+            this.DataGrid.CellValueChanged += this.OnColumnValueChange;
         }
 
         public void InsertProducts(List<Product> products)
@@ -121,12 +122,12 @@ namespace SimpleWarehouse.Services.RevisionRelated
             row.Cells[RevisionDataGridViewColNames.PRODUCT_NAME].Value = product.ProductName;
             row.Cells[RevisionDataGridViewColNames.AVAILABLE_QUANTITY].Value = product.Quantity;
             row.Cells[RevisionDataGridViewColNames.SELL_PRICE].Value = $"{product.SellPrice:F2}";
-            row.Cells[RevisionDataGridViewColNames.ACTUAL_QUANTITY].Value = -1;
+            row.Cells[RevisionDataGridViewColNames.ACTUAL_QUANTITY].Value = -1.0;
         }
 
         private DataGridViewRow AddRow()
         {
-            var rowid =this.DataGrid.Rows.Add();
+            var rowid = this.DataGrid.Rows.Add();
             return this.DataGrid.Rows[rowid];
         }
 
@@ -134,6 +135,14 @@ namespace SimpleWarehouse.Services.RevisionRelated
         {
             e.Cancel = true;
             this.Form.Log($"Грешна информация на ред {e.RowIndex + 1}");
+        }
+
+        //events
+        private void OnColumnValueChange(Object sender, DataGridViewCellEventArgs e)
+        {
+            var row = this.DataGrid.Rows[e.RowIndex];
+            if (this.DataGrid.Columns[e.ColumnIndex].Name == RevisionDataGridViewColNames.ACTUAL_QUANTITY)
+                this.RevisionSection.UpdateTotalPriceAction(e.RowIndex);
         }
     }
 }

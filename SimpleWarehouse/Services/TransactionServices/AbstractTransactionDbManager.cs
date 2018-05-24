@@ -38,7 +38,7 @@ namespace SimpleWarehouse.Services.TransactionServices
         {
             if (!this.IsUserAuthorized())
                 throw new ArgumentException("Нямате права за тази операция");
-            Transaction transaction = this.TransactionRepository.FindOneBy("transactions", "id", this.InsertTransaction());
+            Transaction transaction = this.TransactionRepository.FindOneBy("id", this.InsertTransaction());
             this.InsertProductTransactionRelation(products, transaction);
             double totalRevenueAmount = products.Sum(p => p.SubTotalPrice);
             RevenueStream revenueStream = new RevenueStream
