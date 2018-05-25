@@ -9,6 +9,7 @@ namespace SimpleWarehouse.Constants
 {
     public class Config
     {
+        public const string DATABASE_NAME_PREFIX = "wh_";
         //db connection 
         public const string MY_SQL_CONNECTION = "Server=localhost;Port=3306;Database=warehouse;Uid=root;Password=toor;SslMode=none";
 
@@ -25,7 +26,6 @@ namespace SimpleWarehouse.Constants
         public const string USER_TYPICAL_ROLE = "Standard";
 
         public const string USER_LIMITED_ROLE = "Worker";
-
         
     }
 }

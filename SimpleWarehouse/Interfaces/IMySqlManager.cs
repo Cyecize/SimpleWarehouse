@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using SimpleWarehouse.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,8 @@ namespace SimpleWarehouse.Interfaces
     {
         MySqlDataReader ExecuteQueryData(string query);
 
+        DbProperties ConnectionProperties { get; set; }
+
         int ExecuteQuery(string query);
 
         void CloseConnection();
@@ -18,6 +21,8 @@ namespace SimpleWarehouse.Interfaces
         string EscapeString(string str);
 
         long InsertQuery(string query);
+
+        bool IsConnectionActive();
 
     }
 }

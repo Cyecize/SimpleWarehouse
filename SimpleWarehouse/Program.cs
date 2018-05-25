@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -28,12 +29,14 @@ namespace SimpleWarehouse
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
+          
             //measuring time
             Stopwatch stopwatch = new Stopwatch();
 
+            DbProperties properties = new DbProperties { Server = "localhostt", Port = "33063", Password = "", Username = "root" }; 
+
             //creating dependencies
-            IMySqlManager mySqlManager = new MySqlManager(Constants.Config.MY_SQL_CONNECTION);
+            IMySqlManager mySqlManager = new MySqlManager(properties);
             IEventManager eventManager = new EventManager();
             ISession<IUser> userSession = new Session<IUser>();
             IOutputWriter writer = new ConsoleWriter();
@@ -43,8 +46,9 @@ namespace SimpleWarehouse
 
             //creating business classes
             IStateManager stateManager = new StateManager(writer, eventManager, mySqlManager, userSession);
-            stateManager.Push(new HomePresenter(stateManager));
+            //stateManager.Push(new HomePresenter(stateManager));
 
+            stateManager.Push(new FirstRunPresenter(stateManager));
             //application loop
             ApplicationState.IsRunning = true;
             double deltaTimeSeconds = 0;

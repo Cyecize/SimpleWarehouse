@@ -20,6 +20,11 @@ namespace SimpleWarehouse.Constants
             return Config.USER_LIMITED_ROLE;
         }
 
+        public static string HashRole(string planeTextRole)
+        {
+            return PasswordEncoder.EncodeMd5(planeTextRole);
+        }
+
         public static bool IsExactRole(string role, string desiredRole)
         {
             return role == desiredRole; 

@@ -8,10 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SimpleWarehouse.Properties
-{
-
-
+namespace SimpleWarehouse.Properties {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -19,52 +19,117 @@ namespace SimpleWarehouse.Properties
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources
-    {
-
+    public class Resources {
+        
         private static global::System.Resources.ResourceManager resourceMan;
-
+        
         private static global::System.Globalization.CultureInfo resourceCulture;
-
+        
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources()
-        {
+        internal Resources() {
         }
-
+        
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager
-        {
-            get
-            {
-                if ((resourceMan == null))
-                {
+        public static global::System.Resources.ResourceManager ResourceManager {
+            get {
+                if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SimpleWarehouse.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-
+        
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture
-        {
-            get
-            {
+        public static global::System.Globalization.CultureInfo Culture {
+            get {
                 return resourceCulture;
             }
-            set
-            {
+            set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 
+        ///SET SQL_MODE = &quot;NO_AUTO_VALUE_ON_ZERO&quot;;
+        ///SET AUTOCOMMIT = 0;
+        ///START TRANSACTION;
+        ///
+        ///INSERT INTO `authentications` (`id`, `auth_type`) VALUES
+        ///(1, &apos;e3afed0047b08059d0fada10f400c1e5&apos;),
+        ///(2, &apos;eb6d8ae6f20283755b339c0dc273988b&apos;),
+        ///(3, &apos;62efb9ec331e364b96efe68c8b03ca20&apos;);
+        ///
+        ///INSERT INTO `search_types` (`id`, `display_name`, `column_name`) VALUES
+        ///(1, &apos;Прод. име&apos;, &apos;product_name&apos;),
+        ///(2, &apos;Категория&apos;, &apos;category_name&apos;),
+        ///(3, &apos;Прод. Код&apos;, &apos;id&apos;);
+        ///
+        ///COMMIT;
+        ///
+        ///.
+        /// </summary>
+        public static string WarehouseInitialInserts {
+            get {
+                return ResourceManager.GetString("WarehouseInitialInserts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- phpMyAdmin SQL Dump
+        ///-- version 4.7.9
+        ///-- https://www.phpmyadmin.net/
+        ///--
+        ///-- Host: 127.0.0.1:3306
+        ///-- Generation Time: May 25, 2018 at 10:05 AM
+        ///-- Server version: 8.0.11
+        ///-- PHP Version: 7.2.4
+        ///
+        ///SET SQL_MODE = &quot;NO_AUTO_VALUE_ON_ZERO&quot;;
+        ///SET AUTOCOMMIT = 0;
+        ///START TRANSACTION;
+        ///
+        ///
+        ////*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+        ////*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+        ////*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+        ////*!40101 SET NAMES utf8mb4 */;
+        ///
+        ///--
+        ///-- D [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string WarehouseSchema {
+            get {
+                return ResourceManager.GetString("WarehouseSchema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 
+        ///CREATE TRIGGER `tr_on_transactions_expenses_delete` BEFORE DELETE ON `transactions` FOR EACH ROW BEGIN
+        ///    DECLARE expense_id INT;
+        ///    SET expense_id = (SELECT te.expense_id FROM transactions_expenses AS te WHERE te.transaction_id = OLD.id LIMIT 1);
+        ///	DELETE FROM expenses WHERE id = expense_id;
+        ///END ;
+        ///
+        ///CREATE TRIGGER `tr_on_transactions_revenues_delete` BEFORE DELETE ON `transactions` FOR EACH ROW BEGIN
+        ///	DECLARE rev_id INT;
+        ///    SET rev_id = (SELECT tr.revenue_id FROM transactions_revenues AS tr WHER [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string WarehouseTransactionTriggers {
+            get {
+                return ResourceManager.GetString("WarehouseTransactionTriggers", resourceCulture);
             }
         }
     }

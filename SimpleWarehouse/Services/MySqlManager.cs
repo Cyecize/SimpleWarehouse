@@ -1,25 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using SimpleWarehouse.Interfaces;
+using SimpleWarehouse.Model;
 
 namespace SimpleWarehouse.Service
 {
     public class MySqlManager : IMySqlManager
     {
-        private MySqlConnection Connection;
-        private MySqlDataReader DataReader;
-        private string ConnectionStr;
-        private bool isConnAvailable;
+        private MySqlConnection Connection { get; set; }
+        private MySqlDataReader DataReader { get; set; }
+        private string ConnectionStr { get; set; }
+        private bool isConnAvailable { get; set; }
+        public DbProperties ConnectionProperties { get ; set ; }
 
-        public MySqlManager(string connectionStr)
+        public MySqlManager(DbProperties dbProperties)
         {
-            this.ConnectionStr = connectionStr;
+            this.ConnectionStr = dbProperties.CreateConnectionString();
+            this.ConnectionProperties = dbProperties;
 
-            this.Connection = new MySqlConnection(connectionStr);
+            this.Connection = new MySqlConnection(this.ConnectionStr);
             this.isConnAvailable = this.OpenAndTestConnection();//open the connection 
         }
 
@@ -91,6 +95,11 @@ namespace SimpleWarehouse.Service
             }
         }
 
+        public string EscapeString(string str)
+        {
+            return MySqlHelper.EscapeString(str);
+        }
+
         //close SQL connection if it is Open
         public void CloseConnection()
         {
@@ -100,9 +109,15 @@ namespace SimpleWarehouse.Service
 
         }
 
-        /**
-         * Open SQL connection and return true or throw an Exception!
-         * /*/
+        public bool IsConnectionActive()
+        {
+            return ConnectionState.Open == this.Connection.State;
+        }
+
+        //private logic
+        /*
+            Open SQL connection and return true or throw an Exception!
+        */
         private bool OpenAndTestConnection()
         {
             try
@@ -119,16 +134,9 @@ namespace SimpleWarehouse.Service
                 Console.WriteLine("Connection to MySql Database was not established");
                 return false;
 
-               // throw new Exception("Connection to MySql Database was not established");
+                // throw new Exception("Connection to MySql Database was not established");
             }
         }
-
-        public string EscapeString(string str)
-        {
-            return MySqlHelper.EscapeString(str);
-        }
-
-        //private logic
 
         private void CloseDataReader()
         {
@@ -138,7 +146,7 @@ namespace SimpleWarehouse.Service
                 this.DataReader = null;
             }
         }
-      
+
     }
 }
 

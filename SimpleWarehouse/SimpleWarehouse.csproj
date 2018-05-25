@@ -82,12 +82,19 @@
     <Compile Include="Constants\TabPageNames.cs" />
     <Compile Include="Constants\TransactionDataTableNames.cs" />
     <Compile Include="Constants\TransactionTypes.cs" />
+    <Compile Include="Factory\DatabaseFactory.cs" />
     <Compile Include="Factory\FormFactory.cs" />
     <Compile Include="Forms\ConfirmActionForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\ConfirmActionForm.Designer.cs">
       <DependentUpon>ConfirmActionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FirstRunForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FirstRunForm.Designer.cs">
+      <DependentUpon>FirstRunForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\RevenueForm.cs">
       <SubType>Form</SubType>
@@ -153,6 +160,7 @@
     <Compile Include="Interfaces\IUser.cs" />
     <Compile Include="IO\ConsoleWriter.cs" />
     <Compile Include="Interfaces\IOutputWriter.cs" />
+    <Compile Include="Model\DbProperties.cs" />
     <Compile Include="Model\Invoice.cs" />
     <Compile Include="Model\ProductTransaction.cs" />
     <Compile Include="Model\Revenue.cs" />
@@ -160,6 +168,7 @@
     <Compile Include="Model\RevisionProduct.cs" />
     <Compile Include="Model\Transaction.cs" />
     <Compile Include="Presenter\ConfirmActionPresenter.cs" />
+    <Compile Include="Presenter\FirstRunPresenter.cs" />
     <Compile Include="Presenter\RevenueRelated\ExpensesPresenter.cs" />
     <Compile Include="Presenter\RevenueRelated\InvoicesPresenter.cs" />
     <Compile Include="Presenter\RevenueRelated\IRevenuePresenter.cs" />
@@ -218,6 +227,7 @@
     <Compile Include="Interfaces\IView.cs" />
     <Compile Include="View\ConfirmActionView.cs" />
     <Compile Include="View\IAddCategoryView.cs" />
+    <Compile Include="View\IFirstRunView.cs" />
     <Compile Include="View\IHomeView.cs" />
     <Compile Include="View\ILoginView.cs" />
     <Compile Include="View\IRevisionView.cs" />
@@ -226,6 +236,9 @@
     <Compile Include="View\ISpecificProductView.cs" />
     <EmbeddedResource Include="Forms\ConfirmActionForm.resx">
       <DependentUpon>ConfirmActionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FirstRunForm.resx">
+      <DependentUpon>FirstRunForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\RevenueForm.resx">
       <DependentUpon>RevenueForm.cs</DependentUpon>
@@ -249,13 +262,14 @@
       <DependentUpon>SpecificProductForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -271,6 +285,14 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\warehouse.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\triggers.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\initialInserts.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
