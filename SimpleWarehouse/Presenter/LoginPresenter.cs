@@ -32,18 +32,11 @@ namespace SimpleWarehouse.Presenter
             };
         }
 
-        public override void Dispose()
+        public void FirstRunAction()
         {
-            this.Form.HideAndDispose();
-        }
-
-        public override void Update()
-        {
-            if (!base.IsFormShown)
-            {
-                this.Form.ShowAsDialog();
-                base.IsFormShown = true;
-            }
+            this.LoggedUser = new User();
+            base.StateManager.Pop();
+            base.StateManager.Set(new FirstRunPresenter(base.StateManager, base.StateManager.DbConnectionPropertiesManager));
         }
 
         public void LoginAction()
@@ -73,9 +66,29 @@ namespace SimpleWarehouse.Presenter
                 return;
             }
 
+            if (!user.IsActive)
+            {
+                this.Form.Log("Този потребител не е активен!");
+                return;
+            }
+
             this.LoggedUser = user;
             base.StateManager.UserSession.SessionEntity = user;
             base.StateManager.Pop();
         }
+
+        public override void Dispose()
+        {
+            this.Form.HideAndDispose();
+        }
+
+        public override void Update()
+        {
+            if (!base.IsFormShown)
+            {
+                this.Form.ShowAsDialog();
+                base.IsFormShown = true;
+            }
+        } 
     }
 }

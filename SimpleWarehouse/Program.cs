@@ -47,7 +47,7 @@ namespace SimpleWarehouse
             FormFactory.SqlManager = mySqlManager;
 
             //creating business classes
-            IStateManager stateManager = new StateManager(writer, eventManager, mySqlManager, userSession);
+            IStateManager stateManager = new StateManager(writer, eventManager, mySqlManager, userSession, dbConnectionProperties);
             if (mySqlManager.IsConnectionActive()) stateManager.Push(new HomePresenter(stateManager));
             else stateManager.Push(new FirstRunPresenter(stateManager, dbConnectionProperties));
 

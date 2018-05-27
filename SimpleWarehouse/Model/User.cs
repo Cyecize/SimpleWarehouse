@@ -32,6 +32,9 @@ namespace SimpleWarehouse.Model
         [DbNameReference(name:("auth_type"))]
         public string Role { get => Roles.GetRole(_roleHash) ; set => _roleHash = value; }
 
+        [DbNameReference(name: "is_enabled")]
+        public bool IsActive { get; set ; }
+
         public User()
         {
 

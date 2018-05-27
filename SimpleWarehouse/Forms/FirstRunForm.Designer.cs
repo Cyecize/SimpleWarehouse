@@ -313,6 +313,7 @@
             this.Controls.Add(this.PortTextBox);
             this.Controls.Add(this.ServerTextBox);
             this.Controls.Add(this.ShowDatabasesBtn);
+            this.MaximumSize = new System.Drawing.Size(495, 310);
             this.MinimumSize = new System.Drawing.Size(495, 310);
             this.Name = "FirstRunForm";
             this.Sizable = false;

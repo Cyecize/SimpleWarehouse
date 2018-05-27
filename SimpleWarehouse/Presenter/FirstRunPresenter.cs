@@ -100,7 +100,7 @@ namespace SimpleWarehouse.Presenter
                 this.Form.Log(CONNECTION_NOT_OPEN_MSG);
                 return;
             }
-            if(username == "" || username == null || password != confPassword || password.Length < 5)
+            if(username == "" || username == null || password != confPassword || password.Length < 6)
             {
                 this.Form.Log("Invalid values, check password lenght and username");
                 return;
@@ -108,7 +108,7 @@ namespace SimpleWarehouse.Presenter
             username = this.SelectedDatabase.EscapeString(username);
             password = this.SelectedDatabase.EscapeString(password);
             password = PasswordEncoder.EncodeMd5(password);
-            string query = $"INSERT INTO users VALUES(null, '{username}', '{password}', {this.GetAuthId(Config.USER_ADMIN_ROLE)}, now())";
+            string query = $"INSERT INTO users VALUES(null, '{username}', '{password}', {this.GetAuthId(Config.USER_ADMIN_ROLE)}, now(), 1)";
             this.SelectedDatabase.ExecuteQuery(query);
             this.SelectDatabaseAction();
         }

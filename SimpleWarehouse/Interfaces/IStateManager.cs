@@ -17,6 +17,8 @@ namespace SimpleWarehouse.Interfaces
 
         ISession<IUser> UserSession { get; set; }
 
+        IDbConnectionPropertiesStorageManager DbConnectionPropertiesManager { get; set; }
+
         void Push(IPresenter presenter);
 
         void Pop();

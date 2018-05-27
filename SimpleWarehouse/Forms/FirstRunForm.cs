@@ -1,6 +1,7 @@
 ﻿using MaterialSkin.Controls;
 using SimpleWarehouse.Interfaces;
 using SimpleWarehouse.Presenter;
+using SimpleWarehouse.Services;
 using SimpleWarehouse.View;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,10 @@ namespace SimpleWarehouse.Forms
             this.LogLabel.Click += (o, e) => this.LogLabel.Text = "";
             this.PasswordTextBox.PasswordChar = '*';
             this.NewUserConfPasswordTextBox.PasswordChar = '*';
-            this.NewUserPasswordTextBox.PasswordChar = '*'; 
+            this.NewUserPasswordTextBox.PasswordChar = '*';
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.Log("");
+            FormDecraptifier.Decraptify(this);
         }
 
         public void HideAndDispose()

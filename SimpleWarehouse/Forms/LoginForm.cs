@@ -60,5 +60,10 @@ namespace SimpleWarehouse.Forms
                 this.LoginBtn.PerformClick();
             }
         }
+
+        private void FirstRunBtn_Click(object sender, EventArgs e)
+        {
+            this.Presenter.FirstRunAction();
+        }
     }
 }

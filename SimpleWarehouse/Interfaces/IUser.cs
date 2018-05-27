@@ -20,5 +20,6 @@ namespace SimpleWarehouse.Interfaces
 
         DateTime DateRegistered { get; set; }
 
+        bool IsActive { get; set; }
     }
 }

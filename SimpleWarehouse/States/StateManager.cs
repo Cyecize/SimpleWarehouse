@@ -17,14 +17,16 @@ namespace SimpleWarehouse.States
         public IEventManager EventManager { get; set; }
         public IMySqlManager SqlManager { get ; set; }
         public ISession<IUser> UserSession { get; set; }
+        public IDbConnectionPropertiesStorageManager DbConnectionPropertiesManager { get ; set ; }
 
-        public StateManager(IOutputWriter writer, IEventManager eventManager, IMySqlManager sqlManager, ISession<IUser> userSession)
+        public StateManager(IOutputWriter writer, IEventManager eventManager, IMySqlManager sqlManager, ISession<IUser> userSession, IDbConnectionPropertiesStorageManager dbConnectionProperties)
         {
             this.OutputWriter = writer;
             this.Presenters = new Stack<IPresenter>();
             this.EventManager = eventManager;
             this.SqlManager = sqlManager;
-            this.UserSession = userSession; 
+            this.UserSession = userSession;
+            this.DbConnectionPropertiesManager = dbConnectionProperties;
         }
 
         public void Pop()

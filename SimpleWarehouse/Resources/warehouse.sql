@@ -281,9 +281,10 @@ CREATE TABLE IF NOT EXISTS `users` (
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `auth_id` int(11) NOT NULL,
   `date_registered` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `is_enabled` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `fk_auth_id_id` (`auth_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -292,14 +293,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- (See below for the actual view)
 --
 DROP VIEW IF EXISTS `user_auth_joined`;
-CREATE TABLE IF NOT EXISTS `user_auth_joined` (
-`auth_id` int(11)
-,`auth_type` varchar(255)
-,`date_registered` timestamp
-,`id` int(11)
-,`password` varchar(255)
-,`username` varchar(45)
-);
+CREATE VIEW `user_auth_joined`  AS  select `u`.`id` AS `id`,`u`.`auth_id` AS `auth_id`,`u`.`date_registered` AS `date_registered`,`u`.`is_enabled` AS `is_enabled`,`u`.`password` AS `password`,`u`.`username` AS `username`,`a`.`auth_type` AS `auth_type` from (`users` `u` join `authentications` `a` on((`a`.`id` = `u`.`auth_id`))) ;
 
 -- --------------------------------------------------------
 
@@ -342,9 +336,6 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 -- Structure for view `user_auth_joined`
 --
-DROP TABLE IF EXISTS `user_auth_joined`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `user_auth_joined`  AS  select `u`.`id` AS `id`,`u`.`username` AS `username`,`u`.`password` AS `password`,`u`.`auth_id` AS `auth_id`,`u`.`date_registered` AS `date_registered`,`a`.`auth_type` AS `auth_type` from (`users` `u` join `authentications` `a` on((`u`.`auth_id` = `a`.`id`))) ;
 
 --
 -- Constraints for dumped tables

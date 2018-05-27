@@ -20,7 +20,6 @@ namespace SimpleWarehouse.Presenter
 {
     public class HomePresenter : AbstractPresenter
     {
-
         private IEntityRepository<User> OnlineUserRepo;
         private bool IsProductsDisplayed;
 
@@ -73,6 +72,12 @@ namespace SimpleWarehouse.Presenter
                     break;
                 case TabPageNames.REVISION_TAB:
                     res = "Ревизия";
+                    break;
+                case TabPageNames.TRANSACTIONS_TAB:
+                    res = "Транзакции";
+                    break;
+                case TabPageNames.SETTINGS_TAB:
+                    res = "Настройки";
                     break;
             }
             this.Form.TabLabelText = res;

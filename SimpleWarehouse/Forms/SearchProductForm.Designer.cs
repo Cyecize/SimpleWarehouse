@@ -159,6 +159,7 @@
             // SearchType
             // 
             this.SearchType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.SearchType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.SearchType.Font = new System.Drawing.Font("Segoe UI", 12.22642F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.SearchType.Location = new System.Drawing.Point(278, 368);
             this.SearchType.Name = "SearchType";
