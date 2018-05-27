@@ -118,6 +118,12 @@ namespace SimpleWarehouse.Forms
                 isValid = false;
             }
 
+            if(this.CategoriesField.SelectedItem == null)
+            {
+                isValid = false;
+                this.Log("Моля изберете категория");
+            }
+
             return isValid;
         }
     }

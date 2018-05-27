@@ -58,7 +58,7 @@
             this.SubmitBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.SubmitBtn.Name = "SubmitBtn";
             this.SubmitBtn.Primary = false;
-            this.SubmitBtn.Size = new System.Drawing.Size(81, 36);
+            this.SubmitBtn.Size = new System.Drawing.Size(75, 36);
             this.SubmitBtn.TabIndex = 23;
             this.SubmitBtn.Text = "Запази";
             this.SubmitBtn.UseVisualStyleBackColor = false;
@@ -77,7 +77,7 @@
             this.CancelBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.CancelBtn.Name = "CancelBtn";
             this.CancelBtn.Primary = false;
-            this.CancelBtn.Size = new System.Drawing.Size(73, 36);
+            this.CancelBtn.Size = new System.Drawing.Size(68, 36);
             this.CancelBtn.TabIndex = 24;
             this.CancelBtn.Text = "Назад";
             this.CancelBtn.UseVisualStyleBackColor = false;
@@ -200,7 +200,7 @@
             this.ProdNameField.SelectedText = "";
             this.ProdNameField.SelectionLength = 0;
             this.ProdNameField.SelectionStart = 0;
-            this.ProdNameField.Size = new System.Drawing.Size(308, 25);
+            this.ProdNameField.Size = new System.Drawing.Size(308, 23);
             this.ProdNameField.TabIndex = 34;
             this.ProdNameField.TabStop = false;
             this.ProdNameField.UseSystemPasswordChar = false;
@@ -219,7 +219,7 @@
             this.ImportPriceField.SelectedText = "";
             this.ImportPriceField.SelectionLength = 0;
             this.ImportPriceField.SelectionStart = 0;
-            this.ImportPriceField.Size = new System.Drawing.Size(134, 25);
+            this.ImportPriceField.Size = new System.Drawing.Size(134, 23);
             this.ImportPriceField.TabIndex = 35;
             this.ImportPriceField.TabStop = false;
             this.ImportPriceField.UseSystemPasswordChar = false;
@@ -238,7 +238,7 @@
             this.SellPriceField.SelectedText = "";
             this.SellPriceField.SelectionLength = 0;
             this.SellPriceField.SelectionStart = 0;
-            this.SellPriceField.Size = new System.Drawing.Size(134, 25);
+            this.SellPriceField.Size = new System.Drawing.Size(134, 23);
             this.SellPriceField.TabIndex = 36;
             this.SellPriceField.TabStop = false;
             this.SellPriceField.UseSystemPasswordChar = false;
@@ -257,7 +257,7 @@
             this.QuantityField.SelectedText = "";
             this.QuantityField.SelectionLength = 0;
             this.QuantityField.SelectionStart = 0;
-            this.QuantityField.Size = new System.Drawing.Size(134, 25);
+            this.QuantityField.Size = new System.Drawing.Size(134, 23);
             this.QuantityField.TabIndex = 37;
             this.QuantityField.TabStop = false;
             this.QuantityField.Text = "0";
@@ -266,10 +266,11 @@
             // CategoriesField
             // 
             this.CategoriesField.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.CategoriesField.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CategoriesField.Font = new System.Drawing.Font("Segoe UI", 10.18868F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.CategoriesField.Location = new System.Drawing.Point(156, 203);
             this.CategoriesField.Name = "CategoriesField";
-            this.CategoriesField.Size = new System.Drawing.Size(134, 28);
+            this.CategoriesField.Size = new System.Drawing.Size(134, 27);
             this.CategoriesField.TabIndex = 38;
             // 
             // LogLabel
@@ -277,7 +278,7 @@
             this.LogLabel.AutoSize = true;
             this.LogLabel.Location = new System.Drawing.Point(12, 268);
             this.LogLabel.Name = "LogLabel";
-            this.LogLabel.Size = new System.Drawing.Size(0, 15);
+            this.LogLabel.Size = new System.Drawing.Size(0, 13);
             this.LogLabel.TabIndex = 39;
             // 
             // SpecificProductForm

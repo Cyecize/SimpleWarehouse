@@ -14,7 +14,11 @@ namespace SimpleWarehouse.Interfaces
 
         DbProperties ConnectionProperties { get; set; }
 
+        MySqlConnection Connection { get; set; }
+
         int ExecuteQuery(string query);
+
+        void CloseDataReader();
 
         void CloseConnection();
 

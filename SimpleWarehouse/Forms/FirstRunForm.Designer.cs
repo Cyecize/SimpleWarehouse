@@ -152,6 +152,7 @@
             // 
             // AvaivableDatabasesListBox
             // 
+            this.AvaivableDatabasesListBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.AvaivableDatabasesListBox.FormattingEnabled = true;
             this.AvaivableDatabasesListBox.Location = new System.Drawing.Point(151, 82);
             this.AvaivableDatabasesListBox.Name = "AvaivableDatabasesListBox";

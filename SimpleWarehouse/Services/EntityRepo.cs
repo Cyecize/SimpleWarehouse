@@ -30,7 +30,10 @@ namespace SimpleWarehouse.Service
         {
             MySqlDataReader reader = this.SqlManager.ExecuteQueryData(query);
             if (reader == null)
+            {
+                this.SqlManager.CloseDataReader();
                 return null;
+            }
             PropertyInfo[] properties = this.GetAllAttributes(typeof(DbNameReference));
 
 
@@ -59,7 +62,7 @@ namespace SimpleWarehouse.Service
 
             }
 
-            this.SqlManager.CloseConnection();
+            this.SqlManager.CloseDataReader();
 
             return entityArray;
         }
@@ -68,7 +71,10 @@ namespace SimpleWarehouse.Service
         {
             MySqlDataReader reader = this.SqlManager.ExecuteQueryData(query);
             if (reader == null)
+            {
+                this.SqlManager.CloseDataReader();
                 return default(T);
+            }
 
             T singleEntity = this.CreateInstance();
             PropertyInfo[] properties = this.GetAllAttributes(typeof(DbNameReference));
@@ -88,16 +94,14 @@ namespace SimpleWarehouse.Service
                     catch (Exception ex)
                     {
                         this.Logger.WriteLine(ex.Message);
-                        this.SqlManager.CloseConnection();
+                        this.SqlManager.CloseDataReader();
                         return default(T);
                     }
                 }
-                this.SqlManager.CloseConnection();
+                this.SqlManager.CloseDataReader();
                 return singleEntity;
             }
-            this.SqlManager.CloseConnection();
-
-
+            this.SqlManager.CloseDataReader();
             return default(T);
         }
 

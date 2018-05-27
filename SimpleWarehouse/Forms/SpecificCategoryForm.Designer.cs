@@ -50,7 +50,7 @@
             this.CancelBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.CancelBtn.Name = "CancelBtn";
             this.CancelBtn.Primary = false;
-            this.CancelBtn.Size = new System.Drawing.Size(73, 36);
+            this.CancelBtn.Size = new System.Drawing.Size(68, 36);
             this.CancelBtn.TabIndex = 26;
             this.CancelBtn.Text = "Назад";
             this.CancelBtn.UseVisualStyleBackColor = false;
@@ -69,7 +69,7 @@
             this.SubmitBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.SubmitBtn.Name = "SubmitBtn";
             this.SubmitBtn.Primary = false;
-            this.SubmitBtn.Size = new System.Drawing.Size(81, 36);
+            this.SubmitBtn.Size = new System.Drawing.Size(75, 36);
             this.SubmitBtn.TabIndex = 25;
             this.SubmitBtn.Text = "Запази";
             this.SubmitBtn.UseVisualStyleBackColor = false;
@@ -78,10 +78,11 @@
             // CategoriesField
             // 
             this.CategoriesField.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.CategoriesField.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CategoriesField.Font = new System.Drawing.Font("Segoe UI", 10.18868F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.CategoriesField.Location = new System.Drawing.Point(205, 71);
             this.CategoriesField.Name = "CategoriesField";
-            this.CategoriesField.Size = new System.Drawing.Size(134, 28);
+            this.CategoriesField.Size = new System.Drawing.Size(134, 27);
             this.CategoriesField.TabIndex = 40;
             // 
             // materialLabel7
@@ -112,7 +113,7 @@
             this.CategoryNameField.SelectedText = "";
             this.CategoryNameField.SelectionLength = 0;
             this.CategoryNameField.SelectionStart = 0;
-            this.CategoryNameField.Size = new System.Drawing.Size(263, 25);
+            this.CategoryNameField.Size = new System.Drawing.Size(263, 23);
             this.CategoryNameField.TabIndex = 42;
             this.CategoryNameField.TabStop = false;
             this.CategoryNameField.UseSystemPasswordChar = false;
@@ -136,7 +137,7 @@
             this.LogLabel.AutoSize = true;
             this.LogLabel.Location = new System.Drawing.Point(13, 136);
             this.LogLabel.Name = "LogLabel";
-            this.LogLabel.Size = new System.Drawing.Size(0, 15);
+            this.LogLabel.Size = new System.Drawing.Size(0, 13);
             this.LogLabel.TabIndex = 43;
             // 
             // SpecificCategoryForm

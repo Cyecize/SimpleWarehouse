@@ -12,11 +12,13 @@ namespace SimpleWarehouse.Service
 {
     public class MySqlManager : IMySqlManager
     {
-        private MySqlConnection Connection { get; set; }
+        private MySqlConnection _conn;
         private MySqlDataReader DataReader { get; set; }
         private string ConnectionStr { get; set; }
-        private bool isConnAvailable { get; set; }
-        public DbProperties ConnectionProperties { get ; set ; }
+        private bool IsConnAvailable { get; set; }
+        public DbProperties ConnectionProperties { get; set; }
+
+        public MySqlConnection Connection { get => this._conn; set { this.CloseConnection(); this._conn = value; this.OpenAndTestConnection(); } }
 
         public MySqlManager(DbProperties dbProperties)
         {
@@ -24,12 +26,12 @@ namespace SimpleWarehouse.Service
             this.ConnectionProperties = dbProperties;
 
             this.Connection = new MySqlConnection(this.ConnectionStr);
-            this.isConnAvailable = this.OpenAndTestConnection();//open the connection 
+            this.IsConnAvailable = this.OpenAndTestConnection();//open the connection 
         }
 
         public int ExecuteQuery(string query)
         {
-            if (!this.isConnAvailable)
+            if (!this.IsConnAvailable)
                 this.OpenAndTestConnection();
             this.CloseDataReader();
             try
@@ -41,7 +43,7 @@ namespace SimpleWarehouse.Service
             }
             catch (Exception e)
             {
-                this.CloseConnection();
+                this.CloseDataReader();
                 Console.WriteLine("There was an error with the MySql manager at ExecuteQuery");
                 Console.WriteLine(e.Message);
                 return 0;
@@ -50,7 +52,7 @@ namespace SimpleWarehouse.Service
 
         public long InsertQuery(string query)
         {
-            if (!this.isConnAvailable)
+            if (!this.IsConnAvailable)
                 this.OpenAndTestConnection();
             this.CloseDataReader();
             try
@@ -62,7 +64,7 @@ namespace SimpleWarehouse.Service
             }
             catch (Exception)
             {
-                this.CloseConnection();
+                this.CloseDataReader();
                 Console.WriteLine("There was an error with the MySql manager at InsertQuery");
                 //Console.WriteLine(e.Message);
                 return 0;
@@ -71,7 +73,7 @@ namespace SimpleWarehouse.Service
 
         public MySqlDataReader ExecuteQueryData(string query)
         {
-            if (!this.isConnAvailable)
+            if (!this.IsConnAvailable)
                 this.OpenAndTestConnection();
             this.CloseDataReader();
             try
@@ -84,12 +86,12 @@ namespace SimpleWarehouse.Service
             }
             catch (Exception ex)
             {
-                this.CloseConnection();
+                this.CloseDataReader();
                 Console.WriteLine("There was exception with the Db");
                 Console.WriteLine($" --> DataReader state before before: {this.DataReader == null}");
                 Console.WriteLine($" --> Msg: {ex.Message}");
                 Console.WriteLine(query);
-                this.CloseConnection();
+                this.CloseDataReader();
                 Console.WriteLine($" --> DataReader state after: {this.DataReader == null}");
                 return null;
             }
@@ -103,10 +105,12 @@ namespace SimpleWarehouse.Service
         //close SQL connection if it is Open
         public void CloseConnection()
         {
-            //if (this.connection.State.ToString() == "Open")
-            //this.connection.Close();
-            this.CloseDataReader();
-
+            if (this.Connection != null && this.Connection.State != ConnectionState.Closed)
+            {
+                this.Connection.Close();
+                this.CloseDataReader();
+                this.IsConnAvailable = false;
+            }
         }
 
         public bool IsConnectionActive()
@@ -124,13 +128,13 @@ namespace SimpleWarehouse.Service
             {
                 if (this.Connection.State.ToString() == "Closed")
                     this.Connection.Open();
-                this.isConnAvailable = true;
+                this.IsConnAvailable = true;
                 return true;
             }
             catch (Exception)
             {
                 //ApplicationState.IsRunning = false;
-                this.isConnAvailable = false;
+                this.IsConnAvailable = false;
                 Console.WriteLine("Connection to MySql Database was not established");
                 return false;
 
@@ -138,7 +142,7 @@ namespace SimpleWarehouse.Service
             }
         }
 
-        private void CloseDataReader()
+        public void CloseDataReader()
         {
             if (this.DataReader != null)
             {
@@ -146,7 +150,6 @@ namespace SimpleWarehouse.Service
                 this.DataReader = null;
             }
         }
-
     }
 }
 

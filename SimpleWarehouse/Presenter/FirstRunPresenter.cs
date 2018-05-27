@@ -27,12 +27,15 @@ namespace SimpleWarehouse.Presenter
 
         private const string CONNECTION_NOT_OPEN_MSG = "Connection is closed, please test connection first.";
 
-        public FirstRunPresenter(IStateManager manager) : base(manager)
+        private IDbConnectionPropertiesStorageManager DbConnectionPropertiesManager { get; set; }
+
+        public FirstRunPresenter(IStateManager manager, IDbConnectionPropertiesStorageManager dbConnectionProperties) : base(manager)
         {
             this.Form = (IFirstRunView)FormFactory.CreateForm("FirstRunForm", new object[] { this });
             ((Form)this.Form).FormClosing += (o, e) =>  App.ApplicationState.IsRunning = false; 
             this.DisplayConnectionString(base.StateManager.SqlManager.ConnectionProperties);
             this.Form.Text = "Първо стартиране";
+            this.DbConnectionPropertiesManager = dbConnectionProperties;
         }
 
         public void ShowDatabasesAction()
@@ -82,7 +85,7 @@ namespace SimpleWarehouse.Presenter
                 this.Form.Log("Invalid Database");
                 return;
             }
-            this.ConnectionProperties.Databasename = dbName;
+            this.ConnectionProperties.DatabaseName = dbName;
             this.SelectedDatabase = new MySqlManager(this.ConnectionProperties);
             if (!this.HasAdministrator())
                 this.Form.SetUserBtnStatus(true);
@@ -146,7 +149,11 @@ namespace SimpleWarehouse.Presenter
                 this.Form.Log("Please create an administrator");
                 return;
             }
-            base.StateManager.SqlManager = this.SelectedDatabase;
+            base.StateManager.SqlManager.CloseConnection();
+            base.StateManager.SqlManager.Connection = this.SelectedDatabase.Connection;
+            base.StateManager.SqlManager.CloseConnection();
+            base.StateManager.SqlManager.ConnectionProperties = this.ConnectionProperties;
+            this.DbConnectionPropertiesManager.SaveSettions(base.StateManager.SqlManager.ConnectionProperties);
             base.StateManager.Set(new HomePresenter(base.StateManager));
         }
 

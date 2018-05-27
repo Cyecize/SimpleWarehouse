@@ -49,6 +49,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Program Files (x86)\MySQL\MySQL Connector Net 8.0.11\Assemblies\v4.5.2\MySql.Data.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -138,6 +141,7 @@
     <Compile Include="Forms\SpecificProductForm.Designer.cs">
       <DependentUpon>SpecificProductForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IDbConnectionPropertiesStorageManager.cs" />
     <Compile Include="Interfaces\IInvoiceDbManager.cs" />
     <Compile Include="Interfaces\IInvoiceViewManager.cs" />
     <Compile Include="Interfaces\IRevenueViewManager.cs" />
@@ -174,6 +178,7 @@
     <Compile Include="Presenter\RevenueRelated\IRevenuePresenter.cs" />
     <Compile Include="Presenter\RevenueRelated\RevenuePresenter.cs" />
     <Compile Include="Presenter\SearchProductPresenter.cs" />
+    <Compile Include="Services\DbConnectionStorageManager.cs" />
     <Compile Include="Services\ProductSectionManagers\CatetegoryRepositoryManager.cs" />
     <Compile Include="Services\ProductSectionManagers\ProductRepositoryManager.cs" />
     <Compile Include="Services\ProductSectionManagers\ProductSectionManager.cs" />

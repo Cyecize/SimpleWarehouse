@@ -29,7 +29,7 @@ namespace SimpleWarehouse.Factory
             }
             catch (Exception e) { Console.WriteLine(e.Message); throw new ArgumentException("There was an error while creating the database."); }
 
-            properties.Databasename = dbName;
+            properties.DatabaseName = dbName;
             IMySqlManager newManager = new MySqlManager(properties);
             if (newManager.IsConnectionActive())
             {

@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using Newtonsoft.Json;
 using SimpleWarehouse.App;
 using SimpleWarehouse.Factory;
 using SimpleWarehouse.Interfaces;
@@ -6,6 +7,7 @@ using SimpleWarehouse.IO;
 using SimpleWarehouse.Model;
 using SimpleWarehouse.Presenter;
 using SimpleWarehouse.Service;
+using SimpleWarehouse.Services;
 using SimpleWarehouse.States;
 using System;
 using System.Collections.Generic;
@@ -14,6 +16,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -29,14 +32,13 @@ namespace SimpleWarehouse
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-          
+
             //measuring time
             Stopwatch stopwatch = new Stopwatch();
 
-            DbProperties properties = new DbProperties { Server = "localhostt", Port = "33063", Password = "", Username = "root" }; 
-
             //creating dependencies
-            IMySqlManager mySqlManager = new MySqlManager(properties);
+            IDbConnectionPropertiesStorageManager dbConnectionProperties = new DbConnectionStorageManager();
+            IMySqlManager mySqlManager = new MySqlManager(dbConnectionProperties.GetSettings());
             IEventManager eventManager = new EventManager();
             ISession<IUser> userSession = new Session<IUser>();
             IOutputWriter writer = new ConsoleWriter();
@@ -46,9 +48,9 @@ namespace SimpleWarehouse
 
             //creating business classes
             IStateManager stateManager = new StateManager(writer, eventManager, mySqlManager, userSession);
-            //stateManager.Push(new HomePresenter(stateManager));
+            if (mySqlManager.IsConnectionActive()) stateManager.Push(new HomePresenter(stateManager));
+            else stateManager.Push(new FirstRunPresenter(stateManager, dbConnectionProperties));
 
-            stateManager.Push(new FirstRunPresenter(stateManager));
             //application loop
             ApplicationState.IsRunning = true;
             double deltaTimeSeconds = 0;
@@ -64,15 +66,15 @@ namespace SimpleWarehouse
                 else
                     break;
 
-                System.Threading.Thread.Sleep(Constants.Config.EVENT_LISTENER_IMMEDIEATE);
+                System.Threading.Thread.Sleep(Constants.Config.EVENT_LISTENER_IMMEDIEATE);//1ms
                 stopwatch.Stop();
                 ticks = stopwatch.ElapsedTicks;
                 deltaTimeSeconds = ticks / Stopwatch.Frequency * 1000;
                 stopwatch.Reset();
-
             }
 
             //aftermath (testing along the way)
+            mySqlManager.CloseConnection(); 
         }
     }
 }

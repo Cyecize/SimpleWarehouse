@@ -16,12 +16,12 @@ namespace SimpleWarehouse.Model
 
         public string Password { get; set; }
 
-        public string Databasename { get; set; }
+        public string DatabaseName { get; set; }
 
         public string CreateConnectionString()
         {
             string pass = this.Password != "" ? $"Password={this.Password};" : "";
-            string dbName = this.Databasename != "" ? $"Database={this.Databasename};" : "";
+            string dbName = this.DatabaseName != "" ? $"Database={this.DatabaseName};" : "";
 
             return $"Server={this.Server};Port={this.Port};{dbName}Uid={this.Username};{pass}SslMode=none;Charset=utf8";
         }
