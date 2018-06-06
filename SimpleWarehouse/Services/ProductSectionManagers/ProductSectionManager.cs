@@ -26,7 +26,7 @@ namespace SimpleWarehouse.Services.ProductSectionManagers
         {
             this.ProductsManager = new ProductRepositoryManager(sqlManager);
             this.CategoriesManager = new CategoryRepositoryManager(sqlManager);
-            this.ProductViewManager = new ProductViewManager(dataGridView);
+            this.ProductViewManager = new ProductViewManager(dataGridView, form);
             this.Presenter = presenter;
             this.Form = form;
         }
@@ -35,7 +35,10 @@ namespace SimpleWarehouse.Services.ProductSectionManagers
 
         public void UpdateProducts()
         {
-            this.ProductViewManager.DisplayProducts(this.ProductsManager.FindAll());
+            if (this.Form.SearchText == string.Empty)
+                this.ProductViewManager.DisplayProducts(this.ProductsManager.FindAll());
+            else
+                this.SearchProdAction();
         }
 
         public void UpdateVisibleProducts()

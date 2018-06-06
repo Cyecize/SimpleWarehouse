@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{96A00726-319C-453F-9B91-B2C9BCB7966F}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>SimpleWarehouse</RootNamespace>
     <AssemblyName>SimpleWarehouse</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -64,6 +64,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DataGridViewTextButton">
@@ -175,6 +178,7 @@
     <Compile Include="Interfaces\IDbConnectionPropertiesStorageManager.cs" />
     <Compile Include="Interfaces\IInvoiceDbManager.cs" />
     <Compile Include="Interfaces\IInvoiceViewManager.cs" />
+    <Compile Include="Interfaces\ILoggable.cs" />
     <Compile Include="Interfaces\IRevenueViewManager.cs" />
     <Compile Include="Interfaces\ICategoriesRepositoryManager.cs" />
     <Compile Include="Interfaces\IEntityRepository.cs" />

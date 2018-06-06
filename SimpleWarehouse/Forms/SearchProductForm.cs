@@ -66,6 +66,8 @@ namespace SimpleWarehouse.Forms
             };
             this.DataTableView.KeyPress += (obj, e) =>
             {
+                if (e.KeyChar == (char)Keys.Enter)
+                    this.Presenter.Submit();
                 if (char.IsLetterOrDigit(((KeyPressEventArgs)e).KeyChar) || ((KeyPressEventArgs)e).KeyChar == (char)Keys.Space)
                     this.SearchBox.Text += ((KeyPressEventArgs)e).KeyChar;
                 if (((KeyPressEventArgs)e).KeyChar == (char)Keys.OemBackslash || ((KeyPressEventArgs)e).KeyChar == (char)Keys.Back)
@@ -76,6 +78,11 @@ namespace SimpleWarehouse.Forms
 
             };
             this.SearchType.SelectedIndexChanged += this.OnSearchParamChange;
+            this.KeyDown += (o, e) =>
+            {
+                if (e.KeyCode == Keys.Enter)
+                    this.Presenter.Submit();
+            };
         }
 
         //events

@@ -23,10 +23,11 @@ namespace SimpleWarehouse.Services.ProductSectionManagers
         private DataTable Table;
         private DataGridView ViewTable;
         private DataGridViewRow SelectedRow;
+        private ILoggable Log;
 
         public SearchParameter SearchParam { get; set; }
        
-        public ProductViewManager(DataGridView dataGridView)
+        public ProductViewManager(DataGridView dataGridView, ILoggable loggable)
         {
             this.Table = new DataTable();
             this.Table.Columns.Add(PRODUCT_ID);
@@ -37,6 +38,7 @@ namespace SimpleWarehouse.Services.ProductSectionManagers
             this.Table.Columns.Add(SELL_PRICE);
             this.Table.Columns.Add(IS_VISIBLE);
             this.ViewTable = dataGridView;
+            this.Log = loggable;
         }
 
         //main functionality
@@ -60,6 +62,8 @@ namespace SimpleWarehouse.Services.ProductSectionManagers
             {
                 this.AddRow(this.MakeRow(prod));
             }
+           
+            this.Log.Log($"Показани са {products.Count} продукти");
         }
 
         public void ChangeSearchParam(SearchParameter search)
@@ -107,6 +111,10 @@ namespace SimpleWarehouse.Services.ProductSectionManagers
             this.ViewTable.Rows[rowId].Cells[IMPORT_PRICE].Value = row[IMPORT_PRICE].ToString();
             this.ViewTable.Rows[rowId].Cells[SELL_PRICE].Value = row[SELL_PRICE].ToString();
             this.ViewTable.Rows[rowId].Cells[IS_VISIBLE].Value = row[IS_VISIBLE].ToString();
+            this.ViewTable.ClearSelection();
+            this.ViewTable.Rows[rowId].Selected = true;
+            this.SelectProduct();
+           
         }
 
 
