@@ -25,6 +25,9 @@ namespace SimpleWarehouse.Model
         [DbNameReference(name: "date")]
         public DateTime Date { get; set; }
 
+        [DbNameReference(name: "comment")]
+        public string Comment { get; set; }
+
         public Invoice()
         {
             this.Date = DateTime.Now;

@@ -17,6 +17,7 @@ namespace SimpleWarehouse.Services.RevenueRelated
         private string REVENUE_AMOUNT = "Amount";
         private string DATE = "Date";
         private string IS_REVISED = "IsRevised";
+        private string COMMENT = "Comment";
 
         private DataTable Table;
         private DataGridView ViewTable;
@@ -27,6 +28,7 @@ namespace SimpleWarehouse.Services.RevenueRelated
             REVENUE_AMOUNT = tableNames[RevenueDataTableNames.REVENUE_AMOUNT];
             DATE = tableNames[RevenueDataTableNames.DATE];
             IS_REVISED = tableNames[RevenueDataTableNames.IS_REVISED];
+            COMMENT = tableNames[RevenueDataTableNames.COMMENT];
 
             this.ViewTable = dataGridView;
             this.Table = new DataTable();
@@ -34,6 +36,7 @@ namespace SimpleWarehouse.Services.RevenueRelated
             this.Table.Columns.Add(REVENUE_AMOUNT);
             this.Table.Columns.Add(DATE);
             this.Table.Columns.Add(IS_REVISED);
+            this.Table.Columns.Add(COMMENT);
         }
 
         public void DisplayRevenues(List<RevenueStream> revenues)
@@ -56,6 +59,7 @@ namespace SimpleWarehouse.Services.RevenueRelated
             this.ViewTable.Rows[rowId].Cells[REVENUE_AMOUNT].Value = revenue.RevenueAmount;
             this.ViewTable.Rows[rowId].Cells[DATE].Value = revenue.Date;
             this.ViewTable.Rows[rowId].Cells[IS_REVISED].Value = revenue.IsRevised;
+            this.ViewTable.Rows[rowId].Cells[COMMENT].Value = revenue.Comment;
 
         }
     }

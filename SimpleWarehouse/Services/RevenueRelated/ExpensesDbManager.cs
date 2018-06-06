@@ -32,7 +32,7 @@ namespace SimpleWarehouse.Services.RevenueRelated
 
         public long CreateEntity(RevenueStream revenue)
         {
-            string query = $"INSERT INTO expenses VALUES (null, {revenue.UserId}, {revenue.RevenueAmount}, '{revenue.Date.ToString("yyyy-MM-dd hh:mm:ss")}', {revenue.IsRevised.ToString().ToUpper()})";
+            string query = $"INSERT INTO expenses VALUES (null, {revenue.UserId}, {revenue.RevenueAmount}, '{revenue.Date.ToString("yyyy-MM-dd hh:mm:ss")}', {revenue.IsRevised.ToString().ToUpper()} , '{this.SqlManager.EscapeString(revenue.Comment)}' )";
             return this.SqlManager.InsertQuery(query);
         }
 
@@ -43,7 +43,7 @@ namespace SimpleWarehouse.Services.RevenueRelated
 
         public RevenueStream FindOneByTransaction(int transactionId)
         {
-            return this.RevenueRepo.FindOneByQuery($"SELECT * FROM {EXPENSE_TABLE_NAME_ONLY} AS e INNER JOIN transactions_expenses AS te ON te.expense_id = e.id WHERE transaction_id = {transactionId}"); 
+            return this.RevenueRepo.FindOneByQuery($"SELECT * FROM {EXPENSE_TABLE_NAME_ONLY} AS e INNER JOIN transactions_expenses AS te ON te.expense_id = e.id WHERE transaction_id = {transactionId}");
         }
 
         public RevenueStream FindOneById(int id)

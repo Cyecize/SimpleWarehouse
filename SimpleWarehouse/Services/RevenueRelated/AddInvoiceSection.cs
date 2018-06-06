@@ -28,11 +28,13 @@ namespace SimpleWarehouse.Services.RevenueRelated
         {
             DateTime revenueDate = this.Presenter.Form.NewEntityDate;
             double amount = this.Presenter.Form.NewEntityAmount;
+            string comment = this.Presenter.Form.CommentText;
             Invoice invoice = new Invoice()
             {
                 Date = revenueDate,
                 RevenueAmount = amount,
                 UserId = this.Presenter.GetStateManager().UserSession.SessionEntity.Id,
+                Comment = comment,
             };
             if (invoice.RevenueAmount <= 0)
             {

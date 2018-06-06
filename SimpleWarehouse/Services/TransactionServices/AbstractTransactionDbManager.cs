@@ -46,7 +46,8 @@ namespace SimpleWarehouse.Services.TransactionServices
                 Date = DateTime.Now,
                 IsRevised = false,
                 RevenueAmount = totalRevenueAmount,
-                UserId = this.LoggedUser.Id
+                UserId = this.LoggedUser.Id,
+                Comment = "Transaction"
             };
             revenueStream = this.InsertRevenueStream(revenueStream);
             this.InsertRevenueStreamTransactionRelation(revenueStream, transaction);

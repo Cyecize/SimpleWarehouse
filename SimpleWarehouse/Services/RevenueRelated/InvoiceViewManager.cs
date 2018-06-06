@@ -16,6 +16,7 @@ namespace SimpleWarehouse.Services.RevenueRelated
         private string USERNAME = "Username";
         private string REVENUE_AMOUNT = "Amount";
         private string DATE = "Date";
+        private string COMMENT = "Comment";
 
         private DataTable Table;
         private DataGridView ViewTable;
@@ -25,12 +26,14 @@ namespace SimpleWarehouse.Services.RevenueRelated
             USERNAME = tableNames[RevenueDataTableNames.USERNAME];
             REVENUE_AMOUNT = tableNames[RevenueDataTableNames.REVENUE_AMOUNT];
             DATE = tableNames[RevenueDataTableNames.DATE];
+            COMMENT = tableNames[RevenueDataTableNames.COMMENT];
 
             this.ViewTable = dataGridView;
             this.Table = new DataTable();
             this.Table.Columns.Add(USERNAME);
             this.Table.Columns.Add(REVENUE_AMOUNT);
             this.Table.Columns.Add(DATE);
+            this.Table.Columns.Add(COMMENT);
         }
 
         public void DisplayInvoices(List<Invoice> invoices)
@@ -52,6 +55,7 @@ namespace SimpleWarehouse.Services.RevenueRelated
             this.ViewTable.Rows[rowId].Cells[USERNAME].Value = invoice.Username;
             this.ViewTable.Rows[rowId].Cells[REVENUE_AMOUNT].Value = invoice.RevenueAmount;
             this.ViewTable.Rows[rowId].Cells[DATE].Value = invoice.Date;
+            this.ViewTable.Rows[rowId].Cells[COMMENT].Value = invoice.Comment;
         }
     }
 }

@@ -25,7 +25,7 @@ namespace SimpleWarehouse.Services.RevenueRelated
 
         public void CreateInvoice(Invoice invoice)
         {
-            string query = $"INSERT INTO invoices VALUES (null, {invoice.UserId}, {invoice.RevenueAmount}, '{invoice.Date.ToString("yyyy-MM-dd hh:mm:ss")}')";
+            string query = $"INSERT INTO invoices VALUES (null, {invoice.UserId}, {invoice.RevenueAmount}, '{invoice.Date.ToString("yyyy-MM-dd hh:mm:ss")}', '{this.SqlManager.EscapeString(invoice.Comment)}')";
             this.SqlManager.ExecuteQuery(query);
         }
 

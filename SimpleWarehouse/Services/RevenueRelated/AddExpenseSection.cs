@@ -28,12 +28,14 @@ namespace SimpleWarehouse.Services.RevenueRelated
         {
             DateTime revenueDate = this.Presenter.Form.NewEntityDate;
             double amount = this.Presenter.Form.NewEntityAmount;
+            string comment = this.Presenter.Form.CommentText;
             RevenueStream revenue = new RevenueStream()
             {
                 Date = revenueDate,
                 RevenueAmount = amount,
                 UserId = this.Presenter.GetStateManager().UserSession.SessionEntity.Id,
-                IsRevised = false
+                IsRevised = false,
+                Comment = comment,
             };
             if (revenue.RevenueAmount <= 0)
             {

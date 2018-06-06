@@ -35,12 +35,14 @@ namespace SimpleWarehouse.Services.RevenueRelated
         {
             DateTime revenueDate = this.Form.NewEntityDate;
             double amount = this.Form.NewEntityAmount;
+            string comment = this.Form.CommentText;
             RevenueStream revenue = new RevenueStream()
             {
                 Date = revenueDate,
                 RevenueAmount = amount,
                 UserId = this.Presenter.GetStateManager().UserSession.SessionEntity.Id,
-                IsRevised = false
+                IsRevised = false,
+                Comment = comment
             };
             if (revenue.RevenueAmount <= 0)
             {

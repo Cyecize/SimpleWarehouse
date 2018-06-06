@@ -30,11 +30,9 @@
         {
             this.materialTabControl1 = new MaterialSkin.Controls.MaterialTabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label7 = new System.Windows.Forms.Label();
+            this.CommentBox = new System.Windows.Forms.TextBox();
             this.DataTableView = new System.Windows.Forms.DataGridView();
-            this.Username = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Amount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IsRevised = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AddRevenueBtn = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.RevenueAmountBox = new System.Windows.Forms.TextBox();
@@ -46,10 +44,6 @@
             this.TotalAmountBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.ArchivedRevenuesTable = new System.Windows.Forms.DataGridView();
-            this.UsernameArch = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AmountArch = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DateArch = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IsRevisedArch = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.FindArchivedRevenues = new System.Windows.Forms.Button();
@@ -58,6 +52,16 @@
             this.materialTabSelector1 = new MaterialSkin.Controls.MaterialTabSelector();
             this.GoBackBtn = new MaterialSkin.Controls.MaterialFlatButton();
             this.LogLabel = new MaterialSkin.Controls.MaterialLabel();
+            this.Username = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Amount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Comment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IsRevised = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UsernameArch = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AmountArch = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DateArch = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CommentArch = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IsRevisedArch = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.materialTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataTableView)).BeginInit();
@@ -82,6 +86,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label7);
+            this.tabPage1.Controls.Add(this.CommentBox);
             this.tabPage1.Controls.Add(this.DataTableView);
             this.tabPage1.Controls.Add(this.AddRevenueBtn);
             this.tabPage1.Controls.Add(this.label2);
@@ -96,6 +102,26 @@
             this.tabPage1.Text = "Добавяне на оборот";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // label7
+            // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe MDL2 Assets", 16.30189F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(236, 208);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(89, 22);
+            this.label7.TabIndex = 31;
+            this.label7.Text = "Коментар:";
+            // 
+            // CommentBox
+            // 
+            this.CommentBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.CommentBox.Location = new System.Drawing.Point(240, 233);
+            this.CommentBox.Multiline = true;
+            this.CommentBox.Name = "CommentBox";
+            this.CommentBox.Size = new System.Drawing.Size(135, 23);
+            this.CommentBox.TabIndex = 30;
+            // 
             // DataTableView
             // 
             this.DataTableView.AllowUserToAddRows = false;
@@ -107,6 +133,7 @@
             this.Username,
             this.Amount,
             this.Date,
+            this.Comment,
             this.IsRevised});
             this.DataTableView.Location = new System.Drawing.Point(7, 6);
             this.DataTableView.MultiSelect = false;
@@ -116,37 +143,10 @@
             this.DataTableView.Size = new System.Drawing.Size(655, 199);
             this.DataTableView.TabIndex = 29;
             // 
-            // Username
-            // 
-            this.Username.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Username.HeaderText = "Потр. име";
-            this.Username.Name = "Username";
-            this.Username.ReadOnly = true;
-            // 
-            // Amount
-            // 
-            this.Amount.HeaderText = "Сума";
-            this.Amount.Name = "Amount";
-            this.Amount.ReadOnly = true;
-            this.Amount.Width = 206;
-            // 
-            // Date
-            // 
-            this.Date.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Date.HeaderText = "Дата";
-            this.Date.Name = "Date";
-            this.Date.ReadOnly = true;
-            // 
-            // IsRevised
-            // 
-            this.IsRevised.HeaderText = "Ревизиран";
-            this.IsRevised.Name = "IsRevised";
-            this.IsRevised.ReadOnly = true;
-            // 
             // AddRevenueBtn
             // 
             this.AddRevenueBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.AddRevenueBtn.Location = new System.Drawing.Point(356, 233);
+            this.AddRevenueBtn.Location = new System.Drawing.Point(497, 233);
             this.AddRevenueBtn.Name = "AddRevenueBtn";
             this.AddRevenueBtn.Size = new System.Drawing.Size(88, 23);
             this.AddRevenueBtn.TabIndex = 28;
@@ -159,7 +159,7 @@
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe MDL2 Assets", 16.30189F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(236, 208);
+            this.label2.Location = new System.Drawing.Point(377, 208);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(52, 22);
             this.label2.TabIndex = 27;
@@ -169,7 +169,7 @@
             // 
             this.RevenueAmountBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.RevenueAmountBox.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.RevenueAmountBox.Location = new System.Drawing.Point(240, 233);
+            this.RevenueAmountBox.Location = new System.Drawing.Point(381, 233);
             this.RevenueAmountBox.Name = "RevenueAmountBox";
             this.RevenueAmountBox.Size = new System.Drawing.Size(110, 22);
             this.RevenueAmountBox.TabIndex = 26;
@@ -268,6 +268,7 @@
             this.UsernameArch,
             this.AmountArch,
             this.DateArch,
+            this.CommentArch,
             this.IsRevisedArch});
             this.ArchivedRevenuesTable.Location = new System.Drawing.Point(6, 6);
             this.ArchivedRevenuesTable.MultiSelect = false;
@@ -276,33 +277,6 @@
             this.ArchivedRevenuesTable.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.ArchivedRevenuesTable.Size = new System.Drawing.Size(656, 180);
             this.ArchivedRevenuesTable.TabIndex = 30;
-            // 
-            // UsernameArch
-            // 
-            this.UsernameArch.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.UsernameArch.HeaderText = "Потр. име";
-            this.UsernameArch.Name = "UsernameArch";
-            this.UsernameArch.ReadOnly = true;
-            // 
-            // AmountArch
-            // 
-            this.AmountArch.HeaderText = "Сума";
-            this.AmountArch.Name = "AmountArch";
-            this.AmountArch.ReadOnly = true;
-            this.AmountArch.Width = 206;
-            // 
-            // DateArch
-            // 
-            this.DateArch.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.DateArch.HeaderText = "Дата";
-            this.DateArch.Name = "DateArch";
-            this.DateArch.ReadOnly = true;
-            // 
-            // IsRevisedArch
-            // 
-            this.IsRevisedArch.HeaderText = "Ревизиран";
-            this.IsRevisedArch.Name = "IsRevisedArch";
-            this.IsRevisedArch.ReadOnly = true;
             // 
             // label4
             // 
@@ -397,6 +371,72 @@
             this.LogLabel.Size = new System.Drawing.Size(448, 30);
             this.LogLabel.TabIndex = 42;
             // 
+            // Username
+            // 
+            this.Username.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Username.HeaderText = "Потр. име";
+            this.Username.Name = "Username";
+            this.Username.ReadOnly = true;
+            // 
+            // Amount
+            // 
+            this.Amount.HeaderText = "Сума";
+            this.Amount.Name = "Amount";
+            this.Amount.ReadOnly = true;
+            this.Amount.Width = 206;
+            // 
+            // Date
+            // 
+            this.Date.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Date.HeaderText = "Дата";
+            this.Date.Name = "Date";
+            this.Date.ReadOnly = true;
+            // 
+            // Comment
+            // 
+            this.Comment.HeaderText = "Коментар";
+            this.Comment.Name = "Comment";
+            this.Comment.ReadOnly = true;
+            // 
+            // IsRevised
+            // 
+            this.IsRevised.HeaderText = "Ревизиран";
+            this.IsRevised.Name = "IsRevised";
+            this.IsRevised.ReadOnly = true;
+            // 
+            // UsernameArch
+            // 
+            this.UsernameArch.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.UsernameArch.HeaderText = "Потр. име";
+            this.UsernameArch.Name = "UsernameArch";
+            this.UsernameArch.ReadOnly = true;
+            // 
+            // AmountArch
+            // 
+            this.AmountArch.HeaderText = "Сума";
+            this.AmountArch.Name = "AmountArch";
+            this.AmountArch.ReadOnly = true;
+            this.AmountArch.Width = 206;
+            // 
+            // DateArch
+            // 
+            this.DateArch.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.DateArch.HeaderText = "Дата";
+            this.DateArch.Name = "DateArch";
+            this.DateArch.ReadOnly = true;
+            // 
+            // CommentArch
+            // 
+            this.CommentArch.HeaderText = "Коментар";
+            this.CommentArch.Name = "CommentArch";
+            this.CommentArch.ReadOnly = true;
+            // 
+            // IsRevisedArch
+            // 
+            this.IsRevisedArch.HeaderText = "Ревизиран";
+            this.IsRevisedArch.Name = "IsRevisedArch";
+            this.IsRevisedArch.ReadOnly = true;
+            // 
             // RevenueForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -434,10 +474,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button AddRevenueBtn;
         private System.Windows.Forms.DataGridView DataTableView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Username;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Amount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Date;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IsRevised;
         private MaterialSkin.Controls.MaterialLabel LogLabel;
         private System.Windows.Forms.DataGridView ArchivedRevenuesTable;
         private System.Windows.Forms.Label label4;
@@ -445,13 +481,21 @@
         private System.Windows.Forms.Button FindArchivedRevenues;
         private System.Windows.Forms.DateTimePicker RevisedEndDate;
         private System.Windows.Forms.DateTimePicker RevisedStartDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UsernameArch;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AmountArch;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DateArch;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IsRevisedArch;
         private System.Windows.Forms.TextBox TotalRowsBox;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox TotalAmountBox;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox CommentBox;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Username;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Amount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Date;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Comment;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IsRevised;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UsernameArch;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AmountArch;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DateArch;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommentArch;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IsRevisedArch;
     }
 }

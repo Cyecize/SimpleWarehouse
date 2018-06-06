@@ -12,6 +12,7 @@ namespace SimpleWarehouse.Constants
         public const string REVENUE_AMOUNT = "REVENUE_AMOUNT";
         public const string DATE = "DATE";
         public const string IS_REVISED = "IS_REVISED";
+        public const string COMMENT = "COMMENT";
 
         public static Dictionary<string, string> GetNamesForAddRevenue()
         {
@@ -20,6 +21,7 @@ namespace SimpleWarehouse.Constants
             keyValuePairs[REVENUE_AMOUNT] = "Amount";
             keyValuePairs[DATE] = "Date";
             keyValuePairs[IS_REVISED] = "IsRevised";
+            keyValuePairs[COMMENT] = "Comment";
 
             return keyValuePairs;
         }
@@ -31,6 +33,7 @@ namespace SimpleWarehouse.Constants
             keyValuePairs[REVENUE_AMOUNT] = "AmountArch";
             keyValuePairs[DATE] = "DateArch";
             keyValuePairs[IS_REVISED] = "IsRevisedArch";
+            keyValuePairs[COMMENT] = "CommentArch";
 
             return keyValuePairs;
         }

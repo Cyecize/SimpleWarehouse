@@ -39,6 +39,7 @@ namespace SimpleWarehouse.Forms
         public DateTime ArchivedEntitiesEndDate { get => RevisedEndDate.Value; set => RevisedEndDate.Value = value; }
         public string TotalArchivedEntitiesRows { get => this.TotalRowsBox.Text; set => this.TotalRowsBox.Text = value; }
         public string TotalArchivedEntitiesPrice { get => this.TotalAmountBox.Text; set => this.TotalAmountBox.Text = value; }
+        public string CommentText { get => this.CommentBox.Text; set =>this.CommentBox.Text = value; }
 
         //overrides
         public void HideAndDispose()
@@ -98,6 +99,11 @@ namespace SimpleWarehouse.Forms
             catch (Exception)
             {
                 this.Log(Messages.INVALID_NUMBERS_MSG);
+                isValid = false;
+            }
+            if(this.CommentBox.Text.Length >= 255)
+            {
+                this.Log("Надвишена дължина на коментара");
                 isValid = false;
             }
             return isValid;

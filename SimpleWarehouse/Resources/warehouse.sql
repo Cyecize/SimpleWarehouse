@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 25, 2018 at 10:05 AM
+-- Generation Time: Jun 06, 2018 at 08:29 PM
 -- Server version: 8.0.11
 -- PHP Version: 7.2.4
 
@@ -14,7 +14,7 @@
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `warehouse`
+-- Database: `wh_sladuk_svqt`
 --
 
 -- --------------------------------------------------------
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `authentications` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `auth_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -43,9 +43,10 @@ CREATE TABLE IF NOT EXISTS `expenses` (
   `revenue_amount` double NOT NULL DEFAULT '0',
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `is_revised` tinyint(1) NOT NULL DEFAULT '0',
+  `comment` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT 'no',
   PRIMARY KEY (`id`),
   KEY `fk_expenses_users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -55,10 +56,11 @@ CREATE TABLE IF NOT EXISTS `expenses` (
 --
 DROP VIEW IF EXISTS `expenses_users_joined`;
 CREATE TABLE IF NOT EXISTS `expenses_users_joined` (
-`date` timestamp
-,`id` int(11)
-,`is_revised` tinyint(1)
+`id` int(11)
+,`date` timestamp
 ,`revenue_amount` double
+,`is_revised` tinyint(1)
+,`comment` varchar(255)
 ,`user_id` int(11)
 ,`username` varchar(45)
 );
@@ -75,9 +77,10 @@ CREATE TABLE IF NOT EXISTS `invoices` (
   `user_id` int(11) NOT NULL,
   `revenue_amount` double NOT NULL DEFAULT '0',
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `comment` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT 'no',
   PRIMARY KEY (`id`),
   KEY `fk_invoices_users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -87,9 +90,10 @@ CREATE TABLE IF NOT EXISTS `invoices` (
 --
 DROP VIEW IF EXISTS `invoices_users_joined`;
 CREATE TABLE IF NOT EXISTS `invoices_users_joined` (
-`date` timestamp
-,`id` int(11)
+`id` int(11)
+,`date` timestamp
 ,`revenue_amount` double
+,`comment` varchar(255)
 ,`user_id` int(11)
 ,`username` varchar(45)
 );
@@ -111,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   `is_visible` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_category_id_id` (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -140,7 +144,7 @@ CREATE TABLE IF NOT EXISTS `product_categories` (
   `parent_id` int(11) NOT NULL DEFAULT '0',
   `category_name` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -150,14 +154,14 @@ CREATE TABLE IF NOT EXISTS `product_categories` (
 --
 DROP VIEW IF EXISTS `prod_cat_joined`;
 CREATE TABLE IF NOT EXISTS `prod_cat_joined` (
-`category_id` int(11)
-,`category_name` varchar(45)
-,`id` int(11)
-,`import_price` double
-,`is_visible` tinyint(1)
+`id` int(11)
+,`category_id` int(11)
 ,`product_name` varchar(45)
 ,`quantity` double
+,`import_price` double
 ,`sell_price` double
+,`is_visible` tinyint(1)
+,`category_name` varchar(45)
 );
 
 -- --------------------------------------------------------
@@ -173,9 +177,10 @@ CREATE TABLE IF NOT EXISTS `revenues` (
   `revenue_amount` double NOT NULL DEFAULT '0',
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `is_revised` tinyint(1) NOT NULL DEFAULT '0',
+  `comment` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT 'no',
   PRIMARY KEY (`id`),
   KEY `fk_revenues_users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -185,10 +190,11 @@ CREATE TABLE IF NOT EXISTS `revenues` (
 --
 DROP VIEW IF EXISTS `revenues_users_joined`;
 CREATE TABLE IF NOT EXISTS `revenues_users_joined` (
-`date` timestamp
-,`id` int(11)
-,`is_revised` tinyint(1)
+`id` int(11)
+,`date` timestamp
 ,`revenue_amount` double
+,`is_revised` tinyint(1)
+,`comment` varchar(255)
 ,`user_id` int(11)
 ,`username` varchar(45)
 );
@@ -208,7 +214,7 @@ CREATE TABLE IF NOT EXISTS `revisions` (
   `start_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `revision_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -222,7 +228,7 @@ CREATE TABLE IF NOT EXISTS `search_types` (
   `display_name` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `column_name` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -237,8 +243,7 @@ CREATE TABLE IF NOT EXISTS `transactions` (
   `transaction_type` varchar(10) NOT NULL,
   `is_revised` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8;
-
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -284,7 +289,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `is_enabled` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `fk_auth_id_id` (`auth_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -293,7 +298,15 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- (See below for the actual view)
 --
 DROP VIEW IF EXISTS `user_auth_joined`;
-CREATE VIEW `user_auth_joined`  AS  select `u`.`id` AS `id`,`u`.`auth_id` AS `auth_id`,`u`.`date_registered` AS `date_registered`,`u`.`is_enabled` AS `is_enabled`,`u`.`password` AS `password`,`u`.`username` AS `username`,`a`.`auth_type` AS `auth_type` from (`users` `u` join `authentications` `a` on((`a`.`id` = `u`.`auth_id`))) ;
+CREATE TABLE IF NOT EXISTS `user_auth_joined` (
+`id` int(11)
+,`auth_id` int(11)
+,`date_registered` timestamp
+,`is_enabled` tinyint(1)
+,`password` varchar(255)
+,`username` varchar(45)
+,`auth_type` varchar(255)
+);
 
 -- --------------------------------------------------------
 
@@ -302,7 +315,7 @@ CREATE VIEW `user_auth_joined`  AS  select `u`.`id` AS `id`,`u`.`auth_id` AS `au
 --
 DROP TABLE IF EXISTS `expenses_users_joined`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `expenses_users_joined`  AS  select `e`.`id` AS `id`,`e`.`user_id` AS `user_id`,`e`.`revenue_amount` AS `revenue_amount`,`e`.`date` AS `date`,`e`.`is_revised` AS `is_revised`,`u`.`username` AS `username` from (`expenses` `e` join `users` `u` on((`u`.`id` = `e`.`user_id`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `expenses_users_joined`  AS  select `e`.`id` AS `id`,`e`.`date` AS `date`,`e`.`revenue_amount` AS `revenue_amount`,`e`.`is_revised` AS `is_revised`,`e`.`comment` AS `comment`,`e`.`user_id` AS `user_id`,`u`.`username` AS `username` from (`expenses` `e` join `users` `u` on((`u`.`id` = `e`.`user_id`))) ;
 
 -- --------------------------------------------------------
 
@@ -311,7 +324,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `invoices_users_joined`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `invoices_users_joined`  AS  select `i`.`id` AS `id`,`i`.`user_id` AS `user_id`,`i`.`revenue_amount` AS `revenue_amount`,`i`.`date` AS `date`,`u`.`username` AS `username` from (`invoices` `i` join `users` `u` on((`u`.`id` = `i`.`user_id`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `invoices_users_joined`  AS  select `i`.`id` AS `id`,`i`.`date` AS `date`,`i`.`revenue_amount` AS `revenue_amount`,`i`.`comment` AS `comment`,`i`.`user_id` AS `user_id`,`u`.`username` AS `username` from (`invoices` `i` join `users` `u` on((`u`.`id` = `i`.`user_id`))) ;
 
 -- --------------------------------------------------------
 
@@ -329,13 +342,16 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `revenues_users_joined`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `revenues_users_joined`  AS  select `r`.`id` AS `id`,`r`.`user_id` AS `user_id`,`r`.`revenue_amount` AS `revenue_amount`,`r`.`date` AS `date`,`r`.`is_revised` AS `is_revised`,`u`.`username` AS `username` from (`revenues` `r` join `users` `u` on((`u`.`id` = `r`.`user_id`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `revenues_users_joined`  AS  select `e`.`id` AS `id`,`e`.`date` AS `date`,`e`.`revenue_amount` AS `revenue_amount`,`e`.`is_revised` AS `is_revised`,`e`.`comment` AS `comment`,`e`.`user_id` AS `user_id`,`u`.`username` AS `username` from (`revenues` `e` join `users` `u` on((`u`.`id` = `e`.`user_id`))) ;
 
 -- --------------------------------------------------------
 
 --
 -- Structure for view `user_auth_joined`
 --
+DROP TABLE IF EXISTS `user_auth_joined`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `user_auth_joined`  AS  select `u`.`id` AS `id`,`u`.`auth_id` AS `auth_id`,`u`.`date_registered` AS `date_registered`,`u`.`is_enabled` AS `is_enabled`,`u`.`password` AS `password`,`u`.`username` AS `username`,`a`.`auth_type` AS `auth_type` from (`users` `u` join `authentications` `a` on((`a`.`id` = `u`.`auth_id`))) ;
 
 --
 -- Constraints for dumped tables
@@ -391,7 +407,7 @@ ALTER TABLE `transactions_revenues`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `fk_auth_id_id` FOREIGN KEY (`auth_id`) REFERENCES `authentications` (`id`);
-
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{96A00726-319C-453F-9B91-B2C9BCB7966F}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>SimpleWarehouse</RootNamespace>
     <AssemblyName>SimpleWarehouse</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -202,7 +202,7 @@
     <Compile Include="Model\DbProperties.cs" />
     <Compile Include="Model\Invoice.cs" />
     <Compile Include="Model\ProductTransaction.cs" />
-    <Compile Include="Model\Revenue.cs" />
+    <Compile Include="Model\RevenueStream.cs" />
     <Compile Include="Model\Revision.cs" />
     <Compile Include="Model\RevisionProduct.cs" />
     <Compile Include="Model\Transaction.cs" />

@@ -18,6 +18,8 @@ namespace SimpleWarehouse.RevenueRelated.View
 
         double NewEntityAmount { get; set; }
 
+        string CommentText { get; set; }
+
         DataGridView NotRevisedDataTable { get; set; }
 
         DataGridView ArchiveDataTable { get; set; }

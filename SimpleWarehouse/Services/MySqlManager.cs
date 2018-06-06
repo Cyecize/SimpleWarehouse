@@ -62,11 +62,12 @@ namespace SimpleWarehouse.Service
                 int rowsAffected = command.ExecuteNonQuery();
                 return command.LastInsertedId;
             }
-            catch (Exception)
+            catch (Exception е)
             {
                 this.CloseDataReader();
                 Console.WriteLine("There was an error with the MySql manager at InsertQuery");
-                //Console.WriteLine(e.Message);
+                Console.WriteLine(е.Message);
+                Console.WriteLine(query);
                 return 0;
             }
         }
