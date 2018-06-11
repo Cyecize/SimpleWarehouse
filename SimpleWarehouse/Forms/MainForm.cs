@@ -240,5 +240,10 @@ namespace SimpleWarehouse.Forms
         {
             this.Presenter.RevisionSection.CommitRevisionAction();
         }
+
+        private void CreateNewUserBtn_Click(object sender, EventArgs e)
+        {
+            this.Presenter.SettingsSection.CreateUserRequest();
+        }
     }
 }

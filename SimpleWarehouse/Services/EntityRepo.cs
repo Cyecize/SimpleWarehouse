@@ -15,7 +15,7 @@ namespace SimpleWarehouse.Service
     public class EntityRepo<T> : IEntityRepository<T>
     {
         private Type EntityClass;
-        private IOutputWriter Logger; 
+        private IOutputWriter Logger;
 
         public IMySqlManager SqlManager { get; set; }
 
@@ -32,7 +32,7 @@ namespace SimpleWarehouse.Service
             if (reader == null)
             {
                 this.SqlManager.CloseDataReader();
-                return null;
+                return new List<T>();
             }
             PropertyInfo[] properties = this.GetAllAttributes(typeof(DbNameReference));
 
@@ -108,7 +108,7 @@ namespace SimpleWarehouse.Service
         public T FindOneBy(string tableName, string col, object value)
         {
             string query = $"SELECT * FROM {tableName} WHERE {col} = '{value.ToString()}' LIMIT 1";
-            return  this.FindOneByQuery(query);          
+            return this.FindOneByQuery(query);
         }
 
         public T FindOneBy(string col, object value)
@@ -127,7 +127,7 @@ namespace SimpleWarehouse.Service
             return this.FindBy(this.GetTableName(), col, value);
         }
 
-      
+
         //PRIVATE METHODS
         private T CreateInstance()
         {
@@ -146,6 +146,6 @@ namespace SimpleWarehouse.Service
                 throw new NotSupportedException("This entity does not have TableNameAttribute");
             return a.ToString();
         }
-       
+
     }
 }

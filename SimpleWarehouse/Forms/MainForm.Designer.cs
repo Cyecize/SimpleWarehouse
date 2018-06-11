@@ -83,13 +83,14 @@ namespace SimpleWarehouse.Forms
             this.RevisionDataGridView = new System.Windows.Forms.DataGridView();
             this.TransactionTab = new System.Windows.Forms.TabPage();
             this.SettingsTab = new System.Windows.Forms.TabPage();
+            this.button2 = new System.Windows.Forms.Button();
+            this.CreateNewUserBtn = new System.Windows.Forms.Button();
             this.materialTabSelector1 = new MaterialSkin.Controls.MaterialTabSelector();
             this.InvoicesBtn = new MaterialSkin.Controls.MaterialFlatButton();
             this.ExpensesBtn = new MaterialSkin.Controls.MaterialFlatButton();
             this.LogLabel = new System.Windows.Forms.Label();
             this.CurrentTabLabel = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.DisableUserBtn = new System.Windows.Forms.Button();
             this.materialTabControl1.SuspendLayout();
             this.ProductsTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataTableView)).BeginInit();
@@ -733,8 +734,9 @@ namespace SimpleWarehouse.Forms
             // 
             // SettingsTab
             // 
+            this.SettingsTab.Controls.Add(this.DisableUserBtn);
             this.SettingsTab.Controls.Add(this.button2);
-            this.SettingsTab.Controls.Add(this.button1);
+            this.SettingsTab.Controls.Add(this.CreateNewUserBtn);
             this.SettingsTab.Location = new System.Drawing.Point(4, 22);
             this.SettingsTab.Name = "SettingsTab";
             this.SettingsTab.Padding = new System.Windows.Forms.Padding(3);
@@ -742,6 +744,25 @@ namespace SimpleWarehouse.Forms
             this.SettingsTab.TabIndex = 5;
             this.SettingsTab.Text = "Настройки";
             this.SettingsTab.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(142, 6);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(130, 130);
+            this.button2.TabIndex = 1;
+            this.button2.Text = "База Данни";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // CreateNewUserBtn
+            // 
+            this.CreateNewUserBtn.Location = new System.Drawing.Point(6, 6);
+            this.CreateNewUserBtn.Name = "CreateNewUserBtn";
+            this.CreateNewUserBtn.Size = new System.Drawing.Size(130, 130);
+            this.CreateNewUserBtn.TabIndex = 0;
+            this.CreateNewUserBtn.Text = "Нов Потребител";
+            this.CreateNewUserBtn.UseVisualStyleBackColor = true;
+            this.CreateNewUserBtn.Click += new System.EventHandler(this.CreateNewUserBtn_Click);
             // 
             // materialTabSelector1
             // 
@@ -817,23 +838,14 @@ namespace SimpleWarehouse.Forms
             this.CurrentTabLabel.TabIndex = 27;
             this.CurrentTabLabel.Text = "Търсене: ";
             // 
-            // button1
+            // DisableUserBtn
             // 
-            this.button1.Location = new System.Drawing.Point(6, 6);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(130, 130);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Потребители";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(142, 6);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(130, 130);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "База Данни";
-            this.button2.UseVisualStyleBackColor = true;
+            this.DisableUserBtn.Location = new System.Drawing.Point(278, 6);
+            this.DisableUserBtn.Name = "DisableUserBtn";
+            this.DisableUserBtn.Size = new System.Drawing.Size(130, 130);
+            this.DisableUserBtn.TabIndex = 2;
+            this.DisableUserBtn.Text = "Премахване на потребител";
+            this.DisableUserBtn.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -930,8 +942,9 @@ namespace SimpleWarehouse.Forms
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TabPage TransactionTab;
         private System.Windows.Forms.TabPage SettingsTab;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button CreateNewUserBtn;
+        private System.Windows.Forms.Button DisableUserBtn;
     }
 }
 

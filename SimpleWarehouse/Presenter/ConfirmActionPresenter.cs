@@ -11,7 +11,7 @@ using SimpleWarehouse.View;
 
 namespace SimpleWarehouse.Presenter
 {
-    public class ConfirmActionPresenter : AbstractPresenter
+    public class ConfirmActionPresenter : AbstractPresenter, IEditPresenter
     {
         public delegate void WorkCompletedCallBack(bool isConfirmed);
 
@@ -24,14 +24,14 @@ namespace SimpleWarehouse.Presenter
         public ConfirmActionPresenter(IStateManager manager, WorkCompletedCallBack callBack, string confirmText) : base(manager)
         {
             this.Form = (IConfirmActionView)FormFactory.CreateForm("ConfirmActionForm", new object[] { this });
-            ((Form)this.Form).FormClosing += (o, e) => this.DeclineAction();
+            ((Form)this.Form).FormClosing += (o, e) => this.Cancel();
             this.Form.ConfirmTextContent = confirmText;
             this.CallBack = callBack;
             this.IsConfirmPerformed = false;
             this.Form.Text = "Потвърждаване";
         }
 
-        public void ConfirmAction()
+        public void Submit()
         {
             if (!this.IsConfirmPerformed)
             {
@@ -41,7 +41,7 @@ namespace SimpleWarehouse.Presenter
             this.Close();
         }
 
-        public void DeclineAction()
+        public void Cancel()
         {
             if (!this.IsConfirmPerformed)
             {

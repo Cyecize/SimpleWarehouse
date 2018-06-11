@@ -15,6 +15,7 @@ using System.Windows.Forms;
 using SimpleWarehouse.Presenter.RevenueRelated;
 using SimpleWarehouse.Services.TransactionServices;
 using SimpleWarehouse.Services.RevisionRelated;
+using SimpleWarehouse.Services.SettingsRelated;
 
 namespace SimpleWarehouse.Presenter
 {
@@ -24,6 +25,7 @@ namespace SimpleWarehouse.Presenter
         private bool IsProductsDisplayed;
 
         public ProductSectionManager ProductSection { get; set; }
+        public SettingsSection SettingsSection { get; set; }
         public IHomeView Form { get; set; }
 
         public ITransactionSection DeliveriesSection { get; set; }
@@ -37,6 +39,7 @@ namespace SimpleWarehouse.Presenter
             //onClosingEvent to stopp the application
             ((Form)(this.Form)).FormClosing += (sender, args) => ApplicationState.IsRunning = false;
             this.ProductSection = new ProductSectionManager(base.StateManager.SqlManager, this.Form.ProductDataTable, this, this.Form);
+            this.SettingsSection = new SettingsSection(this);
 
             base.StateManager.EventManager.AddEvent(new Event(
                 Constants.Config.EVENT_LISTENER_IMMEDIEATE,

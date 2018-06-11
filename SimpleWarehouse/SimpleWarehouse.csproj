@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{96A00726-319C-453F-9B91-B2C9BCB7966F}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>SimpleWarehouse</RootNamespace>
     <AssemblyName>SimpleWarehouse</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -127,6 +127,12 @@
     <Compile Include="Forms\ConfirmActionForm.Designer.cs">
       <DependentUpon>ConfirmActionForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\CreateUserForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CreateUserForm.Designer.cs">
+      <DependentUpon>CreateUserForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FirstRunForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -176,6 +182,7 @@
       <DependentUpon>SpecificProductForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IDbConnectionPropertiesStorageManager.cs" />
+    <Compile Include="Interfaces\IEditPresenter.cs" />
     <Compile Include="Interfaces\IInvoiceDbManager.cs" />
     <Compile Include="Interfaces\IInvoiceViewManager.cs" />
     <Compile Include="Interfaces\ILoggable.cs" />
@@ -207,6 +214,7 @@
     <Compile Include="Model\RevisionProduct.cs" />
     <Compile Include="Model\Transaction.cs" />
     <Compile Include="Presenter\ConfirmActionPresenter.cs" />
+    <Compile Include="Presenter\CreateUserPresenter.cs" />
     <Compile Include="Presenter\FirstRunPresenter.cs" />
     <Compile Include="Presenter\RevenueRelated\ExpensesPresenter.cs" />
     <Compile Include="Presenter\RevenueRelated\InvoicesPresenter.cs" />
@@ -256,6 +264,8 @@
     <Compile Include="Services\RevisionRelated\RevisionDbManager.cs" />
     <Compile Include="Services\RevisionRelated\RevisionGridViewManager.cs" />
     <Compile Include="Services\RevisionRelated\RevisionSection.cs" />
+    <Compile Include="Services\SettingsRelated\SettingsSection.cs" />
+    <Compile Include="Services\SettingsRelated\UserRepositoryManager.cs" />
     <Compile Include="Services\TransactionServices\AbstractTransactionSection.cs" />
     <Compile Include="Services\TransactionServices\AbstractTransactionDbManager.cs" />
     <Compile Include="Services\TransactionServices\DeliveryTransactionDbManager.cs" />
@@ -266,6 +276,7 @@
     <Compile Include="States\StateManager.cs" />
     <Compile Include="Interfaces\IView.cs" />
     <Compile Include="View\ConfirmActionView.cs" />
+    <Compile Include="View\DisableUserView.cs" />
     <Compile Include="View\IAddCategoryView.cs" />
     <Compile Include="View\IFirstRunView.cs" />
     <Compile Include="View\IHomeView.cs" />
@@ -274,8 +285,12 @@
     <Compile Include="View\ISearchProductView.cs" />
     <Compile Include="View\RevenueRelated\IRevenueView.cs" />
     <Compile Include="View\ISpecificProductView.cs" />
+    <Compile Include="View\SettingsRelated\ICreateUserView.cs" />
     <EmbeddedResource Include="Forms\ConfirmActionForm.resx">
       <DependentUpon>ConfirmActionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CreateUserForm.resx">
+      <DependentUpon>CreateUserForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FirstRunForm.resx">
       <DependentUpon>FirstRunForm.cs</DependentUpon>

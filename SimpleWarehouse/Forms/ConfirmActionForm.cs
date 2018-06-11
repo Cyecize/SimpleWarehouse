@@ -44,12 +44,12 @@ namespace SimpleWarehouse.Forms
 
         private void ConfirmBtn_Click(object sender, EventArgs e)
         {
-            this.Presenter.ConfirmAction();
+            this.Presenter.Submit();
         }
 
         private void CancelBtn_Click(object sender, EventArgs e)
         {
-            this.Presenter.DeclineAction();
+            this.Presenter.Cancel();
         }
     }
 }

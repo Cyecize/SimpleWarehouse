@@ -11,6 +11,7 @@ using SimpleWarehouse.Factory;
 using SimpleWarehouse.Interfaces;
 using SimpleWarehouse.Model;
 using SimpleWarehouse.Service;
+using SimpleWarehouse.Services.SettingsRelated;
 using SimpleWarehouse.View;
 
 namespace SimpleWarehouse.Presenter
@@ -25,6 +26,8 @@ namespace SimpleWarehouse.Presenter
 
         private IMySqlManager SelectedDatabase { get; set; }
 
+        private UserRepositoryManager UserRepoManager { get; set; }
+
         private const string CONNECTION_NOT_OPEN_MSG = "Connection is closed, please test connection first.";
 
         private IDbConnectionPropertiesStorageManager DbConnectionPropertiesManager { get; set; }
@@ -36,6 +39,7 @@ namespace SimpleWarehouse.Presenter
             this.DisplayConnectionString(base.StateManager.SqlManager.ConnectionProperties);
             this.Form.Text = "Първо стартиране";
             this.DbConnectionPropertiesManager = dbConnectionProperties;
+            this.UserRepoManager = new UserRepositoryManager(base.StateManager.SqlManager, base.StateManager.OutputWriter);
         }
 
         public void ShowDatabasesAction()
@@ -63,11 +67,13 @@ namespace SimpleWarehouse.Presenter
         {
             DbProperties properties = new DbProperties { Server = this.Form.Server, Port = this.Form.Port, Username = this.Form.Username, Password = this.Form.Password };
             this.CurrentConnection = DatabaseFactory.CreateConnection(properties);
+           
             try
             {
                 DatabaseFactory.TestConnection(this.CurrentConnection);
                 this.Form.Log("OK");
                 this.ConnectionProperties = properties;
+                this.UpdateUserRepoConnection();
             }
             catch (ArgumentException e) { this.Form.Log(e.Message); }
         }
@@ -87,7 +93,10 @@ namespace SimpleWarehouse.Presenter
             }
             this.ConnectionProperties.DatabaseName = dbName;
             this.SelectedDatabase = new MySqlManager(this.ConnectionProperties);
-            if (!this.HasAdministrator())
+
+            this.UpdateUserRepoConnection();
+
+            if (!this.UserRepoManager.HasAdministrator())
                 this.Form.SetUserBtnStatus(true);
             else
                 this.Form.SetUserBtnStatus(false);
@@ -105,11 +114,9 @@ namespace SimpleWarehouse.Presenter
                 this.Form.Log("Invalid values, check password lenght and username");
                 return;
             }
-            username = this.SelectedDatabase.EscapeString(username);
-            password = this.SelectedDatabase.EscapeString(password);
-            password = PasswordEncoder.EncodeMd5(password);
-            string query = $"INSERT INTO users VALUES(null, '{username}', '{password}', {this.GetAuthId(Config.USER_ADMIN_ROLE)}, now(), 1)";
-            this.SelectedDatabase.ExecuteQuery(query);
+            this.UpdateUserRepoConnection();
+            this.UserRepoManager.CreateUser(username, password, Config.USER_ADMIN_ROLE);
+
             this.SelectDatabaseAction();
         }
 
@@ -144,7 +151,8 @@ namespace SimpleWarehouse.Presenter
                 this.Form.Log(CONNECTION_NOT_OPEN_MSG);
                 return;
             }
-            if (!this.HasAdministrator())
+            this.UpdateUserRepoConnection();
+            if (!this.UserRepoManager.HasAdministrator())
             {
                 this.Form.Log("Please create an administrator");
                 return;
@@ -182,25 +190,9 @@ namespace SimpleWarehouse.Presenter
             this.Form.Password = properties.Password;
         }
 
-        private bool HasAdministrator()
+        private void UpdateUserRepoConnection()
         {
-            string query = $"SELECT * FROM users AS u  WHERE auth_id = {this.GetAuthId(Config.USER_ADMIN_ROLE)}";
-            MySqlDataReader reader = this.SelectedDatabase.ExecuteQueryData(query);
-            if (reader.HasRows)
-                return true;
-            return false;
-        }
-
-        private int GetAuthId(string auth)
-        {
-            string query = $"SELECT id FROM authentications AS a WHERE a.auth_type = '{Roles.HashRole(auth)}' LIMIT 1";
-            MySqlDataReader reader = this.SelectedDatabase.ExecuteQueryData(query);
-            if (reader.HasRows)
-            {
-                reader.Read();
-                return (int)reader["id"];
-            }              
-            return -1;
+            this.UserRepoManager = new UserRepositoryManager(new MySqlManager(this.ConnectionProperties), base.StateManager.OutputWriter);
         }
     }
 }

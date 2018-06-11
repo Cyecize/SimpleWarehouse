@@ -14,7 +14,7 @@ using System.Windows.Forms;
 
 namespace SimpleWarehouse.Presenter
 {
-    public class EditProductPresenter : AbstractPresenter, IProductSpecificPresenter
+    public class EditProductPresenter : AbstractPresenter, IProductSpecificPresenter, IEditPresenter
     {
         private ProductSectionManager ProductSectionManager;
         private ISpecificProductView Form;

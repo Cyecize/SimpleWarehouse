@@ -56,5 +56,10 @@ namespace SimpleWarehouse.Model
             this.DateRegistered = date;
         }
 
+        public override string ToString()
+        {
+            return this.Username;
+        }
+
     }
 }
