@@ -82,15 +82,26 @@ namespace SimpleWarehouse.Forms
             this.BeginRevisionBtn = new System.Windows.Forms.Button();
             this.RevisionDataGridView = new System.Windows.Forms.DataGridView();
             this.TransactionTab = new System.Windows.Forms.TabPage();
+            this.TransactionGridView = new System.Windows.Forms.DataGridView();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.FindTransactionsBtn = new System.Windows.Forms.Button();
+            this.TransactionEndDateSelector = new System.Windows.Forms.DateTimePicker();
+            this.TransactionStartDateSelector = new System.Windows.Forms.DateTimePicker();
+            this.label1 = new System.Windows.Forms.Label();
+            this.TransactionTypeBox = new System.Windows.Forms.ComboBox();
+            this.IsRevisedCheckbox = new System.Windows.Forms.CheckBox();
             this.SettingsTab = new System.Windows.Forms.TabPage();
-            this.button2 = new System.Windows.Forms.Button();
+            this.ChangePasswordBtn = new System.Windows.Forms.Button();
+            this.DisableUserBtn = new System.Windows.Forms.Button();
+            this.ShowDbInfoBtn = new System.Windows.Forms.Button();
             this.CreateNewUserBtn = new System.Windows.Forms.Button();
             this.materialTabSelector1 = new MaterialSkin.Controls.MaterialTabSelector();
             this.InvoicesBtn = new MaterialSkin.Controls.MaterialFlatButton();
             this.ExpensesBtn = new MaterialSkin.Controls.MaterialFlatButton();
             this.LogLabel = new System.Windows.Forms.Label();
             this.CurrentTabLabel = new System.Windows.Forms.Label();
-            this.DisableUserBtn = new System.Windows.Forms.Button();
             this.materialTabControl1.SuspendLayout();
             this.ProductsTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataTableView)).BeginInit();
@@ -100,6 +111,8 @@ namespace SimpleWarehouse.Forms
             ((System.ComponentModel.ISupportInitialize)(this.SalesDataGridView)).BeginInit();
             this.RevisionTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RevisionDataGridView)).BeginInit();
+            this.TransactionTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.TransactionGridView)).BeginInit();
             this.SettingsTab.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -724,6 +737,16 @@ namespace SimpleWarehouse.Forms
             // 
             // TransactionTab
             // 
+            this.TransactionTab.Controls.Add(this.TransactionGridView);
+            this.TransactionTab.Controls.Add(this.label12);
+            this.TransactionTab.Controls.Add(this.label11);
+            this.TransactionTab.Controls.Add(this.label10);
+            this.TransactionTab.Controls.Add(this.FindTransactionsBtn);
+            this.TransactionTab.Controls.Add(this.TransactionEndDateSelector);
+            this.TransactionTab.Controls.Add(this.TransactionStartDateSelector);
+            this.TransactionTab.Controls.Add(this.label1);
+            this.TransactionTab.Controls.Add(this.TransactionTypeBox);
+            this.TransactionTab.Controls.Add(this.IsRevisedCheckbox);
             this.TransactionTab.Location = new System.Drawing.Point(4, 22);
             this.TransactionTab.Name = "TransactionTab";
             this.TransactionTab.Padding = new System.Windows.Forms.Padding(3);
@@ -732,10 +755,112 @@ namespace SimpleWarehouse.Forms
             this.TransactionTab.Text = "Транзакции";
             this.TransactionTab.UseVisualStyleBackColor = true;
             // 
+            // TransactionGridView
+            // 
+            this.TransactionGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TransactionGridView.BackgroundColor = System.Drawing.SystemColors.ControlLight;
+            this.TransactionGridView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.TransactionGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.TransactionGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.TransactionGridView.Location = new System.Drawing.Point(5, 55);
+            this.TransactionGridView.Margin = new System.Windows.Forms.Padding(2);
+            this.TransactionGridView.Name = "TransactionGridView";
+            this.TransactionGridView.RowTemplate.Height = 24;
+            this.TransactionGridView.Size = new System.Drawing.Size(832, 298);
+            this.TransactionGridView.TabIndex = 9;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label12.Location = new System.Drawing.Point(383, 8);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(90, 16);
+            this.label12.TabIndex = 8;
+            this.label12.Text = "Крайна дата";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label11.Location = new System.Drawing.Point(228, 8);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(100, 16);
+            this.label11.TabIndex = 7;
+            this.label11.Text = "Начална дата";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label10.Location = new System.Drawing.Point(133, 8);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(89, 16);
+            this.label10.TabIndex = 6;
+            this.label10.Text = "Ревизирани";
+            // 
+            // FindTransactionsBtn
+            // 
+            this.FindTransactionsBtn.Location = new System.Drawing.Point(538, 29);
+            this.FindTransactionsBtn.Name = "FindTransactionsBtn";
+            this.FindTransactionsBtn.Size = new System.Drawing.Size(75, 21);
+            this.FindTransactionsBtn.TabIndex = 5;
+            this.FindTransactionsBtn.Text = "Търсене";
+            this.FindTransactionsBtn.UseVisualStyleBackColor = true;
+            this.FindTransactionsBtn.Click += new System.EventHandler(this.FindTransactionsBtn_Click);
+            // 
+            // TransactionEndDateSelector
+            // 
+            this.TransactionEndDateSelector.Location = new System.Drawing.Point(386, 30);
+            this.TransactionEndDateSelector.Name = "TransactionEndDateSelector";
+            this.TransactionEndDateSelector.Size = new System.Drawing.Size(146, 20);
+            this.TransactionEndDateSelector.TabIndex = 4;
+            // 
+            // TransactionStartDateSelector
+            // 
+            this.TransactionStartDateSelector.Location = new System.Drawing.Point(231, 30);
+            this.TransactionStartDateSelector.Name = "TransactionStartDateSelector";
+            this.TransactionStartDateSelector.Size = new System.Drawing.Size(149, 20);
+            this.TransactionStartDateSelector.TabIndex = 3;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(6, 8);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(113, 16);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Вид транзакция";
+            // 
+            // TransactionTypeBox
+            // 
+            this.TransactionTypeBox.BackColor = System.Drawing.SystemColors.Window;
+            this.TransactionTypeBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.TransactionTypeBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.TransactionTypeBox.FormattingEnabled = true;
+            this.TransactionTypeBox.Location = new System.Drawing.Point(6, 29);
+            this.TransactionTypeBox.Name = "TransactionTypeBox";
+            this.TransactionTypeBox.Size = new System.Drawing.Size(121, 21);
+            this.TransactionTypeBox.TabIndex = 1;
+            // 
+            // IsRevisedCheckbox
+            // 
+            this.IsRevisedCheckbox.AutoSize = true;
+            this.IsRevisedCheckbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.IsRevisedCheckbox.Location = new System.Drawing.Point(136, 32);
+            this.IsRevisedCheckbox.Name = "IsRevisedCheckbox";
+            this.IsRevisedCheckbox.Size = new System.Drawing.Size(15, 14);
+            this.IsRevisedCheckbox.TabIndex = 0;
+            this.IsRevisedCheckbox.UseVisualStyleBackColor = true;
+            // 
             // SettingsTab
             // 
+            this.SettingsTab.Controls.Add(this.ChangePasswordBtn);
             this.SettingsTab.Controls.Add(this.DisableUserBtn);
-            this.SettingsTab.Controls.Add(this.button2);
+            this.SettingsTab.Controls.Add(this.ShowDbInfoBtn);
             this.SettingsTab.Controls.Add(this.CreateNewUserBtn);
             this.SettingsTab.Location = new System.Drawing.Point(4, 22);
             this.SettingsTab.Name = "SettingsTab";
@@ -745,14 +870,35 @@ namespace SimpleWarehouse.Forms
             this.SettingsTab.Text = "Настройки";
             this.SettingsTab.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // ChangePasswordBtn
             // 
-            this.button2.Location = new System.Drawing.Point(142, 6);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(130, 130);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "База Данни";
-            this.button2.UseVisualStyleBackColor = true;
+            this.ChangePasswordBtn.Location = new System.Drawing.Point(414, 6);
+            this.ChangePasswordBtn.Name = "ChangePasswordBtn";
+            this.ChangePasswordBtn.Size = new System.Drawing.Size(130, 130);
+            this.ChangePasswordBtn.TabIndex = 3;
+            this.ChangePasswordBtn.Text = "Смяна на парола";
+            this.ChangePasswordBtn.UseVisualStyleBackColor = true;
+            this.ChangePasswordBtn.Click += new System.EventHandler(this.ChangePasswordBtn_Click);
+            // 
+            // DisableUserBtn
+            // 
+            this.DisableUserBtn.Location = new System.Drawing.Point(278, 6);
+            this.DisableUserBtn.Name = "DisableUserBtn";
+            this.DisableUserBtn.Size = new System.Drawing.Size(130, 130);
+            this.DisableUserBtn.TabIndex = 2;
+            this.DisableUserBtn.Text = "Премахване на потребител";
+            this.DisableUserBtn.UseVisualStyleBackColor = true;
+            this.DisableUserBtn.Click += new System.EventHandler(this.DisableUserBtn_Click);
+            // 
+            // ShowDbInfoBtn
+            // 
+            this.ShowDbInfoBtn.Location = new System.Drawing.Point(142, 6);
+            this.ShowDbInfoBtn.Name = "ShowDbInfoBtn";
+            this.ShowDbInfoBtn.Size = new System.Drawing.Size(130, 130);
+            this.ShowDbInfoBtn.TabIndex = 1;
+            this.ShowDbInfoBtn.Text = "База Данни";
+            this.ShowDbInfoBtn.UseVisualStyleBackColor = true;
+            this.ShowDbInfoBtn.Click += new System.EventHandler(this.ShowDbInfoBtn_Click);
             // 
             // CreateNewUserBtn
             // 
@@ -838,15 +984,6 @@ namespace SimpleWarehouse.Forms
             this.CurrentTabLabel.TabIndex = 27;
             this.CurrentTabLabel.Text = "Търсене: ";
             // 
-            // DisableUserBtn
-            // 
-            this.DisableUserBtn.Location = new System.Drawing.Point(278, 6);
-            this.DisableUserBtn.Name = "DisableUserBtn";
-            this.DisableUserBtn.Size = new System.Drawing.Size(130, 130);
-            this.DisableUserBtn.TabIndex = 2;
-            this.DisableUserBtn.Text = "Премахване на потребител";
-            this.DisableUserBtn.UseVisualStyleBackColor = true;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -878,6 +1015,9 @@ namespace SimpleWarehouse.Forms
             this.RevisionTab.ResumeLayout(false);
             this.RevisionTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RevisionDataGridView)).EndInit();
+            this.TransactionTab.ResumeLayout(false);
+            this.TransactionTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.TransactionGridView)).EndInit();
             this.SettingsTab.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -942,9 +1082,20 @@ namespace SimpleWarehouse.Forms
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TabPage TransactionTab;
         private System.Windows.Forms.TabPage SettingsTab;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button ShowDbInfoBtn;
         private System.Windows.Forms.Button CreateNewUserBtn;
         private System.Windows.Forms.Button DisableUserBtn;
+        private System.Windows.Forms.Button ChangePasswordBtn;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox TransactionTypeBox;
+        private System.Windows.Forms.CheckBox IsRevisedCheckbox;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button FindTransactionsBtn;
+        private System.Windows.Forms.DateTimePicker TransactionEndDateSelector;
+        private System.Windows.Forms.DateTimePicker TransactionStartDateSelector;
+        public System.Windows.Forms.DataGridView TransactionGridView;
     }
 }
 

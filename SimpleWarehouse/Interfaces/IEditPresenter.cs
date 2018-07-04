@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SimpleWarehouse.Interfaces
 {
-    public interface IEditPresenter
+    public interface IEditPresenter : IPresenter
     {
         void Submit();
 

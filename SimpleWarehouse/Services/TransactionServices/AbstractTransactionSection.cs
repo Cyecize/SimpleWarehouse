@@ -35,7 +35,7 @@ namespace SimpleWarehouse.Services.TransactionServices
 
         public void PickAProductRequest()
         {
-            Console.WriteLine("Searching..");
+            this.Presenter.GetStateManager().OutputWriter.WriteLine("Searching..");
             this.Presenter.GetStateManager().Push(new SearchProductPresenter(this.Presenter.GetStateManager(), this.AfterProductPickAction));
         }
 

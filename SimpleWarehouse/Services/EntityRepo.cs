@@ -50,7 +50,8 @@ namespace SimpleWarehouse.Service
                         Attribute attribute = Attribute.GetCustomAttribute(field, typeof(DbNameReference));
                         string attrName = attribute.ToString();
                         //this.Logger.Write(reader[attrName].ToString());
-                        field.SetValue(singleEntity, reader[attrName]);
+                        if (reader[attrName] != null && !Convert.IsDBNull(reader[attrName]))
+                            field.SetValue(singleEntity, reader[attrName]);
                     }
                     catch (Exception ex)
                     {
@@ -89,7 +90,8 @@ namespace SimpleWarehouse.Service
                         Attribute attribute = Attribute.GetCustomAttribute(field, typeof(DbNameReference));
                         string attrName = attribute.ToString();
                         //this.Logger.Write(reader[attrName].ToString());
-                        field.SetValue(singleEntity, reader[attrName]);
+                        if (reader[attrName] != null && !Convert.IsDBNull(reader[attrName]))
+                            field.SetValue(singleEntity, reader[attrName]);
                     }
                     catch (Exception ex)
                     {
@@ -127,6 +129,10 @@ namespace SimpleWarehouse.Service
             return this.FindBy(this.GetTableName(), col, value);
         }
 
+        public List<T> FindAll()
+        {
+            return this.FindManyByQuery($"SELECT * FROM {this.GetTableName()}");
+        }
 
         //PRIVATE METHODS
         private T CreateInstance()

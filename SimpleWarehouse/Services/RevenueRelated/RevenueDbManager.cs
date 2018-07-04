@@ -1,4 +1,5 @@
-﻿using SimpleWarehouse.Interfaces;
+﻿using SimpleWarehouse.Constants;
+using SimpleWarehouse.Interfaces;
 using SimpleWarehouse.IO;
 using SimpleWarehouse.Model;
 using SimpleWarehouse.Service;
@@ -53,7 +54,7 @@ namespace SimpleWarehouse.Services.RevenueRelated
 
         public List<RevenueStream> FindRevisedEntitiesByDate(DateTime startDate, DateTime endDate)
         {
-            string query = $"{REVENUE_TABLE_NAME} AS r WHERE r.date >= '{startDate.ToString("yyyy-MM-dd")}' AND r.date <= '{endDate.ToString("yyyy-MM-dd")}' AND is_revised = 1 ORDER BY r.date ASC;";
+            string query = $"{REVENUE_TABLE_NAME} AS r WHERE r.date >= '{startDate.ToString(Config.DATE_TIME_FORMAT_DB)}' AND r.date <= '{endDate.ToString("yyyy-MM-dd")}' AND is_revised = 1 ORDER BY r.date ASC;";
             return this.RevenueRepo.FindManyByQuery(query);
         }
     }

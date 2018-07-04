@@ -22,5 +22,7 @@ namespace SimpleWarehouse.Interfaces
 
         List<T> FindBy(string tableName, string col, object value);
 
+        List<T> FindAll();
+
     }
 }

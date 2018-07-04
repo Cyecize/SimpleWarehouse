@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SimpleWarehouse.Model
 {
-    [DbTableNameReference(name: "transactions")]
+    [DbTableNameReference(name: "transactions_joined")]
     public class Transaction
     {
         [DbNameReference(name:"id")]
@@ -21,6 +21,20 @@ namespace SimpleWarehouse.Model
 
         [DbNameReference(name: "is_revised")]
         public bool IsRevised { get; set; }
+
+        [DbNameReference("user_id")]
+        private double _userId { get; set; }
+
+        public int UserId { get => (int)this._userId; }
+
+        [DbNameReference("revenue_stream_id")]
+        public int RevenueStreamId { get; set; }
+
+        [DbNameReference(name: "revenue_amount")]
+        public double RevenueAmount { get; set; }
+
+        [DbNameReference(name: "username")]
+        public string Username { get; set; }
 
     }
 }

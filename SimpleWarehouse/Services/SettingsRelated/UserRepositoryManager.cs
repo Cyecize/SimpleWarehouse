@@ -14,6 +14,7 @@ namespace SimpleWarehouse.Services.SettingsRelated
     public class UserRepositoryManager
     {
         private const string TABLE_JOIN_NAME = "user_auth_joined";
+        private const string TABLE_NAME = "users";
 
         private IOutputWriter Writer { get; set; }
 
@@ -53,10 +54,16 @@ namespace SimpleWarehouse.Services.SettingsRelated
             return this.FindAll().Where(u => Roles.IsExactRole(u.Role, Config.USER_ADMIN_ROLE)).ToList();
         }
 
+        public void Save(IUser u)
+        {
+            this.UserRepo.SqlManager.ExecuteQuery(
+                $"UPDATE {TABLE_NAME} SET username = '{u.Username}', password = '{u.Password}' , is_enabled = {u.IsActive.ToString().ToUpper()} WHERE id = {u.Id}");
+        }
+
         public bool IsUserInfoValid(User user)
         {
             return user.Username != null && user.Username != string.Empty &&
-                user.Password != null && user.Password.Length > 5 &&  user.Role != null && this.GetAuthId(Roles.GetRole(user.Role)) > -1;
+                user.Password != null && user.Password.Length > 5 && user.Role != null && this.GetAuthId(Roles.GetRole(user.Role)) > -1;
         }
 
         public long CreateUser(string username, string password, string authType)

@@ -33,12 +33,12 @@ namespace SimpleWarehouse.Presenter
 
         public void Submit()
         {
+            this.Close();
             if (!this.IsConfirmPerformed)
             {
                 this.CallBack(true);
                 this.IsConfirmPerformed = true;
             }
-            this.Close();
         }
 
         public void Cancel()
@@ -62,7 +62,7 @@ namespace SimpleWarehouse.Presenter
         public override void Dispose()
         {
             this.Form.HideAndDispose();
-            Console.WriteLine("Confirm Presenter Disposed");
+            base.StateManager.OutputWriter.WriteLine("Confirm Presenter Disposed");
         }
 
         public override void Update()

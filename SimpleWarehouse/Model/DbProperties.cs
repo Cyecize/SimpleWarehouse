@@ -25,5 +25,10 @@ namespace SimpleWarehouse.Model
 
             return $"Server={this.Server};Port={this.Port};{dbName}Uid={this.Username};{pass}SslMode=none;Charset=utf8";
         }
+
+        public override string ToString()
+        {
+            return $"Server: {this.Server}{Environment.NewLine}Port: {this.Port}{Environment.NewLine}Database: {this.DatabaseName}\n";
+        }
     }
 }

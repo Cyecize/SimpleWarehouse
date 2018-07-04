@@ -58,7 +58,7 @@
             this.materialFlatButton2.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialFlatButton2.Name = "materialFlatButton2";
             this.materialFlatButton2.Primary = false;
-            this.materialFlatButton2.Size = new System.Drawing.Size(41, 36);
+            this.materialFlatButton2.Size = new System.Drawing.Size(39, 36);
             this.materialFlatButton2.TabIndex = 23;
             this.materialFlatButton2.Text = "OK";
             this.materialFlatButton2.UseVisualStyleBackColor = true;
@@ -73,7 +73,7 @@
             this.Controls.Add(this.ErrorBox);
             this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "ErrorForm";
-            this.Text = "Грешка";
+            this.Text = "Инфо";
             this.ResumeLayout(false);
             this.PerformLayout();
 

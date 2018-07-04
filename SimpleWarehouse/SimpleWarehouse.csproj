@@ -121,6 +121,12 @@
     <Compile Include="Constants\TransactionTypes.cs" />
     <Compile Include="Factory\DatabaseFactory.cs" />
     <Compile Include="Factory\FormFactory.cs" />
+    <Compile Include="Forms\ChangePasswordForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ChangePasswordForm.Designer.cs">
+      <DependentUpon>ChangePasswordForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ConfirmActionForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,6 +138,12 @@
     </Compile>
     <Compile Include="Forms\CreateUserForm.Designer.cs">
       <DependentUpon>CreateUserForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DisableUserForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DisableUserForm.Designer.cs">
+      <DependentUpon>DisableUserForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FirstRunForm.cs">
       <SubType>Form</SubType>
@@ -201,6 +213,7 @@
     <Compile Include="Interfaces\IRevisionSection.cs" />
     <Compile Include="Interfaces\ISession.cs" />
     <Compile Include="Interfaces\ITransactionDbManager.cs" />
+    <Compile Include="Interfaces\ITransactionEditGridViewManager.cs" />
     <Compile Include="Interfaces\ITransactionGridViewManager.cs" />
     <Compile Include="Interfaces\ITransactionSection.cs" />
     <Compile Include="Interfaces\IUser.cs" />
@@ -213,8 +226,10 @@
     <Compile Include="Model\Revision.cs" />
     <Compile Include="Model\RevisionProduct.cs" />
     <Compile Include="Model\Transaction.cs" />
+    <Compile Include="Presenter\ChangePasswordPresenter.cs" />
     <Compile Include="Presenter\ConfirmActionPresenter.cs" />
     <Compile Include="Presenter\CreateUserPresenter.cs" />
+    <Compile Include="Presenter\DisableUserPresenter.cs" />
     <Compile Include="Presenter\FirstRunPresenter.cs" />
     <Compile Include="Presenter\RevenueRelated\ExpensesPresenter.cs" />
     <Compile Include="Presenter\RevenueRelated\InvoicesPresenter.cs" />
@@ -270,13 +285,17 @@
     <Compile Include="Services\TransactionServices\AbstractTransactionDbManager.cs" />
     <Compile Include="Services\TransactionServices\DeliveryTransactionDbManager.cs" />
     <Compile Include="Services\TransactionServices\DeliveryTransactionSection.cs" />
+    <Compile Include="Services\TransactionServices\EditTransactionSection.cs" />
     <Compile Include="Services\TransactionServices\SalesTransactionDbManager.cs" />
     <Compile Include="Services\TransactionServices\SaleTransactionSection.cs" />
+    <Compile Include="Services\TransactionServices\TransactionEditGridViewManager.cs" />
     <Compile Include="Services\TransactionServices\TransactionGridViewManager.cs" />
     <Compile Include="States\StateManager.cs" />
     <Compile Include="Interfaces\IView.cs" />
-    <Compile Include="View\ConfirmActionView.cs" />
-    <Compile Include="View\DisableUserView.cs" />
+    <Compile Include="View\IConfirmActionView.cs" />
+    <Compile Include="View\ITransactionView.cs" />
+    <Compile Include="View\SettingsRelated\IChangePasswordView.cs" />
+    <Compile Include="View\SettingsRelated\IDisableUserView.cs" />
     <Compile Include="View\IAddCategoryView.cs" />
     <Compile Include="View\IFirstRunView.cs" />
     <Compile Include="View\IHomeView.cs" />
@@ -286,11 +305,17 @@
     <Compile Include="View\RevenueRelated\IRevenueView.cs" />
     <Compile Include="View\ISpecificProductView.cs" />
     <Compile Include="View\SettingsRelated\ICreateUserView.cs" />
+    <EmbeddedResource Include="Forms\ChangePasswordForm.resx">
+      <DependentUpon>ChangePasswordForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\ConfirmActionForm.resx">
       <DependentUpon>ConfirmActionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CreateUserForm.resx">
       <DependentUpon>CreateUserForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DisableUserForm.resx">
+      <DependentUpon>DisableUserForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FirstRunForm.resx">
       <DependentUpon>FirstRunForm.cs</DependentUpon>

@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace SimpleWarehouse.View
 {
-    public interface IHomeView : IView, ISearchProductView, IRevisionView
+    public interface IHomeView : IView, ISearchProductView, IRevisionView, ITransactionView
     {
 
         DataGridView DeliveriesDataTable { get; set; }

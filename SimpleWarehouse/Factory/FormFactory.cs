@@ -25,7 +25,7 @@ namespace SimpleWarehouse.Factory
         private static void OnButtonCloseAction(Object sender, EventArgs e)
         {
             ((Form)sender).Dispose();
-            Console.WriteLine("Form was disposed!");
+            Console.WriteLine("Form was disposed! (msg from FormFactory)");
         }
 
     }

@@ -22,7 +22,9 @@ namespace SimpleWarehouse.Services.TransactionServices
         protected IRevenueStreamDbManager RevenueManager { get; set; }
         protected IRevenueStreamDbManager ExpenseManager { get; set; }
         protected IEntityRepository<Transaction> TransactionRepository { get; set; }
+        protected IEntityRepository<ProductTransaction> ProductTransactionRepo { get; set; }
         protected IProductsRepositoryManager ProductsRepositoryManager { get; set; }
+       
 
         protected AbstractTransactionDbManager(IMySqlManager sqlManager, IUser loggedUser)
         {
@@ -31,7 +33,8 @@ namespace SimpleWarehouse.Services.TransactionServices
             this.TransactionRepository = new EntityRepo<Transaction>(sqlManager, new ConsoleWriter());
             this.LoggedUser = loggedUser;
             this.SqlManager = sqlManager;
-            this.ProductsRepositoryManager = new ProductRepositoryManager(this.SqlManager); ;
+            this.ProductsRepositoryManager = new ProductRepositoryManager(this.SqlManager);
+            this.ProductTransactionRepo = new EntityRepo<ProductTransaction>(this.SqlManager, new ConsoleWriter());
         }
 
         public void AddTransaction(List<ProductTransaction> products)
@@ -56,7 +59,7 @@ namespace SimpleWarehouse.Services.TransactionServices
 
         public Transaction FindOneById(int id)
         {
-            return this.TransactionRepository.FindOneBy(TRANSACTIONS_TABLE_NAME, "id", id);
+            return this.TransactionRepository.FindOneBy("id", id);
         }
 
         public List<Transaction> FindAllRevised()
@@ -75,14 +78,35 @@ namespace SimpleWarehouse.Services.TransactionServices
             throw new NotImplementedException();
         }
 
+        private List<Transaction> FindByRevisedStatus(bool isRevised)
+        {
+            return this.TransactionRepository.FindBy("is_revised", isRevised ? 1 : 0);
+        }
+
+        public List<Transaction> FindByDateTypeAndRevisionStatus(DateTime startDate, DateTime endDate, TransactionTypes transactionType, bool isRevised)
+        {
+
+            return this.FindByRevisedStatus(isRevised)
+                .Where(tr => tr.TransactionType == transactionType.ToString())
+                .Where(tr => tr.Date >= startDate && tr.Date <= endDate)
+                .ToList();
+        }
+
         public void RollBack(int transactionId)
         {
-            throw new NotImplementedException();
+            this.RollBack(this.FindOneById(transactionId));
         }
 
         public void RollBack(Transaction transaction)
         {
-            throw new NotImplementedException();
+            if (transaction == null)
+                throw new ArgumentException("Невалидна транзакция (null)");
+            if (transaction.IsRevised)
+                throw new ArgumentException("Транзакцията не може да бъде изтрина (вече е ревизирана)");
+            List<ProductTransaction> products = this.FindAllRelatedProductTransactions(transaction);
+            this.UpdateProductsQuantities(products, true);
+            string query = $"DELETE FROM {TRANSACTIONS_TABLE_NAME} WHERE id = {transaction.Id}";
+            this.SqlManager.ExecuteQuery(query);
         }
 
         public void ArchiveTransactions()
@@ -92,10 +116,19 @@ namespace SimpleWarehouse.Services.TransactionServices
         }
 
         protected abstract RevenueStream InsertRevenueStream(RevenueStream revenueStream);
+
         protected abstract int InsertTransaction();
+
         protected abstract void InsertRevenueStreamTransactionRelation(RevenueStream revenueStream, Transaction transaction);
+
         protected abstract bool IsUserAuthorized();
+
         protected abstract void UpdateProductsQuantities(List<ProductTransaction> products, bool isRollBack);
+
+        private List<ProductTransaction> FindAllRelatedProductTransactions(Transaction transaction)
+        {
+            return this.ProductTransactionRepo.FindBy("transaction_id", transaction.Id);
+        }
 
         private void InsertProductTransactionRelation(List<ProductTransaction> products, Transaction transaction)
         {
@@ -105,12 +138,5 @@ namespace SimpleWarehouse.Services.TransactionServices
                 this.SqlManager.ExecuteQuery(query);
             }
         }
-
-        private List<Transaction> FindByRevisedStatus(bool isRevised)
-        {
-            return this.TransactionRepository.FindBy("is_revised", isRevised);
-        }
-
-
     }
 }

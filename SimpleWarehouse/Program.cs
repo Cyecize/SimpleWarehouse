@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 using SimpleWarehouse.App;
+using SimpleWarehouse.Constants;
 using SimpleWarehouse.Factory;
 using SimpleWarehouse.Interfaces;
 using SimpleWarehouse.IO;
@@ -30,6 +31,11 @@ namespace SimpleWarehouse
         [STAThread]
         static void Main()
         {
+            //set up delimiter to prevent MySql exceptions for BG machines
+            System.Globalization.CultureInfo customCulture = (System.Globalization.CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
+            customCulture.NumberFormat.NumberDecimalSeparator = ".";
+            System.Threading.Thread.CurrentThread.CurrentCulture = customCulture;
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 

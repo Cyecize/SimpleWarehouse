@@ -10,8 +10,7 @@ namespace SimpleWarehouse.Interfaces
 {
     public interface ITransactionDbManager
     {
-        void AddTransaction(List<ProductTransaction> products);
-
+        
         Transaction FindOneById(int id);
 
         List<Transaction> FindAllRevised();
@@ -19,6 +18,10 @@ namespace SimpleWarehouse.Interfaces
         List<Transaction> FindAllNonRevised();
 
         List<Transaction> FindByType(TransactionTypes transactionType);
+
+        List<Transaction> FindByDateTypeAndRevisionStatus(DateTime startDate, DateTime endDate, TransactionTypes transactionType, bool isRevised);
+
+        void AddTransaction(List<ProductTransaction> products);
 
         void RollBack(int transactionId);
 

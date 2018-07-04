@@ -24,7 +24,7 @@ namespace SimpleWarehouse.Presenter
         public LoginPresenter(IStateManager manager) : base(manager)
         {
             this.Form = (ILoginView)FormFactory.CreateForm("LoginForm", new object[] { this });
-            this.UserRepo = new EntityRepo<User>(base.StateManager.SqlManager, new ConsoleWriter());
+            this.UserRepo = new EntityRepo<User>(base.StateManager.SqlManager, base.StateManager.OutputWriter);
             ((Form)(this.Form)).FormClosing += (sender, args) =>
             {
                 if (this.LoggedUser == null)

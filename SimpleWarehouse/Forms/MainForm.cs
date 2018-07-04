@@ -1,6 +1,7 @@
 ﻿
 using DataGridViewTextButton.DataGridViewElements;
 using MaterialSkin.Controls;
+using SimpleWarehouse.Constants;
 using SimpleWarehouse.Model;
 using SimpleWarehouse.Presenter;
 using SimpleWarehouse.Services;
@@ -44,6 +45,11 @@ namespace SimpleWarehouse.Forms
         public string RevisionSubTotal { get => this.RevisionSubTotalTextBox.Text; set => this.RevisionSubTotalTextBox.Text = value; }
         string IRevisionView.RevisionStartDate { get => this.RevisionStartDateLabel.Text; set => this.RevisionStartDateLabel.Text = value; }
         public string RevisonSubTotalPlusSalesRevenue { get => this.RevisionSalesPlusRevisionTotalTextBox.Text; set => this.RevisionSalesPlusRevisionTotalTextBox.Text = value; }
+        public bool IsTransactionRevised { get => this.IsRevisedCheckbox.Checked; set => this.IsRevisedCheckbox.Checked = value; }
+        public TransactionTypes SelectedTransactionType { get => (TransactionTypes)this.TransactionTypeBox.SelectedItem; set => throw new NotImplementedException(); }
+        public DateTime TransactionStartDate { get => this.TransactionStartDateSelector.Value; set => this.TransactionStartDateSelector.Value = value; }
+        public DateTime TransactionEndtDate { get => this.TransactionEndDateSelector.Value; set => this.TransactionEndDateSelector.Value = value; }
+        public DataGridView TransactionGrid => this.TransactionGridView;
 
         public MainForm(HomePresenter presenter)
         {
@@ -156,7 +162,11 @@ namespace SimpleWarehouse.Forms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-
+            this.TransactionTypeBox.Items.Add(TransactionTypes.Sale);
+            this.TransactionTypeBox.Items.Add(TransactionTypes.Delivery);
+            this.TransactionTypeBox.Select(0, 1);
+            this.TransactionEndDateSelector.Value = DateTime.Now.AddDays(1);
+            this.TransactionStartDateSelector.Value = DateTime.Now.AddDays(-1);
         }
 
         private void InitializeProductSectionEvents()
@@ -244,6 +254,27 @@ namespace SimpleWarehouse.Forms
         private void CreateNewUserBtn_Click(object sender, EventArgs e)
         {
             this.Presenter.SettingsSection.CreateUserRequest();
+        }
+
+        private void DisableUserBtn_Click(object sender, EventArgs e)
+        {
+            this.Presenter.SettingsSection.DisableUserRequest();
+        }
+
+        private void ChangePasswordBtn_Click(object sender, EventArgs e)
+        {
+            this.Presenter.SettingsSection.ChangePasswordRequest();
+        }
+
+        private void ShowDbInfoBtn_Click(object sender, EventArgs e)
+        {
+            this.Presenter.SettingsSection.ShowDbInfoAction();
+        }
+
+        private void FindTransactionsBtn_Click(object sender, EventArgs e)
+        {
+            if (this.TransactionTypeBox.SelectedItem != null)
+                this.Presenter.EditTransactionSection.Search();
         }
     }
 }

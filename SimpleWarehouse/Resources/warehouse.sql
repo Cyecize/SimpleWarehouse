@@ -354,6 +354,37 @@ DROP TABLE IF EXISTS `user_auth_joined`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `user_auth_joined`  AS  select `u`.`id` AS `id`,`u`.`auth_id` AS `auth_id`,`u`.`date_registered` AS `date_registered`,`u`.`is_enabled` AS `is_enabled`,`u`.`password` AS `password`,`u`.`username` AS `username`,`a`.`auth_type` AS `auth_type` from (`users` `u` join `authentications` `a` on((`a`.`id` = `u`.`auth_id`))) ;
 
 --
+-- Structure for view `transactions_joined`
+--
+
+CREATE VIEW transactions_joined AS
+    SELECT 
+        t.id,
+        t.date,
+        t.transaction_type,
+        t.is_revised,
+        (IF(e.revenue_amount IS NULL,
+            r.revenue_amount,
+            e.revenue_amount)) AS 'revenue_amount',
+        (IF(e.user_id IS NULL,
+            r.revenue_amount,
+            e.user_id)) AS 'user_id',
+        (IF(e.id IS NULL, r.id, e.id)) AS 'revenue_stream_id',
+        u.username
+    FROM
+        transactions AS t
+            LEFT JOIN
+        transactions_expenses AS te ON te.transaction_id = t.id
+            LEFT JOIN
+        expenses AS e ON te.expense_id = e.id
+            LEFT JOIN
+        transactions_revenues AS tr ON tr.transaction_id = t.id
+            LEFT JOIN
+        revenues AS r ON r.id = tr.revenue_id
+            LEFT JOIN
+        users AS u ON u.id = r.user_id OR u.id = e.user_id;
+
+--
 -- Constraints for dumped tables
 --
 
