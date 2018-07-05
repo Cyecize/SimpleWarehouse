@@ -36,7 +36,7 @@ namespace SimpleWarehouse.Services.ProductSectionManagers
         public void UpdateProducts()
         {
             if (this.Form.SearchText == string.Empty)
-                this.ProductViewManager.DisplayProducts(this.ProductsManager.FindAll());
+                this.ProductViewManager.DisplayProducts(this.ProductsManager.FindAllByLimit(Config.LIMIT_FOR_DB_PRODUCTS));
             else
                 this.SearchProdAction();
         }

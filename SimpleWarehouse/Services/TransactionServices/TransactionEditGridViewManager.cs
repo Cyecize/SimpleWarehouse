@@ -25,6 +25,8 @@ namespace SimpleWarehouse.Services.TransactionServices
 
         private const string TRANSACTION_DELETE_BTN = "TransactionDeleteBtn";
 
+        private const string TRANSACTION_DETAILS_BTN = "TransactionDetailsBtn";
+
         private EditTransactionSection EditTransactionSection { get; set; }
 
         private IView Form { get; set; }
@@ -57,6 +59,7 @@ namespace SimpleWarehouse.Services.TransactionServices
             row.Cells[TRANSACTION_REVENUE].Value = transaction.RevenueAmount;
             row.Cells[TRANSACTION_REVENUE].Value = transaction.RevenueAmount;
             row.Cells[TRANSACTION_DELETE_BTN].Value = "Х";
+            row.Cells[TRANSACTION_DETAILS_BTN].Value = "Детайли";
         }
 
         //PRIVATE LOGIC
@@ -109,6 +112,11 @@ namespace SimpleWarehouse.Services.TransactionServices
                                                   Name = TRANSACTION_DELETE_BTN,
                                                   Width = 100
                                               },
+                                                new DataGridViewButtonColumn
+                                              {
+                                                  HeaderText = "Детайли",
+                                                  Name = TRANSACTION_DETAILS_BTN,
+                                              },
                                                 new DataGridViewTextBoxColumn
                                               {
                                                   ValueType = typeof (DateTime),
@@ -116,7 +124,7 @@ namespace SimpleWarehouse.Services.TransactionServices
                                                   Name = TRANSACTION_IS_REVISED,
                                                   Width = 100
                                               },
-                                            
+
                                       });
 
             this.DataGrid.CellClick += this.OnCellClick;

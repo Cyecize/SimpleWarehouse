@@ -28,5 +28,7 @@ namespace SimpleWarehouse.Constants
         public const string USER_LIMITED_ROLE = "Worker";
 
         public const string DATE_TIME_FORMAT_DB = "yyyy-MM-dd";
+
+        public const int LIMIT_FOR_DB_PRODUCTS = 200;
     }
 }

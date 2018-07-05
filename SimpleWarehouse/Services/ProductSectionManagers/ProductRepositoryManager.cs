@@ -34,9 +34,14 @@ namespace SimpleWarehouse.Services.ProductSectionManagers
 
         }
 
+        public List<Product> FindAllByLimit(int limit)
+        {
+            return this.ProductRepository.FindManyByQuery(SQL_JOIN_VIEW_PROD + $" ORDER BY id ASC LIMIT {limit}");
+        }
+
         public List<Product> FindAll()
         {
-            return this.ProductRepository.FindManyByQuery(SQL_JOIN_VIEW_PROD + " LIMIT 100");
+            return this.ProductRepository.FindAll();
         }
 
         public Product FindProductById(int productId)

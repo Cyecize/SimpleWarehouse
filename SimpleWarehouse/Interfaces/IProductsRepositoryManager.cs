@@ -17,6 +17,8 @@ namespace SimpleWarehouse.Interfaces
 
         List<Product> SearchVisible(string param, SearchParameter parameterType);
 
+        List<Product> FindAllByLimit(int limit);
+
         List<Product> FindAll();
 
         Product FindProductById(int productId);
