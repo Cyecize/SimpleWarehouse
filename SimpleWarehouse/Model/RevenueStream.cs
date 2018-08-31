@@ -1,6 +1,7 @@
-﻿using SimpleWarehouse.Attributes;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,33 +10,33 @@ namespace SimpleWarehouse.Model
 {
     public class RevenueStream
     {
-        [DbNameReference(name:"id")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Column("id")]
         public int Id { get; set; }
 
-        [DbNameReference(name: "user_id")]
-        public int UserId { get; set; }
-
-        [DbNameReference(name: "username")]
-        public string Username { get; set; }
-
-        [DbNameReference(name: "revenue_amount")]
+        [Column("revenue_amount")]
         public double RevenueAmount { get; set; }
 
-        [DbNameReference(name: "date")]
+        [Column("date")]
         public DateTime Date { get; set; }
 
-        [DbNameReference(name: "is_revised")]
+        [Column("is_revised")]
         public bool IsRevised { get; set; }
 
-        [DbNameReference(name: "comment")]
+        [StringLength(maximumLength: 255)]
+        [Column("comment")]
         public string Comment { get; set; }
+
+        [ForeignKey("User")]
+        [Column("user_id")]
+        public int UserId { get; set; }
+        public virtual User User { get; set; }
 
         public RevenueStream()
         {
             this.IsRevised = false;
             this.Date = DateTime.Now;
-            this.RevenueAmount = 0.0;
+            this.RevenueAmount = 0D;
         }
-
     }
 }

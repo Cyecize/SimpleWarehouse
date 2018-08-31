@@ -12,6 +12,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SimpleWarehouse.Presenter.Other;
+using SimpleWarehouse.Util;
 
 namespace SimpleWarehouse.Forms
 {
@@ -33,9 +35,9 @@ namespace SimpleWarehouse.Forms
             this.PasswordTextBox.PasswordChar = '*';
             this.NewUserConfPasswordTextBox.PasswordChar = '*';
             this.NewUserPasswordTextBox.PasswordChar = '*';
-            this.StartPosition = FormStartPosition.CenterScreen;
             this.Log("");
             FormDecraptifier.Decraptify(this);
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
         public void HideAndDispose()

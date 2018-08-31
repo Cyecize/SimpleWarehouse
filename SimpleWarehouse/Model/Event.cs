@@ -13,12 +13,12 @@ namespace SimpleWarehouse.Model
         private static int ID = 0;
 
         public delegate void WorkCompletedCallBack();
-        private WorkCompletedCallBack Callback;
-        private IEventManager Manager;
+        private WorkCompletedCallBack Callback { get; set; }
+        private IEventManager Manager { get; set; }
 
-        private double AccumulatedTime;
-        private long MaxCounterValue;
-        private bool IsOneTimeOnly;
+        private double _accumulatedTime;
+        private readonly long _maxCounterValue;
+        private readonly bool _isOneTimeOnly;
 
 
         public int Id { get; set; }
@@ -27,23 +27,22 @@ namespace SimpleWarehouse.Model
         public Event(int execTimeout, WorkCompletedCallBack callback, IEventManager manager, bool isOneTimeOnly)
         {
             this.Callback = callback;
-            this.AccumulatedTime = 0;
-            this.MaxCounterValue = execTimeout;
+            this._accumulatedTime = 0;
+            this._maxCounterValue = execTimeout;
             this.Id = ++ID;
-            this.IsOneTimeOnly = isOneTimeOnly;
+            this._isOneTimeOnly = isOneTimeOnly;
             this.Manager = manager;
 
         }
 
         public void Update(double deltaTime)
         {
-           
-            this.AccumulatedTime+= deltaTime;
-            if (this.AccumulatedTime >= this.MaxCounterValue)
+            this._accumulatedTime+= deltaTime;
+            if (this._accumulatedTime >= this._maxCounterValue)
             {
-                this.AccumulatedTime = 0;
+                this._accumulatedTime = 0;
                 this.Callback();
-                if (this.IsOneTimeOnly)
+                if (this._isOneTimeOnly)
                     this.Manager.RemoveEvent(this.Id);
             }
         }

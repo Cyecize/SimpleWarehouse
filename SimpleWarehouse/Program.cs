@@ -1,25 +1,26 @@
-﻿using MySql.Data.MySqlClient;
-using Newtonsoft.Json;
+﻿using MySql.Data.Entity;
 using SimpleWarehouse.App;
-using SimpleWarehouse.Constants;
 using SimpleWarehouse.Factory;
 using SimpleWarehouse.Interfaces;
 using SimpleWarehouse.IO;
 using SimpleWarehouse.Model;
 using SimpleWarehouse.Presenter;
-using SimpleWarehouse.Service;
+using SimpleWarehouse.Repository;
 using SimpleWarehouse.Services;
+using SimpleWarehouse.Services.Users;
 using SimpleWarehouse.States;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-
+using System.Data.Common;
+using System.Data.Entity;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SimpleWarehouse.Presenter.Other;
 
 namespace SimpleWarehouse
 {
@@ -33,6 +34,7 @@ namespace SimpleWarehouse
         {
             //set up delimiter to prevent MySql exceptions for BG machines
             System.Globalization.CultureInfo customCulture = (System.Globalization.CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
+            DbConfiguration.SetConfiguration(new MySqlEFConfiguration());
             customCulture.NumberFormat.NumberDecimalSeparator = ".";
             System.Threading.Thread.CurrentThread.CurrentCulture = customCulture;
 
@@ -43,25 +45,25 @@ namespace SimpleWarehouse
             Stopwatch stopwatch = new Stopwatch();
 
             //creating dependencies
-            IDbConnectionPropertiesStorageManager dbConnectionProperties = new DbConnectionStorageManager();
-            IMySqlManager mySqlManager = new MySqlManager(dbConnectionProperties.GetSettings());
-            IEventManager eventManager = new EventManager();
-            ISession<IUser> userSession = new Session<IUser>();
             IOutputWriter writer = new ConsoleWriter();
+            IDbConnectionPropertiesStorageManager dbConnectionProperties = new DbConnectionStorageManager();
+            IDbConnectionManager connectionManager = new DbMySqlConnectionManager(writer);
+            IEventManager eventManager = new EventManager();
+            ISession<User> userSession = new Session<User>();
+            DbConnection connection = connectionManager.InitConnection(dbConnectionProperties.GetSettings());
+            DatabaseContext database = connection != null ? new DatabaseContext(connection, false) : null;
 
             //Injecting dependencies 
-            FormFactory.SqlManager = mySqlManager;
+            ApplicationState.Database = database;
+            IStateManager stateManager = new StateManager(writer, eventManager, userSession, dbConnectionProperties, connectionManager);
 
             //creating business classes
-            IStateManager stateManager = new StateManager(writer, eventManager, mySqlManager, userSession, dbConnectionProperties);
-            if (mySqlManager.IsConnectionActive()) stateManager.Push(new HomePresenter(stateManager));
+            if (database != null) stateManager.Push(new HomePresenter(stateManager));
             else stateManager.Push(new FirstRunPresenter(stateManager, dbConnectionProperties));
 
             //application loop
             ApplicationState.IsRunning = true;
             double deltaTimeSeconds = 0;
-            double ticks;
-
             while (true)
             {
                 stopwatch.Start();
@@ -72,15 +74,14 @@ namespace SimpleWarehouse
                 else
                     break;
 
-                System.Threading.Thread.Sleep(Constants.Config.EVENT_LISTENER_IMMEDIEATE);//1ms
+                System.Threading.Thread.Sleep(Constants.Config.EventListenerImmediate);//1ms
                 stopwatch.Stop();
-                ticks = stopwatch.ElapsedTicks;
+                double ticks = stopwatch.ElapsedTicks;
                 deltaTimeSeconds = ticks / Stopwatch.Frequency * 1000;
                 stopwatch.Reset();
             }
-
             //aftermath (testing along the way)
-            mySqlManager.CloseConnection(); 
+           
         }
     }
 }

@@ -11,15 +11,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SimpleWarehouse.Interfaces;
+using SimpleWarehouse.Util;
 
 namespace SimpleWarehouse.Forms
 {
     public partial class ConfirmActionForm : MaterialForm, IConfirmActionView
     {
-        private ConfirmActionPresenter Presenter { get; set; }
+        private ISubmitablePresenter Presenter { get; set; }
         public string ConfirmTextContent { get => this.ConfirmTextBox.Text; set => this.ConfirmTextBox.Text = value; }
 
-        public ConfirmActionForm(ConfirmActionPresenter presenter)
+        public ConfirmActionForm(ISubmitablePresenter presenter)
         {
             InitializeComponent();
             FormDecraptifier.Decraptify(this);

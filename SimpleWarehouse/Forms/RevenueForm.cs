@@ -1,6 +1,5 @@
 ﻿using MaterialSkin.Controls;
 using SimpleWarehouse.Constants;
-using SimpleWarehouse.Presenter.RevenueRelated;
 using SimpleWarehouse.RevenueRelated.View;
 using SimpleWarehouse.View;
 using System;
@@ -13,19 +12,22 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SimpleWarehouse.Presenter.Revenues;
 
 namespace SimpleWarehouse.Forms
 {
     public partial class RevenueForm : MaterialForm, IRevenueView
     {
-        private char DELIMETER = Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
+        private const string CommentLengthExceeded = "Надвишена дължина на коментара";
 
-        private IRevenuePresenter Presenter;
+        private readonly char _delimiter = Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
 
-        public RevenueForm(IRevenuePresenter presenter)
+        private IRevenueStreamPresenter StreamPresenter { get; set; }
+
+        public RevenueForm(IRevenueStreamPresenter streamPresenter)
         {
             InitializeComponent();
-            this.Presenter = presenter;
+            this.StreamPresenter = streamPresenter;
             this.StartPosition = FormStartPosition.CenterScreen;
             this.RevenueAmountBox.KeyPress += this.OnTypeHandler;           
             this.RevisedEndDate.Value = DateTime.Now.AddDays(2);
@@ -60,14 +62,14 @@ namespace SimpleWarehouse.Forms
 
         private void GoBackBtn_Click(object sender, EventArgs e)
         {
-            this.Presenter.GoBackAction();
+            this.StreamPresenter.GoBackAction();
         }
 
         //events 
         private void OnTypeHandler(Object sender, KeyPressEventArgs e)
         {
-            e.Handled = (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar) && DELIMETER != e.KeyChar);
-            if (((Control)sender).Text.Contains(DELIMETER) && e.KeyChar == DELIMETER)
+            e.Handled = (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar) && _delimiter != e.KeyChar);
+            if (((Control)sender).Text.Contains(_delimiter) && e.KeyChar == _delimiter)
             {
                 e.Handled = true;
             }
@@ -76,7 +78,7 @@ namespace SimpleWarehouse.Forms
         private void AddRevenueBtn_Click(object sender, EventArgs e)
         {
             if (this.ValidateForm())
-                this.Presenter.AddEntitySection.AddEntityAction();
+                this.StreamPresenter.RevenueStreamSection.AddRevenueStreamAction();
         }
 
         //private methods
@@ -91,19 +93,19 @@ namespace SimpleWarehouse.Forms
                 double.Parse(this.RevenueAmountBox.Text);
                 if (this.NewEntityAmount < 1)
                 {
-                    this.Log(Messages.INVALID_NUMBERS_MSG);
+                    this.Log(Messages.InvalidNumbersMsg);
                     return false;
                 }
 
             }
             catch (Exception)
             {
-                this.Log(Messages.INVALID_NUMBERS_MSG);
+                this.Log(Messages.InvalidNumbersMsg);
                 isValid = false;
             }
             if(this.CommentBox.Text.Length >= 255)
             {
-                this.Log("Надвишена дължина на коментара");
+                this.Log(CommentLengthExceeded);
                 isValid = false;
             }
             return isValid;
@@ -111,7 +113,7 @@ namespace SimpleWarehouse.Forms
 
         private void FindArchivedRevenues_Click(object sender, EventArgs e)
         {
-            this.Presenter.ArchivedEntitiesSection.DisplayArchivedEntities();
+            this.StreamPresenter.RevenueStreamSection.DisplayArchivedRevenueStreams();
         }
     }
 }

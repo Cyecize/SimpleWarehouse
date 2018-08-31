@@ -12,11 +12,12 @@ namespace SimpleWarehouse.Factory
 {
     public class FormFactory
     {
-        public static IMySqlManager SqlManager; 
+        private const string DisposeFormat = "Form {0} was disposed! (msg from FormFactory)";
+
 
         public static Form CreateForm(string formName, Object[] parameter)
         {
-            Type formType = Type.GetType($"{Constants.Config.PATH_TO_FORMS}{formName}");
+            Type formType = Type.GetType($"{Constants.Config.PathToForms}{formName}");
             Form form =  (Form)Activator.CreateInstance(formType, parameter);
             form.FormClosing += OnButtonCloseAction;
             return form;
@@ -24,8 +25,10 @@ namespace SimpleWarehouse.Factory
 
         private static void OnButtonCloseAction(Object sender, EventArgs e)
         {
-            ((Form)sender).Dispose();
-            Console.WriteLine("Form was disposed! (msg from FormFactory)");
+            Form form = (Form) sender;
+            string name = form.Name;
+            form.Dispose();
+            Console.WriteLine(DisposeFormat, name);
         }
 
     }

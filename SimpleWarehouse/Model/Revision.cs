@@ -1,47 +1,50 @@
-﻿using SimpleWarehouse.Attributes;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SimpleWarehouse.Constants;
 
 namespace SimpleWarehouse.Model
 {
-    [DbTableNameReference(name: "revisions")]
+    [Table("revisions")]
     public class Revision
     {
-        [DbNameReference(name: "id")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Column("id")]
+        [Index(IsUnique = true)]
         public int Id { get; set; }
 
-        [DbNameReference(name: ("expenses"))]
+        [Column("expenses")]
         public double Expenses { get; set; }
 
-        [DbNameReference(name: "revenue")]
+        [Column("revenue")]
         public double Revenue { get; set; }
 
-        [DbNameReference(name: "actual_revenue")]
+        [Column("actual_revenue")]
         public double ActualRevenue { get; set; }
 
-        [DbNameReference(name: "start_date")]
+        [Required]
+        [Column("start_date")]
         public DateTime StartDate { get; set; }
 
-        [DbNameReference(name: "revision_date")]
-        public DateTime Date { get; set; }
+        [Column("revision_date")]
+        public DateTime RevisionDate { get; set; }
 
         public Revision()
         {
-            this.Date = DateTime.Now;
-            this.Expenses = 0.0;
-            this.Revenue = 0.0;
+            this.RevisionDate = DateTime.Now;
         }
 
         public override string ToString()
         {
             return $"Приходи: {this.Revenue:F2} \r\n" +
-                $"Разходи: {this.Expenses:F2}\r\n" +
-                $"Изчислени приходи (ревизия): {this.ActualRevenue:F2}\r\n" +
-                $"Начална дата: {this.StartDate.ToString("dd/MM/yyyy")}\r\n" +
-                $"Дата на ревизия: {this.Date.ToString("dd/MM/yyyy")}\r\n";
+                   $"Разходи: {this.Expenses:F2}\r\n" +
+                   $"Изчислени приходи (ревизия): {this.ActualRevenue:F2}\r\n" +
+                   $"Начална дата: {this.StartDate.ToString(Config.DateTimeFormat)}\r\n" +
+                   $"Дата на ревизия: {this.RevisionDate.ToString(Config.DateTimeFormat)}\r\n";
         }
     }
 }

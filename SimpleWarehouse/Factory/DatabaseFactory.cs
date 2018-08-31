@@ -2,52 +2,56 @@
 using SimpleWarehouse.Constants;
 using SimpleWarehouse.Interfaces;
 using SimpleWarehouse.Model;
-using SimpleWarehouse.Service;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SimpleWarehouse.Model.Enum;
+using SimpleWarehouse.Repository;
 
 namespace SimpleWarehouse.Factory
 {
     public class DatabaseFactory
     {
+        private const string InvalidCredentialsMsg = "Invalid db connection parameters.";
+        private const string ErrorCreatingDatabaseMsg = "Invalid db connection parameters.";
+
         private DatabaseFactory() { }
 
-        public static IMySqlManager CreateDatabase(DbProperties properties, string dbName)
+
+        public static DatabaseContext CreateDatabase(DbConnection dbConnection)
         {
-            dbName = Config.DATABASE_NAME_PREFIX + dbName;
-
-            MySqlConnection conn = CreateConnection(properties);
-            TestConnection(conn);
-
-            MySqlCommand command = new MySqlCommand($"CREATE DATABASE `{dbName}` CHARACTER SET utf8 COLLATE utf8_unicode_ci", conn);
-            try
-            {
-                command.ExecuteNonQuery();
-            }
-            catch (Exception e) { Console.WriteLine(e.Message); throw new ArgumentException("There was an error while creating the database."); }
-
-            properties.DatabaseName = dbName;
-            IMySqlManager newManager = new MySqlManager(properties);
-            if (newManager.IsConnectionActive())
-            {
-                return newManager;
-            }
-            throw new ArgumentException("There was an error creating the database.");
+            DatabaseContext databaseContext = new DatabaseContext(dbConnection, false);
+            databaseContext.Database.CreateIfNotExists();
+            AddSearchParameters(databaseContext);
+            return databaseContext;
         }
 
         public static void TestConnection(MySqlConnection connection)
         {
+            if (connection.State == ConnectionState.Open)
+                return;
             try { connection.Open(); }
-            catch (Exception) { throw new ArgumentException("Invalid db connection parameters."); }
+            catch (Exception) { throw new ArgumentException(InvalidCredentialsMsg); }
         }
 
         public static MySqlConnection CreateConnection(DbProperties properties)
         {
             MySqlConnection conn = new MySqlConnection(properties.CreateConnectionString());
             return conn;
+        }
+
+        private static void AddSearchParameters(DatabaseContext database)
+        {
+            if (database.SearchParameters.Any())
+                return;
+            database.SearchParameters.Add(new SearchParameter() { DisplayName = "Прод. име", SearchType = SearchType.ProductName });
+            database.SearchParameters.Add(new SearchParameter() { DisplayName = "Категория", SearchType = SearchType.CategoryName });
+            database.SearchParameters.Add(new SearchParameter() { DisplayName = "Прод. код", SearchType = SearchType.ProductId });
+            database.SaveChanges();
         }
     }
 }

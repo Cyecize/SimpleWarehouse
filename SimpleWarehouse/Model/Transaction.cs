@@ -1,40 +1,74 @@
-﻿using SimpleWarehouse.Attributes;
+﻿using SimpleWarehouse.Model.Enum;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SimpleWarehouse.Model
 {
-    [DbTableNameReference(name: "transactions_joined")]
+    [Table("transactions")]
     public class Transaction
     {
-        [DbNameReference(name:"id")]
+       
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Column("id")]
+        [Index(IsUnique = true)]
         public int Id { get; set; }
 
-        [DbNameReference(name: "date")]
+        [Column("date")]
         public DateTime Date { get; set; }
 
-        [DbNameReference(name: "transaction_type")]
-        public string TransactionType { get; set; }
+        [Column("transaction_type")]
+        [Required]
+        public TransactionType TransactionType { get; set; }
 
-        [DbNameReference(name: "is_revised")]
+        [Column("is_revised")]
         public bool IsRevised { get; set; }
 
-        [DbNameReference("user_id")]
-        private double _userId { get; set; }
+        [ForeignKey("Expense")]
+        [Column("expense_id")]
+        public int? ExpenseId { get; set; }
 
-        public int UserId { get => (int)this._userId; }
+        public virtual Expense Expense { get; set; }
 
-        [DbNameReference("revenue_stream_id")]
-        public int RevenueStreamId { get; set; }
+        [ForeignKey("Revenue")]
+        [Column("revenue_id")]
+        public int? RevenueId { get; set; }
 
-        [DbNameReference(name: "revenue_amount")]
-        public double RevenueAmount { get; set; }
+        public virtual Revenue Revenue { get; set; }
 
-        [DbNameReference(name: "username")]
-        public string Username { get; set; }
+        public virtual List<TransactionProduct> TransactionProducts { get; set; }
 
+        [NotMapped]
+        public double RevenueAmount
+        {
+            get
+            {
+                if (this.Revenue != null) return this.Revenue.RevenueAmount;
+                if (this.Expense != null) return this.Expense.RevenueAmount;
+                return 0D;
+            }
+        }
+
+        [NotMapped]
+        public User User
+        {
+            get
+            {
+                if (this.Revenue != null) return this.Revenue.User;
+                if (this.Expense != null) return this.Expense.User;
+                return null;
+            }
+        }
+
+        public Transaction()
+        {
+            this.IsRevised = false;
+            this.Date = DateTime.Now;
+            this.TransactionProducts = new List<TransactionProduct>();
+        }
     }
 }

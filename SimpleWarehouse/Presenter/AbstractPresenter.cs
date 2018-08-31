@@ -9,10 +9,12 @@ using System.Threading.Tasks;
 namespace SimpleWarehouse.Presenter
 {
     public abstract class AbstractPresenter : IPresenter
-    {
+    {     
         protected IStateManager StateManager { get; set; }
         protected bool IsFormShown { get; set; }
         protected List<int> EventIds { get; set; }
+
+        public abstract ILoggable Loggable { get;  }
 
         protected AbstractPresenter(IStateManager manager)
         {
@@ -27,7 +29,8 @@ namespace SimpleWarehouse.Presenter
         }
 
         public abstract void Dispose();
-       
+
+        
         public abstract void Update();
     }
 }

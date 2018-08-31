@@ -12,6 +12,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SimpleWarehouse.Presenter.Products;
+using SimpleWarehouse.Util;
 
 namespace SimpleWarehouse.Forms
 {
@@ -75,6 +77,8 @@ namespace SimpleWarehouse.Forms
                     if (this.SearchBox.Text.Length >= 1)
                         this.SearchBox.Text = this.SearchBox.Text.Substring(0, this.SearchBox.Text.Length - 1);
                 }
+                if(e.KeyChar == (char)Keys.Up || e.KeyChar == (char)Keys.Down)
+                   this.Presenter.ProductSection.SelectProductAction();
 
             };
             this.SearchType.SelectedIndexChanged += this.OnSearchParamChange;

@@ -9,12 +9,12 @@ namespace SimpleWarehouse.Interfaces
 {
     public interface IPresenter
     {
-        void Update(); 
+        ILoggable Loggable { get; }
+
+        void Update();
 
         void Dispose();
 
         IStateManager GetStateManager();
-
-
     }
 }

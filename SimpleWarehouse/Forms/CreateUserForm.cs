@@ -11,18 +11,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SimpleWarehouse.Util;
 
 namespace SimpleWarehouse.Forms
 {
     public partial class CreateUserForm : MaterialForm, ICreateUserView
     {
 
-        private IEditPresenter Presenter { get; set; }
+        private ISubmitablePresenter Presenter { get; set; }
         public string NewUsername { get => this.UsernameBox.Text; set => this.UsernameBox.Text = value; }
         public string NewPassword { get => this.PasswordBox.Text; set => this.PasswordBox.Text = value; }
         public string Role { get => (string)this.RolesDropdown.SelectedItem; set => this.RolesDropdown.SelectedItem = value; }
 
-        public CreateUserForm(IEditPresenter presenter)
+        public CreateUserForm(ISubmitablePresenter presenter)
         {
             InitializeComponent();
             this.Presenter = presenter;
@@ -52,7 +53,7 @@ namespace SimpleWarehouse.Forms
         {
             if(this.PasswordBox.Text != this.PasswordConfirm.Text)
             {
-                this.Log("Паролите не съвпадат!");
+                this.Log(@"Паролите не съвпадат!");
                 return;
             }
             this.Presenter.Submit();

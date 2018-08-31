@@ -1,8 +1,7 @@
-﻿
-using DataGridViewTextButton.DataGridViewElements;
-using MaterialSkin.Controls;
+﻿using MaterialSkin.Controls;
 using SimpleWarehouse.Constants;
 using SimpleWarehouse.Model;
+using SimpleWarehouse.Model.Enum;
 using SimpleWarehouse.Presenter;
 using SimpleWarehouse.Services;
 using SimpleWarehouse.View;
@@ -16,14 +15,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
 namespace SimpleWarehouse.Forms
 {
-
     public partial class MainForm : MaterialForm, IHomeView
     {
-
-        private HomePresenter Presenter;
+        private HomePresenter Presenter { get; set; }
 
         public DataGridView ProductDataTable { get => this.DataTableView; set => this.DataTableView = value; }
         public string SearchText { get => this.SearchBox.Text; set => this.SearchBox.Text = value; }
@@ -46,7 +42,7 @@ namespace SimpleWarehouse.Forms
         string IRevisionView.RevisionStartDate { get => this.RevisionStartDateLabel.Text; set => this.RevisionStartDateLabel.Text = value; }
         public string RevisonSubTotalPlusSalesRevenue { get => this.RevisionSalesPlusRevisionTotalTextBox.Text; set => this.RevisionSalesPlusRevisionTotalTextBox.Text = value; }
         public bool IsTransactionRevised { get => this.IsRevisedCheckbox.Checked; set => this.IsRevisedCheckbox.Checked = value; }
-        public TransactionTypes SelectedTransactionType { get => (TransactionTypes)this.TransactionTypeBox.SelectedItem; set => throw new NotImplementedException(); }
+        public TransactionType SelectedTransactionType { get => (TransactionType)this.TransactionTypeBox.SelectedItem; set => throw new NotImplementedException(); }
         public DateTime TransactionStartDate { get => this.TransactionStartDateSelector.Value; set => this.TransactionStartDateSelector.Value = value; }
         public DateTime TransactionEndtDate { get => this.TransactionEndDateSelector.Value; set => this.TransactionEndDateSelector.Value = value; }
         public DataGridView TransactionGrid => this.TransactionGridView;
@@ -148,22 +144,17 @@ namespace SimpleWarehouse.Forms
         private void RevenueBtn_Click(object sender, EventArgs e)
         {
             this.Presenter.RevenueAction();
-        }
-
-        private void InvoicesBtn_Click(object sender, EventArgs e)
-        {
-            this.Presenter.InvoicesAction();
-        }
+        }  
 
         private void ExpensesBtn_Click(object sender, EventArgs e)
         {
-            this.Presenter.ExpensesAction();
+           this.Presenter.ExpensesAction();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            this.TransactionTypeBox.Items.Add(TransactionTypes.Sale);
-            this.TransactionTypeBox.Items.Add(TransactionTypes.Delivery);
+            this.TransactionTypeBox.Items.Add(TransactionType.SALE);
+            this.TransactionTypeBox.Items.Add(TransactionType.DELIVERY);
             this.TransactionTypeBox.Select(0, 1);
             this.TransactionEndDateSelector.Value = DateTime.Now.AddDays(1);
             this.TransactionStartDateSelector.Value = DateTime.Now.AddDays(-1);
@@ -198,7 +189,7 @@ namespace SimpleWarehouse.Forms
 
         private void RefreshDeliveriesAction_Click(object sender, EventArgs e)
         {
-            this.Presenter.DeliveriesSection.RefreshGridAction();
+           this.Presenter.DeliveriesSection.RefreshGridAction();
         }
 
         private void SaveDeliveryBtn_Click(object sender, EventArgs e)
@@ -238,7 +229,7 @@ namespace SimpleWarehouse.Forms
 
         private void SalesRefreshBtn_Click(object sender, EventArgs e)
         {
-            this.Presenter.SalesSection.RefreshGridAction();
+           this.Presenter.SalesSection.RefreshGridAction();
         }
 
         private void RevisionTab_Click(object sender, EventArgs e)
@@ -268,7 +259,7 @@ namespace SimpleWarehouse.Forms
 
         private void ShowDbInfoBtn_Click(object sender, EventArgs e)
         {
-            this.Presenter.SettingsSection.ShowDbInfoAction();
+           this.Presenter.SettingsSection.ShowDbInfoAction();
         }
 
         private void FindTransactionsBtn_Click(object sender, EventArgs e)

@@ -1,39 +1,47 @@
-﻿using SimpleWarehouse.Attributes;
-using SimpleWarehouse.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SimpleWarehouse.Model
 {
-    [DbTableNameReference(name: "prod_cat_joined")]
-    public class Product
+    [Table("products")]
+    public  class Product
     {
-        [DbNameReference(name: "id")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Column("id")]
+        [Index(IsUnique = true)]
         public int Id { get; set; }
 
-        [DbNameReference(name: "category_id")]
+        [ForeignKey("Category")]
+        [Column("category_id")]
         public int CategoryId { get; set; }
 
-        [DbNameReference(name: "category_name")]
-        public string CategoryName { get; set; }
-
-        [DbNameReference(name: "product_name")]
+        [Required]
+        [Column("product_name")]
+        [StringLength(maximumLength: 45)]
         public string ProductName { get; set; }
 
-        [DbNameReference(name: "quantity")]
+        [Column("quantity")]
         public double Quantity { get; set; }
 
-        [DbNameReference(name: "import_price")]
+        [Column("import_price")]
         public double ImportPrice { get; set; }
 
-        [DbNameReference(name: "sell_price")]
+        [Column("sell_price")]
         public double SellPrice { get; set; }
 
-        [DbNameReference(name: "is_visible")]
+        [Column("is_visible")]
         public bool IsVisible { get; set; }
 
+        public virtual Category Category { get; set; }
+
+        public Product()
+        {
+            this.IsVisible = true;
+        }
     }
 }

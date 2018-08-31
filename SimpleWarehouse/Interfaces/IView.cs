@@ -15,6 +15,5 @@ namespace SimpleWarehouse.Interfaces
         void Show();
 
         void ShowAsDialog();
-
     }
 }

@@ -1,24 +1,29 @@
-﻿using SimpleWarehouse.Attributes;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SimpleWarehouse.Model.Enum;
 
 namespace SimpleWarehouse.Model
 {
-    [DbTableNameReference(name: "search_types")]
+    [Table("search_params")]
     public class SearchParameter
     {
-        [DbNameReference(name:"id")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Index(IsUnique = true)]
+        [Column("id")]
         public int Id { get; set; }
 
-        [DbNameReference(name: "display_name")]
+        [Column("display_name")]
+        [Required]
+        [StringLength(maximumLength:100)]
         public string DisplayName { get; set; }
 
-        [DbNameReference(name: "column_name")]
-        public string ColumnName { get; set; }
-
+        [Column("search_type")]
+        public SearchType SearchType { get; set; }
 
         public override string ToString()
         {

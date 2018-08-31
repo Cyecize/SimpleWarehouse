@@ -1,7 +1,7 @@
 ﻿using MaterialSkin.Controls;
 using SimpleWarehouse.Constants;
 using SimpleWarehouse.Model;
-using SimpleWarehouse.Presenter.ProductSpecificPresenters;
+
 using SimpleWarehouse.Services;
 using SimpleWarehouse.View;
 using System;
@@ -14,13 +14,15 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SimpleWarehouse.Interfaces;
+using SimpleWarehouse.Util;
 
 namespace SimpleWarehouse.Forms
 {
     public partial class SpecificProductForm : MaterialForm, ISpecificProductView
     {
-        private char DELIMETER = Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
-        private IProductSpecificPresenter Presenter;
+        private readonly char _delimiter = Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
+        private ISubmitablePresenter Presenter { get; set; }
 
         public double Quantity { get => double.Parse(this.QuantityField.Text); set => this.QuantityField.Text = value.ToString(); }
         public double ImportPrice { get => double.Parse(this.ImportPriceField.Text); set => this.ImportPriceField.Text = value.ToString(); }
@@ -29,7 +31,7 @@ namespace SimpleWarehouse.Forms
         public Category SelectedCategory { get => (Category)this.CategoriesField.SelectedItem; set => this.CategoriesField.SelectedItem = value; }
         string ISpecificProductView.ProductName { get => this.ProdNameField.Text; set => this.ProdNameField.Text = value; }
 
-        public SpecificProductForm(IProductSpecificPresenter presenter)
+        public SpecificProductForm(ISubmitablePresenter presenter)
         {
             InitializeComponent();
             this.Presenter = presenter;
@@ -39,7 +41,7 @@ namespace SimpleWarehouse.Forms
             this.QuantityField.KeyPress += this.OnTypeHandler;
             this.ProdNameField.KeyPress += (sen, eventt) =>
             {
-                if (this.ProdNameField.Text.Length > Constants.Config.MAX_TEXT_LEN && eventt.KeyChar != (char)Keys.Back)
+                if (this.ProdNameField.Text.Length > Constants.Config.MaxTextLen && eventt.KeyChar != (char)Keys.Back)
                     eventt.Handled = true;
             };
         }
@@ -72,10 +74,10 @@ namespace SimpleWarehouse.Forms
             this.Presenter.Cancel();
         }
 
-        private void OnTypeHandler(Object sender, KeyPressEventArgs e)
+        private void OnTypeHandler(object sender, KeyPressEventArgs e)
         {
-            e.Handled = (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar) && DELIMETER != e.KeyChar);
-            if (((Control)sender).Text.Contains(DELIMETER) && e.KeyChar == DELIMETER)
+            e.Handled = (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar) && _delimiter != e.KeyChar);
+            if (((Control)sender).Text.Contains(_delimiter) && e.KeyChar == _delimiter)
             {
                 e.Handled = true;
             }
@@ -95,7 +97,7 @@ namespace SimpleWarehouse.Forms
             bool isValid = true;
             if (this.ProdNameField.Text.Length < 1)
             {
-                this.Log(Messages.INVALID_NAME_MSG);
+                this.Log(Messages.InvalidNameMsg);
                 return false;
             }
             try
@@ -114,14 +116,14 @@ namespace SimpleWarehouse.Forms
             }
             catch (Exception)
             {
-                this.Log(Messages.INVALID_NUMBERS_MSG);
+                this.Log(Messages.InvalidNumbersMsg);
                 isValid = false;
             }
 
             if(this.CategoriesField.SelectedItem == null)
             {
                 isValid = false;
-                this.Log("Моля изберете категория");
+                this.Log(@"Моля изберете категория");
             }
 
             return isValid;

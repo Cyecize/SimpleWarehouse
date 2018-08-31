@@ -11,17 +11,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SimpleWarehouse.Util;
 
 namespace SimpleWarehouse.Forms
 {
     public partial class ChangePasswordForm : MaterialForm, IChangePasswordView
     {
-        private IEditPresenter Presenter { get; set; }
+        private ISubmitablePresenter Presenter { get; set; }
         public string OldPassword { get => this.OldPasswordBox.Text; set => this.OldPasswordBox.Text = value; }
         public string NewPassword { get => this.NewPassBox.Text; set => this.NewPassBox.Text = value; }
         public string NewPasswordConf { get => this.ConfPassBox.Text; set => this.ConfPassBox.Text = value; }
 
-        public ChangePasswordForm(IEditPresenter presenter)
+        public ChangePasswordForm(ISubmitablePresenter presenter)
         {
             InitializeComponent();
             this.Presenter = presenter;

@@ -98,7 +98,6 @@ namespace SimpleWarehouse.Forms
             this.ShowDbInfoBtn = new System.Windows.Forms.Button();
             this.CreateNewUserBtn = new System.Windows.Forms.Button();
             this.materialTabSelector1 = new MaterialSkin.Controls.MaterialTabSelector();
-            this.InvoicesBtn = new MaterialSkin.Controls.MaterialFlatButton();
             this.ExpensesBtn = new MaterialSkin.Controls.MaterialFlatButton();
             this.LogLabel = new System.Windows.Forms.Label();
             this.CurrentTabLabel = new System.Windows.Forms.Label();
@@ -124,7 +123,7 @@ namespace SimpleWarehouse.Forms
             this.RevenueBtn.Depth = 0;
             this.RevenueBtn.Enabled = false;
             this.RevenueBtn.Icon = null;
-            this.RevenueBtn.Location = new System.Drawing.Point(598, 524);
+            this.RevenueBtn.Location = new System.Drawing.Point(590, 524);
             this.RevenueBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.RevenueBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.RevenueBtn.Name = "RevenueBtn";
@@ -160,7 +159,7 @@ namespace SimpleWarehouse.Forms
             this.RefreshButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.RefreshButton.Depth = 0;
             this.RefreshButton.Icon = null;
-            this.RefreshButton.Location = new System.Drawing.Point(684, 524);
+            this.RefreshButton.Location = new System.Drawing.Point(680, 524);
             this.RefreshButton.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.RefreshButton.MouseState = MaterialSkin.MouseState.HOVER;
             this.RefreshButton.Name = "RefreshButton";
@@ -923,25 +922,6 @@ namespace SimpleWarehouse.Forms
             this.materialTabSelector1.TabIndex = 17;
             this.materialTabSelector1.Text = "materialTabSelector1";
             // 
-            // InvoicesBtn
-            // 
-            this.InvoicesBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.InvoicesBtn.AutoSize = true;
-            this.InvoicesBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.InvoicesBtn.Depth = 0;
-            this.InvoicesBtn.Enabled = false;
-            this.InvoicesBtn.Icon = null;
-            this.InvoicesBtn.Location = new System.Drawing.Point(506, 524);
-            this.InvoicesBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.InvoicesBtn.MouseState = MaterialSkin.MouseState.HOVER;
-            this.InvoicesBtn.Name = "InvoicesBtn";
-            this.InvoicesBtn.Primary = false;
-            this.InvoicesBtn.Size = new System.Drawing.Size(85, 36);
-            this.InvoicesBtn.TabIndex = 26;
-            this.InvoicesBtn.Text = "ФАКТУРИ";
-            this.InvoicesBtn.UseVisualStyleBackColor = true;
-            this.InvoicesBtn.Click += new System.EventHandler(this.InvoicesBtn_Click);
-            // 
             // ExpensesBtn
             // 
             this.ExpensesBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -950,7 +930,7 @@ namespace SimpleWarehouse.Forms
             this.ExpensesBtn.Depth = 0;
             this.ExpensesBtn.Enabled = false;
             this.ExpensesBtn.Icon = null;
-            this.ExpensesBtn.Location = new System.Drawing.Point(413, 524);
+            this.ExpensesBtn.Location = new System.Drawing.Point(490, 524);
             this.ExpensesBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.ExpensesBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.ExpensesBtn.Name = "ExpensesBtn";
@@ -992,7 +972,6 @@ namespace SimpleWarehouse.Forms
             this.Controls.Add(this.CurrentTabLabel);
             this.Controls.Add(this.LogLabel);
             this.Controls.Add(this.ExpensesBtn);
-            this.Controls.Add(this.InvoicesBtn);
             this.Controls.Add(this.materialTabControl1);
             this.Controls.Add(this.RevenueBtn);
             this.Controls.Add(this.materialTabSelector1);
@@ -1046,7 +1025,6 @@ namespace SimpleWarehouse.Forms
         private new System.Windows.Forms.DataGridViewTextBoxColumn Visible;
         private System.Windows.Forms.ComboBox SearchType;
         private MaterialRaisedButton AddCategoryBtn;
-        private MaterialFlatButton InvoicesBtn;
         private MaterialFlatButton ExpensesBtn;
         private System.Windows.Forms.DataGridView DeliveriesDataGridView;
         private System.Windows.Forms.TabPage SalesTab;

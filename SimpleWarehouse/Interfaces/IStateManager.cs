@@ -1,4 +1,7 @@
-﻿using System;
+﻿using SimpleWarehouse.Model;
+using SimpleWarehouse.Repository;
+using SimpleWarehouse.Services.Users;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,11 +16,15 @@ namespace SimpleWarehouse.Interfaces
 
         IEventManager EventManager { get; set; }
 
-        IMySqlManager SqlManager { get; set; }
+        DatabaseContext Database { get; set; }
 
-        ISession<IUser> UserSession { get; set; }
+        ISession<User> UserSession { get; set; }
 
         IDbConnectionPropertiesStorageManager DbConnectionPropertiesManager { get; set; }
+
+        IDbConnectionManager ConnectionManager { get; set; }
+
+        IUserService UserService { get; set; }
 
         void Push(IPresenter presenter);
 
@@ -25,11 +32,15 @@ namespace SimpleWarehouse.Interfaces
 
         void Set(IPresenter presenter);
 
+        void SetAndFix(IPresenter presenter);
+
         IPresenter Peek();
 
         void Update();
 
         bool IsPresenterActive(IPresenter presenter);
+
+        bool IsPresenterPresent(IPresenter presenter);
 
     }
 }

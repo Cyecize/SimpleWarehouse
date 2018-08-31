@@ -13,15 +13,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SimpleWarehouse.Util;
 
 namespace SimpleWarehouse.Forms
 {
     public partial class DisableUserForm : MaterialForm, IDisableUserView
     {
 
-        private IEditPresenter Presenter { get; set; }
+        private ISubmitablePresenter Presenter { get; set; }
 
-        public DisableUserForm(IEditPresenter presenter)
+        public DisableUserForm(ISubmitablePresenter presenter)
         {
             InitializeComponent();
             this.Presenter = presenter;
@@ -69,7 +70,7 @@ namespace SimpleWarehouse.Forms
                 return;
             User u = (User)val;
             this.SelectedUsername = u.Username;
-            this.IsEnabled = u.IsActive;
+            this.IsEnabled = u.IsEnabled;
         }
 
         private void SubmitBtn_Click(object sender, EventArgs e)

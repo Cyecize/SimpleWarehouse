@@ -1,4 +1,5 @@
-﻿using SimpleWarehouse.Service;
+﻿using SimpleWarehouse.Model;
+using SimpleWarehouse.Model.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,41 +10,22 @@ namespace SimpleWarehouse.Constants
 {
     public class Roles
     {
-        private static List<string> ROLES = new List<string>() { Config.USER_LIMITED_ROLE, Config.USER_TYPICAL_ROLE, Config.USER_ADMIN_ROLE };
-
-        public static string GetRole(string hashed)
+        public static bool IsRequiredRoleMet(List<Role> roles, RoleType desiredRole)
         {
-            if (!IsHashed(hashed))
-                return hashed;
-            if (PasswordEncoder.EncodeMd5(Config.USER_ADMIN_ROLE) == hashed)
-                return Config.USER_ADMIN_ROLE;
-            if (PasswordEncoder.EncodeMd5(Config.USER_TYPICAL_ROLE) == hashed)
-                return Config.USER_TYPICAL_ROLE;
-            return Config.USER_LIMITED_ROLE;
+            return roles.FirstOrDefault(r => r.RoleType == desiredRole) != null;
         }
 
-        public static string HashRole(string planeTextRole)
+        public static bool IsAdmin(List<Role> roles)
         {
-            if (IsHashed(planeTextRole))
-                return planeTextRole;
-            return PasswordEncoder.EncodeMd5(planeTextRole);
+            return roles.FirstOrDefault(r => r.RoleType == RoleType.ADMIN) != null;
         }
-
-        public static bool IsExactRole(string role, string desiredRole)
+        public static bool IsStandard(List<Role> roles)
         {
-            return role == GetRole(desiredRole);
+            return roles.FirstOrDefault(r => r.RoleType == RoleType.STANDARD) != null;
         }
-
-        public static bool IsRequredRoleMet(string role, string desiredRole)
+        public static bool IsWorker(List<Role> roles)
         {
-            int roleId = ROLES.IndexOf(GetRole(role));
-            int desiredRoleId = ROLES.IndexOf(GetRole(desiredRole));
-            return roleId >= desiredRoleId;
-        }
-
-        public static bool IsHashed(string role)
-        {
-            return !ROLES.Contains(role);
+            return roles.FirstOrDefault(r => r.RoleType == RoleType.WORKER) != null;
         }
     }
 }

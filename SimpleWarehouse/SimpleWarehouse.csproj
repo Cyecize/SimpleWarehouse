@@ -72,16 +72,21 @@
     <Reference Include="DataGridViewTextButton">
       <HintPath>..\packages\DataGridViewTextButton.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Protobuf, Version=3.5.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Protobuf.3.5.1\lib\net45\Google.Protobuf.dll</HintPath>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="MaterialSkin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\MaterialSkin.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data, Version=8.0.11.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\MySQL\MySQL Connector Net 8.0.11\Assemblies\v4.5.2\MySql.Data.dll</HintPath>
+    <Reference Include="MySql.Data, Version=6.10.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.10.8\lib\net452\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data.Entity.EF6, Version=6.10.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.Entity.6.10.8\lib\net452\MySql.Data.Entity.EF6.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -109,8 +114,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App\ApplicationState.cs" />
-    <Compile Include="Attributes\DbTableNameReference.cs" />
-    <Compile Include="Attributes\DbNameReference.cs" />
     <Compile Include="Constants\Config.cs" />
     <Compile Include="Constants\Messages.cs" />
     <Compile Include="Constants\RevenueDataTableNames.cs" />
@@ -118,7 +121,6 @@
     <Compile Include="Constants\Roles.cs" />
     <Compile Include="Constants\TabPageNames.cs" />
     <Compile Include="Constants\TransactionDataTableNames.cs" />
-    <Compile Include="Constants\TransactionTypes.cs" />
     <Compile Include="Factory\DatabaseFactory.cs" />
     <Compile Include="Factory\FormFactory.cs" />
     <Compile Include="Forms\ChangePasswordForm.cs">
@@ -136,44 +138,26 @@
     <Compile Include="Forms\CreateUserForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\CreateUserForm.Designer.cs">
+    <Compile Include="Forms\CreateUserForm.designer.cs">
       <DependentUpon>CreateUserForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\DisableUserForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DisableUserForm.Designer.cs">
+    <Compile Include="Forms\DisableUserForm.designer.cs">
       <DependentUpon>DisableUserForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ErrorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ErrorForm.designer.cs">
+      <DependentUpon>ErrorForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FirstRunForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\FirstRunForm.Designer.cs">
       <DependentUpon>FirstRunForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\RevenueForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\RevenueForm.Designer.cs">
-      <DependentUpon>RevenueForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\SearchProductForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\SearchProductForm.Designer.cs">
-      <DependentUpon>SearchProductForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\SpecificCategoryForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\SpecificCategoryForm.Designer.cs">
-      <DependentUpon>SpecificCategoryForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\ErrorForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\ErrorForm.Designer.cs">
-      <DependentUpon>ErrorForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\LoginForm.cs">
       <SubType>Form</SubType>
@@ -187,124 +171,142 @@
     <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\RevenueForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RevenueForm.designer.cs">
+      <DependentUpon>RevenueForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SearchProductForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SearchProductForm.Designer.cs">
+      <DependentUpon>SearchProductForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SpecificCategoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SpecificCategoryForm.designer.cs">
+      <DependentUpon>SpecificCategoryForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\SpecificProductForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\SpecificProductForm.Designer.cs">
+    <Compile Include="Forms\SpecificProductForm.designer.cs">
       <DependentUpon>SpecificProductForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IDbConnectionManager.cs" />
     <Compile Include="Interfaces\IDbConnectionPropertiesStorageManager.cs" />
-    <Compile Include="Interfaces\IEditPresenter.cs" />
-    <Compile Include="Interfaces\IInvoiceDbManager.cs" />
-    <Compile Include="Interfaces\IInvoiceViewManager.cs" />
     <Compile Include="Interfaces\ILoggable.cs" />
     <Compile Include="Interfaces\IRevenueViewManager.cs" />
-    <Compile Include="Interfaces\ICategoriesRepositoryManager.cs" />
-    <Compile Include="Interfaces\IEntityRepository.cs" />
     <Compile Include="Interfaces\IEvent.cs" />
     <Compile Include="Interfaces\IEventManager.cs" />
-    <Compile Include="Interfaces\IMySqlManager.cs" />
     <Compile Include="Interfaces\IPresenter.cs" />
-    <Compile Include="Interfaces\IProductsRepositoryManager.cs" />
-    <Compile Include="Interfaces\IProductViewManager.cs" />
-    <Compile Include="Interfaces\IRevenueDbManager.cs" />
-    <Compile Include="Interfaces\IRevisionDbManager.cs" />
-    <Compile Include="Interfaces\IRevisionGridViewManager.cs" />
-    <Compile Include="Interfaces\IRevisionSection.cs" />
     <Compile Include="Interfaces\ISession.cs" />
-    <Compile Include="Interfaces\ITransactionDbManager.cs" />
-    <Compile Include="Interfaces\ITransactionEditGridViewManager.cs" />
-    <Compile Include="Interfaces\ITransactionGridViewManager.cs" />
-    <Compile Include="Interfaces\ITransactionSection.cs" />
-    <Compile Include="Interfaces\IUser.cs" />
+    <Compile Include="Interfaces\ISubmitablePresenter.cs" />
     <Compile Include="IO\ConsoleWriter.cs" />
     <Compile Include="Interfaces\IOutputWriter.cs" />
+    <Compile Include="Model\Category.cs" />
     <Compile Include="Model\DbProperties.cs" />
-    <Compile Include="Model\Invoice.cs" />
-    <Compile Include="Model\ProductTransaction.cs" />
+    <Compile Include="Model\Enum\RoleType.cs" />
+    <Compile Include="Model\Enum\SearchType.cs" />
+    <Compile Include="Model\Enum\TransactionType.cs" />
+    <Compile Include="Model\Expense.cs" />
+    <Compile Include="Model\Product.cs" />
+    <Compile Include="Model\Revenue.cs" />
     <Compile Include="Model\RevenueStream.cs" />
     <Compile Include="Model\Revision.cs" />
     <Compile Include="Model\RevisionProduct.cs" />
+    <Compile Include="Model\Role.cs" />
     <Compile Include="Model\Transaction.cs" />
-    <Compile Include="Presenter\ChangePasswordPresenter.cs" />
-    <Compile Include="Presenter\ConfirmActionPresenter.cs" />
-    <Compile Include="Presenter\CreateUserPresenter.cs" />
-    <Compile Include="Presenter\DisableUserPresenter.cs" />
-    <Compile Include="Presenter\FirstRunPresenter.cs" />
-    <Compile Include="Presenter\RevenueRelated\ExpensesPresenter.cs" />
-    <Compile Include="Presenter\RevenueRelated\InvoicesPresenter.cs" />
-    <Compile Include="Presenter\RevenueRelated\IRevenuePresenter.cs" />
-    <Compile Include="Presenter\RevenueRelated\RevenuePresenter.cs" />
-    <Compile Include="Presenter\SearchProductPresenter.cs" />
+    <Compile Include="Model\TransactionProduct.cs" />
+    <Compile Include="Model\User.cs" />
+    <Compile Include="Presenter\Other\ConfirmActionPresenter.cs" />
+    <Compile Include="Presenter\Other\ErrorPresenter.cs" />
+    <Compile Include="Presenter\Other\FirstRunPresenter.cs" />
+    <Compile Include="Presenter\Products\CreateCategoryPresenter.cs" />
+    <Compile Include="Presenter\Products\CreateProductPresenter.cs" />
+    <Compile Include="Presenter\Products\EditProductPresenter.cs" />
+    <Compile Include="Presenter\Products\SearchProductPresenter.cs" />
+    <Compile Include="Presenter\Revenues\ExpensesPresenter.cs" />
+    <Compile Include="Presenter\Revenues\IRevenueStreamPresenter.cs" />
+    <Compile Include="Presenter\Revenues\RevenuePresenter.cs" />
+    <Compile Include="Presenter\Settings\ChangePasswordPresenter.cs" />
+    <Compile Include="Presenter\Settings\CreateUserPresenter.cs" />
+    <Compile Include="Presenter\Settings\DisableUserPresenter.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\DatabaseContext.cs" />
+    <Compile Include="Sections\Operations\AbstractOperationSection.cs" />
+    <Compile Include="Sections\Operations\DeliverySection.cs" />
+    <Compile Include="Sections\Operations\IOperationsSection.cs" />
+    <Compile Include="Sections\Operations\SaleSection.cs" />
+    <Compile Include="Sections\Products\ProductSection.cs" />
+    <Compile Include="Sections\Revenues\IRevenueStreamSection.cs" />
+    <Compile Include="Sections\Revenues\RevenueStreamSection.cs" />
+    <Compile Include="Sections\Revisions\IRevisionSection.cs" />
+    <Compile Include="Sections\Revisions\RevisionSection.cs" />
+    <Compile Include="Sections\Settings\SettingsSection.cs" />
+    <Compile Include="Sections\Transactions\EditTransactionSection.cs" />
+    <Compile Include="Services\Revisions\IRevisionDbService.cs" />
+    <Compile Include="Services\Revisions\IRevisionViewService.cs" />
+    <Compile Include="Services\Revisions\RevisionDbService.cs" />
+    <Compile Include="Services\Revisions\RevisionViewService.cs" />
+    <Compile Include="Services\Transactions\AbstractTransactionDbService.cs" />
+    <Compile Include="Services\Transactions\DeliveryTransactionDbService.cs" />
+    <Compile Include="Services\Transactions\InvariantTransactionDbService.cs" />
+    <Compile Include="Services\Transactions\ITransactionDbService.cs" />
+    <Compile Include="Services\Operations\IOperationsViewService.cs" />
     <Compile Include="Services\DbConnectionStorageManager.cs" />
-    <Compile Include="Services\ProductSectionManagers\CatetegoryRepositoryManager.cs" />
-    <Compile Include="Services\ProductSectionManagers\ProductRepositoryManager.cs" />
-    <Compile Include="Services\ProductSectionManagers\ProductSectionManager.cs" />
-    <Compile Include="Services\ProductSectionManagers\ProductViewManager.cs" />
-    <Compile Include="Model\Category.cs" />
+    <Compile Include="Services\DbMySqlConnectionManager.cs" />
     <Compile Include="Model\Event.cs" />
     <Compile Include="Model\EventManager.cs" />
-    <Compile Include="Model\Product.cs" />
     <Compile Include="Model\SearchParameter.cs" />
     <Compile Include="Model\Session.cs" />
-    <Compile Include="Model\User.cs" />
     <Compile Include="Presenter\AbstractPresenter.cs" />
-    <Compile Include="Presenter\EditProductPresenter.cs" />
-    <Compile Include="Presenter\ErrorPresenter.cs" />
     <Compile Include="Presenter\HomePresenter.cs" />
-    <Compile Include="Presenter\LoginPresenter.cs" />
-    <Compile Include="Presenter\NewCategoryPresenter.cs" />
-    <Compile Include="Presenter\NewProductPresenter.cs" />
-    <Compile Include="Presenter\ProductSpecificPresenters\IProductSpecificPresenter.cs" />
+    <Compile Include="Presenter\Other\LoginPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Interfaces\IStateManager.cs" />
-    <Compile Include="Services\EntityRepo.cs" />
-    <Compile Include="Services\FormDecraptifier.cs" />
-    <Compile Include="Services\MySqlManager.cs" />
-    <Compile Include="Services\PasswordEncoder.cs" />
-    <Compile Include="Services\RevenueRelated\AddExpenseSection.cs" />
-    <Compile Include="Services\RevenueRelated\AddInvoiceSection.cs" />
-    <Compile Include="Services\RevenueRelated\AddRevenueSection.cs" />
-    <Compile Include="Services\RevenueRelated\ArchivedExpensesSection.cs" />
-    <Compile Include="Services\RevenueRelated\ArchivedInvoicesSection.cs" />
-    <Compile Include="Services\RevenueRelated\ArchivedRevenuesSection.cs" />
-    <Compile Include="Services\RevenueRelated\ExpensesDbManager.cs" />
-    <Compile Include="Services\RevenueRelated\IAddEntitySection.cs" />
-    <Compile Include="Services\RevenueRelated\IArchivedEntitiesSection.cs" />
-    <Compile Include="Services\RevenueRelated\InvoiceDbManager.cs" />
-    <Compile Include="Services\RevenueRelated\InvoiceViewManager.cs" />
-    <Compile Include="Services\RevenueRelated\RevenueViewManager.cs" />
-    <Compile Include="Services\RevenueRelated\RevenueDbManager.cs" />
-    <Compile Include="Services\RevisionRelated\RevisionDbManager.cs" />
-    <Compile Include="Services\RevisionRelated\RevisionGridViewManager.cs" />
-    <Compile Include="Services\RevisionRelated\RevisionSection.cs" />
-    <Compile Include="Services\SettingsRelated\SettingsSection.cs" />
-    <Compile Include="Services\SettingsRelated\UserRepositoryManager.cs" />
-    <Compile Include="Services\TransactionServices\AbstractTransactionSection.cs" />
-    <Compile Include="Services\TransactionServices\AbstractTransactionDbManager.cs" />
-    <Compile Include="Services\TransactionServices\DeliveryTransactionDbManager.cs" />
-    <Compile Include="Services\TransactionServices\DeliveryTransactionSection.cs" />
-    <Compile Include="Services\TransactionServices\EditTransactionSection.cs" />
-    <Compile Include="Services\TransactionServices\SalesTransactionDbManager.cs" />
-    <Compile Include="Services\TransactionServices\SaleTransactionSection.cs" />
-    <Compile Include="Services\TransactionServices\TransactionEditGridViewManager.cs" />
-    <Compile Include="Services\TransactionServices\TransactionGridViewManager.cs" />
+    <Compile Include="Services\Operations\OperationViewService.cs" />
+    <Compile Include="Services\Products\CategoryDbService.cs" />
+    <Compile Include="Services\Products\ICategoryDbService.cs" />
+    <Compile Include="Services\Products\IProductDbService.cs" />
+    <Compile Include="Services\Products\IProductViewService.cs" />
+    <Compile Include="Services\Products\ProductDbService.cs" />
+    <Compile Include="Services\Products\ProductViewService.cs" />
+    <Compile Include="Services\Revenues\ExpensesDbService.cs" />
+    <Compile Include="Services\Revenues\IRevenueStreamDbService.cs" />
+    <Compile Include="Services\Revenues\IRevenueStreamViewManager.cs" />
+    <Compile Include="Services\Revenues\RevenuesDbService.cs" />
+    <Compile Include="Services\Revenues\RevenueStreamViewManager.cs" />
+    <Compile Include="Services\Transactions\ITransactionViewService.cs" />
+    <Compile Include="Services\Transactions\SaleTransactionDbService.cs" />
+    <Compile Include="Services\Transactions\TransactionViewService.cs" />
+    <Compile Include="Util\FormDecraptifier.cs" />
+    <Compile Include="Util\ModelMerger.cs" />
+    <Compile Include="Util\PasswordEncoder.cs" />
+    <Compile Include="Services\Users\IUserService.cs" />
+    <Compile Include="Services\Users\UserService.cs" />
     <Compile Include="States\StateManager.cs" />
     <Compile Include="Interfaces\IView.cs" />
-    <Compile Include="View\IConfirmActionView.cs" />
-    <Compile Include="View\ITransactionView.cs" />
-    <Compile Include="View\SettingsRelated\IChangePasswordView.cs" />
-    <Compile Include="View\SettingsRelated\IDisableUserView.cs" />
     <Compile Include="View\IAddCategoryView.cs" />
+    <Compile Include="View\IConfirmActionView.cs" />
     <Compile Include="View\IFirstRunView.cs" />
     <Compile Include="View\IHomeView.cs" />
     <Compile Include="View\ILoginView.cs" />
     <Compile Include="View\IRevisionView.cs" />
     <Compile Include="View\ISearchProductView.cs" />
-    <Compile Include="View\RevenueRelated\IRevenueView.cs" />
     <Compile Include="View\ISpecificProductView.cs" />
+    <Compile Include="View\ITransactionView.cs" />
+    <Compile Include="View\RevenueRelated\IRevenueView.cs" />
+    <Compile Include="View\SettingsRelated\IChangePasswordView.cs" />
     <Compile Include="View\SettingsRelated\ICreateUserView.cs" />
+    <Compile Include="View\SettingsRelated\IDisableUserView.cs" />
     <EmbeddedResource Include="Forms\ChangePasswordForm.resx">
       <DependentUpon>ChangePasswordForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -317,8 +319,17 @@
     <EmbeddedResource Include="Forms\DisableUserForm.resx">
       <DependentUpon>DisableUserForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ErrorForm.resx">
+      <DependentUpon>ErrorForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FirstRunForm.resx">
       <DependentUpon>FirstRunForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\RevenueForm.resx">
       <DependentUpon>RevenueForm.cs</DependentUpon>
@@ -329,28 +340,14 @@
     <EmbeddedResource Include="Forms\SpecificCategoryForm.resx">
       <DependentUpon>SpecificCategoryForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ErrorForm.resx">
-      <DependentUpon>ErrorForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\LoginForm.resx">
-      <DependentUpon>LoginForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\SpecificProductForm.resx">
       <DependentUpon>SpecificProductForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -367,15 +364,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\warehouse.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\triggers.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\initialInserts.sql" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="favicon.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -389,6 +377,10 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Attributes\" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

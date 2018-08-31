@@ -10,9 +10,6 @@ namespace SimpleWarehouse.Interfaces
     {
         int Id { get; set; }
 
-
         void Update(double deltaTime);
-
-
     }
 }

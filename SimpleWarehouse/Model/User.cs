@@ -1,65 +1,52 @@
-﻿using SimpleWarehouse.Attributes;
-using SimpleWarehouse.Constants;
-using SimpleWarehouse.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
-
 namespace SimpleWarehouse.Model
 {
-    [DbTableNameReference(name: "user_auth_joined")]
-    public class User : IUser
+    [Table("users")]
+    public class User
     {
-        private string _roleHash;
-
-        [DbNameReference(name: "id")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Column("id")]
+        [Index(IsUnique = true)]
         public int Id { get; set; }
 
-        [DbNameReference(name: "username")]
+        [Column("username")]
+        [Index(IsUnique = true)]
+        [StringLength(maximumLength: 50)]
+        [Required]
         public string Username { get; set; }
 
-        
-        [DbNameReference(name: "password")]
+        [Column("password")]
+        [StringLength(maximumLength: 255)]
+        [Required]
         public string Password { get; set; }
 
-        [DbNameReference(name:"date_registered")]
-        public DateTime DateRegistered { get; set; }
+        [Column("date_registered")]
+        [Required]
+        public DateTime RegisterDate { get; set; }
 
-        [DbNameReference(name:("auth_type"))]
-        public string Role { get => Roles.GetRole(_roleHash) ; set => _roleHash = value; }
+        [Column("is_enabled")]
+        [Required]
+        public bool IsEnabled { get; set; }
 
-        [DbNameReference(name: "is_enabled")]
-        public bool IsActive { get; set ; }
+        public virtual List<Role> Roles { get; set; }
 
         public User()
         {
-
-        }
-
-        public User(int id)
-        {
-            this.Id = id;
-        }
-
-        public User(int id, string username) : this(id)
-        {
-            this.Username = username;
-
-        }
-
-        public User(int id, string username, DateTime date) : this(id, username)
-        {
-            this.DateRegistered = date;
+            this.IsEnabled = true;
+            this.RegisterDate = DateTime.Now;
+            this.Roles = new List<Role>();
         }
 
         public override string ToString()
         {
             return this.Username;
         }
-
     }
 }

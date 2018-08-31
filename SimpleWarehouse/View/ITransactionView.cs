@@ -1,5 +1,6 @@
 ﻿using SimpleWarehouse.Constants;
 using SimpleWarehouse.Interfaces;
+using SimpleWarehouse.Model.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace SimpleWarehouse.View
     {
         bool IsTransactionRevised { get; set; }
 
-        TransactionTypes SelectedTransactionType { get; set; }
+        TransactionType SelectedTransactionType { get; set; }
 
         DateTime TransactionStartDate { get; set; }
 

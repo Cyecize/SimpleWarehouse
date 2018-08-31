@@ -2,7 +2,6 @@
 using SimpleWarehouse.Constants;
 using SimpleWarehouse.Model;
 using SimpleWarehouse.Presenter;
-using SimpleWarehouse.Presenter.ProductSpecificPresenters;
 using SimpleWarehouse.Services;
 using SimpleWarehouse.View;
 using System;
@@ -14,20 +13,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SimpleWarehouse.Interfaces;
+using SimpleWarehouse.Util;
 
 namespace SimpleWarehouse.Forms
 {
     public partial class SpecificCategoryForm : MaterialForm, IAddCategoryView
     {
-        private IProductSpecificPresenter Presenter;
+        private ISubmitablePresenter Presenter { get; set; }
 
-        public SpecificCategoryForm(IProductSpecificPresenter presenter)
+        public SpecificCategoryForm(ISubmitablePresenter presenter)
         {
             InitializeComponent();
             this.Presenter = presenter;
             this.CategoryNameField.KeyPress += (sen, eventt) =>
             {
-                if (this.CategoryNameField.Text.Length > Constants.Config.MAX_TEXT_LEN && eventt.KeyChar != (char)Keys.Back)
+                if (this.CategoryNameField.Text.Length > Constants.Config.MaxTextLen && eventt.KeyChar != (char)Keys.Back)
                     eventt.Handled = true;
             };
             FormDecraptifier.Decraptify(this);

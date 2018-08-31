@@ -8,20 +8,20 @@ namespace SimpleWarehouse.Constants
 {
     public class TransactionDataTableNames
     {
-        public const string TRANSACTION_NUMBER = "ProdTransactionCounter";
+        public const string TransactionNumber = "ProdTransactionCounter";
 
-        public const string PRODUCT_NAME = "ProdTransactionProductName";
+        public const string ProductName = "ProdTransactionProductName";
 
-        public const string PRODUCT_QUANTITY = "ProdTransactionQuantity";
+        public const string ProductQuantity = "ProdTransactionQuantity";
 
-        public const string PRODUCT_IMPORT_PRICE = "ProdTransactionImportPrice";
+        public const string ProductImportPrice = "ProdTransactionImportPrice";
 
-        public const string PRODUCT_SELL_PRICE = "ProdTransactionSellPrice";
+        public const string ProductSellPrice = "ProdTransactionSellPrice";
 
-        public const string TRANSACTION_TOTAL_VALUE = "ProdTransactionTotalPrice";
+        public const string TransactionTotalValue = "ProdTransactionTotalPrice";
 
-        public const string PRODUCT_AVAILABLE_QUANTITY = "ProdTransactionAvailableQuantity";
+        public const string ProductAvailableQuantity = "ProdTransactionAvailableQuantity";
 
-        public const string PRODUCT_ID = "ProdTransactionProductId";
+        public const string ProductId = "ProdTransactionProductId";
     }
 }

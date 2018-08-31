@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SimpleWarehouse.Interfaces
 {
-    public interface IOutputWriter
+    public interface IOutputWriter : ILoggable
     {
         void WriteLine(Object obj);
     }
