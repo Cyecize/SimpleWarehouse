@@ -115,9 +115,9 @@ namespace SimpleWarehouse.Services
 
         public DbConnection GetConnection()
         {
-            if (!this.TestConnection())
-                throw new Exception(ConnectionNotOpenMsg);
-            return this.Connection;
+            if (this.Connection != null && this.Connection.State == System.Data.ConnectionState.Open)
+                return this.Connection;
+            throw new Exception(ConnectionNotOpenMsg);
         }
 
         public DatabaseContext CreateDatabase(string dbName)
@@ -127,12 +127,13 @@ namespace SimpleWarehouse.Services
             if (string.IsNullOrEmpty(dbName) || this.GetDatabases().Contains(dbName))
                 throw new Exception(InvalidDatabase);
             this.Connection.Close();
-            this.DbProperties.DatabaseName = Config.DatabaseNamePrefix +  dbName;
+            this.DbProperties.DatabaseName = Config.DatabaseNamePrefix + dbName;
             this.Connection = DatabaseFactory.CreateConnection(this.DbProperties);
             try
-            {   
+            {
                 return DatabaseFactory.CreateDatabase(this.Connection);
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 throw new Exception(ErrorCreatingDb);
@@ -152,6 +153,6 @@ namespace SimpleWarehouse.Services
         public DbProperties GetDbProperties()
         {
             return this.DbProperties;
-        }       
+        }
     }
 }

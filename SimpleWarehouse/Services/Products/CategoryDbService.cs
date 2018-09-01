@@ -33,7 +33,7 @@ namespace SimpleWarehouse.Services.Products
 
         public List<Category> FindAll()
         {
-            return new List<Category>(Database.Categories.AsNoTracking());
+            return new List<Category>(Database.Categories);
         }
     }
 }

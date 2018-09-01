@@ -38,12 +38,12 @@ namespace SimpleWarehouse.Services.Revenues
 
         public List<RevenueStream> FindAll()
         {
-            return new List<RevenueStream>(Database.Expenses.AsNoTracking());
+            return new List<RevenueStream>(Database.Expenses);
         }
 
         public List<RevenueStream> FindAllNonRevised()
         {
-            return new List<RevenueStream>(Database.Expenses.AsNoTracking().Where(e => e.IsRevised == false));
+            return new List<RevenueStream>(Database.Expenses.Where(e => e.IsRevised == false));
         }
 
         public List<RevenueStream> FindAllArchived()

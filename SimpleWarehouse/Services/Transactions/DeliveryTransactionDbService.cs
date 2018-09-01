@@ -18,7 +18,6 @@ namespace SimpleWarehouse.Services.Transactions
         {
            
         }
-
         
         protected override Transaction InsertTransaction()
         {
@@ -45,12 +44,13 @@ namespace SimpleWarehouse.Services.Transactions
         protected override void UpdateProductsQuantities(List<TransactionProduct> products, bool isRollBack)
         {
             foreach (var prodTrans in products)
-            {   
+            {
+                Product product = base.ProductDbService.FindById(prodTrans.ProductId);
                 if (isRollBack)
-                    prodTrans.Product.Quantity -= prodTrans.ProductQuantity;
+                    product.Quantity -= prodTrans.ProductQuantity;
                 else
-                    prodTrans.Product.Quantity += prodTrans.ProductQuantity;
-                base.ProductsRepositoryManager.UpdateProduct(prodTrans.Product);
+                    product.Quantity += prodTrans.ProductQuantity;
+                base.ProductDbService.UpdateProduct(product);
             }
         }
     }

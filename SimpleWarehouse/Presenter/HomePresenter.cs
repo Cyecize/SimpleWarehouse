@@ -119,6 +119,7 @@ namespace SimpleWarehouse.Presenter
 
         public void RefreshAction()
         {
+            base.StateManager.Database = new DatabaseContext(base.StateManager.ConnectionManager.GetConnection(), false);
             if (base.StateManager.IsPresenterPresent(this))
                 base.StateManager.SetAndFix(new HomePresenter(base.StateManager));
         }

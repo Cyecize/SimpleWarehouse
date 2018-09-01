@@ -57,17 +57,17 @@ namespace SimpleWarehouse.Services.Users
 
         public User FindByUsername(string username)
         {
-            return Database.Users.AsNoTracking().FirstOrDefault(u => u.Username.ToLower() == username.ToLower());
+            return Database.Users.FirstOrDefault(u => u.Username.ToLower() == username.ToLower());
         }
 
         public User FindById(int id)
         {
-            return Database.Users.AsNoTracking().FirstOrDefault(u => u.Id == id);
+            return Database.Users.FirstOrDefault(u => u.Id == id);
         }
 
         public List<User> FindAll()
         {
-            return new List<User>(Database.Users.AsNoTracking());
+            return new List<User>(Database.Users);
         }
 
         public List<User> FindByRole(RoleType roleType)

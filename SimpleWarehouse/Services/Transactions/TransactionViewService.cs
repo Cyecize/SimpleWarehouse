@@ -135,10 +135,12 @@ namespace SimpleWarehouse.Services.Transactions
 
         private void OnCellClick(Object sender, DataGridViewCellEventArgs e)
         {
+            int selectedRowProductId = (int)this.DataGrid.Rows[e.RowIndex].Cells[TransactionId].Value;
+
             if (e.ColumnIndex == this.DataGrid.Columns[TransactionDeleteBtn].Index && e.RowIndex >= 0)
-            {
-                this.EditTransactionSection.DeleteTransaction((int)this.DataGrid.Rows[e.RowIndex].Cells[TransactionId].Value);
-            }
+                this.EditTransactionSection.DeleteTransaction(selectedRowProductId);
+            if (e.ColumnIndex == this.DataGrid.Columns[TransactionDetailsBtn].Index && e.RowIndex >= 0)
+                this.EditTransactionSection.ShowTransaction(selectedRowProductId);
         }
     }
 }
