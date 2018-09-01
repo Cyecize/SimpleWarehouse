@@ -86,22 +86,22 @@ namespace SimpleWarehouse.Services.Transactions
 
         public List<Transaction> FindAllRevised()
         {
-            return new List<Transaction>(Database.Transactions.Where(tr => tr.IsRevised));
+            return new List<Transaction>(Database.Transactions.AsNoTracking().Where(tr => tr.IsRevised));
         }
 
         public List<Transaction> FindAllNonRevised()
         {
-            return new List<Transaction>(Database.Transactions.Where(tr => !tr.IsRevised));
+            return new List<Transaction>(Database.Transactions.AsNoTracking().Where(tr => !tr.IsRevised));
         }
 
         public List<Transaction> FindByType(TransactionType transactionType)
         {
-            return new List<Transaction>(Database.Transactions.Where(tr => tr.TransactionType == transactionType));
+            return new List<Transaction>(Database.Transactions.AsNoTracking().Where(tr => tr.TransactionType == transactionType));
         }
 
         public List<Transaction> FindByDateTypeAndRevisionStatus(DateTime startDate, DateTime endDate, TransactionType transactionType, bool isRevised)
         {
-            return new List<Transaction>(Database.Transactions
+            return new List<Transaction>(Database.Transactions.AsNoTracking()
                 .Where(tr => tr.Date >= startDate && tr.Date <= endDate && tr.TransactionType == transactionType && tr.IsRevised == isRevised));
         }
 

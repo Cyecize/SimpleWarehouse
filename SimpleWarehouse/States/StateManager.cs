@@ -9,7 +9,6 @@ using System.Text;
 using System.Threading.Tasks;
 using SimpleWarehouse.App;
 
-
 namespace SimpleWarehouse.States
 {
     public class StateManager : IStateManager
@@ -60,8 +59,6 @@ namespace SimpleWarehouse.States
                     break;
                 thisPresenter = this.Peek();
             }
-            this.Database.Dispose();
-            this.Database = new DatabaseContext(this.ConnectionManager.GetConnection(), false);
             this.Push(presenter);
         }
 

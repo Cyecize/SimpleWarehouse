@@ -20,7 +20,7 @@ namespace SimpleWarehouse.Services.Revenues
 
         public void Archive()
         {
-            foreach (var revenue in Database.Revenues.Where(e => !e.IsRevised).ToList())
+            foreach (var revenue in Database.Revenues.AsNoTracking().Where(e => !e.IsRevised).ToList())
                 revenue.IsRevised = true;
             Database.SaveChanges();
         }
@@ -39,12 +39,12 @@ namespace SimpleWarehouse.Services.Revenues
 
         public List<RevenueStream> FindAll()
         {
-            return new List<RevenueStream>(Database.Revenues);
+            return new List<RevenueStream>(Database.Revenues.AsNoTracking());
         }
 
         public List<RevenueStream> FindAllNonRevised()
         {
-            return new List<RevenueStream>(Database.Revenues.Where(r=>r.IsRevised == false));
+            return new List<RevenueStream>(Database.Revenues.AsNoTracking().Where(r=>r.IsRevised == false));
         }
 
         public List<RevenueStream> FindAllArchived()

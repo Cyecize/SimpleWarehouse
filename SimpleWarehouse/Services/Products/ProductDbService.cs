@@ -43,7 +43,7 @@ namespace SimpleWarehouse.Services.Products
 
         public Product FindById(int productId)
         {
-            return Database.Products.FirstOrDefault(p => p.Id == productId);
+            return Database.Products.AsNoTracking().FirstOrDefault(p => p.Id == productId);
         }
 
         public List<Product> Search(string param, SearchParameter parameterType)
@@ -58,12 +58,12 @@ namespace SimpleWarehouse.Services.Products
 
         public List<Product> FindAllByLimit(int limit)
         {
-            return Database.Products.Take(limit).ToList();
+            return new List<Product>(Database.Products.AsNoTracking().Take(limit));
         }
 
         public List<Product> FindAll()
         {
-            return Database.Products.ToList();
+            return new List<Product>(Database.Products.AsNoTracking());
         }
 
         public List<Product> FindAllVisible()
@@ -82,15 +82,15 @@ namespace SimpleWarehouse.Services.Products
             switch (searchType)
             {
                 case SearchType.CategoryName:
-                    return Database.Products
+                    return Database.Products.AsNoTracking()
                         .Where(p => p.Category.CategoryName.ToLower().Contains(param)).ToList()
                         .Where(p => this.ResolveProductVisible(p, isVisible)).ToList();
                 case SearchType.ProductName:
-                    return Database.Products
+                    return Database.Products.AsNoTracking()
                         .Where(p => p.ProductName.ToLower().Contains(param)).ToList()
                         .Where(p => this.ResolveProductVisible(p, isVisible)).ToList();
                 case SearchType.ProductId:
-                    return Database.Products
+                    return Database.Products.AsNoTracking()
                         .Where(p => (p.Id + "").Contains(param)).ToList()
                         .Where(p => this.ResolveProductVisible(p, isVisible)).ToList();
                 default:
