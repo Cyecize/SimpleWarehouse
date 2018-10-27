@@ -18,10 +18,10 @@ namespace SimpleWarehouse.Forms
 {
     public partial class LoginForm : MaterialForm, ILoginView
     {
-        private LoginPresenter Presenter; 
+        private LoginPresenter Presenter { get; set; }
         public LoginForm(LoginPresenter presenter)
         {
-            InitializeComponent();
+            this.InitializeComponent();
             this.Presenter = presenter;
             this.Text = "Вход";
             this.UsernameField.Select();
@@ -31,8 +31,15 @@ namespace SimpleWarehouse.Forms
             FormDecraptifier.Decraptify(this);
         }
 
+        public sealed override string Text
+        {
+            get => base.Text;
+            set => base.Text = value;
+        }
+
         public string Username { get => this.UsernameField.Text; set => this.UsernameField.Text = value; }
         public string Password { get => this.PasswordField.Text; set => this.PasswordField.Text = value; }
+        public string DbName { get=>this.DbLabel.Text; set=>this.DbLabel.Text = value; }
 
         public void HideAndDispose()
         {
@@ -66,6 +73,11 @@ namespace SimpleWarehouse.Forms
         private void FirstRunBtn_Click(object sender, EventArgs e)
         {
             this.Presenter.FirstRunAction();
+        }
+
+        private void ChooseDatabaseBtn_Click(object sender, EventArgs e)
+        {
+            this.Presenter.ChooseDatabaseAction();
         }
     }
 }

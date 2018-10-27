@@ -18,7 +18,7 @@ namespace SimpleWarehouse.Presenter.Revenues
         
         public IRevenueView Form { get; set; }
 
-        public override ILoggable Loggable { get => Form; }
+        public override ILoggable Loggable => Form;
 
         public ExpensesPresenter(IStateManager manager) : base(manager)
         {

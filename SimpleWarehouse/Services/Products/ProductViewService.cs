@@ -39,6 +39,7 @@ namespace SimpleWarehouse.Services.Products
             this.Table.Columns.Add(IsVisible);
             this.ViewTable = dataGridView;
             this.Log = loggable;
+            this.InitEvents();
         }
 
         //main functionality
@@ -62,6 +63,7 @@ namespace SimpleWarehouse.Services.Products
             {
                 this.AddRow(this.MakeRow(prod));
             }
+
             this.Log.Log($"Показани са {products.Count} продукти");
         }
 
@@ -77,6 +79,7 @@ namespace SimpleWarehouse.Services.Products
         {
             if (this.SelectedRow == null)
                 throw new ArgumentException("Изберете продукт!");
+
             return int.Parse(this.SelectedRow.Cells[ProductId].Value.ToString().Trim());
         }
 
@@ -84,7 +87,7 @@ namespace SimpleWarehouse.Services.Products
 
         private DataRow MakeRow(Product product)
         {
-            DataRow row = Table.NewRow();
+            DataRow row = this.Table.NewRow();
             row[ProductId] = product.Id;
             row[CategoryName] = product.Category.CategoryName;
             row[ProductName] = product.ProductName;
@@ -111,6 +114,11 @@ namespace SimpleWarehouse.Services.Products
             this.ViewTable.ClearSelection();
             this.ViewTable.Rows[rowId].Selected = true;
             this.SelectProduct();
+        }
+
+        private void InitEvents()
+        {
+            this.ViewTable.CurrentCellChanged += (e, a) => { this.SelectProduct(); };
         }
     }
 }

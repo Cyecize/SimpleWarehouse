@@ -11,6 +11,8 @@ namespace SimpleWarehouse.App
     {
         public static bool IsRunning { get; set; }
 
+        public static bool IsRestartRequested { get; set; }
+
         public static DatabaseContext Database { get; set; }
     }
 }

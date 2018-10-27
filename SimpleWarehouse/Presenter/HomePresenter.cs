@@ -63,7 +63,7 @@ namespace SimpleWarehouse.Presenter
             this.Form.TabLabelText = Tab1LabelText;
             this.Form.SetSearchParams(this.ProductSection.GetSearchParameters());
 
-            base.EventIds.Add(base.StateManager.EventManager.AddEvent(new Event(10000, () => {this.Form.Log(""); }, base.StateManager.EventManager, false)));
+            
 
             if (!base.StateManager.UserSession.IsActive)//prevent any actions till login
                 return;
@@ -128,6 +128,11 @@ namespace SimpleWarehouse.Presenter
         {
             base.StateManager.UserSession.IsActive = false;
             this.RefreshAction();
+        }
+
+        public void ClearLogAction()
+        {
+            base.EventIds.Add(base.StateManager.EventManager.AddEvent(new Event(10000, () => { this.Form.Log(""); }, base.StateManager.EventManager,true )));
         }
 
         ////---->overrides

@@ -23,19 +23,20 @@ namespace SimpleWarehouse.Presenter.Other
 
         private IFirstRunView Form { get; set; }
 
-        public override ILoggable Loggable { get => Form; }
-
-        public IDbConnectionManager DbConnectionManager { get; set; }
-
         private IDbConnectionPropertiesStorageManager DbConnectionPropertiesManager { get; set; }
 
-        public FirstRunPresenter(IStateManager manager, IDbConnectionPropertiesStorageManager dbConnectionProperties) : base(manager)
+        public override ILoggable Loggable => this.Form;
+        
+        public IDbConnectionManager DbConnectionManager { get; set; }
+
+        public FirstRunPresenter(IStateManager manager, IDbConnectionPropertiesStorageManager dbConnectionProperties) :
+            base(manager)
         {
-            this.Form = (IFirstRunView)FormFactory.CreateForm("FirstRunForm", new object[] { this });
-            ((Form)this.Form).FormClosing += (o, e) =>  App.ApplicationState.IsRunning = false; 
+            this.Form = (IFirstRunView) FormFactory.CreateForm("FirstRunForm", new object[] {this});
+            ((Form) this.Form).FormClosing += (o, e) => App.ApplicationState.IsRunning = false;
             this.DisplayConnectionString(base.StateManager.DbConnectionPropertiesManager.GetSettings());
             this.Form.Text = @"Първо стартиране";
-            this.DbConnectionPropertiesManager = dbConnectionProperties; 
+            this.DbConnectionPropertiesManager = dbConnectionProperties;
             this.DbConnectionManager = new DbMySqlConnectionManager(this.Form);
         }
 
@@ -43,13 +44,14 @@ namespace SimpleWarehouse.Presenter.Other
         {
             List<string> databases = this.DbConnectionManager.GetDatabases();
             this.Form.SetDatabases(databases);
-            if(databases.Count > 0)
-            this.Form.Log($"Displayed {databases.Count} databases");
+            if (databases.Count > 0)
+                this.Form.Log($"Displayed {databases.Count} databases");
         }
 
         public void TestConnectionAction()
         {
-            this.DbConnectionManager.CreateConnection(this.Form.Server, this.Form.Port, this.Form.Username, this.Form.Password);
+            this.DbConnectionManager.CreateConnection(this.Form.Server, this.Form.Port, this.Form.Username,
+                this.Form.Password);
             this.DbConnectionManager.TestConnection();
         }
 
@@ -58,8 +60,18 @@ namespace SimpleWarehouse.Presenter.Other
             if (!this.DbConnectionManager.SelectDatabase(this.Form.SelectedDatabase))
                 return;
             DatabaseContext db = new DatabaseContext(this.DbConnectionManager.GetConnection(), false);
-            try { db.Roles.ToList(); db.Products.ToList(); } catch (Exception) { this.Form.Log(CannotSelectThisDb); return; }
-            this.UpdateDatabase(db);  
+            try
+            {
+                db.Roles.ToList();
+                db.Products.ToList();
+            }
+            catch (Exception)
+            {
+                this.Form.Log(CannotSelectThisDb);
+                return;
+            }
+
+            this.UpdateDatabase(db, this.DbConnectionManager);
             this.EnableOrDisableCreateUserBtn();
         }
 
@@ -70,11 +82,13 @@ namespace SimpleWarehouse.Presenter.Other
                 this.Form.Log(ConnectionNotSet);
                 return;
             }
+
             if (password != confPassword || !base.StateManager.UserService.IsInfoValid(username, password))
             {
                 this.Form.Log(InvalidValuesMessage);
                 return;
             }
+
             base.StateManager.UserService.CreateUser(username, password, RoleType.ADMIN);
             this.EnableOrDisableCreateUserBtn();
         }
@@ -86,20 +100,23 @@ namespace SimpleWarehouse.Presenter.Other
                 this.Form.Log(ConnectionNotSet);
                 return;
             }
+
             string dbName = this.Form.NewDatabaseName;
             if (string.IsNullOrEmpty(dbName))
             {
                 this.Form.Log("Invalid Database name.");
                 return;
             }
+
             try
             {
-                this.UpdateDatabase(this.DbConnectionManager.CreateDatabase(dbName));
+                this.UpdateDatabase(this.DbConnectionManager.CreateDatabase(dbName), this.DbConnectionManager);
                 this.Form.Log(CreatedDatabaseMessage);
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 this.Form.Log(e.Message);
-            } 
+            }
         }
 
         public void FinalizeSetupAction()
@@ -109,13 +126,14 @@ namespace SimpleWarehouse.Presenter.Other
                 this.Form.Log(ConnectionNotSet);
                 return;
             }
+
             if (base.StateManager.UserService.FindByRole(RoleType.ADMIN).Count < 1)
             {
                 this.Form.Log(PleaseCreateAdminMsg);
                 return;
             }
-            this.DbConnectionPropertiesManager.SaveSettions(this.DbConnectionManager.GetDbProperties());
-            base.StateManager.Set(new HomePresenter(base.StateManager));
+
+            ApplicationState.IsRestartRequested = true;
         }
 
         public override void Dispose()
@@ -141,7 +159,7 @@ namespace SimpleWarehouse.Presenter.Other
             this.Form.Username = properties.Username;
             this.Form.Password = properties.Password;
         }
-   
+
         private void EnableOrDisableCreateUserBtn()
         {
             if (base.StateManager.UserService.FindByRole(RoleType.ADMIN).Count < 1)
@@ -150,10 +168,11 @@ namespace SimpleWarehouse.Presenter.Other
                 this.Form.SetUserBtnStatus(false);
         }
 
-        private void UpdateDatabase(DatabaseContext database)
+        private void UpdateDatabase(DatabaseContext database, IDbConnectionManager connectionManager)
         {
+            base.StateManager.ConnectionManager = connectionManager;
+            base.StateManager.DbConnectionPropertiesManager.SaveSettings(connectionManager.GetDbProperties());
             base.StateManager.Database = database;
-            ApplicationState.Database = database;
         }
     }
 }

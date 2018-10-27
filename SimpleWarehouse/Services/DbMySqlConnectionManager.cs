@@ -26,9 +26,24 @@ namespace SimpleWarehouse.Services
 
         private DbProperties DbProperties { get; set; }
 
+        public void CloseConnection()
+        {
+            if (this.TestConnection())
+            {
+                this.Connection.Close();
+                this.Connection.Dispose();
+            }
+        }
+
         public DbMySqlConnectionManager(ILoggable loggable)
         {
             this.Loggable = loggable;
+        }
+
+        public DbMySqlConnectionManager(ILoggable loggable, MySqlConnection connection, DbProperties properties) : this(loggable)
+        {
+            this.Connection = connection;
+            this.DbProperties = properties;
         }
 
         public DbProperties CreateConnection(string server, string port, string username, string password)

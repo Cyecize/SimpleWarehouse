@@ -102,6 +102,7 @@ namespace SimpleWarehouse.Forms
         public void Log(string message)
         {
             this.LogLabel.Text = message;
+            this.Presenter.ClearLogAction();
         }
 
         private void RefreshButton_Click(object sender, EventArgs e)
@@ -137,7 +138,7 @@ namespace SimpleWarehouse.Forms
 
         public void EnableOrDisableMaterialBtn(string btnName, bool isEnabled)
         {
-            EnableOrDisableElement(btnName, typeof(MaterialFlatButton), isEnabled);
+            this.EnableOrDisableElement(btnName, typeof(MaterialFlatButton), isEnabled);
         }
 
         //private logic

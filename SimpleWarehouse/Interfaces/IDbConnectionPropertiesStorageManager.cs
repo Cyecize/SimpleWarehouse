@@ -9,7 +9,7 @@ namespace SimpleWarehouse.Interfaces
 {
     public interface IDbConnectionPropertiesStorageManager
     {
-        void SaveSettions(DbProperties properties);
+        void SaveSettings(DbProperties properties);
 
         DbProperties GetSettings();
     }

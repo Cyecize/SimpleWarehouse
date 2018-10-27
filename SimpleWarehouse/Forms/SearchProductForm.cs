@@ -1,7 +1,5 @@
 ﻿using MaterialSkin.Controls;
 using SimpleWarehouse.Model;
-using SimpleWarehouse.Presenter;
-using SimpleWarehouse.Services;
 using SimpleWarehouse.View;
 using System;
 using System.Collections.Generic;

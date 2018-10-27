@@ -12,54 +12,59 @@ namespace SimpleWarehouse.Services
 {
     public class DbConnectionStorageManager : IDbConnectionPropertiesStorageManager
     {
-        private const string USERNAME = "username";
-        private const string PASSWORD = "password";
-        private const string PORT = "port";
-        private const string DATABASE_NAME = "db_name";
-        private const string SERVER = "server";
+        private const string Username = "username";
+        private const string Password = "password";
+        private const string Port = "port";
+        private const string DatabaseName = "db_name";
+        private const string Server = "server";
 
-        private const string FOLDER_NAME = "SimpleWarehouse";
-        private const string FILE_NAME = "MySqlConf.json";
+        private const string FolderName = "SimpleWarehouse";
+        private const string FileName = "MySqlConf.json";
 
-        private string APP_DATA_PATH = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        private readonly string _appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
         private string FullPath { get; set; }
 
+        private DbProperties DbProperties { get; set; }
+
         public DbConnectionStorageManager()
         {
-            this.FullPath = $"{APP_DATA_PATH}\\{FOLDER_NAME}\\{FILE_NAME}";
+            this.FullPath = $"{this._appDataPath}\\{FolderName}\\{FileName}";
             this.Initialize();
         }
 
         public DbProperties GetSettings()
         {
+            if (this.DbProperties != null)
+                return this.DbProperties;
             try
             {
                 Dictionary<string, string> rawProps = this.ParseJson();
                 DbProperties properties = new DbProperties
                 {
-                    Server = rawProps[SERVER],
-                    Port = rawProps[PORT],
-                    Username = rawProps[USERNAME],
-                    Password = rawProps[PASSWORD],
-                    DatabaseName = rawProps[DATABASE_NAME]
+                    Server = rawProps[Server],
+                    Port = rawProps[Port],
+                    Username = rawProps[Username],
+                    Password = rawProps[Password],
+                    DatabaseName = rawProps[DatabaseName]
                 };
+                this.DbProperties = properties;
                 return properties;
             }
             catch (Exception) { }
             return new DbProperties();
         }
 
-        public void SaveSettions(DbProperties properties)
+        public void SaveSettings(DbProperties properties)
         {
 
             Dictionary<string, string> rawProps = new Dictionary<string, string>()
             {
-                {SERVER, properties.Server },
-                {PORT, properties.Port },
-                {USERNAME, properties.Username },
-                {PASSWORD, properties.Password },
-                {DATABASE_NAME, properties.DatabaseName },
+                {Server, properties.Server },
+                {Port, properties.Port },
+                {Username, properties.Username },
+                {Password, properties.Password },
+                {DatabaseName, properties.DatabaseName },
             };
 
             this.WriteToFile(JsonConvert.SerializeObject(rawProps));
@@ -68,8 +73,8 @@ namespace SimpleWarehouse.Services
         //PRIVATE METHODS
         private void Initialize()
         {
-            if (!Directory.Exists($"{APP_DATA_PATH}\\{FOLDER_NAME}"))
-                Directory.CreateDirectory($"{APP_DATA_PATH}\\{FOLDER_NAME}");
+            if (!Directory.Exists($"{this._appDataPath}\\{FolderName}"))
+                Directory.CreateDirectory($"{this._appDataPath}\\{FolderName}");
             if (!File.Exists(this.FullPath))
             {
                 var f = File.Create(this.FullPath);

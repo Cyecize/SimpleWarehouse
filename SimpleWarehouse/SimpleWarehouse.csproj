@@ -195,6 +195,12 @@
     <Compile Include="Forms\SpecificProductForm.designer.cs">
       <DependentUpon>SpecificProductForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\SwitchDatabaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SwitchDatabaseForm.Designer.cs">
+      <DependentUpon>SwitchDatabaseForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\IDbConnectionManager.cs" />
     <Compile Include="Interfaces\IDbConnectionPropertiesStorageManager.cs" />
     <Compile Include="Interfaces\ILoggable.cs" />
@@ -224,6 +230,7 @@
     <Compile Include="Presenter\Other\ConfirmActionPresenter.cs" />
     <Compile Include="Presenter\Other\ErrorPresenter.cs" />
     <Compile Include="Presenter\Other\FirstRunPresenter.cs" />
+    <Compile Include="Presenter\Other\SwitchDatabasePresenter.cs" />
     <Compile Include="Presenter\Products\CreateCategoryPresenter.cs" />
     <Compile Include="Presenter\Products\CreateProductPresenter.cs" />
     <Compile Include="Presenter\Products\EditProductPresenter.cs" />
@@ -287,6 +294,9 @@
     <Compile Include="Services\Transactions\ITransactionViewService.cs" />
     <Compile Include="Services\Transactions\SaleTransactionDbService.cs" />
     <Compile Include="Services\Transactions\TransactionViewService.cs" />
+    <Compile Include="Util\DataGridViewForSearch.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Util\FormDecraptifier.cs" />
     <Compile Include="Util\ModelMerger.cs" />
     <Compile Include="Util\PasswordEncoder.cs" />
@@ -302,6 +312,7 @@
     <Compile Include="View\IRevisionView.cs" />
     <Compile Include="View\ISearchProductView.cs" />
     <Compile Include="View\ISpecificProductView.cs" />
+    <Compile Include="View\ISwitchDatabaseView.cs" />
     <Compile Include="View\ITransactionView.cs" />
     <Compile Include="View\RevenueRelated\IRevenueView.cs" />
     <Compile Include="View\SettingsRelated\IChangePasswordView.cs" />
@@ -342,6 +353,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SpecificProductForm.resx">
       <DependentUpon>SpecificProductForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SwitchDatabaseForm.resx">
+      <DependentUpon>SwitchDatabaseForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

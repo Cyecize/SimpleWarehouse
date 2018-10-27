@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.GoBackBtn = new MaterialSkin.Controls.MaterialFlatButton();
-            this.DataTableView = new System.Windows.Forms.DataGridView();
+            this.DataTableView = new SimpleWarehouse.Util.DataGridViewForSearch();
             this.ProductId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();

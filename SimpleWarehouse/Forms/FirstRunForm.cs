@@ -29,7 +29,7 @@ namespace SimpleWarehouse.Forms
 
         public FirstRunForm(FirstRunPresenter presenter)
         {
-            InitializeComponent();
+            this.InitializeComponent();
             this.Presenter = presenter;
             this.LogLabel.Click += (o, e) => this.LogLabel.Text = "";
             this.PasswordTextBox.PasswordChar = '*';

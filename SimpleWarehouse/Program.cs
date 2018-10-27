@@ -33,7 +33,8 @@ namespace SimpleWarehouse
         static void Main()
         {
             //set up delimiter to prevent MySql exceptions for BG machines
-            System.Globalization.CultureInfo customCulture = (System.Globalization.CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
+            System.Globalization.CultureInfo customCulture =
+                (System.Globalization.CultureInfo) System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
             DbConfiguration.SetConfiguration(new MySqlEFConfiguration());
             customCulture.NumberFormat.NumberDecimalSeparator = ".";
             System.Threading.Thread.CurrentThread.CurrentCulture = customCulture;
@@ -41,6 +42,7 @@ namespace SimpleWarehouse
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            lblStartProgram:
             //measuring time
             Stopwatch stopwatch = new Stopwatch();
 
@@ -55,7 +57,8 @@ namespace SimpleWarehouse
 
             //Injecting dependencies 
             ApplicationState.Database = database;
-            IStateManager stateManager = new StateManager(writer, eventManager, userSession, dbConnectionProperties, connectionManager);
+            IStateManager stateManager = new StateManager(writer, eventManager, userSession, dbConnectionProperties,
+                connectionManager);
 
             //creating business classes
             if (database != null) stateManager.Push(new HomePresenter(stateManager));
@@ -63,6 +66,7 @@ namespace SimpleWarehouse
 
             //application loop
             ApplicationState.IsRunning = true;
+            ApplicationState.IsRestartRequested = false;
             double deltaTimeSeconds = 0;
             while (true)
             {
@@ -74,14 +78,16 @@ namespace SimpleWarehouse
                 else
                     break;
 
-                System.Threading.Thread.Sleep(Constants.Config.EventListenerImmediate);//1ms
+                System.Threading.Thread.Sleep(Constants.Config.EventListenerImmediate); //1ms
                 stopwatch.Stop();
                 double ticks = stopwatch.ElapsedTicks;
                 deltaTimeSeconds = ticks / Stopwatch.Frequency * 1000;
                 stopwatch.Reset();
+                if(ApplicationState.IsRestartRequested)
+                    goto lblStartProgram;
             }
+
             //aftermath (testing along the way)
-           
         }
     }
 }

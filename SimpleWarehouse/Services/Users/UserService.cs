@@ -72,6 +72,9 @@ namespace SimpleWarehouse.Services.Users
 
         public List<User> FindByRole(RoleType roleType)
         {
+            var db = Database;
+            Console.WriteLine(db.Database.Connection.Database);
+            
             return Database.Users.Where(u => u.Roles.Where(r => r.RoleType == roleType).ToList().Count > 0).ToList();
         }
 

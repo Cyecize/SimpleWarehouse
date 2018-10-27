@@ -11,6 +11,7 @@ namespace SimpleWarehouse.Interfaces
 {
     public interface IDbConnectionManager : IDisposable
     {
+        void CloseConnection();
 
         bool SelectDatabase(string dbName);
 

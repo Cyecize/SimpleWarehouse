@@ -44,7 +44,7 @@ namespace SimpleWarehouse.Services.Revenues
 
         public List<RevenueStream> FindAllNonRevised()
         {
-            return new List<RevenueStream>(Database.Revenues.Where(r=>r.IsRevised == false));
+            return new List<RevenueStream>(Database.Revenues.Where(r=>r.IsRevised == false).OrderBy(e => e.Date));
         }
 
         public List<RevenueStream> FindAllArchived()

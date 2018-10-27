@@ -25,7 +25,7 @@ namespace SimpleWarehouse.Services.Products
                 return true;
             }
 
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }

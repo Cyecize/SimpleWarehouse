@@ -12,5 +12,7 @@ namespace SimpleWarehouse.View
         string Username { get; set; }
 
         string Password { get; set; }
+
+        string DbName { get; set; }
     }
 }
