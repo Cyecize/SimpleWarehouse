@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using SimpleWarehouse.Constants;
 using SimpleWarehouse.Model;
 using SimpleWarehouse.Model.Enum;
@@ -19,7 +15,7 @@ namespace SimpleWarehouse.Services.Transactions
 
         protected override Transaction InsertTransaction()
         {
-            Transaction transaction = new Transaction()
+            var transaction = new Transaction
             {
                 TransactionType = TransactionType.SALE
             };
@@ -27,28 +23,29 @@ namespace SimpleWarehouse.Services.Transactions
             return transaction;
         }
 
-        protected override void InsertRevenueStreamTransactionRelation(RevenueStream revenueStream, Transaction transaction)
+        protected override void InsertRevenueStreamTransactionRelation(RevenueStream revenueStream,
+            Transaction transaction)
         {
-            Revenue revenue = new ModelMerger().Merge(revenueStream, new Revenue());
+            var revenue = new ModelMerger().Merge(revenueStream, new Revenue());
             Database.Revenues.Add(revenue);
             transaction.Revenue = revenue;
         }
 
         protected override bool IsUserAuthorized()
         {
-            return Roles.IsWorker(base.LoggedUser.Roles);
+            return Roles.IsWorker(LoggedUser.Roles);
         }
 
         protected override void UpdateProductsQuantities(List<TransactionProduct> products, bool isRollBack)
         {
             foreach (var prodTrans in products)
             {
-                Product product = base.ProductDbService.FindById(prodTrans.ProductId);
+                var product = ProductDbService.FindById(prodTrans.ProductId);
                 if (isRollBack)
                     product.Quantity += prodTrans.ProductQuantity;
                 else
                     product.Quantity -= prodTrans.ProductQuantity;
-                base.ProductDbService.UpdateProduct(product);
+                ProductDbService.UpdateProduct(product);
             }
         }
     }

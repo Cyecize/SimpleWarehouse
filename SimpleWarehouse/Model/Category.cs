@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SimpleWarehouse.Model
 {
@@ -17,7 +13,7 @@ namespace SimpleWarehouse.Model
         public int Id { get; set; }
 
         [Column("category_name")]
-        [StringLength(maximumLength: 50)]
+        [StringLength(50)]
         [Index(IsUnique = true)]
         public string CategoryName { get; set; }
 
@@ -31,7 +27,7 @@ namespace SimpleWarehouse.Model
 
         public override string ToString()
         {
-            return this.CategoryName;
+            return CategoryName;
         }
     }
 }

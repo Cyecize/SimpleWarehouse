@@ -1,32 +1,33 @@
-﻿using SimpleWarehouse.Model.Enum;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SimpleWarehouse.Model.Enum;
 
 namespace SimpleWarehouse.Model
 {
     [Table("transactions")]
     public class Transaction
     {
-       
+        public Transaction()
+        {
+            IsRevised = false;
+            Date = DateTime.Now;
+            TransactionProducts = new List<TransactionProduct>();
+        }
+
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("id")]
         [Index(IsUnique = true)]
         public int Id { get; set; }
 
-        [Column("date")]
-        public DateTime Date { get; set; }
+        [Column("date")] public DateTime Date { get; set; }
 
         [Column("transaction_type")]
         [Required]
         public TransactionType TransactionType { get; set; }
 
-        [Column("is_revised")]
-        public bool IsRevised { get; set; }
+        [Column("is_revised")] public bool IsRevised { get; set; }
 
         [ForeignKey("Expense")]
         [Column("expense_id")]
@@ -47,8 +48,8 @@ namespace SimpleWarehouse.Model
         {
             get
             {
-                if (this.Revenue != null) return this.Revenue.RevenueAmount;
-                if (this.Expense != null) return this.Expense.RevenueAmount;
+                if (Revenue != null) return Revenue.RevenueAmount;
+                if (Expense != null) return Expense.RevenueAmount;
                 return 0D;
             }
         }
@@ -58,17 +59,10 @@ namespace SimpleWarehouse.Model
         {
             get
             {
-                if (this.Revenue != null) return this.Revenue.User;
-                if (this.Expense != null) return this.Expense.User;
+                if (Revenue != null) return Revenue.User;
+                if (Expense != null) return Expense.User;
                 return null;
             }
-        }
-
-        public Transaction()
-        {
-            this.IsRevised = false;
-            this.Date = DateTime.Now;
-            this.TransactionProducts = new List<TransactionProduct>();
         }
     }
 }

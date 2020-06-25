@@ -8,7 +8,7 @@ namespace SimpleWarehouse.Services.Operations
     {
         void Initialize();
 
-        void ClearRows();       
+        void ClearRows();
 
         void SetDataAtRow(int rowId, string cellName, object value);
 
@@ -22,6 +22,6 @@ namespace SimpleWarehouse.Services.Operations
 
         DataGridViewRow GetCurrentRow();
 
-        List<int> GetAllProductIds();        
+        List<int> GetAllProductIds();
     }
 }

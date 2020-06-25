@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using SimpleWarehouse.Model;
 
 namespace SimpleWarehouse.Services.Products
 {
     public interface IProductDbService
-    { 
+    {
         bool UpdateProduct(Product product);
 
         bool CreateProduct(Product product);
@@ -26,6 +22,5 @@ namespace SimpleWarehouse.Services.Products
         List<Product> FindAllVisible();
 
         List<SearchParameter> GetSearchParameters();
-
     }
 }

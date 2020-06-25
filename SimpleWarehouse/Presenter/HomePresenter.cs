@@ -1,16 +1,10 @@
-﻿using SimpleWarehouse.App;
+﻿using System.Linq;
+using System.Windows.Forms;
+using SimpleWarehouse.App;
 using SimpleWarehouse.Constants;
 using SimpleWarehouse.Factory;
 using SimpleWarehouse.Interfaces;
-
 using SimpleWarehouse.Model;
-using SimpleWarehouse.View;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using SimpleWarehouse.Presenter.Other;
 using SimpleWarehouse.Presenter.Revenues;
 using SimpleWarehouse.Repository;
@@ -19,15 +13,39 @@ using SimpleWarehouse.Sections.Products;
 using SimpleWarehouse.Sections.Revisions;
 using SimpleWarehouse.Sections.Settings;
 using SimpleWarehouse.Sections.Transactions;
+using SimpleWarehouse.View;
 
 namespace SimpleWarehouse.Presenter
 {
     public class HomePresenter : AbstractPresenter
     {
-        private const string UserNotLoggedIn = "User is not Logged in, redirecting to login view";  
-        private const string Tab1LabelText = "Продукти";  
+        private const string UserNotLoggedIn = "User is not Logged in, redirecting to login view";
+        private const string Tab1LabelText = "Продукти";
 
         private bool IsProductsDisplayed;
+
+        public HomePresenter(IStateManager manager) : base(manager)
+        {
+            Form = (IHomeView) FormFactory.CreateForm("MainForm", new object[] {this});
+            //onClosingEvent to stop the application
+            ((Form) Form).FormClosing += (sender, args) => ApplicationState.IsRunning = false;
+            ProductSection = new ProductSection(Form.ProductDataTable, this, Form);
+            SettingsSection = new SettingsSection(this);
+
+            StateManager.EventManager.AddEvent(new Event(
+                Config.EventListenerImmediate,
+                CheckIsLoginHandler,
+                GetStateManager().EventManager,
+                true));
+
+            IsProductsDisplayed = false;
+            Form.TabLabelText = Tab1LabelText;
+            Form.SetSearchParams(ProductSection.GetSearchParameters());
+
+
+            if (!StateManager.UserSession.IsActive) //prevent any actions till login
+                return;
+        }
 
         public ProductSection ProductSection { get; set; }
 
@@ -35,7 +53,7 @@ namespace SimpleWarehouse.Presenter
 
         public IHomeView Form { get; set; }
 
-        public override ILoggable Loggable { get => Form; }
+        public override ILoggable Loggable => Form;
 
         public IOperationsSection DeliveriesSection { get; set; }
 
@@ -45,36 +63,11 @@ namespace SimpleWarehouse.Presenter
 
         public EditTransactionSection EditTransactionSection { get; set; }
 
-        public HomePresenter(IStateManager manager) : base(manager)
-        {
-            this.Form = (IHomeView)FormFactory.CreateForm("MainForm", new object[] { this });
-            //onClosingEvent to stop the application
-            ((Form)(this.Form)).FormClosing += (sender, args) => ApplicationState.IsRunning = false;
-            this.ProductSection = new ProductSection(this.Form.ProductDataTable, this, this.Form);
-            this.SettingsSection = new SettingsSection(this);
-
-            base.StateManager.EventManager.AddEvent(new Event(
-                Constants.Config.EventListenerImmediate,
-                CheckIsLoginHandler,
-                base.GetStateManager().EventManager,
-                true));
-
-            this.IsProductsDisplayed = false;
-            this.Form.TabLabelText = Tab1LabelText;
-            this.Form.SetSearchParams(this.ProductSection.GetSearchParameters());
-
-            
-
-            if (!base.StateManager.UserSession.IsActive)//prevent any actions till login
-                return;
-
-        }
-
         //---->main functionality
         public void OnTabChangeAction()
         {
-            TabPage tab = this.Form.SelectedTabPage;
-            string res = "";
+            var tab = Form.SelectedTabPage;
+            var res = "";
             switch (tab.Name)
             {
                 case TabPageNames.PRODUCT_PAGE:
@@ -96,102 +89,103 @@ namespace SimpleWarehouse.Presenter
                     res = "Настройки";
                     break;
             }
-            this.Form.TabLabelText = res;
+
+            Form.TabLabelText = res;
         }
 
         public void RevenueAction()
         {
-            if (Roles.IsStandard(base.StateManager.UserSession.SessionEntity.Roles))
-            {
-                if (base.StateManager.IsPresenterActive(this))
-                    base.StateManager.Set(new RevenuePresenter(base.StateManager));
-            }
+            if (Roles.IsStandard(StateManager.UserSession.SessionEntity.Roles))
+                if (StateManager.IsPresenterActive(this))
+                    StateManager.Set(new RevenuePresenter(StateManager));
         }
 
         public void ExpensesAction()
         {
-            if (Roles.IsStandard(base.StateManager.UserSession.SessionEntity.Roles))
-            {
-                if (base.StateManager.IsPresenterActive(this))
-                    base.StateManager.Set(new ExpensesPresenter(base.StateManager));
-            }
+            if (Roles.IsStandard(StateManager.UserSession.SessionEntity.Roles))
+                if (StateManager.IsPresenterActive(this))
+                    StateManager.Set(new ExpensesPresenter(StateManager));
         }
 
         public void RefreshAction()
         {
-            base.StateManager.Database = new DatabaseContext(base.StateManager.ConnectionManager.GetConnection(), false);
-            if (base.StateManager.IsPresenterPresent(this))
-                base.StateManager.SetAndFix(new HomePresenter(base.StateManager));
+            StateManager.Database = new DatabaseContext(StateManager.ConnectionManager.GetConnection(), false);
+            if (StateManager.IsPresenterPresent(this))
+                StateManager.SetAndFix(new HomePresenter(StateManager));
         }
 
         public void LogoutAction()
         {
-            base.StateManager.UserSession.IsActive = false;
-            this.RefreshAction();
+            StateManager.UserSession.IsActive = false;
+            RefreshAction();
         }
 
         public void ClearLogAction()
         {
-            base.EventIds.Add(base.StateManager.EventManager.AddEvent(new Event(10000, () => { this.Form.Log(""); }, base.StateManager.EventManager,true )));
+            EventIds.Add(StateManager.EventManager.AddEvent(new Event(10000, () => { Form.Log(""); },
+                StateManager.EventManager, true)));
         }
 
         ////---->overrides
         public override void Dispose()
         {
-            foreach (var id in base.EventIds)
-            {
-                base.StateManager.EventManager.RemoveEvent(id);
-            }
-            this.Form.HideAndDispose();
-            base.StateManager.OutputWriter.WriteLine("Home StreamPresenter Disposed!");
+            foreach (var id in EventIds) StateManager.EventManager.RemoveEvent(id);
+            Form.HideAndDispose();
+            StateManager.OutputWriter.WriteLine("Home StreamPresenter Disposed!");
         }
 
         public override void Update()
         {
-            if (!base.IsFormShown)
+            if (!IsFormShown)
             {
-                this.Form.Show();
-                base.IsFormShown = true;
+                Form.Show();
+                IsFormShown = true;
             }
-            if (!this.IsProductsDisplayed && base.StateManager.UserSession.SessionEntity != null)
+
+            if (!IsProductsDisplayed && StateManager.UserSession.SessionEntity != null)
             {
-                this.ProductSection.UpdateProducts();
-                this.IsProductsDisplayed = true;
-                if (Roles.IsStandard(base.StateManager.UserSession.SessionEntity.Roles))
+                ProductSection.UpdateProducts();
+                IsProductsDisplayed = true;
+                if (Roles.IsStandard(StateManager.UserSession.SessionEntity.Roles))
                 {
-                    this.Form.EnableOrDisableMaterialBtn("RevenueBtn", true);
-                    this.Form.EnableOrDisableMaterialBtn("InvoicesBtn", true);
-                    this.Form.EnableOrDisableMaterialBtn("ExpensesBtn", true);
+                    Form.EnableOrDisableMaterialBtn("RevenueBtn", true);
+                    Form.EnableOrDisableMaterialBtn("InvoicesBtn", true);
+                    Form.EnableOrDisableMaterialBtn("ExpensesBtn", true);
                 }
-                this.Form.Text = $"Simple Warehouse, Потребител: {base.StateManager.UserSession.SessionEntity.Username} ({string.Join(",", base.StateManager.UserSession.SessionEntity.Roles.Select(r => r.RoleType.ToString()))})";
-                this.InitializeUserRequiredSections();
+
+                Form.Text =
+                    $"Simple Warehouse, Потребител: {StateManager.UserSession.SessionEntity.Username} ({string.Join(",", StateManager.UserSession.SessionEntity.Roles.Select(r => r.RoleType.ToString()))})";
+                InitializeUserRequiredSections();
             }
         }
 
         //event handlers
         private void CheckIsLoginHandler()
         {
-            if (!base.StateManager.UserSession.IsActive)
+            if (!StateManager.UserSession.IsActive)
             {
-                base.StateManager.OutputWriter.WriteLine(UserNotLoggedIn);
-                base.StateManager.Push(new LoginPresenter(base.StateManager));
+                StateManager.OutputWriter.WriteLine(UserNotLoggedIn);
+                StateManager.Push(new LoginPresenter(StateManager));
             }
             else
-                base.StateManager.OutputWriter.WriteLine($"Player logged as {base.StateManager.UserSession.SessionEntity.Username}");
+            {
+                StateManager.OutputWriter.WriteLine(
+                    $"Player logged as {StateManager.UserSession.SessionEntity.Username}");
+            }
         }
 
         //private methods
         private void InitializeUserRequiredSections()
         {
-            this.DeliveriesSection = new DeliverySection(
-                this, this.Form.DeliveriesTab, this.Form.DeliveriesDataTable, this.Form.TotalDeliveryMoney);
-            this.SalesSection = new SaleSection(
-                this, this.Form.SalesTab, this.Form.SalesDataTable, this.Form.TotalSaleMoney);
-            this.EditTransactionSection = new EditTransactionSection(this, this.Form);
-            this.RevisionSection = new RevisionSection(this, this.Form);
-            this.DeliveriesSection.Initialize();
-            this.SalesSection.Initialize();
-            this.RevisionSection.Initialize();
+            DeliveriesSection = new DeliverySection(
+                this, Form.DeliveriesTab, Form.DeliveriesDataTable, Form.TotalDeliveryMoney);
+            SalesSection = new SaleSection(
+                this, Form.SalesTab, Form.SalesDataTable, Form.TotalSaleMoney);
+            EditTransactionSection = new EditTransactionSection(this, Form);
+            RevisionSection = new RevisionSection(this, Form);
+            DeliveriesSection.Initialize();
+            SalesSection.Initialize();
+            RevisionSection.Initialize();
         }
     }
 }

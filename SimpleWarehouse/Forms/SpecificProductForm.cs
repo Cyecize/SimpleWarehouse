@@ -1,14 +1,14 @@
-﻿using MaterialSkin.Controls;
-using SimpleWarehouse.Constants;
-using SimpleWarehouse.Model;
-using SimpleWarehouse.View;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using MaterialSkin.Controls;
+using SimpleWarehouse.Constants;
 using SimpleWarehouse.Interfaces;
+using SimpleWarehouse.Model;
 using SimpleWarehouse.Util;
+using SimpleWarehouse.View;
 
 namespace SimpleWarehouse.Forms
 {
@@ -19,139 +19,136 @@ namespace SimpleWarehouse.Forms
 
         private readonly char _negative = '-';
 
-        private ISubmitablePresenter Presenter { get; set; }
+        public SpecificProductForm(ISubmitablePresenter presenter)
+        {
+            InitializeComponent();
+            Presenter = presenter;
+            FormDecraptifier.Decraptify(this);
+            SellPriceField.KeyPress += OnTypeHandler;
+            ImportPriceField.KeyPress += OnTypeHandler;
+            QuantityField.KeyPress += OnTypeHandler;
+            ProdNameField.KeyPress += (sen, eventt) =>
+            {
+                if (ProdNameField.Text.Length > Config.MaxTextLen && eventt.KeyChar != (char) Keys.Back)
+                    eventt.Handled = true;
+            };
+        }
+
+        private ISubmitablePresenter Presenter { get; }
 
         public double Quantity
         {
-            get => double.Parse(this.QuantityField.Text);
-            set => this.QuantityField.Text = value.ToString();
+            get => double.Parse(QuantityField.Text);
+            set => QuantityField.Text = value.ToString();
         }
 
         public double ImportPrice
         {
-            get => double.Parse(this.ImportPriceField.Text);
-            set => this.ImportPriceField.Text = value.ToString();
+            get => double.Parse(ImportPriceField.Text);
+            set => ImportPriceField.Text = value.ToString();
         }
 
         public double SellPrice
         {
-            get => double.Parse(this.SellPriceField.Text);
-            set => this.SellPriceField.Text = value.ToString();
+            get => double.Parse(SellPriceField.Text);
+            set => SellPriceField.Text = value.ToString();
         }
 
         public bool IsVisible
         {
-            get => this.VisibleCheckbox.Checked;
-            set => this.VisibleCheckbox.Checked = value;
+            get => VisibleCheckbox.Checked;
+            set => VisibleCheckbox.Checked = value;
         }
 
         public Category SelectedCategory
         {
-            get => (Category) this.CategoriesField.SelectedItem;
-            set => this.CategoriesField.SelectedItem = value;
+            get => (Category) CategoriesField.SelectedItem;
+            set => CategoriesField.SelectedItem = value;
         }
 
         string ISpecificProductView.ProductName
         {
-            get => this.ProdNameField.Text;
-            set => this.ProdNameField.Text = value;
-        }
-
-        public SpecificProductForm(ISubmitablePresenter presenter)
-        {
-            this.InitializeComponent();
-            this.Presenter = presenter;
-            FormDecraptifier.Decraptify(this);
-            this.SellPriceField.KeyPress += this.OnTypeHandler;
-            this.ImportPriceField.KeyPress += this.OnTypeHandler;
-            this.QuantityField.KeyPress += this.OnTypeHandler;
-            this.ProdNameField.KeyPress += (sen, eventt) =>
-            {
-                if (this.ProdNameField.Text.Length > Constants.Config.MaxTextLen && eventt.KeyChar != (char) Keys.Back)
-                    eventt.Handled = true;
-            };
+            get => ProdNameField.Text;
+            set => ProdNameField.Text = value;
         }
 
 
         public void DisplayCategories(List<Category> categories)
         {
-            this.CategoriesField.DataSource = categories;
+            CategoriesField.DataSource = categories;
         }
 
         public void HideAndDispose()
         {
-            this.Hide();
-            this.Dispose();
+            Hide();
+            Dispose();
         }
 
         public void Log(string message)
         {
-            this.LogLabel.Text = message;
+            LogLabel.Text = message;
         }
 
         public void ShowAsDialog()
         {
-            this.ShowDialog();
+            ShowDialog();
         }
 
         private void CancelBtn_Click(object sender, EventArgs e)
         {
-            this.Presenter.Cancel();
+            Presenter.Cancel();
         }
 
         private void OnTypeHandler(object sender, KeyPressEventArgs e)
         {
-            e.Handled = (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar) && this._delimiter != e.KeyChar &&
-                         this._negative != e.KeyChar);
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar) && _delimiter != e.KeyChar &&
+                        _negative != e.KeyChar;
             var control = (Control) sender;
-            if (control.Text.Contains(this._delimiter) && e.KeyChar == this._delimiter)
+            if (control.Text.Contains(_delimiter) && e.KeyChar == _delimiter)
                 e.Handled = true;
-            if (e.KeyChar == this._negative && control.Text.Length > 0)
+            if (e.KeyChar == _negative && control.Text.Length > 0)
                 e.Handled = true;
         }
 
         private void SubmitBtn_Click(object sender, EventArgs e)
         {
-            if (!this.ValidateForm())
-            {
-                return;
-            }
+            if (!ValidateForm()) return;
 
-            this.Presenter.Submit();
+            Presenter.Submit();
         }
 
         private bool ValidateForm()
         {
-            bool isValid = true;
-            if (this.ProdNameField.Text.Length < 1)
+            var isValid = true;
+            if (ProdNameField.Text.Length < 1)
             {
-                this.Log(Messages.InvalidNameMsg);
+                Log(Messages.InvalidNameMsg);
                 return false;
             }
 
             try
             {
-                if (this.QuantityField.Text.Length < 1)
-                    this.QuantityField.Text = "0";
-                if (this.SellPriceField.Text.Length < 1)
-                    this.SellPriceField.Text = "0";
-                if (this.ImportPriceField.Text.Length < 1)
-                    this.ImportPriceField.Text = "0";
+                if (QuantityField.Text.Length < 1)
+                    QuantityField.Text = "0";
+                if (SellPriceField.Text.Length < 1)
+                    SellPriceField.Text = "0";
+                if (ImportPriceField.Text.Length < 1)
+                    ImportPriceField.Text = "0";
 
-                double.Parse(this.QuantityField.Text);
-                double.Parse(this.SellPriceField.Text);
-                double.Parse(this.ImportPriceField.Text);
+                double.Parse(QuantityField.Text);
+                double.Parse(SellPriceField.Text);
+                double.Parse(ImportPriceField.Text);
             }
             catch (Exception)
             {
-                this.Log(Messages.InvalidNumbersMsg);
+                Log(Messages.InvalidNumbersMsg);
                 isValid = false;
             }
 
-            if (this.CategoriesField.SelectedItem == null)
+            if (CategoriesField.SelectedItem == null)
             {
                 isValid = false;
-                this.Log(@"Моля изберете категория");
+                Log(@"Моля изберете категория");
             }
 
             return isValid;

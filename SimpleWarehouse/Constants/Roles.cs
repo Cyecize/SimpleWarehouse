@@ -1,10 +1,7 @@
-﻿using SimpleWarehouse.Model;
-using SimpleWarehouse.Model.Enum;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SimpleWarehouse.Model;
+using SimpleWarehouse.Model.Enum;
 
 namespace SimpleWarehouse.Constants
 {
@@ -19,10 +16,12 @@ namespace SimpleWarehouse.Constants
         {
             return roles.FirstOrDefault(r => r.RoleType == RoleType.ADMIN) != null;
         }
+
         public static bool IsStandard(List<Role> roles)
         {
             return roles.FirstOrDefault(r => r.RoleType == RoleType.STANDARD) != null;
         }
+
         public static bool IsWorker(List<Role> roles)
         {
             return roles.FirstOrDefault(r => r.RoleType == RoleType.WORKER) != null;

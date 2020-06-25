@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SimpleWarehouse.Constants;
 using SimpleWarehouse.Model;
 using SimpleWarehouse.Presenter.Revenues;
@@ -14,66 +11,68 @@ namespace SimpleWarehouse.Sections.Revenues
     {
         private const string InvalidValueMgs = "Невалидна стойност!";
 
-        private IRevenueStreamPresenter Presenter { get; set; }
-
-        private IRevenueStreamViewManager ViewManager { get; set; }
-
-        private IRevenueStreamViewManager ArchiveViewManager { get; set; }
-
-        private IRevenueStreamDbService RevenueStreamDbService { get; set; }
-
         public RevenueStreamSection(IRevenueStreamPresenter presenter, IRevenueStreamDbService dbService)
         {
-            this.Presenter = presenter;
-            this.RevenueStreamDbService = dbService;
-            this.ViewManager = new RevenueStreamViewManager(this.Presenter.Form.NotRevisedDataTable, RevenueDataTableNames.GetNamesForAddRevenue());
-            this.ArchiveViewManager = new RevenueStreamViewManager(this.Presenter.Form.ArchiveDataTable, RevenueDataTableNames.GetNamesForArchivedRevenues());
+            Presenter = presenter;
+            RevenueStreamDbService = dbService;
+            ViewManager = new RevenueStreamViewManager(Presenter.Form.NotRevisedDataTable,
+                RevenueDataTableNames.GetNamesForAddRevenue());
+            ArchiveViewManager = new RevenueStreamViewManager(Presenter.Form.ArchiveDataTable,
+                RevenueDataTableNames.GetNamesForArchivedRevenues());
         }
+
+        private IRevenueStreamPresenter Presenter { get; }
+
+        private IRevenueStreamViewManager ViewManager { get; }
+
+        private IRevenueStreamViewManager ArchiveViewManager { get; }
+
+        private IRevenueStreamDbService RevenueStreamDbService { get; }
 
         public void AddRevenueStreamAction()
         {
-            DateTime revenueDate = this.Presenter.Form.NewEntityDate;
-            double amount = this.Presenter.Form.NewEntityAmount;
-            string comment = this.Presenter.Form.CommentText;
-            RevenueStream revenue = new RevenueStream()
+            var revenueDate = Presenter.Form.NewEntityDate;
+            var amount = Presenter.Form.NewEntityAmount;
+            var comment = Presenter.Form.CommentText;
+            var revenue = new RevenueStream
             {
                 Date = revenueDate,
                 RevenueAmount = amount,
-                UserId = this.Presenter.GetStateManager().UserSession.SessionEntity.Id,
+                UserId = Presenter.GetStateManager().UserSession.SessionEntity.Id,
                 IsRevised = false,
-                Comment = comment,
+                Comment = comment
             };
             if (revenue.RevenueAmount <= 0)
             {
-                this.Presenter.Form.Log(InvalidValueMgs);
+                Presenter.Form.Log(InvalidValueMgs);
                 return;
             }
+
             try
             {
-                this.RevenueStreamDbService.CreateRevenueStream(revenue);
-                this.UpdateNonRevisedRevenueStreams();
-                this.Presenter.Form.NewEntityAmount = 0;
+                RevenueStreamDbService.CreateRevenueStream(revenue);
+                UpdateNonRevisedRevenueStreams();
+                Presenter.Form.NewEntityAmount = 0;
             }
             catch (ArgumentException e)
             {
-                this.Presenter.Form.Log(e.Message);
+                Presenter.Form.Log(e.Message);
             }
         }
 
         public void DisplayArchivedRevenueStreams()
         {
-            var start = this.Presenter.Form.ArchivedEntitiesStartDate;
-            var end = this.Presenter.Form.ArchivedEntitiesEndDate;
-            List<RevenueStream> revenueStreams = this.RevenueStreamDbService.FindAllArchived(start, end);
-            this.ArchiveViewManager.DisplayRevenues(revenueStreams);
-            this.Presenter.Form.TotalArchivedEntitiesRows = revenueStreams.Count.ToString();
-            this.Presenter.Form.TotalArchivedEntitiesPrice = $"{revenueStreams.Sum(e => e.RevenueAmount):F2}";
-            
+            var start = Presenter.Form.ArchivedEntitiesStartDate;
+            var end = Presenter.Form.ArchivedEntitiesEndDate;
+            var revenueStreams = RevenueStreamDbService.FindAllArchived(start, end);
+            ArchiveViewManager.DisplayRevenues(revenueStreams);
+            Presenter.Form.TotalArchivedEntitiesRows = revenueStreams.Count.ToString();
+            Presenter.Form.TotalArchivedEntitiesPrice = $"{revenueStreams.Sum(e => e.RevenueAmount):F2}";
         }
 
         public void UpdateNonRevisedRevenueStreams()
         {
-            this.ViewManager.DisplayRevenues(this.RevenueStreamDbService.FindAllNonRevised());
+            ViewManager.DisplayRevenues(RevenueStreamDbService.FindAllNonRevised());
         }
     }
 }

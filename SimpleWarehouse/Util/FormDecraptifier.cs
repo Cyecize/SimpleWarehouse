@@ -17,7 +17,6 @@ namespace SimpleWarehouse.Util
 
             // Set the start position of the form to the center of the screen.
             form.StartPosition = FormStartPosition.CenterParent;
-           
         }
     }
 }

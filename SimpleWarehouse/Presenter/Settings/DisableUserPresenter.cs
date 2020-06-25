@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using SimpleWarehouse.Constants;
 using SimpleWarehouse.Factory;
 using SimpleWarehouse.Interfaces;
@@ -15,80 +10,74 @@ namespace SimpleWarehouse.Presenter.Settings
 {
     public class DisableUserPresenter : AbstractPresenter, ISubmitablePresenter
     {
-        private IDisableUserView Form { get; set; }
+        public DisableUserPresenter(IStateManager manager) : base(manager)
+        {
+            Form = (IDisableUserView) FormFactory.CreateForm("DisableUserForm", new object[] {this});
+            ((Form) Form).FormClosing += (o, e) => Cancel();
+
+            var users = StateManager.UserService.FindAllExceptAdmins();
+            users.Insert(0, new User {Username = string.Empty});
+            Form.AddUsers(users);
+        }
+
+        private IDisableUserView Form { get; }
 
         public override ILoggable Loggable => Form;
 
-        public DisableUserPresenter(IStateManager manager) : base(manager)
-        {
-            this.Form = (IDisableUserView)FormFactory.CreateForm("DisableUserForm", new object[] { this });
-            ((Form)this.Form).FormClosing += (o, e) => this.Cancel();
-          
-            List<User> users = base.StateManager.UserService.FindAllExceptAdmins();
-            users.Insert(0, new User { Username = string.Empty });
-            this.Form.AddUsers(users);
-
-        }
-
-        public override void Dispose()
-        {
-            this.Form.HideAndDispose();
-            base.StateManager.OutputWriter.WriteLine("Disable User Presenter was disposed");
-        }
-
-        
-
-        public override void Update()
-        {
-            if (!base.IsFormShown)
-            {
-                this.Form.Show();
-                base.IsFormShown = true;
-            }
-        }
-
         public void Submit()
         {
-            User u = base.StateManager.UserService.FindByUsername(this.Form.SelectedUsername);
+            var u = StateManager.UserService.FindByUsername(Form.SelectedUsername);
             if (u == null)
             {
-                this.Form.Log(@"Моля изберете потребител");
-                return;
-            }
-            if (Roles.IsAdmin(u.Roles))
-            {
-                this.Form.Log(@"Не може да редактирате администратор!");
+                Form.Log(@"Моля изберете потребител");
                 return;
             }
 
-            base.StateManager.Push(new ConfirmActionPresenter(base.StateManager, this.OnConfirmation,
-                $"Промяна на статуса за потребител {this.Form.SelectedUsername} активен: {this.Form.IsEnabled }"));
+            if (Roles.IsAdmin(u.Roles))
+            {
+                Form.Log(@"Не може да редактирате администратор!");
+                return;
+            }
+
+            StateManager.Push(new ConfirmActionPresenter(StateManager, OnConfirmation,
+                $"Промяна на статуса за потребител {Form.SelectedUsername} активен: {Form.IsEnabled}"));
         }
 
         public void Cancel()
         {
-            if (base.StateManager.IsPresenterActive(this))
-            {
-                base.StateManager.Pop();
-            }
+            if (StateManager.IsPresenterActive(this)) StateManager.Pop();
+        }
 
+        public override void Dispose()
+        {
+            Form.HideAndDispose();
+            StateManager.OutputWriter.WriteLine("Disable User Presenter was disposed");
+        }
+
+
+        public override void Update()
+        {
+            if (!IsFormShown)
+            {
+                Form.Show();
+                IsFormShown = true;
+            }
         }
 
         private void PerformEdit()
         {
-            User u = base.StateManager.UserService.FindByUsername(this.Form.SelectedUsername);
-            u.IsEnabled = this.Form.IsEnabled;
-            base.StateManager.UserService.Save(u);
-            this.Cancel();
-
+            var u = StateManager.UserService.FindByUsername(Form.SelectedUsername);
+            u.IsEnabled = Form.IsEnabled;
+            StateManager.UserService.Save(u);
+            Cancel();
         }
 
         private void OnConfirmation(bool isConf)
         {
             if (!isConf)
-                this.Cancel();
+                Cancel();
             else
-                this.PerformEdit();
+                PerformEdit();
         }
     }
 }

@@ -1,16 +1,11 @@
-﻿using SimpleWarehouse.Interfaces;
+﻿using System.Collections.Generic;
+using SimpleWarehouse.Interfaces;
 using SimpleWarehouse.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SimpleWarehouse.View
 {
     public interface ISpecificProductView : IView
     {
-        
         string ProductName { get; set; }
 
         double Quantity { get; set; }

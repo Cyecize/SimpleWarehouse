@@ -1,88 +1,152 @@
-﻿using MaterialSkin.Controls;
-using SimpleWarehouse.Constants;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
+using MaterialSkin.Controls;
 using SimpleWarehouse.Model;
 using SimpleWarehouse.Model.Enum;
 using SimpleWarehouse.Presenter;
-using SimpleWarehouse.Services;
 using SimpleWarehouse.View;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace SimpleWarehouse.Forms
 {
     public partial class MainForm : MaterialForm, IHomeView
     {
-        private HomePresenter Presenter { get; set; }
-
-        public DataGridView ProductDataTable { get => this.DataTableView; set => this.DataTableView = value; }
-        public string SearchText { get => this.SearchBox.Text; set => this.SearchBox.Text = value; }
-        public SearchParameter SearchParameter { get => (SearchParameter)this.SearchType.SelectedItem; }
-        public DataGridView DeliveriesDataTable { get => this.DeliveriesDataGridView; set => this.DeliveriesDataGridView = value; }
-        public DataGridView SalesDataTable { get => this.SalesDataGridView; set => this.SalesDataGridView = value; }
-        public TabPage SelectedTabPage { get => this.materialTabControl1.SelectedTab; set => this.materialTabControl1.SelectedTab = value; }
-        TabPage IHomeView.DeliveriesTab { get; set; }
-        TabPage IHomeView.SalesTab { get; set; }
-        public string TabLabelText { get => this.CurrentTabLabel.Text; set => this.CurrentTabLabel.Text = value; }
-        public TextBox TotalDeliveryMoney { get => this.DeliveriesTotalMoney; set => this.DeliveriesTotalMoney = value; }
-        public TextBox TotalSaleMoney { get => this.SalesTotalMoney; set => this.SalesTotalMoney = value; }
-
-        //REVISION
-        public DataGridView RevisionDataTable { get => this.RevisionDataGridView; set => this.RevisionDataGridView = value; }
-        public string RevisionRevenue { get => this.RevisionRevenueTextBox.Text; set => this.RevisionRevenueTextBox.Text = value; }
-        public string RevisionExpenses { get => this.RevisionExpensesTextBox.Text; set => this.RevisionExpensesTextBox.Text = value; }
-        public string RevisionSalesRevenue { get => this.RevisionSalesRevenueTextBox.Text; set => this.RevisionSalesRevenueTextBox.Text = value; }
-        public string RevisionSubTotal { get => this.RevisionSubTotalTextBox.Text; set => this.RevisionSubTotalTextBox.Text = value; }
-        string IRevisionView.RevisionStartDate { get => this.RevisionStartDateLabel.Text; set => this.RevisionStartDateLabel.Text = value; }
-        public string RevisonSubTotalPlusSalesRevenue { get => this.RevisionSalesPlusRevisionTotalTextBox.Text; set => this.RevisionSalesPlusRevisionTotalTextBox.Text = value; }
-        public bool IsTransactionRevised { get => this.IsRevisedCheckbox.Checked; set => this.IsRevisedCheckbox.Checked = value; }
-        public TransactionType SelectedTransactionType { get => (TransactionType)this.TransactionTypeBox.SelectedItem; set => throw new NotImplementedException(); }
-        public DateTime TransactionStartDate { get => this.TransactionStartDateSelector.Value; set => this.TransactionStartDateSelector.Value = value; }
-        public DateTime TransactionEndtDate { get => this.TransactionEndDateSelector.Value; set => this.TransactionEndDateSelector.Value = value; }
-        public DataGridView TransactionGrid => this.TransactionGridView;
-
         public MainForm(HomePresenter presenter)
         {
             InitializeComponent();
-            this.Presenter = presenter;
-            this.StartPosition = FormStartPosition.CenterScreen;
-            this.InitializeProductSectionEvents();
-            this.materialTabControl1.Selected += (o, e) =>
-            {
-                this.Presenter.OnTabChangeAction();
-            };
+            Presenter = presenter;
+            StartPosition = FormStartPosition.CenterScreen;
+            InitializeProductSectionEvents();
+            materialTabControl1.Selected += (o, e) => { Presenter.OnTabChangeAction(); };
         }
+
+        private HomePresenter Presenter { get; }
+
+        public DataGridView ProductDataTable
+        {
+            get => DataTableView;
+            set => DataTableView = value;
+        }
+
+        public string SearchText
+        {
+            get => SearchBox.Text;
+            set => SearchBox.Text = value;
+        }
+
+        public SearchParameter SearchParameter => (SearchParameter) SearchType.SelectedItem;
+
+        public DataGridView DeliveriesDataTable
+        {
+            get => DeliveriesDataGridView;
+            set => DeliveriesDataGridView = value;
+        }
+
+        public DataGridView SalesDataTable
+        {
+            get => SalesDataGridView;
+            set => SalesDataGridView = value;
+        }
+
+        public TabPage SelectedTabPage
+        {
+            get => materialTabControl1.SelectedTab;
+            set => materialTabControl1.SelectedTab = value;
+        }
+
+        TabPage IHomeView.DeliveriesTab { get; set; }
+        TabPage IHomeView.SalesTab { get; set; }
+
+        public string TabLabelText
+        {
+            get => CurrentTabLabel.Text;
+            set => CurrentTabLabel.Text = value;
+        }
+
+        public TextBox TotalDeliveryMoney
+        {
+            get => DeliveriesTotalMoney;
+            set => DeliveriesTotalMoney = value;
+        }
+
+        public TextBox TotalSaleMoney
+        {
+            get => SalesTotalMoney;
+            set => SalesTotalMoney = value;
+        }
+
+        //REVISION
+        public DataGridView RevisionDataTable
+        {
+            get => RevisionDataGridView;
+            set => RevisionDataGridView = value;
+        }
+
+        public string RevisionRevenue
+        {
+            get => RevisionRevenueTextBox.Text;
+            set => RevisionRevenueTextBox.Text = value;
+        }
+
+        public string RevisionExpenses
+        {
+            get => RevisionExpensesTextBox.Text;
+            set => RevisionExpensesTextBox.Text = value;
+        }
+
+        public string RevisionSalesRevenue
+        {
+            get => RevisionSalesRevenueTextBox.Text;
+            set => RevisionSalesRevenueTextBox.Text = value;
+        }
+
+        public string RevisionSubTotal
+        {
+            get => RevisionSubTotalTextBox.Text;
+            set => RevisionSubTotalTextBox.Text = value;
+        }
+
+        string IRevisionView.RevisionStartDate
+        {
+            get => RevisionStartDateLabel.Text;
+            set => RevisionStartDateLabel.Text = value;
+        }
+
+        public string RevisonSubTotalPlusSalesRevenue
+        {
+            get => RevisionSalesPlusRevisionTotalTextBox.Text;
+            set => RevisionSalesPlusRevisionTotalTextBox.Text = value;
+        }
+
+        public bool IsTransactionRevised
+        {
+            get => IsRevisedCheckbox.Checked;
+            set => IsRevisedCheckbox.Checked = value;
+        }
+
+        public TransactionType SelectedTransactionType
+        {
+            get => (TransactionType) TransactionTypeBox.SelectedItem;
+            set => throw new NotImplementedException();
+        }
+
+        public DateTime TransactionStartDate
+        {
+            get => TransactionStartDateSelector.Value;
+            set => TransactionStartDateSelector.Value = value;
+        }
+
+        public DateTime TransactionEndtDate
+        {
+            get => TransactionEndDateSelector.Value;
+            set => TransactionEndDateSelector.Value = value;
+        }
+
+        public DataGridView TransactionGrid => TransactionGridView;
 
         public void ShowAsDialog()
         {
-            this.ShowDialog();
-        }
-
-        private void MaterialButton1_Click(object sender, EventArgs e)
-        {
-            this.Presenter.ProductSection.AddNewProductRequest();
-        }
-
-        private void EditBtn_Click(object sender, EventArgs e)
-        {
-            this.Presenter.ProductSection.EditProductRequest();
-        }
-
-        //events
-        private void OnCellClick(Object sender, EventArgs e)
-        {
-            this.Presenter.ProductSection.SelectProductAction();
-        }
-
-        private void OnSearchParamChange(Object sender, EventArgs e)
-        {
-            this.Presenter.ProductSection.ChangeSearchParamAction();
+            ShowDialog();
         }
 
 
@@ -90,183 +154,192 @@ namespace SimpleWarehouse.Forms
 
         public void SetSearchParams(List<SearchParameter> searchParameters)
         {
-            this.SearchType.DataSource = searchParameters;
+            SearchType.DataSource = searchParameters;
         }
 
         public void HideAndDispose()
         {
-            this.Hide();
-            this.Dispose();
+            Hide();
+            Dispose();
         }
 
         public void Log(string message)
         {
-            this.LogLabel.Text = message;
-            this.Presenter.ClearLogAction();
-        }
-
-        private void RefreshButton_Click(object sender, EventArgs e)
-        {
-            this.Presenter.RefreshAction();
-        }
-
-        private void LogoutBtn_Click(object sender, EventArgs e)
-        {
-            this.Presenter.LogoutAction();
-        }
-
-        private void AddCategoryBtn_Click(object sender, EventArgs e)
-        {
-            this.Presenter.ProductSection.AddNewCategoryRequest();
+            LogLabel.Text = message;
+            Presenter.ClearLogAction();
         }
 
 
         public void EnableOrDisableElement(string elName, Type elType, bool isEnabled)
         {
-            foreach (Control control in this.Controls)
-            {
+            foreach (Control control in Controls)
                 if (elType == control.GetType())
                 {
-                    Button btn = (Button)control;
-                    if (btn.Name == elName)
-                    {
-                        btn.Enabled = isEnabled;
-                    }
+                    var btn = (Button) control;
+                    if (btn.Name == elName) btn.Enabled = isEnabled;
                 }
-            }
         }
 
         public void EnableOrDisableMaterialBtn(string btnName, bool isEnabled)
         {
-            this.EnableOrDisableElement(btnName, typeof(MaterialFlatButton), isEnabled);
+            EnableOrDisableElement(btnName, typeof(MaterialFlatButton), isEnabled);
+        }
+
+        private void MaterialButton1_Click(object sender, EventArgs e)
+        {
+            Presenter.ProductSection.AddNewProductRequest();
+        }
+
+        private void EditBtn_Click(object sender, EventArgs e)
+        {
+            Presenter.ProductSection.EditProductRequest();
+        }
+
+        //events
+        private void OnCellClick(object sender, EventArgs e)
+        {
+            Presenter.ProductSection.SelectProductAction();
+        }
+
+        private void OnSearchParamChange(object sender, EventArgs e)
+        {
+            Presenter.ProductSection.ChangeSearchParamAction();
+        }
+
+        private void RefreshButton_Click(object sender, EventArgs e)
+        {
+            Presenter.RefreshAction();
+        }
+
+        private void LogoutBtn_Click(object sender, EventArgs e)
+        {
+            Presenter.LogoutAction();
+        }
+
+        private void AddCategoryBtn_Click(object sender, EventArgs e)
+        {
+            Presenter.ProductSection.AddNewCategoryRequest();
         }
 
         //private logic
         private void RevenueBtn_Click(object sender, EventArgs e)
         {
-            this.Presenter.RevenueAction();
-        }  
+            Presenter.RevenueAction();
+        }
 
         private void ExpensesBtn_Click(object sender, EventArgs e)
         {
-           this.Presenter.ExpensesAction();
+            Presenter.ExpensesAction();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            this.TransactionTypeBox.Items.Add(TransactionType.SALE);
-            this.TransactionTypeBox.Items.Add(TransactionType.DELIVERY);
-            this.TransactionTypeBox.Select(0, 1);
-            this.TransactionEndDateSelector.Value = DateTime.Now.AddDays(1);
-            this.TransactionStartDateSelector.Value = DateTime.Now.AddDays(-1);
+            TransactionTypeBox.Items.Add(TransactionType.SALE);
+            TransactionTypeBox.Items.Add(TransactionType.DELIVERY);
+            TransactionTypeBox.Select(0, 1);
+            TransactionEndDateSelector.Value = DateTime.Now.AddDays(1);
+            TransactionStartDateSelector.Value = DateTime.Now.AddDays(-1);
         }
 
         private void InitializeProductSectionEvents()
         {
-            this.DataTableView.CellClick += this.OnCellClick;
-            this.DataTableView.AllowUserToAddRows = false;
-            this.SearchBox.TextChanged += (obj, e) =>
+            DataTableView.CellClick += OnCellClick;
+            DataTableView.AllowUserToAddRows = false;
+            SearchBox.TextChanged += (obj, e) => { Presenter.ProductSection.SearchProdAction(); };
+            DataTableView.KeyPress += (obj, e) =>
             {
-                this.Presenter.ProductSection.SearchProdAction();
+                if (char.IsLetterOrDigit(e.KeyChar) || e.KeyChar == (char) Keys.Space)
+                    SearchBox.Text += e.KeyChar;
+                if (e.KeyChar == (char) Keys.OemBackslash || e.KeyChar == (char) Keys.Back)
+                    if (SearchBox.Text.Length >= 1)
+                        SearchBox.Text = SearchBox.Text.Substring(0, SearchBox.Text.Length - 1);
             };
-            this.DataTableView.KeyPress += (obj, e) =>
-            {
-                if (char.IsLetterOrDigit(((KeyPressEventArgs)e).KeyChar) || ((KeyPressEventArgs)e).KeyChar == (char)Keys.Space)
-                    this.SearchBox.Text += ((KeyPressEventArgs)e).KeyChar;
-                if (((KeyPressEventArgs)e).KeyChar == (char)Keys.OemBackslash || ((KeyPressEventArgs)e).KeyChar == (char)Keys.Back)
-                {
-                    if (this.SearchBox.Text.Length >= 1)
-                        this.SearchBox.Text = this.SearchBox.Text.Substring(0, this.SearchBox.Text.Length - 1);
-                }
-
-            };
-            this.SearchType.SelectedIndexChanged += this.OnSearchParamChange;
+            SearchType.SelectedIndexChanged += OnSearchParamChange;
         }
 
         private void CancelDeliveryBtn_Click(object sender, EventArgs e)
         {
-            this.Presenter.DeliveriesSection.CancelOperation();
+            Presenter.DeliveriesSection.CancelOperation();
         }
 
         private void RefreshDeliveriesAction_Click(object sender, EventArgs e)
         {
-           this.Presenter.DeliveriesSection.RefreshGridAction();
+            Presenter.DeliveriesSection.RefreshGridAction();
         }
 
         private void SaveDeliveryBtn_Click(object sender, EventArgs e)
         {
-            this.Presenter.DeliveriesSection.CreateTransactionAction();
+            Presenter.DeliveriesSection.CreateTransactionAction();
         }
 
         private void SaveSaleBtn_Click(object sender, EventArgs e)
         {
-            this.Presenter.SalesSection.CreateTransactionAction();
+            Presenter.SalesSection.CreateTransactionAction();
         }
 
         private void LogLabel_Click(object sender, EventArgs e)
         {
-            ((Label)sender).Text = "";
+            ((Label) sender).Text = "";
         }
 
         private void BeginRevisionBtn_Click(object sender, EventArgs e)
         {
-            this.Presenter.RevisionSection.BeginRevision();
+            Presenter.RevisionSection.BeginRevision();
         }
 
         private void RevisionCancelBtn_Click(object sender, EventArgs e)
         {
-            this.Presenter.RevisionSection.CancelOperation();
+            Presenter.RevisionSection.CancelOperation();
         }
 
         private void RevisionRefreshBtn_Click(object sender, EventArgs e)
         {
-            this.Presenter.RevisionSection.RefreshGridAction();
+            Presenter.RevisionSection.RefreshGridAction();
         }
 
         private void SalesCancelBtn_Click(object sender, EventArgs e)
         {
-            this.Presenter.SalesSection.CancelOperation();
+            Presenter.SalesSection.CancelOperation();
         }
 
         private void SalesRefreshBtn_Click(object sender, EventArgs e)
         {
-           this.Presenter.SalesSection.RefreshGridAction();
+            Presenter.SalesSection.RefreshGridAction();
         }
 
         private void RevisionTab_Click(object sender, EventArgs e)
         {
-
         }
 
         private void RevisionSaveBtn_Click(object sender, EventArgs e)
         {
-            this.Presenter.RevisionSection.CommitRevisionAction();
+            Presenter.RevisionSection.CommitRevisionAction();
         }
 
         private void CreateNewUserBtn_Click(object sender, EventArgs e)
         {
-            this.Presenter.SettingsSection.CreateUserRequest();
+            Presenter.SettingsSection.CreateUserRequest();
         }
 
         private void DisableUserBtn_Click(object sender, EventArgs e)
         {
-            this.Presenter.SettingsSection.DisableUserRequest();
+            Presenter.SettingsSection.DisableUserRequest();
         }
 
         private void ChangePasswordBtn_Click(object sender, EventArgs e)
         {
-            this.Presenter.SettingsSection.ChangePasswordRequest();
+            Presenter.SettingsSection.ChangePasswordRequest();
         }
 
         private void ShowDbInfoBtn_Click(object sender, EventArgs e)
         {
-           this.Presenter.SettingsSection.ShowDbInfoAction();
+            Presenter.SettingsSection.ShowDbInfoAction();
         }
 
         private void FindTransactionsBtn_Click(object sender, EventArgs e)
         {
-            if (this.TransactionTypeBox.SelectedItem != null)
-                this.Presenter.EditTransactionSection.Search();
+            if (TransactionTypeBox.SelectedItem != null)
+                Presenter.EditTransactionSection.Search();
         }
     }
 }

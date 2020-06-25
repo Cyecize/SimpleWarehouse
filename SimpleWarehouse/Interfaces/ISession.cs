@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SimpleWarehouse.Interfaces
+﻿namespace SimpleWarehouse.Interfaces
 {
     public interface ISession<T>
     {
@@ -12,6 +6,6 @@ namespace SimpleWarehouse.Interfaces
 
         T SessionEntity { get; set; }
 
-        void UnsetSession(); 
+        void UnsetSession();
     }
 }

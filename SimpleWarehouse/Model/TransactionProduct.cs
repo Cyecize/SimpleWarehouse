@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SimpleWarehouse.Model
 {
     [Table("transaction_products")]
     public class TransactionProduct
     {
-
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("id")]
         [Index(IsUnique = true)]
@@ -24,15 +18,12 @@ namespace SimpleWarehouse.Model
         [Column("transaction_id")]
         public int TransactionId { get; set; }
 
-        [Column("product_quantity")]
-        public double ProductQuantity { get; set; }
+        [Column("product_quantity")] public double ProductQuantity { get; set; }
 
         public virtual Product Product { get; set; }
 
         public virtual Transaction Transaction { get; set; }
 
-        [NotMapped]
-        public double SubTotalPrice { get; set; }
-
+        [NotMapped] public double SubTotalPrice { get; set; }
     }
 }

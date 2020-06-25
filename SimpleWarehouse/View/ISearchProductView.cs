@@ -1,11 +1,7 @@
-﻿using SimpleWarehouse.Interfaces;
-using SimpleWarehouse.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows.Forms;
+using SimpleWarehouse.Interfaces;
+using SimpleWarehouse.Model;
 
 namespace SimpleWarehouse.View
 {
@@ -15,8 +11,8 @@ namespace SimpleWarehouse.View
 
         string SearchText { get; set; }
 
-        void SetSearchParams(List<SearchParameter> searchParameters);
-
         SearchParameter SearchParameter { get; }
+
+        void SetSearchParams(List<SearchParameter> searchParameters);
     }
 }

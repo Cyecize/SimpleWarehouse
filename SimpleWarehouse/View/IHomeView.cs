@@ -1,17 +1,11 @@
-﻿using SimpleWarehouse.Interfaces;
-using SimpleWarehouse.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows.Forms;
+using SimpleWarehouse.Interfaces;
 
 namespace SimpleWarehouse.View
 {
     public interface IHomeView : IView, ISearchProductView, IRevisionView, ITransactionView
     {
-
         DataGridView DeliveriesDataTable { get; set; }
 
         DataGridView SalesDataTable { get; set; }
@@ -24,15 +18,14 @@ namespace SimpleWarehouse.View
 
         TabPage SalesTab { get; set; }
 
-        void EnableOrDisableElement(string elName, Type elType, bool isEnabled);
-
-        void EnableOrDisableMaterialBtn(string btnName, bool isEnabled);
-
         TextBox TotalDeliveryMoney { get; set; }
 
         TextBox TotalSaleMoney { get; set; }
 
         string TabLabelText { get; set; }
-        
+
+        void EnableOrDisableElement(string elName, Type elType, bool isEnabled);
+
+        void EnableOrDisableMaterialBtn(string btnName, bool isEnabled);
     }
 }

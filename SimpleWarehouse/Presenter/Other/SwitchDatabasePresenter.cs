@@ -5,7 +5,6 @@ using MySql.Data.MySqlClient;
 using SimpleWarehouse.App;
 using SimpleWarehouse.Factory;
 using SimpleWarehouse.Interfaces;
-using SimpleWarehouse.Model;
 using SimpleWarehouse.Repository;
 using SimpleWarehouse.Services;
 using SimpleWarehouse.View;
@@ -16,63 +15,63 @@ namespace SimpleWarehouse.Presenter.Other
     {
         private const string CannotSelectThisDb = "Cannot select this db!";
 
-        private ISwitchDatabaseView Form { get; set; }
-
-        private IDbConnectionManager DbConnectionManager { get; set; }
-
-        public override ILoggable Loggable => this.Form;
-
         public SwitchDatabasePresenter(IStateManager stateManager) : base(stateManager)
         {
-            this.Form = (ISwitchDatabaseView) FormFactory.CreateForm("SwitchDatabaseForm", new object[] {this});
-            ((Form) this.Form).FormClosing += (o, e) => App.ApplicationState.IsRunning = false;
-            this.DbConnectionManager = new DbMySqlConnectionManager(
-                this.Form,
-                (MySqlConnection) base.StateManager.ConnectionManager.GetConnection(),
-                base.StateManager.DbConnectionPropertiesManager.GetSettings());
+            Form = (ISwitchDatabaseView) FormFactory.CreateForm("SwitchDatabaseForm", new object[] {this});
+            ((Form) Form).FormClosing += (o, e) => ApplicationState.IsRunning = false;
+            DbConnectionManager = new DbMySqlConnectionManager(
+                Form,
+                (MySqlConnection) StateManager.ConnectionManager.GetConnection(),
+                StateManager.DbConnectionPropertiesManager.GetSettings());
 
-            this.Form.DisplayDatabases(this.DbConnectionManager.GetDatabases());
+            Form.DisplayDatabases(DbConnectionManager.GetDatabases());
         }
 
-        public override void Dispose()
-        {
-            this.Form.HideAndDispose();
-        }
+        private ISwitchDatabaseView Form { get; }
 
-        public override void Update()
-        {
-            if (!base.IsFormShown)
-            {
-                this.Form.Show();
-                base.IsFormShown = true;
-            }
-        }
+        private IDbConnectionManager DbConnectionManager { get; }
+
+        public override ILoggable Loggable => Form;
 
         public void Submit()
         {
-            string selectedDb = this.Form.GetSelectedDatabase();
-            if (!this.DbConnectionManager.SelectDatabase(selectedDb))
+            var selectedDb = Form.GetSelectedDatabase();
+            if (!DbConnectionManager.SelectDatabase(selectedDb))
                 return;
-            DatabaseContext db = new DatabaseContext(this.DbConnectionManager.GetConnection(), false);
+            var db = new DatabaseContext(DbConnectionManager.GetConnection(), false);
             try
             {
                 db.Roles.ToList();
                 db.Products.ToList();
-                DbProperties properties = this.DbConnectionManager.GetDbProperties();
-                base.StateManager.DbConnectionPropertiesManager.SaveSettings(properties);
-                this.Dispose();
+                var properties = DbConnectionManager.GetDbProperties();
+                StateManager.DbConnectionPropertiesManager.SaveSettings(properties);
+                Dispose();
                 ApplicationState.IsRestartRequested = true;
             }
             catch (Exception)
             {
-                this.Form.Log(CannotSelectThisDb);
+                Form.Log(CannotSelectThisDb);
             }
         }
 
         public void Cancel()
         {
-            this.Dispose();
+            Dispose();
             ApplicationState.IsRestartRequested = true;
+        }
+
+        public override void Dispose()
+        {
+            Form.HideAndDispose();
+        }
+
+        public override void Update()
+        {
+            if (!IsFormShown)
+            {
+                Form.Show();
+                IsFormShown = true;
+            }
         }
     }
 }

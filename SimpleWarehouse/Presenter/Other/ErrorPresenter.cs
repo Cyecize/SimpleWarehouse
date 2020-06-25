@@ -6,51 +6,48 @@ namespace SimpleWarehouse.Presenter.Other
 {
     public class ErrorPresenter : AbstractPresenter
     {
-        private IView Form { get; set; }
         private bool IsStackPopped;
-
-        public override ILoggable Loggable { get => Form; }
 
         public ErrorPresenter(IStateManager manager, string message) : base(manager)
         {
-            this.IsStackPopped = false;
-            this.Form = (IView)FormFactory.CreateForm("ErrorForm", new object[] { this });
-            ((Form)this.Form).FormClosing += (sen, e) =>
-            {
-                this.AcceptError();
-            };
+            IsStackPopped = false;
+            Form = (IView) FormFactory.CreateForm("ErrorForm", new object[] {this});
+            ((Form) Form).FormClosing += (sen, e) => { AcceptError(); };
 
-            this.Form.Log(message);
+            Form.Log(message);
         }
 
         public ErrorPresenter(IStateManager manager, string message, bool showNonDialog) : this(manager, message)
         {
-            this.IsFormShown = true;
-            this.Form.Show();
+            IsFormShown = true;
+            Form.Show();
         }
+
+        private IView Form { get; }
+
+        public override ILoggable Loggable => Form;
 
         public void AcceptError()
         {
-            if (!this.IsStackPopped)
+            if (!IsStackPopped)
             {
-                base.StateManager.Pop();
-                this.IsStackPopped = true;
+                StateManager.Pop();
+                IsStackPopped = true;
             }
-           
         }
 
         public override void Dispose()
         {
-            this.Form.HideAndDispose();
-            base.StateManager.OutputWriter.WriteLine("Error StreamPresenter Disposed!");
+            Form.HideAndDispose();
+            StateManager.OutputWriter.WriteLine("Error StreamPresenter Disposed!");
         }
 
         public override void Update()
         {
-            if (!base.IsFormShown)
+            if (!IsFormShown)
             {
-                this.Form.ShowAsDialog();
-                base.IsFormShown = true;
+                Form.ShowAsDialog();
+                IsFormShown = true;
             }
         }
     }

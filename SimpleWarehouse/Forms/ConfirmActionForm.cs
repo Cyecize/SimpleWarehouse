@@ -1,42 +1,37 @@
-﻿using MaterialSkin.Controls;
-using SimpleWarehouse.Presenter;
-using SimpleWarehouse.Services;
-using SimpleWarehouse.View;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System;
+using MaterialSkin.Controls;
 using SimpleWarehouse.Interfaces;
 using SimpleWarehouse.Util;
+using SimpleWarehouse.View;
 
 namespace SimpleWarehouse.Forms
 {
     public partial class ConfirmActionForm : MaterialForm, IConfirmActionView
     {
-        private ISubmitablePresenter Presenter { get; set; }
-        public string ConfirmTextContent { get => this.ConfirmTextBox.Text; set => this.ConfirmTextBox.Text = value; }
-
         public ConfirmActionForm(ISubmitablePresenter presenter)
         {
             InitializeComponent();
             FormDecraptifier.Decraptify(this);
-            this.Presenter = presenter;
+            Presenter = presenter;
+        }
+
+        private ISubmitablePresenter Presenter { get; }
+
+        public string ConfirmTextContent
+        {
+            get => ConfirmTextBox.Text;
+            set => ConfirmTextBox.Text = value;
         }
 
         public void HideAndDispose()
         {
-            this.Hide();
-            this.Dispose();
+            Hide();
+            Dispose();
         }
 
         public void ShowAsDialog()
         {
-            this.ShowDialog();
+            ShowDialog();
         }
 
         public void Log(string message)
@@ -46,12 +41,12 @@ namespace SimpleWarehouse.Forms
 
         private void ConfirmBtn_Click(object sender, EventArgs e)
         {
-            this.Presenter.Submit();
+            Presenter.Submit();
         }
 
         private void CancelBtn_Click(object sender, EventArgs e)
         {
-            this.Presenter.Cancel();
+            Presenter.Cancel();
         }
     }
 }

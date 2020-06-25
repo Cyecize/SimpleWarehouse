@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SimpleWarehouse.Model
+﻿namespace SimpleWarehouse.Model
 {
     public class RevisionProduct
     {
@@ -15,6 +9,5 @@ namespace SimpleWarehouse.Model
         public double AvailableQuantity { get; set; }
 
         public double SellPrice { get; set; }
-
     }
 }

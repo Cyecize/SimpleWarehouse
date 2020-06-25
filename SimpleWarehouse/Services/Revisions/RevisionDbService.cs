@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SimpleWarehouse.Model;
 using static SimpleWarehouse.App.ApplicationState;
 
@@ -10,10 +8,6 @@ namespace SimpleWarehouse.Services.Revisions
 {
     public class RevisionDbService : IRevisionDbService
     {
-        public RevisionDbService()
-        {
-
-        }
         public void CreateRevision(Revision revision)
         {
             Database.Revisions.Add(revision);
@@ -26,12 +20,12 @@ namespace SimpleWarehouse.Services.Revisions
 
         public List<Revision> FindAll()
         {
-            return  new List<Revision>(Database.Revisions);
+            return new List<Revision>(Database.Revisions);
         }
 
         public List<Revision> FindAfterDate(DateTime date)
         {
-            return new List<Revision>(Database.Revisions.Where(r=>r.RevisionDate >= date));
+            return new List<Revision>(Database.Revisions.Where(r => r.RevisionDate >= date));
         }
     }
 }

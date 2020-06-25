@@ -1,22 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SimpleWarehouse.Model;
 using SimpleWarehouse.Util;
 using static SimpleWarehouse.App.ApplicationState;
 
 namespace SimpleWarehouse.Services.Revenues
 {
-    class RevenuesDbService : IRevenueStreamDbService
+    internal class RevenuesDbService : IRevenueStreamDbService
     {
         private const string CannotCreateRevenueStream = "Имаше проблем със създаването";
-
-        public RevenuesDbService()
-        {
-
-        }
 
         public void Archive()
         {
@@ -29,12 +22,15 @@ namespace SimpleWarehouse.Services.Revenues
         {
             try
             {
-                Revenue revenue = new ModelMerger().Merge(revenueStream, new Revenue());
+                var revenue = new ModelMerger().Merge(revenueStream, new Revenue());
                 Database.Revenues.Add(revenue);
                 Database.SaveChanges();
                 return revenue;
             }
-            catch (Exception) { throw new ArgumentException(CannotCreateRevenueStream);}
+            catch (Exception)
+            {
+                throw new ArgumentException(CannotCreateRevenueStream);
+            }
         }
 
         public List<RevenueStream> FindAll()
@@ -44,17 +40,18 @@ namespace SimpleWarehouse.Services.Revenues
 
         public List<RevenueStream> FindAllNonRevised()
         {
-            return new List<RevenueStream>(Database.Revenues.Where(r=>r.IsRevised == false).OrderBy(e => e.Date));
+            return new List<RevenueStream>(Database.Revenues.Where(r => r.IsRevised == false).OrderBy(e => e.Date));
         }
 
         public List<RevenueStream> FindAllArchived()
         {
-            return new List<RevenueStream>(Database.Revenues.Where(r=>r.IsRevised));
+            return new List<RevenueStream>(Database.Revenues.Where(r => r.IsRevised));
         }
 
         public List<RevenueStream> FindAllArchived(DateTime start, DateTime end)
         {
-            return new List<RevenueStream>(Database.Revenues.Where(e => e.IsRevised && e.Date >= start && e.Date <= end));
+            return new List<RevenueStream>(
+                Database.Revenues.Where(e => e.IsRevised && e.Date >= start && e.Date <= end));
         }
     }
 }

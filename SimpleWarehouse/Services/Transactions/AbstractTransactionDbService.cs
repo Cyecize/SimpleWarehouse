@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SimpleWarehouse.IO;
 using SimpleWarehouse.Model;
 using SimpleWarehouse.Model.Enum;
 using SimpleWarehouse.Services.Products;
-using SimpleWarehouse.Services.Revenues;
 using static SimpleWarehouse.App.ApplicationState;
 
 namespace SimpleWarehouse.Services.Transactions
@@ -18,40 +14,40 @@ namespace SimpleWarehouse.Services.Transactions
         private const string TransactionIsNullMsg = "Невалидна транзакция (null)";
         private const string TransactionCannotBeRemovedMsg = "Транзакцията не може да бъде изтрина (вече е ревизирана)";
 
-        protected User LoggedUser { get; set; }
-       
-        protected IProductDbService ProductDbService { get; set; }
-
         protected AbstractTransactionDbService(User loggedUser)
         {
-            this.ProductDbService = new ProductDbService();
-            this.LoggedUser = loggedUser;
+            ProductDbService = new ProductDbService();
+            LoggedUser = loggedUser;
         }
+
+        protected User LoggedUser { get; set; }
+
+        protected IProductDbService ProductDbService { get; set; }
 
         public void AddTransaction(List<TransactionProduct> products)
         {
-            if (!this.IsUserAuthorized())
+            if (!IsUserAuthorized())
                 throw new ArgumentException(UnauthorizedMsg);
-            Transaction transaction = this.InsertTransaction();
-            this.InsertProductTransactionRelation(products, transaction);
-            double totalRevenueAmount = products.Sum(p => p.SubTotalPrice);
-            RevenueStream revenueStream = new RevenueStream
+            var transaction = InsertTransaction();
+            InsertProductTransactionRelation(products, transaction);
+            var totalRevenueAmount = products.Sum(p => p.SubTotalPrice);
+            var revenueStream = new RevenueStream
             {
                 Date = DateTime.Now,
                 IsRevised = false,
                 RevenueAmount = totalRevenueAmount,
-                UserId = this.LoggedUser.Id,
+                UserId = LoggedUser.Id,
                 Comment = transaction.TransactionType.ToString()
             };
-            this.InsertRevenueStreamTransactionRelation(revenueStream, transaction);
-            this.UpdateProductsQuantities(products, false);
+            InsertRevenueStreamTransactionRelation(revenueStream, transaction);
+            UpdateProductsQuantities(products, false);
 
             Database.SaveChanges();
         }
 
         public void RollBack(int transactionId)
         {
-            this.RollBack(this.FindById(transactionId));
+            RollBack(FindById(transactionId));
         }
 
         public void RollBack(Transaction transaction)
@@ -60,8 +56,8 @@ namespace SimpleWarehouse.Services.Transactions
                 throw new ArgumentException(TransactionIsNullMsg);
             if (transaction.IsRevised)
                 throw new ArgumentException(TransactionCannotBeRemovedMsg);
-            List<TransactionProduct> products = this.FindAllRelatedProductTransactions(transaction);
-            this.UpdateProductsQuantities(products, true);
+            var products = FindAllRelatedProductTransactions(transaction);
+            UpdateProductsQuantities(products, true);
 
             Database.TransactionProducts.RemoveRange(transaction.TransactionProducts);
             if (transaction.Expense != null)
@@ -76,7 +72,7 @@ namespace SimpleWarehouse.Services.Transactions
         {
             foreach (var transaction in Database.Transactions)
                 transaction.IsRevised = true;
-            Database.SaveChanges(); 
+            Database.SaveChanges();
         }
 
         public Transaction FindById(int id)
@@ -99,15 +95,19 @@ namespace SimpleWarehouse.Services.Transactions
             return new List<Transaction>(Database.Transactions.Where(tr => tr.TransactionType == transactionType));
         }
 
-        public List<Transaction> FindByDateTypeAndRevisionStatus(DateTime startDate, DateTime endDate, TransactionType transactionType, bool isRevised)
+        public List<Transaction> FindByDateTypeAndRevisionStatus(DateTime startDate, DateTime endDate,
+            TransactionType transactionType, bool isRevised)
         {
             return new List<Transaction>(Database.Transactions
-                .Where(tr => tr.Date >= startDate && tr.Date <= endDate && tr.TransactionType == transactionType && tr.IsRevised == isRevised));
+                .Where(tr =>
+                    tr.Date >= startDate && tr.Date <= endDate && tr.TransactionType == transactionType &&
+                    tr.IsRevised == isRevised));
         }
 
         protected abstract Transaction InsertTransaction();
 
-        protected abstract void InsertRevenueStreamTransactionRelation(RevenueStream revenueStream, Transaction transaction);
+        protected abstract void InsertRevenueStreamTransactionRelation(RevenueStream revenueStream,
+            Transaction transaction);
 
         protected abstract bool IsUserAuthorized();
 
@@ -115,15 +115,13 @@ namespace SimpleWarehouse.Services.Transactions
 
         private List<TransactionProduct> FindAllRelatedProductTransactions(Transaction transaction)
         {
-            return new List<TransactionProduct>(Database.TransactionProducts.Where(tp => tp.Transaction.Id == transaction.Id));
+            return new List<TransactionProduct>(
+                Database.TransactionProducts.Where(tp => tp.Transaction.Id == transaction.Id));
         }
 
         private void InsertProductTransactionRelation(List<TransactionProduct> products, Transaction transaction)
         {
-            foreach (var p in products)
-            {
-                p.Transaction = transaction;
-            }
+            foreach (var p in products) p.Transaction = transaction;
             Database.TransactionProducts.AddRange(products);
         }
     }

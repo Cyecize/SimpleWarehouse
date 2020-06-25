@@ -1,15 +1,13 @@
-﻿using MySql.Data.MySqlClient;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
+using MySql.Data.MySqlClient;
 using SimpleWarehouse.Constants;
 using SimpleWarehouse.Factory;
 using SimpleWarehouse.Interfaces;
 using SimpleWarehouse.Model;
 using SimpleWarehouse.Repository;
-using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SimpleWarehouse.Services
 {
@@ -20,7 +18,19 @@ namespace SimpleWarehouse.Services
         private const string InvalidDatabase = "Invalid Database";
         private const string ErrorCreatingDb = "Error creating database";
 
-        private ILoggable Loggable { get; set; }
+        public DbMySqlConnectionManager(ILoggable loggable)
+        {
+            Loggable = loggable;
+        }
+
+        public DbMySqlConnectionManager(ILoggable loggable, MySqlConnection connection, DbProperties properties) :
+            this(loggable)
+        {
+            Connection = connection;
+            DbProperties = properties;
+        }
+
+        private ILoggable Loggable { get; }
 
         private MySqlConnection Connection { get; set; }
 
@@ -28,72 +38,68 @@ namespace SimpleWarehouse.Services
 
         public void CloseConnection()
         {
-            if (this.TestConnection())
+            if (TestConnection())
             {
-                this.Connection.Close();
-                this.Connection.Dispose();
+                Connection.Close();
+                Connection.Dispose();
             }
-        }
-
-        public DbMySqlConnectionManager(ILoggable loggable)
-        {
-            this.Loggable = loggable;
-        }
-
-        public DbMySqlConnectionManager(ILoggable loggable, MySqlConnection connection, DbProperties properties) : this(loggable)
-        {
-            this.Connection = connection;
-            this.DbProperties = properties;
         }
 
         public DbProperties CreateConnection(string server, string port, string username, string password)
         {
-            return this.CreateConnection(server, port, username, password, null);
+            return CreateConnection(server, port, username, password, null);
         }
 
-        public DbProperties CreateConnection(string server, string port, string username, string password, string dbName)
+        public DbProperties CreateConnection(string server, string port, string username, string password,
+            string dbName)
         {
-            DbProperties properties = new DbProperties { Server = server, Port = port, Username = username, Password = password, DatabaseName = dbName };
-            this.DbProperties = properties;
-            this.Connection = DatabaseFactory.CreateConnection(properties);
+            var properties = new DbProperties
+                {Server = server, Port = port, Username = username, Password = password, DatabaseName = dbName};
+            DbProperties = properties;
+            Connection = DatabaseFactory.CreateConnection(properties);
             return properties;
         }
 
         public bool SelectDatabase(string dbName)
         {
-            if (this.Connection == null || this.Connection.State != System.Data.ConnectionState.Open)
+            if (Connection == null || Connection.State != ConnectionState.Open)
             {
-                this.Loggable.Log(ConnectionNotOpenMsg);
+                Loggable.Log(ConnectionNotOpenMsg);
                 return false;
             }
 
             if (string.IsNullOrEmpty(dbName) || !dbName.Contains(Config.DatabaseNamePrefix))
             {
-                this.Loggable.Log(InvalidDatabase);
+                Loggable.Log(InvalidDatabase);
                 return false;
             }
-            this.DbProperties.DatabaseName = dbName;
-            this.Connection.Close();
-            return this.InitConnection(this.DbProperties) != null;
+
+            DbProperties.DatabaseName = dbName;
+            Connection.Close();
+            return InitConnection(DbProperties) != null;
         }
 
         public bool TestConnection()
         {
             try
             {
-                DatabaseFactory.TestConnection(this.Connection);
-                this.Loggable.Log(ConnectionSuccess);
+                DatabaseFactory.TestConnection(Connection);
+                Loggable.Log(ConnectionSuccess);
                 return true;
             }
-            catch (ArgumentException e) { this.Loggable.Log(e.Message); }
+            catch (ArgumentException e)
+            {
+                Loggable.Log(e.Message);
+            }
+
             return false;
         }
 
         public DbConnection InitConnection(DbProperties dbProperties)
         {
-            this.Connection = DatabaseFactory.CreateConnection(dbProperties);
-            if (this.TestConnection() && dbProperties.DatabaseName != null)
-                return this.Connection;
+            Connection = DatabaseFactory.CreateConnection(dbProperties);
+            if (TestConnection() && dbProperties.DatabaseName != null)
+                return Connection;
             return null;
         }
 
@@ -101,52 +107,57 @@ namespace SimpleWarehouse.Services
         {
             try
             {
-                DatabaseFactory.TestConnection(this.Connection);
+                DatabaseFactory.TestConnection(Connection);
                 return true;
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+            }
+
             return false;
         }
 
         public List<string> GetDatabases()
         {
-            if (this.Connection == null || this.Connection.State != System.Data.ConnectionState.Open)
+            if (Connection == null || Connection.State != ConnectionState.Open)
             {
-                this.Loggable.Log(ConnectionNotOpenMsg);
+                Loggable.Log(ConnectionNotOpenMsg);
                 return new List<string>();
             }
-            MySqlCommand cmd = new MySqlCommand("SHOW DATABASES", this.Connection);
-            MySqlDataReader reader = cmd.ExecuteReader();
-            List<string> databases = new List<string>();
+
+            var cmd = new MySqlCommand("SHOW DATABASES", Connection);
+            var reader = cmd.ExecuteReader();
+            var databases = new List<string>();
             while (reader.Read())
             {
-                string dbName = reader["Database"].ToString();
+                var dbName = reader["Database"].ToString();
                 if (dbName.Contains(Config.DatabaseNamePrefix))
                     databases.Add(dbName);
             }
+
             reader.Close();
             return databases;
         }
 
         public DbConnection GetConnection()
         {
-            if (this.Connection != null && this.Connection.State == System.Data.ConnectionState.Open)
-                return this.Connection;
+            if (Connection != null && Connection.State == ConnectionState.Open)
+                return Connection;
             throw new Exception(ConnectionNotOpenMsg);
         }
 
         public DatabaseContext CreateDatabase(string dbName)
         {
-            if (!this.IsConnectionActive())
+            if (!IsConnectionActive())
                 throw new Exception(ConnectionNotOpenMsg);
-            if (string.IsNullOrEmpty(dbName) || this.GetDatabases().Contains(dbName))
+            if (string.IsNullOrEmpty(dbName) || GetDatabases().Contains(dbName))
                 throw new Exception(InvalidDatabase);
-            this.Connection.Close();
-            this.DbProperties.DatabaseName = Config.DatabaseNamePrefix + dbName;
-            this.Connection = DatabaseFactory.CreateConnection(this.DbProperties);
+            Connection.Close();
+            DbProperties.DatabaseName = Config.DatabaseNamePrefix + dbName;
+            Connection = DatabaseFactory.CreateConnection(DbProperties);
             try
             {
-                return DatabaseFactory.CreateDatabase(this.Connection);
+                return DatabaseFactory.CreateDatabase(Connection);
             }
             catch (Exception e)
             {
@@ -157,17 +168,17 @@ namespace SimpleWarehouse.Services
 
         public void Dispose()
         {
-            if (this.IsConnectionActive())
+            if (IsConnectionActive())
             {
                 Console.WriteLine(@"Connection Manager was disposed");
-                this.Connection.Close();
-                this.Connection.Dispose();
+                Connection.Close();
+                Connection.Dispose();
             }
         }
 
         public DbProperties GetDbProperties()
         {
-            return this.DbProperties;
+            return DbProperties;
         }
     }
 }

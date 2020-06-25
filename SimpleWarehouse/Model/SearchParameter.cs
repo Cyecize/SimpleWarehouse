@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SimpleWarehouse.Model.Enum;
 
 namespace SimpleWarehouse.Model
@@ -19,11 +14,10 @@ namespace SimpleWarehouse.Model
 
         [Column("display_name")]
         [Required]
-        [StringLength(maximumLength:100)]
+        [StringLength(100)]
         public string DisplayName { get; set; }
 
-        [Column("search_type")]
-        public SearchType SearchType { get; set; }
+        [Column("search_type")] public SearchType SearchType { get; set; }
 
         public override string ToString()
         {

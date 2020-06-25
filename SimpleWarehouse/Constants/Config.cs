@@ -1,11 +1,4 @@
-﻿using SimpleWarehouse.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SimpleWarehouse.Constants
+﻿namespace SimpleWarehouse.Constants
 {
     public class Config
     {
@@ -18,6 +11,6 @@ namespace SimpleWarehouse.Constants
 
         public const int MaxTextLen = 44;
 
-        public const string DateTimeFormat = "dd-MM-yyyy";    
+        public const string DateTimeFormat = "dd-MM-yyyy";
     }
 }

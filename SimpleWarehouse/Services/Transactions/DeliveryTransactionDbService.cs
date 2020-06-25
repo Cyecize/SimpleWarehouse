@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using SimpleWarehouse.Constants;
 using SimpleWarehouse.Model;
 using SimpleWarehouse.Model.Enum;
-using SimpleWarehouse.Services.Revenues;
 using SimpleWarehouse.Util;
 using static SimpleWarehouse.App.ApplicationState;
 
@@ -16,41 +11,41 @@ namespace SimpleWarehouse.Services.Transactions
     {
         public DeliveryTransactionDbService(User loggedUser) : base(loggedUser)
         {
-           
         }
-        
+
         protected override Transaction InsertTransaction()
         {
-            Transaction transaction = new Transaction()
+            var transaction = new Transaction
             {
-                TransactionType =  TransactionType.DELIVERY
+                TransactionType = TransactionType.DELIVERY
             };
             Database.Transactions.Add(transaction);
             return transaction;
         }
 
-        protected override void InsertRevenueStreamTransactionRelation(RevenueStream revenueStream, Transaction transaction)
+        protected override void InsertRevenueStreamTransactionRelation(RevenueStream revenueStream,
+            Transaction transaction)
         {
-            Expense expense = new ModelMerger().Merge(revenueStream, new Expense());
+            var expense = new ModelMerger().Merge(revenueStream, new Expense());
             Database.Expenses.Add(expense);
             transaction.Expense = expense;
         }
 
         protected override bool IsUserAuthorized()
         {
-            return Roles.IsStandard(base.LoggedUser.Roles);
+            return Roles.IsStandard(LoggedUser.Roles);
         }
 
         protected override void UpdateProductsQuantities(List<TransactionProduct> products, bool isRollBack)
         {
             foreach (var prodTrans in products)
             {
-                Product product = base.ProductDbService.FindById(prodTrans.ProductId);
+                var product = ProductDbService.FindById(prodTrans.ProductId);
                 if (isRollBack)
                     product.Quantity -= prodTrans.ProductQuantity;
                 else
                     product.Quantity += prodTrans.ProductQuantity;
-                base.ProductDbService.UpdateProduct(product);
+                ProductDbService.UpdateProduct(product);
             }
         }
     }

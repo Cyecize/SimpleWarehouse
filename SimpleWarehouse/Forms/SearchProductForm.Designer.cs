@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.GoBackBtn = new MaterialSkin.Controls.MaterialFlatButton();
-            this.DataTableView = new SimpleWarehouse.Util.DataGridViewForSearch();
+            this.ProductDataTable = new SimpleWarehouse.Util.DataGridViewForSearch();
             this.ProductId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -42,7 +42,7 @@
             this.SearchType = new System.Windows.Forms.ComboBox();
             this.SearchBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.DataTableView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ProductDataTable)).BeginInit();
             this.SuspendLayout();
             // 
             // GoBackBtn
@@ -65,11 +65,11 @@
             // 
             // DataTableView
             // 
-            this.DataTableView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.ProductDataTable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.DataTableView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataTableView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ProductDataTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ProductDataTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ProductId,
             this.Category,
             this.ProductName,
@@ -77,13 +77,13 @@
             this.ImportPrice,
             this.SellPrice,
             this.Visible});
-            this.DataTableView.Location = new System.Drawing.Point(12, 73);
-            this.DataTableView.MultiSelect = false;
-            this.DataTableView.Name = "DataTableView";
-            this.DataTableView.ReadOnly = true;
-            this.DataTableView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.DataTableView.Size = new System.Drawing.Size(707, 289);
-            this.DataTableView.TabIndex = 24;
+            this.ProductDataTable.Location = new System.Drawing.Point(12, 73);
+            this.ProductDataTable.MultiSelect = false;
+            this.ProductDataTable.Name = "ProductDataTable";
+            this.ProductDataTable.ReadOnly = true;
+            this.ProductDataTable.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.ProductDataTable.Size = new System.Drawing.Size(707, 289);
+            this.ProductDataTable.TabIndex = 24;
             // 
             // ProductId
             // 
@@ -196,12 +196,12 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.LogLabel);
             this.Controls.Add(this.SelectProductBtn);
-            this.Controls.Add(this.DataTableView);
+            this.Controls.Add(this.ProductDataTable);
             this.Controls.Add(this.GoBackBtn);
             this.MinimumSize = new System.Drawing.Size(731, 451);
             this.Name = "SearchProductForm";
             this.Text = "SearchProductForm";
-            ((System.ComponentModel.ISupportInitialize)(this.DataTableView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ProductDataTable)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -222,6 +222,5 @@
         private System.Windows.Forms.ComboBox SearchType;
         private System.Windows.Forms.TextBox SearchBox;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView DataTableView;
     }
 }

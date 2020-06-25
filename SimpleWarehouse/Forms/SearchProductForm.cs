@@ -1,111 +1,104 @@
-﻿using MaterialSkin.Controls;
-using SimpleWarehouse.Model;
-using SimpleWarehouse.View;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using MaterialSkin.Controls;
+using SimpleWarehouse.Model;
 using SimpleWarehouse.Presenter.Products;
 using SimpleWarehouse.Util;
+using SimpleWarehouse.View;
 
 namespace SimpleWarehouse.Forms
 {
     public partial class SearchProductForm : MaterialForm, ISearchProductView
     {
-        private SearchProductPresenter Presenter { get; set; }
-        public DataGridView ProductDataTable { get => this.DataTableView; set => this.DataTableView = value; }
-        public string SearchText { get => this.SearchBox.Text; set => this.SearchBox.Text = value; }
-
-        public SearchParameter SearchParameter => (SearchParameter)this.SearchType.SelectedItem;
-
         public SearchProductForm(SearchProductPresenter presenter)
         {
             InitializeComponent();
-            this.Presenter = presenter;
-            this.InitializeEvents();
-            this.StartPosition = FormStartPosition.CenterScreen;
+            Presenter = presenter;
+            InitializeEvents();
+            StartPosition = FormStartPosition.CenterScreen;
             FormDecraptifier.Decraptify(this);
         }
+
+        private SearchProductPresenter Presenter { get; }
+        public DataGridView ProductDataTable { get; set; }
+
+        public string SearchText
+        {
+            get => SearchBox.Text;
+            set => SearchBox.Text = value;
+        }
+
+        public SearchParameter SearchParameter => (SearchParameter) SearchType.SelectedItem;
 
 
         //overrides
         public void SetSearchParams(List<SearchParameter> searchParameters)
         {
-            this.SearchType.DataSource = searchParameters;
+            SearchType.DataSource = searchParameters;
         }
 
         public void HideAndDispose()
         {
-            this.Hide();
-            this.Dispose();
+            Hide();
+            Dispose();
         }
 
         public void ShowAsDialog()
         {
-            this.ShowDialog();
+            ShowDialog();
         }
 
         public void Log(string message)
         {
-            this.LogLabel.Text = message;
+            LogLabel.Text = message;
         }
         //private logic 
 
         private void InitializeEvents()
         {
-            this.DataTableView.CellClick += this.OnCellClick;
-            this.DataTableView.AllowUserToAddRows = false;
-            this.SearchBox.TextChanged += (obj, e) =>
+            ProductDataTable.CellClick += OnCellClick;
+            ProductDataTable.AllowUserToAddRows = false;
+            SearchBox.TextChanged += (obj, e) => { Presenter.ProductSection.SearchVisibleProdAction(); };
+            ProductDataTable.KeyPress += (obj, e) =>
             {
-                this.Presenter.ProductSection.SearchVisibleProdAction();
+                if (e.KeyChar == (char) Keys.Enter)
+                    Presenter.Submit();
+                if (char.IsLetterOrDigit(e.KeyChar) || e.KeyChar == (char) Keys.Space)
+                    SearchBox.Text += e.KeyChar;
+                if (e.KeyChar == (char) Keys.OemBackslash || e.KeyChar == (char) Keys.Back)
+                    if (SearchBox.Text.Length >= 1)
+                        SearchBox.Text = SearchBox.Text.Substring(0, SearchBox.Text.Length - 1);
+                if (e.KeyChar == (char) Keys.Up || e.KeyChar == (char) Keys.Down)
+                    Presenter.ProductSection.SelectProductAction();
             };
-            this.DataTableView.KeyPress += (obj, e) =>
-            {
-                if (e.KeyChar == (char)Keys.Enter)
-                    this.Presenter.Submit();
-                if (char.IsLetterOrDigit(((KeyPressEventArgs)e).KeyChar) || ((KeyPressEventArgs)e).KeyChar == (char)Keys.Space)
-                    this.SearchBox.Text += ((KeyPressEventArgs)e).KeyChar;
-                if (((KeyPressEventArgs)e).KeyChar == (char)Keys.OemBackslash || ((KeyPressEventArgs)e).KeyChar == (char)Keys.Back)
-                {
-                    if (this.SearchBox.Text.Length >= 1)
-                        this.SearchBox.Text = this.SearchBox.Text.Substring(0, this.SearchBox.Text.Length - 1);
-                }
-                if(e.KeyChar == (char)Keys.Up || e.KeyChar == (char)Keys.Down)
-                   this.Presenter.ProductSection.SelectProductAction();
-
-            };
-            this.SearchType.SelectedIndexChanged += this.OnSearchParamChange;
-            this.KeyDown += (o, e) =>
+            SearchType.SelectedIndexChanged += OnSearchParamChange;
+            KeyDown += (o, e) =>
             {
                 if (e.KeyCode == Keys.Enter)
-                    this.Presenter.Submit();
+                    Presenter.Submit();
             };
         }
 
         //events
-        private void OnSearchParamChange(Object sender, EventArgs e)
+        private void OnSearchParamChange(object sender, EventArgs e)
         {
-            this.Presenter.ProductSection.ChangeSearchParamAction();
+            Presenter.ProductSection.ChangeSearchParamAction();
         }
 
-        private void OnCellClick(Object sender, EventArgs e)
+        private void OnCellClick(object sender, EventArgs e)
         {
-            this.Presenter.ProductSection.SelectProductAction();
+            Presenter.ProductSection.SelectProductAction();
         }
 
         private void SelectProductBtn_Click(object sender, EventArgs e)
         {
-            this.Presenter.Submit();
+            Presenter.Submit();
         }
 
         private void GoBackBtn_Click(object sender, EventArgs e)
         {
-            this.Presenter.GoBackAction();
+            Presenter.GoBackAction();
         }
     }
 }

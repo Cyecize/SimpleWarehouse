@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MaterialSkin.Controls;
 using SimpleWarehouse.Interfaces;
@@ -16,51 +10,51 @@ namespace SimpleWarehouse.Forms
 {
     public partial class SwitchDatabaseForm : MaterialForm, ISwitchDatabaseView
     {
-        private ISubmitablePresenter Presenter { get; set; }
-
-        public SwitchDatabaseForm(ISubmitablePresenter presenter) : base()
+        public SwitchDatabaseForm(ISubmitablePresenter presenter)
         {
-            this.InitializeComponent();
-            this.Presenter = presenter;
+            InitializeComponent();
+            Presenter = presenter;
             FormDecraptifier.Decraptify(this);
-            this.Log(string.Empty);
-            this.StartPosition =  FormStartPosition.CenterScreen;
+            Log(string.Empty);
+            StartPosition = FormStartPosition.CenterScreen;
         }
+
+        private ISubmitablePresenter Presenter { get; }
 
         public void Log(string message)
         {
-            this.LogLabel1.Text = message;
+            LogLabel1.Text = message;
         }
 
         public void HideAndDispose()
         {
-            this.Hide();
-            this.Dispose();
+            Hide();
+            Dispose();
         }
 
         public void ShowAsDialog()
         {
-            this.ShowDialog();
-        }
-
-        private void SubmitBtn_Click(object sender, EventArgs e)
-        {
-            this.Presenter.Submit();
-        }
-
-        private void CancelBtn_Click(object sender, EventArgs e)
-        {
-            this.Presenter.Cancel();
+            ShowDialog();
         }
 
         public void DisplayDatabases(List<string> databases)
         {
-            this.DatabasesList.DataSource = databases;
+            DatabasesList.DataSource = databases;
         }
 
         public string GetSelectedDatabase()
         {
-            return this.DatabasesList.SelectedItem + "";
+            return DatabasesList.SelectedItem + "";
+        }
+
+        private void SubmitBtn_Click(object sender, EventArgs e)
+        {
+            Presenter.Submit();
+        }
+
+        private void CancelBtn_Click(object sender, EventArgs e)
+        {
+            Presenter.Cancel();
         }
     }
 }

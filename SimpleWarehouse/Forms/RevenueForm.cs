@@ -1,18 +1,11 @@
-﻿using MaterialSkin.Controls;
-using SimpleWarehouse.Constants;
-using SimpleWarehouse.RevenueRelated.View;
-using SimpleWarehouse.View;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿using System;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using MaterialSkin.Controls;
+using SimpleWarehouse.Constants;
 using SimpleWarehouse.Presenter.Revenues;
+using SimpleWarehouse.RevenueRelated.View;
 
 namespace SimpleWarehouse.Forms
 {
@@ -20,100 +13,143 @@ namespace SimpleWarehouse.Forms
     {
         private const string CommentLengthExceeded = "Надвишена дължина на коментара";
 
-        private readonly char _delimiter = Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
-
-        private IRevenueStreamPresenter StreamPresenter { get; set; }
+        private readonly char _delimiter =
+            Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
 
         public RevenueForm(IRevenueStreamPresenter streamPresenter)
         {
             InitializeComponent();
-            this.StreamPresenter = streamPresenter;
-            this.StartPosition = FormStartPosition.CenterScreen;
-            this.RevenueAmountBox.KeyPress += this.OnTypeHandler;           
-            this.RevisedEndDate.Value = DateTime.Now.AddDays(2);
+            StreamPresenter = streamPresenter;
+            StartPosition = FormStartPosition.CenterScreen;
+            RevenueAmountBox.KeyPress += OnTypeHandler;
+            RevisedEndDate.Value = DateTime.Now.AddDays(2);
         }
 
-        public DateTime NewEntityDate { get => DateTimeForRevenue.Value; set => DateTimeForRevenue.Value = value; }
-        public DataGridView NotRevisedDataTable { get => this.DataTableView; set => this.DataTableView = value; }
-        public DataGridView ArchiveDataTable { get => this.ArchivedRevenuesTable; set => this.ArchivedRevenuesTable = value; }
-        public double NewEntityAmount { get => double.Parse(this.RevenueAmountBox.Text); set => this.RevenueAmountBox.Text = value.ToString(); }
-        public DateTime ArchivedEntitiesStartDate { get => RevisedStartDate.Value; set => RevisedStartDate.Value = value; }
-        public DateTime ArchivedEntitiesEndDate { get => RevisedEndDate.Value; set => RevisedEndDate.Value = value; }
-        public string TotalArchivedEntitiesRows { get => this.TotalRowsBox.Text; set => this.TotalRowsBox.Text = value; }
-        public string TotalArchivedEntitiesPrice { get => this.TotalAmountBox.Text; set => this.TotalAmountBox.Text = value; }
-        public string CommentText { get => this.CommentBox.Text; set =>this.CommentBox.Text = value; }
+        private IRevenueStreamPresenter StreamPresenter { get; }
+
+        public DateTime NewEntityDate
+        {
+            get => DateTimeForRevenue.Value;
+            set => DateTimeForRevenue.Value = value;
+        }
+
+        public DataGridView NotRevisedDataTable
+        {
+            get => DataTableView;
+            set => DataTableView = value;
+        }
+
+        public DataGridView ArchiveDataTable
+        {
+            get => ArchivedRevenuesTable;
+            set => ArchivedRevenuesTable = value;
+        }
+
+        public double NewEntityAmount
+        {
+            get => double.Parse(RevenueAmountBox.Text);
+            set => RevenueAmountBox.Text = value.ToString();
+        }
+
+        public DateTime ArchivedEntitiesStartDate
+        {
+            get => RevisedStartDate.Value;
+            set => RevisedStartDate.Value = value;
+        }
+
+        public DateTime ArchivedEntitiesEndDate
+        {
+            get => RevisedEndDate.Value;
+            set => RevisedEndDate.Value = value;
+        }
+
+        public string TotalArchivedEntitiesRows
+        {
+            get => TotalRowsBox.Text;
+            set => TotalRowsBox.Text = value;
+        }
+
+        public string TotalArchivedEntitiesPrice
+        {
+            get => TotalAmountBox.Text;
+            set => TotalAmountBox.Text = value;
+        }
+
+        public string CommentText
+        {
+            get => CommentBox.Text;
+            set => CommentBox.Text = value;
+        }
 
         //overrides
         public void HideAndDispose()
         {
-            this.Hide();
-            this.Dispose();
+            Hide();
+            Dispose();
         }
 
         public void Log(string message)
         {
-            this.LogLabel.Text = message;
+            LogLabel.Text = message;
         }
 
         public void ShowAsDialog()
         {
-            this.ShowDialog();
+            ShowDialog();
         }
 
         private void GoBackBtn_Click(object sender, EventArgs e)
         {
-            this.StreamPresenter.GoBackAction();
+            StreamPresenter.GoBackAction();
         }
 
         //events 
-        private void OnTypeHandler(Object sender, KeyPressEventArgs e)
+        private void OnTypeHandler(object sender, KeyPressEventArgs e)
         {
-            e.Handled = (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar) && _delimiter != e.KeyChar);
-            if (((Control)sender).Text.Contains(_delimiter) && e.KeyChar == _delimiter)
-            {
-                e.Handled = true;
-            }
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar) && _delimiter != e.KeyChar;
+            if (((Control) sender).Text.Contains(_delimiter) && e.KeyChar == _delimiter) e.Handled = true;
         }
 
         private void AddRevenueBtn_Click(object sender, EventArgs e)
         {
-            if (this.ValidateForm())
-                this.StreamPresenter.RevenueStreamSection.AddRevenueStreamAction();
+            if (ValidateForm())
+                StreamPresenter.RevenueStreamSection.AddRevenueStreamAction();
         }
 
         //private methods
 
         private bool ValidateForm()
         {
-            bool isValid = true;
+            var isValid = true;
             try
             {
-                if (this.RevenueAmountBox.Text.Length < 1)
-                    this.RevenueAmountBox.Text = "0";
-                double.Parse(this.RevenueAmountBox.Text);
-                if (this.NewEntityAmount < 1)
+                if (RevenueAmountBox.Text.Length < 1)
+                    RevenueAmountBox.Text = "0";
+                double.Parse(RevenueAmountBox.Text);
+                if (NewEntityAmount < 1)
                 {
-                    this.Log(Messages.InvalidNumbersMsg);
+                    Log(Messages.InvalidNumbersMsg);
                     return false;
                 }
-
             }
             catch (Exception)
             {
-                this.Log(Messages.InvalidNumbersMsg);
+                Log(Messages.InvalidNumbersMsg);
                 isValid = false;
             }
-            if(this.CommentBox.Text.Length >= 255)
+
+            if (CommentBox.Text.Length >= 255)
             {
-                this.Log(CommentLengthExceeded);
+                Log(CommentLengthExceeded);
                 isValid = false;
             }
+
             return isValid;
         }
 
         private void FindArchivedRevenues_Click(object sender, EventArgs e)
         {
-            this.StreamPresenter.RevenueStreamSection.DisplayArchivedRevenueStreams();
+            StreamPresenter.RevenueStreamSection.DisplayArchivedRevenueStreams();
         }
     }
 }

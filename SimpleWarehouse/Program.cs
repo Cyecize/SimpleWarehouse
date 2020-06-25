@@ -1,50 +1,44 @@
-﻿using MySql.Data.Entity;
+﻿using System;
+using System.Data.Entity;
+using System.Diagnostics;
+using System.Globalization;
+using System.Threading;
+using System.Windows.Forms;
+using MySql.Data.Entity;
 using SimpleWarehouse.App;
-using SimpleWarehouse.Factory;
+using SimpleWarehouse.Constants;
 using SimpleWarehouse.Interfaces;
 using SimpleWarehouse.IO;
 using SimpleWarehouse.Model;
 using SimpleWarehouse.Presenter;
+using SimpleWarehouse.Presenter.Other;
 using SimpleWarehouse.Repository;
 using SimpleWarehouse.Services;
-using SimpleWarehouse.Services.Users;
 using SimpleWarehouse.States;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Data.Common;
-using System.Data.Entity;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using SimpleWarehouse.Presenter.Other;
 
 namespace SimpleWarehouse
 {
-    static class Program
+    internal static class Program
     {
         /// <summary>
-        /// The main entry point for the application.
+        ///     The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             //set up delimiter to prevent MySql exceptions for BG machines
-            System.Globalization.CultureInfo customCulture =
-                (System.Globalization.CultureInfo) System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
+            var customCulture =
+                (CultureInfo) Thread.CurrentThread.CurrentCulture.Clone();
             DbConfiguration.SetConfiguration(new MySqlEFConfiguration());
             customCulture.NumberFormat.NumberDecimalSeparator = ".";
-            System.Threading.Thread.CurrentThread.CurrentCulture = customCulture;
+            Thread.CurrentThread.CurrentCulture = customCulture;
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
             lblStartProgram:
             //measuring time
-            Stopwatch stopwatch = new Stopwatch();
+            var stopwatch = new Stopwatch();
 
             //creating dependencies
             IOutputWriter writer = new ConsoleWriter();
@@ -52,8 +46,8 @@ namespace SimpleWarehouse
             IDbConnectionManager connectionManager = new DbMySqlConnectionManager(writer);
             IEventManager eventManager = new EventManager();
             ISession<User> userSession = new Session<User>();
-            DbConnection connection = connectionManager.InitConnection(dbConnectionProperties.GetSettings());
-            DatabaseContext database = connection != null ? new DatabaseContext(connection, false) : null;
+            var connection = connectionManager.InitConnection(dbConnectionProperties.GetSettings());
+            var database = connection != null ? new DatabaseContext(connection, false) : null;
 
             //Injecting dependencies 
             ApplicationState.Database = database;
@@ -78,12 +72,12 @@ namespace SimpleWarehouse
                 else
                     break;
 
-                System.Threading.Thread.Sleep(Constants.Config.EventListenerImmediate); //1ms
+                Thread.Sleep(Config.EventListenerImmediate); //1ms
                 stopwatch.Stop();
                 double ticks = stopwatch.ElapsedTicks;
                 deltaTimeSeconds = ticks / Stopwatch.Frequency * 1000;
                 stopwatch.Reset();
-                if(ApplicationState.IsRestartRequested)
+                if (ApplicationState.IsRestartRequested)
                     goto lblStartProgram;
             }
 

@@ -2,23 +2,14 @@
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SimpleWarehouse.Model;
 using SimpleWarehouse.Model.Enum;
-using SimpleWarehouse.Repository;
 using static SimpleWarehouse.App.ApplicationState;
 
 namespace SimpleWarehouse.Services.Products
 {
     public class ProductDbService : IProductDbService
     {
-
-        public ProductDbService()
-        {
-
-        }
-
         public bool CreateProduct(Product product)
         {
             try
@@ -27,7 +18,10 @@ namespace SimpleWarehouse.Services.Products
                 Database.SaveChanges();
                 return true;
             }
-            catch (Exception) { return false; }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public bool UpdateProduct(Product product)
@@ -37,7 +31,11 @@ namespace SimpleWarehouse.Services.Products
                 Database.Products.AddOrUpdate(product);
                 Database.SaveChanges();
             }
-            catch (Exception) { return false; }
+            catch (Exception)
+            {
+                return false;
+            }
+
             return true;
         }
 
@@ -48,12 +46,12 @@ namespace SimpleWarehouse.Services.Products
 
         public List<Product> Search(string param, SearchParameter parameterType)
         {
-            return this.Search(param, parameterType.SearchType, false);
+            return Search(param, parameterType.SearchType, false);
         }
 
         public List<Product> SearchVisible(string param, SearchParameter parameterType)
         {
-            return this.Search(param, parameterType.SearchType, true);
+            return Search(param, parameterType.SearchType, true);
         }
 
         public List<Product> FindAllByLimit(int limit)
@@ -68,13 +66,14 @@ namespace SimpleWarehouse.Services.Products
 
         public List<Product> FindAllVisible()
         {
-            return new List<Product>(Database.Products.Where(p=>p.IsVisible));
+            return new List<Product>(Database.Products.Where(p => p.IsVisible));
         }
 
         public List<SearchParameter> GetSearchParameters()
         {
             return Database.SearchParameters.ToList();
         }
+
         //private logic
         private List<Product> Search(string param, SearchType searchType, bool isVisible)
         {
@@ -84,19 +83,18 @@ namespace SimpleWarehouse.Services.Products
                 case SearchType.CategoryName:
                     return Database.Products
                         .Where(p => p.Category.CategoryName.ToLower().Contains(param)).ToList()
-                        .Where(p => this.ResolveProductVisible(p, isVisible)).ToList();
+                        .Where(p => ResolveProductVisible(p, isVisible)).ToList();
                 case SearchType.ProductName:
                     return Database.Products
                         .Where(p => p.ProductName.ToLower().Contains(param)).ToList()
-                        .Where(p => this.ResolveProductVisible(p, isVisible)).ToList();
+                        .Where(p => ResolveProductVisible(p, isVisible)).ToList();
                 case SearchType.ProductId:
                     return Database.Products
                         .Where(p => (p.Id + "").Contains(param)).ToList()
-                        .Where(p => this.ResolveProductVisible(p, isVisible)).ToList();
+                        .Where(p => ResolveProductVisible(p, isVisible)).ToList();
                 default:
                     return new List<Product>();
             }
-
         }
 
         private bool ResolveProductVisible(Product product, bool isVisible)
@@ -105,6 +103,5 @@ namespace SimpleWarehouse.Services.Products
                 return true;
             return product.IsVisible;
         }
-
     }
 }

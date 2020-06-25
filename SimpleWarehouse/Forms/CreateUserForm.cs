@@ -1,72 +1,78 @@
-﻿using MaterialSkin.Controls;
+﻿using System;
+using MaterialSkin.Controls;
 using SimpleWarehouse.Interfaces;
-using SimpleWarehouse.Services;
-using SimpleWarehouse.View.SettingsRelated;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using SimpleWarehouse.Util;
+using SimpleWarehouse.View.SettingsRelated;
 
 namespace SimpleWarehouse.Forms
 {
     public partial class CreateUserForm : MaterialForm, ICreateUserView
     {
-
-        private ISubmitablePresenter Presenter { get; set; }
-        public string NewUsername { get => this.UsernameBox.Text; set => this.UsernameBox.Text = value; }
-        public string NewPassword { get => this.PasswordBox.Text; set => this.PasswordBox.Text = value; }
-        public string Role { get => (string)this.RolesDropdown.SelectedItem; set => this.RolesDropdown.SelectedItem = value; }
-
         public CreateUserForm(ISubmitablePresenter presenter)
         {
             InitializeComponent();
-            this.Presenter = presenter;
+            Presenter = presenter;
             FormDecraptifier.Decraptify(this);
-            this.Log("");
-            this.PasswordBox.PasswordChar = '*';
-            this.PasswordConfirm.PasswordChar = '*';
+            Log("");
+            PasswordBox.PasswordChar = '*';
+            PasswordConfirm.PasswordChar = '*';
+        }
+
+        private ISubmitablePresenter Presenter { get; }
+
+        public string NewUsername
+        {
+            get => UsernameBox.Text;
+            set => UsernameBox.Text = value;
+        }
+
+        public string NewPassword
+        {
+            get => PasswordBox.Text;
+            set => PasswordBox.Text = value;
+        }
+
+        public string Role
+        {
+            get => (string) RolesDropdown.SelectedItem;
+            set => RolesDropdown.SelectedItem = value;
         }
 
         public void HideAndDispose()
         {
-            this.Hide();
-            this.Dispose();
+            Hide();
+            Dispose();
         }
 
         public void ShowAsDialog()
         {
-            this.ShowDialog();
+            ShowDialog();
         }
 
         public void Log(string message)
         {
-            this.LogLabel.Text = message;
-        }
-
-        private void SubmitBtn_Click(object sender, EventArgs e)
-        {
-            if(this.PasswordBox.Text != this.PasswordConfirm.Text)
-            {
-                this.Log(@"Паролите не съвпадат!");
-                return;
-            }
-            this.Presenter.Submit();
-        }
-
-        private void CancelBtn_Click(object sender, EventArgs e)
-        {
-            this.Presenter.Cancel();
+            LogLabel.Text = message;
         }
 
         public void AddRole(string role)
         {
-            this.RolesDropdown.Items.Add(role);
+            RolesDropdown.Items.Add(role);
+        }
+
+        private void SubmitBtn_Click(object sender, EventArgs e)
+        {
+            if (PasswordBox.Text != PasswordConfirm.Text)
+            {
+                Log(@"Паролите не съвпадат!");
+                return;
+            }
+
+            Presenter.Submit();
+        }
+
+        private void CancelBtn_Click(object sender, EventArgs e)
+        {
+            Presenter.Cancel();
         }
     }
 }

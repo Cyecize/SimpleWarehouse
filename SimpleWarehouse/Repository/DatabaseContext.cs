@@ -1,18 +1,24 @@
-﻿using MySql.Data.Entity;
-using SimpleWarehouse.Model;
-using System;
-using System.Collections.Generic;
-using System.Data.Common;
+﻿using System.Data.Common;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MySql.Data.Entity;
+using SimpleWarehouse.Model;
 
 namespace SimpleWarehouse.Repository
 {
     [DbConfigurationType(typeof(MySqlEFConfiguration))]
     public class DatabaseContext : DbContext
     {
+        public DatabaseContext() : base("warehouse_db")
+        {
+            Configuration.LazyLoadingEnabled = true;
+        }
+
+        public DatabaseContext(DbConnection existingConnection, bool contextOwnsConnection) : base(existingConnection,
+            contextOwnsConnection)
+        {
+            Configuration.LazyLoadingEnabled = true;
+        }
+
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Expense> Expenses { get; set; }
@@ -24,16 +30,6 @@ namespace SimpleWarehouse.Repository
         public DbSet<Revision> Revisions { get; set; }
         public DbSet<SearchParameter> SearchParameters { get; set; }
 
-        public DatabaseContext() : base("warehouse_db")
-        {
-            base.Configuration.LazyLoadingEnabled = true;    
-        }
-
-        public DatabaseContext(DbConnection existingConnection, bool contextOwnsConnection) : base(existingConnection, contextOwnsConnection)
-        {
-            base.Configuration.LazyLoadingEnabled = true;
-        }
-        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

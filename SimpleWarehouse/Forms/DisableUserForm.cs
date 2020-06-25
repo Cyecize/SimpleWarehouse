@@ -1,81 +1,81 @@
-﻿using MaterialSkin.Controls;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
+using MaterialSkin.Controls;
 using SimpleWarehouse.Interfaces;
 using SimpleWarehouse.Model;
-using SimpleWarehouse.Services;
-using SimpleWarehouse.View;
-using SimpleWarehouse.View.SettingsRelated;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using SimpleWarehouse.Util;
+using SimpleWarehouse.View.SettingsRelated;
 
 namespace SimpleWarehouse.Forms
 {
     public partial class DisableUserForm : MaterialForm, IDisableUserView
     {
-
-        private ISubmitablePresenter Presenter { get; set; }
-
         public DisableUserForm(ISubmitablePresenter presenter)
         {
             InitializeComponent();
-            this.Presenter = presenter;
+            Presenter = presenter;
             FormDecraptifier.Decraptify(this);
-            this.Log("");
-            this.UsersListBox.SelectedValueChanged += (o, e) => this.UpdateSelectionAction();
-            this.StartPosition = FormStartPosition.CenterScreen;
+            Log("");
+            UsersListBox.SelectedValueChanged += (o, e) => UpdateSelectionAction();
+            StartPosition = FormStartPosition.CenterScreen;
         }
 
-        public string SelectedUsername { get => this.SelectedUsernameBox.Text; set => this.SelectedUsernameBox.Text = value; }
-        public bool IsEnabled { get => this.IsUserEnabledCheckbox.Checked; set => this.IsUserEnabledCheckbox.Checked = value; }
+        private ISubmitablePresenter Presenter { get; }
+
+        public string SelectedUsername
+        {
+            get => SelectedUsernameBox.Text;
+            set => SelectedUsernameBox.Text = value;
+        }
+
+        public bool IsEnabled
+        {
+            get => IsUserEnabledCheckbox.Checked;
+            set => IsUserEnabledCheckbox.Checked = value;
+        }
 
         public void AddUsers(List<User> users)
         {
-            this.UsersListBox.DataSource = users;
+            UsersListBox.DataSource = users;
         }
 
         public void HideAndDispose()
         {
-            this.Hide();
-            this.Dispose();
+            Hide();
+            Dispose();
         }
 
         public void Log(string message)
         {
-            this.LogLabel.Text = message;
+            LogLabel.Text = message;
         }
 
         public void ShowAsDialog()
         {
-            this.ShowDialog();
+            ShowDialog();
         }
 
         private void CancelBtn_Click(object sender, EventArgs e)
         {
-            this.Presenter.Cancel();
+            Presenter.Cancel();
         }
 
         private void UpdateSelectionAction()
         {
-            object val = this.UsersListBox.SelectedItem;
+            var val = UsersListBox.SelectedItem;
             if (val == null)
                 return;
             if (val.ToString() == string.Empty)
                 return;
-            User u = (User)val;
-            this.SelectedUsername = u.Username;
-            this.IsEnabled = u.IsEnabled;
+            var u = (User) val;
+            SelectedUsername = u.Username;
+            IsEnabled = u.IsEnabled;
         }
 
         private void SubmitBtn_Click(object sender, EventArgs e)
         {
-            this.Presenter.Submit();
+            Presenter.Submit();
         }
     }
 }

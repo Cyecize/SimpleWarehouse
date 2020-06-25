@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SimpleWarehouse.Util
 {
@@ -13,18 +8,19 @@ namespace SimpleWarehouse.Util
 
         public T Merge<T>(object source, T dest)
         {
-            Type sourceType = source.GetType();
-            Type desType = dest.GetType();
-           foreach (PropertyInfo sourceProp in sourceType.GetProperties())
-           {
-               PropertyInfo destProp = desType.GetProperty(sourceProp.Name);
-               if(destProp == null)
-                   continue;
-               if(destProp.GetType() != sourceProp.GetType())
-                   throw new ArgumentException(FieldTypeMismatch);
-               destProp.SetValue(dest, sourceProp.GetValue(source));
-           }         
-            return  dest;
+            var sourceType = source.GetType();
+            var desType = dest.GetType();
+            foreach (var sourceProp in sourceType.GetProperties())
+            {
+                var destProp = desType.GetProperty(sourceProp.Name);
+                if (destProp == null)
+                    continue;
+                if (destProp.GetType() != sourceProp.GetType())
+                    throw new ArgumentException(FieldTypeMismatch);
+                destProp.SetValue(dest, sourceProp.GetValue(source));
+            }
+
+            return dest;
         }
     }
 }

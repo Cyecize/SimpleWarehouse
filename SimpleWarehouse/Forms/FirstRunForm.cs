@@ -1,98 +1,121 @@
-﻿using MaterialSkin.Controls;
-using SimpleWarehouse.Interfaces;
-using SimpleWarehouse.Presenter;
-using SimpleWarehouse.Services;
-using SimpleWarehouse.View;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using MaterialSkin.Controls;
 using SimpleWarehouse.Presenter.Other;
 using SimpleWarehouse.Util;
+using SimpleWarehouse.View;
 
 namespace SimpleWarehouse.Forms
 {
     public partial class FirstRunForm : MaterialForm, IFirstRunView
     {
-        private FirstRunPresenter Presenter { get; set; }
-        public string Server { get => this.ServerTextBox.Text; set => this.ServerTextBox.Text = value; }
-        public string Port { get => this.PortTextBox.Text; set => this.PortTextBox.Text = value; }
-        public string Username { get => this.UsernameTextBox.Text; set => this.UsernameTextBox.Text = value; }
-        public string Password { get => this.PasswordTextBox.Text; set => this.PasswordTextBox.Text = value; }
-        public string SelectedDatabase { get =>(string)this.AvaivableDatabasesListBox.SelectedValue; set => this.AvaivableDatabasesListBox.SelectedValue = value; }
-        public string NewDatabaseName { get => this.NewDbTextBox.Text; set => this.NewDbTextBox.Text = value; }
-
         public FirstRunForm(FirstRunPresenter presenter)
         {
-            this.InitializeComponent();
-            this.Presenter = presenter;
-            this.LogLabel.Click += (o, e) => this.LogLabel.Text = "";
-            this.PasswordTextBox.PasswordChar = '*';
-            this.NewUserConfPasswordTextBox.PasswordChar = '*';
-            this.NewUserPasswordTextBox.PasswordChar = '*';
-            this.Log("");
+            InitializeComponent();
+            Presenter = presenter;
+            LogLabel.Click += (o, e) => LogLabel.Text = "";
+            PasswordTextBox.PasswordChar = '*';
+            NewUserConfPasswordTextBox.PasswordChar = '*';
+            NewUserPasswordTextBox.PasswordChar = '*';
+            Log("");
             FormDecraptifier.Decraptify(this);
-            this.StartPosition = FormStartPosition.CenterScreen;
+            StartPosition = FormStartPosition.CenterScreen;
+        }
+
+        private FirstRunPresenter Presenter { get; }
+
+        public string Server
+        {
+            get => ServerTextBox.Text;
+            set => ServerTextBox.Text = value;
+        }
+
+        public string Port
+        {
+            get => PortTextBox.Text;
+            set => PortTextBox.Text = value;
+        }
+
+        public string Username
+        {
+            get => UsernameTextBox.Text;
+            set => UsernameTextBox.Text = value;
+        }
+
+        public string Password
+        {
+            get => PasswordTextBox.Text;
+            set => PasswordTextBox.Text = value;
+        }
+
+        public string SelectedDatabase
+        {
+            get => (string) AvaivableDatabasesListBox.SelectedValue;
+            set => AvaivableDatabasesListBox.SelectedValue = value;
+        }
+
+        public string NewDatabaseName
+        {
+            get => NewDbTextBox.Text;
+            set => NewDbTextBox.Text = value;
         }
 
         public void HideAndDispose()
         {
-            this.Hide();
-            this.Dispose();
+            Hide();
+            Dispose();
         }
 
         public void ShowAsDialog()
         {
-            this.ShowDialog();
+            ShowDialog();
         }
+
         public void Log(string message)
         {
-            this.LogLabel.Text = message;
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            this.Presenter.ShowDatabasesAction();
-        }
-
-        private void TestConnBtn_Click(object sender, EventArgs e)
-        {
-            this.Presenter.TestConnectionAction();
+            LogLabel.Text = message;
         }
 
         public void SetDatabases(List<string> databases)
         {
-            this.AvaivableDatabasesListBox.DataSource = databases;
-        }
-
-        private void SelectDatabaseBtn_Click(object sender, EventArgs e)
-        {
-            this.Presenter.SelectDatabaseAction();
-        }
-
-        private void CreateDatabaseBtn_Click(object sender, EventArgs e)
-        {
-            this.Presenter.CreateDatabaseAction();
+            AvaivableDatabasesListBox.DataSource = databases;
         }
 
         public void SetUserBtnStatus(bool isEnabled)
         {
-            this.CreateUserBtn.Enabled = isEnabled;
+            CreateUserBtn.Enabled = isEnabled;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Presenter.ShowDatabasesAction();
+        }
+
+        private void TestConnBtn_Click(object sender, EventArgs e)
+        {
+            Presenter.TestConnectionAction();
+        }
+
+        private void SelectDatabaseBtn_Click(object sender, EventArgs e)
+        {
+            Presenter.SelectDatabaseAction();
+        }
+
+        private void CreateDatabaseBtn_Click(object sender, EventArgs e)
+        {
+            Presenter.CreateDatabaseAction();
         }
 
         private void CreateUserBtn_Click(object sender, EventArgs e)
         {
-            this.Presenter.CreateAdministratorAction(this.NewUserUsernameTextBox.Text, this.NewUserPasswordTextBox.Text, this.NewUserConfPasswordTextBox.Text);
+            Presenter.CreateAdministratorAction(NewUserUsernameTextBox.Text, NewUserPasswordTextBox.Text,
+                NewUserConfPasswordTextBox.Text);
         }
 
         private void ConcludeBtn_Click(object sender, EventArgs e)
         {
-            this.Presenter.FinalizeSetupAction();
+            Presenter.FinalizeSetupAction();
         }
     }
 }

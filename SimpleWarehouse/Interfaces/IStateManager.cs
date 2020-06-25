@@ -1,12 +1,6 @@
 ﻿using SimpleWarehouse.Model;
 using SimpleWarehouse.Repository;
 using SimpleWarehouse.Services.Users;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 
 namespace SimpleWarehouse.Interfaces
 {
@@ -41,6 +35,5 @@ namespace SimpleWarehouse.Interfaces
         bool IsPresenterActive(IPresenter presenter);
 
         bool IsPresenterPresent(IPresenter presenter);
-
     }
 }

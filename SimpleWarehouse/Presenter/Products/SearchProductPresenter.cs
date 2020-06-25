@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SimpleWarehouse.Factory;
 using SimpleWarehouse.Interfaces;
 using SimpleWarehouse.Model;
@@ -13,11 +9,21 @@ namespace SimpleWarehouse.Presenter.Products
 {
     public class SearchProductPresenter : AbstractPresenter
     {
-        private const string Title = "Избор на стока";
-
         public delegate void WorkCompletedCallBack(Product product);
 
-        private WorkCompletedCallBack Callback { get; set; }
+        private const string Title = "Избор на стока";
+
+        public SearchProductPresenter(IStateManager manager, WorkCompletedCallBack callBack) : base(manager)
+        {
+            Form = (ISearchProductView) FormFactory.CreateForm("SearchProductForm", new object[] {this});
+            ProductSection = new ProductSection(Form.ProductDataTable, this, Form);
+            Form.SetSearchParams(ProductSection.GetSearchParameters());
+            ProductSection.UpdateVisibleProducts();
+            Callback = callBack;
+            Form.Text = Title;
+        }
+
+        private WorkCompletedCallBack Callback { get; }
 
         public ProductSection ProductSection { get; set; }
 
@@ -25,49 +31,38 @@ namespace SimpleWarehouse.Presenter.Products
 
         public override ILoggable Loggable => Form;
 
-        public SearchProductPresenter(IStateManager manager, WorkCompletedCallBack callBack) : base(manager)
-        {
-            this.Form = (ISearchProductView)FormFactory.CreateForm("SearchProductForm", new object[] { this });
-            this.ProductSection = new ProductSection(this.Form.ProductDataTable, this, this.Form);
-            this.Form.SetSearchParams(this.ProductSection.GetSearchParameters());
-            this.ProductSection.UpdateVisibleProducts();
-            this.Callback = callBack;
-            this.Form.Text = Title;
-        }
-
         public void Submit()
         {
             try
             {
-                int prodId = this.ProductSection.ViewService.GetSelectedProductId();
-                Product product = this.ProductSection.ProductDbService.FindById(prodId);
-                this.Callback(product);
-                this.GoBackAction();
+                var prodId = ProductSection.ViewService.GetSelectedProductId();
+                var product = ProductSection.ProductDbService.FindById(prodId);
+                Callback(product);
+                GoBackAction();
             }
             catch (ArgumentException e)
             {
-                this.Form.Log(e.Message);
+                Form.Log(e.Message);
             }
         }
 
         public void GoBackAction()
         {
-            base.StateManager.Pop();
+            StateManager.Pop();
         }
 
         public override void Dispose()
         {
-            this.Form.HideAndDispose();
+            Form.HideAndDispose();
         }
-
 
 
         public override void Update()
         {
-            if (!base.IsFormShown)
+            if (!IsFormShown)
             {
-                this.Form.ShowAsDialog();
-                base.IsFormShown = true;
+                Form.ShowAsDialog();
+                IsFormShown = true;
             }
         }
     }

@@ -1,11 +1,6 @@
-﻿using SimpleWarehouse.Model.Enum;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using SimpleWarehouse.Model;
-using SimpleWarehouse.Repository;
+using SimpleWarehouse.Model.Enum;
 
 namespace SimpleWarehouse.Services.Users
 {

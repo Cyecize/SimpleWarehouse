@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SimpleWarehouse.Model
 {
@@ -20,15 +16,15 @@ namespace SimpleWarehouse.Model
 
         public string CreateConnectionString()
         {
-            string pass = this.Password != "" ? $"Password={this.Password};" : "";
-            string dbName = this.DatabaseName != "" ? $"Database={this.DatabaseName};" : "";
+            var pass = Password != "" ? $"Password={Password};" : "";
+            var dbName = DatabaseName != "" ? $"Database={DatabaseName};" : "";
 
-            return $"Server={this.Server};Port={this.Port};{dbName}Uid={this.Username};{pass}SslMode=none;Charset=utf8";
+            return $"Server={Server};Port={Port};{dbName}Uid={Username};{pass}SslMode=none;Charset=utf8";
         }
 
         public override string ToString()
         {
-            return $"Server: {this.Server}{Environment.NewLine}Port: {this.Port}{Environment.NewLine}Database: {this.DatabaseName}\n";
+            return $"Server: {Server}{Environment.NewLine}Port: {Port}{Environment.NewLine}Database: {DatabaseName}\n";
         }
     }
 }

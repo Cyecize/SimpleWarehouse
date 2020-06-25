@@ -1,35 +1,27 @@
-﻿using MaterialSkin.Controls;
-using SimpleWarehouse.Presenter;
-using SimpleWarehouse.Services;
-using SimpleWarehouse.View;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows.Forms;
+using MaterialSkin.Controls;
 using SimpleWarehouse.Presenter.Other;
 using SimpleWarehouse.Util;
+using SimpleWarehouse.View;
 
 namespace SimpleWarehouse.Forms
 {
     public partial class LoginForm : MaterialForm, ILoginView
     {
-        private LoginPresenter Presenter { get; set; }
         public LoginForm(LoginPresenter presenter)
         {
-            this.InitializeComponent();
-            this.Presenter = presenter;
-            this.Text = "Вход";
-            this.UsernameField.Select();
-            this.UsernameField.KeyPress += this.OnKeyPress;
-            this.PasswordField.KeyPress += this.OnKeyPress;
-            this.LoginBtn.KeyPress += this.OnKeyPress;
+            InitializeComponent();
+            Presenter = presenter;
+            Text = "Вход";
+            UsernameField.Select();
+            UsernameField.KeyPress += OnKeyPress;
+            PasswordField.KeyPress += OnKeyPress;
+            LoginBtn.KeyPress += OnKeyPress;
             FormDecraptifier.Decraptify(this);
         }
+
+        private LoginPresenter Presenter { get; }
 
         public sealed override string Text
         {
@@ -37,47 +29,58 @@ namespace SimpleWarehouse.Forms
             set => base.Text = value;
         }
 
-        public string Username { get => this.UsernameField.Text; set => this.UsernameField.Text = value; }
-        public string Password { get => this.PasswordField.Text; set => this.PasswordField.Text = value; }
-        public string DbName { get=>this.DbLabel.Text; set=>this.DbLabel.Text = value; }
+        public string Username
+        {
+            get => UsernameField.Text;
+            set => UsernameField.Text = value;
+        }
+
+        public string Password
+        {
+            get => PasswordField.Text;
+            set => PasswordField.Text = value;
+        }
+
+        public string DbName
+        {
+            get => DbLabel.Text;
+            set => DbLabel.Text = value;
+        }
 
         public void HideAndDispose()
         {
-            this.Hide();
-            this.Dispose();
+            Hide();
+            Dispose();
         }
 
         public void Log(string message)
         {
-            this.LogLabel.Text = message;
+            LogLabel.Text = message;
         }
 
         public void ShowAsDialog()
         {
-            this.ShowDialog();
+            ShowDialog();
         }
 
         private void LoginBtn_Click(object sender, EventArgs e)
         {
-            this.Presenter.LoginAction();
+            Presenter.LoginAction();
         }
 
-        private void OnKeyPress(Object sender, System.Windows.Forms.KeyPressEventArgs e)
+        private void OnKeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == (char)Keys.Enter)
-            {
-                this.LoginBtn.PerformClick();
-            }
+            if (e.KeyChar == (char) Keys.Enter) LoginBtn.PerformClick();
         }
 
         private void FirstRunBtn_Click(object sender, EventArgs e)
         {
-            this.Presenter.FirstRunAction();
+            Presenter.FirstRunAction();
         }
 
         private void ChooseDatabaseBtn_Click(object sender, EventArgs e)
         {
-            this.Presenter.ChooseDatabaseAction();
+            Presenter.ChooseDatabaseAction();
         }
     }
 }

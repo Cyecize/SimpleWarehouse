@@ -1,36 +1,31 @@
-﻿using SimpleWarehouse.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using System.Collections.Generic;
+using SimpleWarehouse.Interfaces;
 
 namespace SimpleWarehouse.Presenter
 {
     public abstract class AbstractPresenter : IPresenter
-    {     
+    {
+        protected AbstractPresenter(IStateManager manager)
+        {
+            StateManager = manager;
+            IsFormShown = false;
+            EventIds = new List<int>();
+        }
+
         protected IStateManager StateManager { get; set; }
         protected bool IsFormShown { get; set; }
         protected List<int> EventIds { get; set; }
 
-        public abstract ILoggable Loggable { get;  }
-
-        protected AbstractPresenter(IStateManager manager)
-        {
-            this.StateManager = manager;
-            this.IsFormShown = false;
-            this.EventIds = new List<int>(); 
-        }
+        public abstract ILoggable Loggable { get; }
 
         public IStateManager GetStateManager()
         {
-            return this.StateManager;
+            return StateManager;
         }
 
         public abstract void Dispose();
 
-        
+
         public abstract void Update();
     }
 }

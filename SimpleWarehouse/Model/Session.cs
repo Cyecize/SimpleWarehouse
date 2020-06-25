@@ -1,10 +1,4 @@
 ﻿using SimpleWarehouse.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 
 namespace SimpleWarehouse.Model
 {
@@ -12,19 +6,28 @@ namespace SimpleWarehouse.Model
     {
         private T _entity;
 
-        public bool IsActive { get; set; }
-        public T SessionEntity{ get { return _entity; }set { IsActive = true; _entity = value; } }
-
         public Session()
         {
-            this.SessionEntity = default(T);
-            this.IsActive = false;
+            SessionEntity = default;
+            IsActive = false;
+        }
+
+        public bool IsActive { get; set; }
+
+        public T SessionEntity
+        {
+            get => _entity;
+            set
+            {
+                IsActive = true;
+                _entity = value;
+            }
         }
 
         public void UnsetSession()
         {
-            this.SessionEntity = default(T);
-            this.IsActive = false;
+            SessionEntity = default;
+            IsActive = false;
         }
     }
 }

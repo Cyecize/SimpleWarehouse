@@ -1,12 +1,6 @@
-﻿using SimpleWarehouse.App;
-using SimpleWarehouse.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows.Forms;
-
+using SimpleWarehouse.Constants;
 
 namespace SimpleWarehouse.Factory
 {
@@ -15,21 +9,20 @@ namespace SimpleWarehouse.Factory
         private const string DisposeFormat = "Form {0} was disposed! (msg from FormFactory)";
 
 
-        public static Form CreateForm(string formName, Object[] parameter)
+        public static Form CreateForm(string formName, object[] parameter)
         {
-            Type formType = Type.GetType($"{Constants.Config.PathToForms}{formName}");
-            Form form =  (Form)Activator.CreateInstance(formType, parameter);
+            var formType = Type.GetType($"{Config.PathToForms}{formName}");
+            var form = (Form) Activator.CreateInstance(formType, parameter);
             form.FormClosing += OnButtonCloseAction;
             return form;
         }
 
-        private static void OnButtonCloseAction(Object sender, EventArgs e)
+        private static void OnButtonCloseAction(object sender, EventArgs e)
         {
-            Form form = (Form) sender;
-            string name = form.Name;
+            var form = (Form) sender;
+            var name = form.Name;
             form.Dispose();
             Console.WriteLine(DisposeFormat, name);
         }
-
     }
 }

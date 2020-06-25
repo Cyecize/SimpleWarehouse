@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using SimpleWarehouse.App;
@@ -21,45 +20,45 @@ namespace SimpleWarehouse.Presenter.Other
         private const string CannotSelectThisDb = "Cannot select this db!";
         private const string PleaseCreateAdminMsg = "Please create an administrator";
 
-        private IFirstRunView Form { get; set; }
-
-        private IDbConnectionPropertiesStorageManager DbConnectionPropertiesManager { get; set; }
-
-        public override ILoggable Loggable => this.Form;
-        
-        public IDbConnectionManager DbConnectionManager { get; set; }
-
         public FirstRunPresenter(IStateManager manager, IDbConnectionPropertiesStorageManager dbConnectionProperties) :
             base(manager)
         {
-            this.Form = (IFirstRunView) FormFactory.CreateForm("FirstRunForm", new object[] {this});
-            ((Form) this.Form).FormClosing += (o, e) => App.ApplicationState.IsRunning = false;
-            this.DisplayConnectionString(base.StateManager.DbConnectionPropertiesManager.GetSettings());
-            this.Form.Text = @"Първо стартиране";
-            this.DbConnectionPropertiesManager = dbConnectionProperties;
-            this.DbConnectionManager = new DbMySqlConnectionManager(this.Form);
+            Form = (IFirstRunView) FormFactory.CreateForm("FirstRunForm", new object[] {this});
+            ((Form) Form).FormClosing += (o, e) => ApplicationState.IsRunning = false;
+            DisplayConnectionString(StateManager.DbConnectionPropertiesManager.GetSettings());
+            Form.Text = @"Първо стартиране";
+            DbConnectionPropertiesManager = dbConnectionProperties;
+            DbConnectionManager = new DbMySqlConnectionManager(Form);
         }
+
+        private IFirstRunView Form { get; }
+
+        private IDbConnectionPropertiesStorageManager DbConnectionPropertiesManager { get; }
+
+        public override ILoggable Loggable => Form;
+
+        public IDbConnectionManager DbConnectionManager { get; set; }
 
         public void ShowDatabasesAction()
         {
-            List<string> databases = this.DbConnectionManager.GetDatabases();
-            this.Form.SetDatabases(databases);
+            var databases = DbConnectionManager.GetDatabases();
+            Form.SetDatabases(databases);
             if (databases.Count > 0)
-                this.Form.Log($"Displayed {databases.Count} databases");
+                Form.Log($"Displayed {databases.Count} databases");
         }
 
         public void TestConnectionAction()
         {
-            this.DbConnectionManager.CreateConnection(this.Form.Server, this.Form.Port, this.Form.Username,
-                this.Form.Password);
-            this.DbConnectionManager.TestConnection();
+            DbConnectionManager.CreateConnection(Form.Server, Form.Port, Form.Username,
+                Form.Password);
+            DbConnectionManager.TestConnection();
         }
 
         public void SelectDatabaseAction()
         {
-            if (!this.DbConnectionManager.SelectDatabase(this.Form.SelectedDatabase))
+            if (!DbConnectionManager.SelectDatabase(Form.SelectedDatabase))
                 return;
-            DatabaseContext db = new DatabaseContext(this.DbConnectionManager.GetConnection(), false);
+            var db = new DatabaseContext(DbConnectionManager.GetConnection(), false);
             try
             {
                 db.Roles.ToList();
@@ -67,69 +66,69 @@ namespace SimpleWarehouse.Presenter.Other
             }
             catch (Exception)
             {
-                this.Form.Log(CannotSelectThisDb);
+                Form.Log(CannotSelectThisDb);
                 return;
             }
 
-            this.UpdateDatabase(db, this.DbConnectionManager);
-            this.EnableOrDisableCreateUserBtn();
+            UpdateDatabase(db, DbConnectionManager);
+            EnableOrDisableCreateUserBtn();
         }
 
         public void CreateAdministratorAction(string username, string password, string confPassword)
         {
-            if (!this.DbConnectionManager.IsConnectionActive())
+            if (!DbConnectionManager.IsConnectionActive())
             {
-                this.Form.Log(ConnectionNotSet);
+                Form.Log(ConnectionNotSet);
                 return;
             }
 
-            if (password != confPassword || !base.StateManager.UserService.IsInfoValid(username, password))
+            if (password != confPassword || !StateManager.UserService.IsInfoValid(username, password))
             {
-                this.Form.Log(InvalidValuesMessage);
+                Form.Log(InvalidValuesMessage);
                 return;
             }
 
-            base.StateManager.UserService.CreateUser(username, password, RoleType.ADMIN);
-            this.EnableOrDisableCreateUserBtn();
+            StateManager.UserService.CreateUser(username, password, RoleType.ADMIN);
+            EnableOrDisableCreateUserBtn();
         }
 
         public void CreateDatabaseAction()
         {
-            if (!this.DbConnectionManager.IsConnectionActive())
+            if (!DbConnectionManager.IsConnectionActive())
             {
-                this.Form.Log(ConnectionNotSet);
+                Form.Log(ConnectionNotSet);
                 return;
             }
 
-            string dbName = this.Form.NewDatabaseName;
+            var dbName = Form.NewDatabaseName;
             if (string.IsNullOrEmpty(dbName))
             {
-                this.Form.Log("Invalid Database name.");
+                Form.Log("Invalid Database name.");
                 return;
             }
 
             try
             {
-                this.UpdateDatabase(this.DbConnectionManager.CreateDatabase(dbName), this.DbConnectionManager);
-                this.Form.Log(CreatedDatabaseMessage);
+                UpdateDatabase(DbConnectionManager.CreateDatabase(dbName), DbConnectionManager);
+                Form.Log(CreatedDatabaseMessage);
             }
             catch (Exception e)
             {
-                this.Form.Log(e.Message);
+                Form.Log(e.Message);
             }
         }
 
         public void FinalizeSetupAction()
         {
-            if (!this.DbConnectionManager.IsConnectionActive())
+            if (!DbConnectionManager.IsConnectionActive())
             {
-                this.Form.Log(ConnectionNotSet);
+                Form.Log(ConnectionNotSet);
                 return;
             }
 
-            if (base.StateManager.UserService.FindByRole(RoleType.ADMIN).Count < 1)
+            if (StateManager.UserService.FindByRole(RoleType.ADMIN).Count < 1)
             {
-                this.Form.Log(PleaseCreateAdminMsg);
+                Form.Log(PleaseCreateAdminMsg);
                 return;
             }
 
@@ -138,41 +137,41 @@ namespace SimpleWarehouse.Presenter.Other
 
         public override void Dispose()
         {
-            this.DbConnectionManager.Dispose();
-            this.Form.HideAndDispose();
+            DbConnectionManager.Dispose();
+            Form.HideAndDispose();
         }
 
         public override void Update()
         {
-            if (!base.IsFormShown)
+            if (!IsFormShown)
             {
-                this.Form.Show();
-                base.IsFormShown = true;
+                Form.Show();
+                IsFormShown = true;
             }
         }
 
         //private methods
         private void DisplayConnectionString(DbProperties properties)
         {
-            this.Form.Server = properties.Server;
-            this.Form.Port = properties.Port;
-            this.Form.Username = properties.Username;
-            this.Form.Password = properties.Password;
+            Form.Server = properties.Server;
+            Form.Port = properties.Port;
+            Form.Username = properties.Username;
+            Form.Password = properties.Password;
         }
 
         private void EnableOrDisableCreateUserBtn()
         {
-            if (base.StateManager.UserService.FindByRole(RoleType.ADMIN).Count < 1)
-                this.Form.SetUserBtnStatus(true);
+            if (StateManager.UserService.FindByRole(RoleType.ADMIN).Count < 1)
+                Form.SetUserBtnStatus(true);
             else
-                this.Form.SetUserBtnStatus(false);
+                Form.SetUserBtnStatus(false);
         }
 
         private void UpdateDatabase(DatabaseContext database, IDbConnectionManager connectionManager)
         {
-            base.StateManager.ConnectionManager = connectionManager;
-            base.StateManager.DbConnectionPropertiesManager.SaveSettings(connectionManager.GetDbProperties());
-            base.StateManager.Database = database;
+            StateManager.ConnectionManager = connectionManager;
+            StateManager.DbConnectionPropertiesManager.SaveSettings(connectionManager.GetDbProperties());
+            StateManager.Database = database;
         }
     }
 }

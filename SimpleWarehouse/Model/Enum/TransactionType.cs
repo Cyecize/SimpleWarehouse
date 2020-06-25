@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SimpleWarehouse.Model.Enum
+﻿namespace SimpleWarehouse.Model.Enum
 {
     public enum TransactionType
     {
-        DELIVERY, SALE
+        DELIVERY,
+        SALE
     }
 }

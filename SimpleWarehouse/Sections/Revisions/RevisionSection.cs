@@ -2,14 +2,10 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using SimpleWarehouse.Constants;
 using SimpleWarehouse.Interfaces;
 using SimpleWarehouse.Model;
 using SimpleWarehouse.Model.Enum;
-using SimpleWarehouse.Presenter;
 using SimpleWarehouse.Presenter.Other;
 using SimpleWarehouse.Services.Products;
 using SimpleWarehouse.Services.Revenues;
@@ -25,9 +21,25 @@ namespace SimpleWarehouse.Sections.Revisions
         private const string PleaseStartRevisionFirst = "Моля стартирайте ревизията първо!";
         private const string SuccessfulRevision = "усшешна ревизия!";
 
-        private IPresenter Presenter { get; set; }
-        private IHomeView Form { get; set; }
-        private IRevisionDbService RevisionDbService { get; set; }
+        public RevisionSection(IPresenter presenter, IHomeView homeForm)
+        {
+            Form = homeForm;
+            Presenter = presenter;
+            RevisionDbService = new RevisionDbService();
+
+            ViewService = new RevisionViewService(Form.RevisionDataTable, Form, this);
+            ProductService = new ProductDbService();
+            TransactionDbService =
+                new InvariantTransactionDbService(Presenter.GetStateManager().UserSession.SessionEntity);
+            RevenueDbService = new RevenuesDbService();
+            ExpenseDbService = new ExpensesDbService();
+            SalesRevenue = 0D;
+            IsRevisionStarted = false;
+        }
+
+        private IPresenter Presenter { get; }
+        private IHomeView Form { get; }
+        private IRevisionDbService RevisionDbService { get; }
         private double SalesRevenue { get; set; }
         private DateTime StartDate { get; set; }
         private bool IsRevisionStarted { get; set; }
@@ -40,111 +52,103 @@ namespace SimpleWarehouse.Sections.Revisions
         public IRevenueStreamDbService RevenueDbService { get; set; }
         public IRevenueStreamDbService ExpenseDbService { get; set; }
 
-        public RevisionSection(IPresenter presenter, IHomeView homeForm)
-        {
-            this.Form = homeForm;
-            this.Presenter = presenter;
-            this.RevisionDbService = new RevisionDbService();
-
-            this.ViewService = new RevisionViewService(this.Form.RevisionDataTable, this.Form, this);
-            this.ProductService = new ProductDbService();
-            this.TransactionDbService = new InvariantTransactionDbService(this.Presenter.GetStateManager().UserSession.SessionEntity);
-            this.RevenueDbService = new RevenuesDbService();
-            this.ExpenseDbService = new ExpensesDbService();
-            this.SalesRevenue = 0D;
-            this.IsRevisionStarted = false;
-        }
-
         public void CancelOperation()
         {
-            this.SalesRevenue = 0.0;
-            this.ClearTextBoxValues();
-            this.ViewService.ClearRows();
-            this.IsRevisionStarted = false;
-            this.Revision = null;
-            this.RevisionProducts = null;
+            SalesRevenue = 0.0;
+            ClearTextBoxValues();
+            ViewService.ClearRows();
+            IsRevisionStarted = false;
+            Revision = null;
+            RevisionProducts = null;
         }
 
         public void CommitRevisionAction()
         {
-            if (!this.VerifyUserRole())
+            if (!VerifyUserRole())
                 return;
-            if (!this.IsRevisionStarted)
+            if (!IsRevisionStarted)
             {
-                this.Form.Log(PleaseStartRevisionFirst);
+                Form.Log(PleaseStartRevisionFirst);
                 return;
             }
-            this.Revision = this.ForgeRevision();
-            this.RevisionProducts = this.ForgeRevisionProducts();
-            string confirmText = $"{this.Revision.ToString()}\r\nТова ще редактира {this.RevisionProducts.Count} продуктa и ще премести сегашните приходи и разходи в архива.";
-            this.Presenter.GetStateManager().Push(new ConfirmActionPresenter(this.Presenter.GetStateManager(), this.OnRevisionConfirm, confirmText));
+
+            Revision = ForgeRevision();
+            RevisionProducts = ForgeRevisionProducts();
+            var confirmText =
+                $"{Revision}\r\nТова ще редактира {RevisionProducts.Count} продуктa и ще премести сегашните приходи и разходи в архива.";
+            Presenter.GetStateManager()
+                .Push(new ConfirmActionPresenter(Presenter.GetStateManager(), OnRevisionConfirm, confirmText));
         }
 
         public void Initialize()
         {
-            this.ViewService.Initialize();
-            this.ViewService.ClearRows();
+            ViewService.Initialize();
+            ViewService.ClearRows();
         }
 
         public void RefreshGridAction()
         {
-            if (!this.VerifyUserRole())
+            if (!VerifyUserRole())
                 return;
 
-            this.FillRevenueStreamInfo(); //updates the revenues and expenses just in case
-            this.RefreshSubTotalAction();
+            FillRevenueStreamInfo(); //updates the revenues and expenses just in case
+            RefreshSubTotalAction();
         }
 
         public void UpdateTotalPriceAction(int rowId)
         {
             try
             {
-                var actualQuantity = double.Parse(this.ViewService.GetDataAtRow(rowId, ActualQuantity).ToString().Trim());
-                var prodPrice = double.Parse(this.ViewService.GetDataAtRow(rowId, SellPrice).ToString().Trim());
-                var availableQuantity = double.Parse(this.ViewService.GetDataAtRow(rowId, AvailableQuantity).ToString().Trim());
+                var actualQuantity = double.Parse(ViewService.GetDataAtRow(rowId, ActualQuantity).ToString().Trim());
+                var prodPrice = double.Parse(ViewService.GetDataAtRow(rowId, SellPrice).ToString().Trim());
+                var availableQuantity =
+                    double.Parse(ViewService.GetDataAtRow(rowId, AvailableQuantity).ToString().Trim());
                 if (actualQuantity >= 0)
                 {
-                    double difference = availableQuantity - actualQuantity;
-                    this.ViewService.SetDataAtRow(rowId, SubTotal, $"{(difference * prodPrice):F2}");
+                    var difference = availableQuantity - actualQuantity;
+                    ViewService.SetDataAtRow(rowId, SubTotal, $"{difference * prodPrice:F2}");
                 }
                 else
                 {
-                    this.ViewService.SetDataAtRow(rowId, SubTotal, null);
+                    ViewService.SetDataAtRow(rowId, SubTotal, null);
                 }
-                this.RefreshSubTotalAction();
+
+                RefreshSubTotalAction();
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+            }
         }
 
         public void BeginRevision()
         {
-            if (!this.VerifyUserRole())
+            if (!VerifyUserRole())
                 return;
-            this.ViewService.ClearRows();
-            this.ViewService.InsertProducts(this.ProductService.FindAllVisible());
-            this.FillRevenueStreamInfo();
-            this.IsRevisionStarted = true;
+            ViewService.ClearRows();
+            ViewService.InsertProducts(ProductService.FindAllVisible());
+            FillRevenueStreamInfo();
+            IsRevisionStarted = true;
         }
 
         //PRIVATE METHODS
         private void RefreshSubTotalAction()
         {
-            double total = this.GetRevisionSubTotal();
-            this.ViewService.EndEdit();
-            this.Form.RevisionSubTotal = $"{total:F2}";
-            this.Form.RevisonSubTotalPlusSalesRevenue = $"{(total + this.SalesRevenue):F2}";
+            var total = GetRevisionSubTotal();
+            ViewService.EndEdit();
+            Form.RevisionSubTotal = $"{total:F2}";
+            Form.RevisonSubTotalPlusSalesRevenue = $"{total + SalesRevenue:F2}";
         }
 
         private void FillRevenueStreamInfo()
         {
-            var transactions = this.TransactionDbService.FindAllNonRevised().OrderBy(tr => tr.Date).ToList();
-            DateTime startDate = DateTime.Now;
-            var expensesTotal = this.ExpenseDbService.FindAllNonRevised().Sum(e =>
+            var transactions = TransactionDbService.FindAllNonRevised().OrderBy(tr => tr.Date).ToList();
+            var startDate = DateTime.Now;
+            var expensesTotal = ExpenseDbService.FindAllNonRevised().Sum(e =>
             {
                 if (e.Date < startDate) startDate = e.Date;
                 return e.RevenueAmount;
             });
-            var revenuesTotal = this.RevenueDbService.FindAllNonRevised().Sum(r =>
+            var revenuesTotal = RevenueDbService.FindAllNonRevised().Sum(r =>
             {
                 if (r.Date < startDate) startDate = r.Date;
                 return r.RevenueAmount;
@@ -153,82 +157,86 @@ namespace SimpleWarehouse.Sections.Revisions
             if (oldestRevenueStream != null && oldestRevenueStream.Date < startDate)
                 startDate = oldestRevenueStream.Date;
 
-            this.StartDate = startDate;
+            StartDate = startDate;
             //inserting the data
             var stDate = $"Начална дата: {startDate.ToString(Config.DateTimeFormat)}";
-            this.SalesRevenue = transactions.Where(tr => tr.TransactionType == TransactionType.SALE).Sum(r => r.RevenueAmount);
-            this.InsertTextBoxValues($"{expensesTotal:F2}", $"{revenuesTotal:F2}", stDate, "0", $"{this.SalesRevenue:F2}");
+            SalesRevenue = transactions.Where(tr => tr.TransactionType == TransactionType.SALE)
+                .Sum(r => r.RevenueAmount);
+            InsertTextBoxValues($"{expensesTotal:F2}", $"{revenuesTotal:F2}", stDate, "0", $"{SalesRevenue:F2}");
         }
 
         private void ClearTextBoxValues()
         {
-            this.InsertTextBoxValues(null, null, @"Начална дата:", null, null);
+            InsertTextBoxValues(null, null, @"Начална дата:", null, null);
         }
 
-        private void InsertTextBoxValues(string expenses, string revenues, string startDate, string subTotal, string salesRevenue)
+        private void InsertTextBoxValues(string expenses, string revenues, string startDate, string subTotal,
+            string salesRevenue)
         {
-            this.Form.RevisionExpenses = expenses;
-            this.Form.RevisionRevenue = revenues;
-            this.Form.RevisionStartDate = startDate;
-            this.Form.RevisionSubTotal = subTotal;
-            this.Form.RevisionSalesRevenue = salesRevenue;
-            this.Form.RevisonSubTotalPlusSalesRevenue = this.SalesRevenue.ToString(CultureInfo.InvariantCulture);
+            Form.RevisionExpenses = expenses;
+            Form.RevisionRevenue = revenues;
+            Form.RevisionStartDate = startDate;
+            Form.RevisionSubTotal = subTotal;
+            Form.RevisionSalesRevenue = salesRevenue;
+            Form.RevisonSubTotalPlusSalesRevenue = SalesRevenue.ToString(CultureInfo.InvariantCulture);
         }
 
         private bool VerifyUserRole()
         {
-            if (!Roles.IsStandard(this.Presenter.GetStateManager().UserSession.SessionEntity.Roles))
+            if (!Roles.IsStandard(Presenter.GetStateManager().UserSession.SessionEntity.Roles))
             {
-                this.Form.Log(Messages.NotAuthorizedMsg);
+                Form.Log(Messages.NotAuthorizedMsg);
                 return false;
             }
+
             return true;
         }
 
         private double GetRevisionSubTotal()
         {
-            double total = 0.0;
-            for (int rowId = 0; rowId < this.ViewService.GetRowsCount(); rowId++)
-            {
+            var total = 0.0;
+            for (var rowId = 0; rowId < ViewService.GetRowsCount(); rowId++)
                 try
                 {
-                    total += double.Parse(this.ViewService.GetDataAtRow(rowId, SubTotal) + "");
+                    total += double.Parse(ViewService.GetDataAtRow(rowId, SubTotal) + "");
                 }
-                catch (Exception) {/*ignored*/ }
-            }
+                catch (Exception)
+                {
+                    /*ignored*/
+                }
+
             return total;
         }
 
         private Revision ForgeRevision()
         {
-            Revision revision = new Revision
+            var revision = new Revision
             {
-                StartDate = this.StartDate,
-                Revenue = this.RevenueDbService.FindAllNonRevised().Sum(r => r.RevenueAmount),
-                Expenses = this.ExpenseDbService.FindAllNonRevised().Sum(e => e.RevenueAmount),
-                ActualRevenue = this.GetRevisionSubTotal() + this.SalesRevenue,
+                StartDate = StartDate,
+                Revenue = RevenueDbService.FindAllNonRevised().Sum(r => r.RevenueAmount),
+                Expenses = ExpenseDbService.FindAllNonRevised().Sum(e => e.RevenueAmount),
+                ActualRevenue = GetRevisionSubTotal() + SalesRevenue
             };
             return revision;
         }
 
         private List<RevisionProduct> ForgeRevisionProducts()
         {
-            List<RevisionProduct> revisionProducts = new List<RevisionProduct>();
-            for (int rowId = 0; rowId < this.ViewService.GetRowsCount(); rowId++)
-            {
+            var revisionProducts = new List<RevisionProduct>();
+            for (var rowId = 0; rowId < ViewService.GetRowsCount(); rowId++)
                 try
                 {
-                    int productId = (int)this.ViewService.GetDataAtRow(rowId, ProductId);
-                    double actualQuantity = double.Parse(this.ViewService.GetDataAtRow(rowId, ActualQuantity) + "");
+                    var productId = (int) ViewService.GetDataAtRow(rowId, ProductId);
+                    var actualQuantity = double.Parse(ViewService.GetDataAtRow(rowId, ActualQuantity) + "");
                     if (actualQuantity < 0)
                         continue;
-                    Product product = this.ProductService.FindById(productId);
-                    RevisionProduct revisionProduct = new RevisionProduct
+                    var product = ProductService.FindById(productId);
+                    var revisionProduct = new RevisionProduct
                     {
                         Id = product.Id,
                         AvailableQuantity = product.Quantity,
                         Quantity = actualQuantity,
-                        SellPrice = product.SellPrice,
+                        SellPrice = product.SellPrice
                     };
                     revisionProducts.Add(revisionProduct);
                 }
@@ -236,7 +244,6 @@ namespace SimpleWarehouse.Sections.Revisions
                 {
                     /*ignored*/
                 }
-            }
 
             return revisionProducts;
         }
@@ -244,27 +251,27 @@ namespace SimpleWarehouse.Sections.Revisions
         //FINALIZE REVISION AFTER COMMIT
         private void FinalizeRevisionAction()
         {
-            this.RevisionDbService.CreateRevision(this.Revision);
-            this.TransactionDbService.ArchiveTransactions(); //same for deliveries
-            this.RevenueDbService.Archive();
-            this.ExpenseDbService.Archive();
+            RevisionDbService.CreateRevision(Revision);
+            TransactionDbService.ArchiveTransactions(); //same for deliveries
+            RevenueDbService.Archive();
+            ExpenseDbService.Archive();
 
-            foreach (var revProd in this.RevisionProducts)
+            foreach (var revProd in RevisionProducts)
             {
-                var product = this.ProductService.FindById(revProd.Id);
+                var product = ProductService.FindById(revProd.Id);
                 product.Quantity = revProd.Quantity;
-                this.ProductService.UpdateProduct(product);
+                ProductService.UpdateProduct(product);
             }
 
-            this.CancelOperation();
-            this.Form.Log(SuccessfulRevision);
+            CancelOperation();
+            Form.Log(SuccessfulRevision);
         }
 
         //events
         private void OnRevisionConfirm(bool isConfirmed)
         {
             if (isConfirmed)
-                this.FinalizeRevisionAction();
+                FinalizeRevisionAction();
         }
     }
 }

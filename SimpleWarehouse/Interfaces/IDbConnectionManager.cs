@@ -1,11 +1,8 @@
-﻿using SimpleWarehouse.Model;
-using SimpleWarehouse.Repository;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SimpleWarehouse.Model;
+using SimpleWarehouse.Repository;
 
 namespace SimpleWarehouse.Interfaces
 {
@@ -31,6 +28,6 @@ namespace SimpleWarehouse.Interfaces
 
         DatabaseContext CreateDatabase(string dbName);
 
-        List<string> GetDatabases();      
+        List<string> GetDatabases();
     }
 }

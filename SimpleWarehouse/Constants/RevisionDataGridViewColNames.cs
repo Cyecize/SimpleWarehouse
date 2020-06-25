@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SimpleWarehouse.Constants
+﻿namespace SimpleWarehouse.Constants
 {
-    public  class RevisionDataGridViewColNames
+    public class RevisionDataGridViewColNames
     {
         public const string ProductId = "prodId";
 

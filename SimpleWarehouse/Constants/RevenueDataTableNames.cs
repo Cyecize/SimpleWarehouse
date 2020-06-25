@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace SimpleWarehouse.Constants
 {
@@ -16,7 +12,7 @@ namespace SimpleWarehouse.Constants
 
         public static Dictionary<string, string> GetNamesForAddRevenue()
         {
-            Dictionary<string, string> keyValuePairs = new Dictionary<string, string>() { };
+            var keyValuePairs = new Dictionary<string, string>();
             keyValuePairs[USERNAME] = "Username";
             keyValuePairs[REVENUE_AMOUNT] = "Amount";
             keyValuePairs[DATE] = "Date";
@@ -28,7 +24,7 @@ namespace SimpleWarehouse.Constants
 
         public static Dictionary<string, string> GetNamesForArchivedRevenues()
         {
-            Dictionary<string, string> keyValuePairs = new Dictionary<string, string>() { };
+            var keyValuePairs = new Dictionary<string, string>();
             keyValuePairs[USERNAME] = "UsernameArch";
             keyValuePairs[REVENUE_AMOUNT] = "AmountArch";
             keyValuePairs[DATE] = "DateArch";

@@ -1,12 +1,9 @@
-﻿using Newtonsoft.Json;
-using SimpleWarehouse.Interfaces;
-using SimpleWarehouse.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
+using SimpleWarehouse.Interfaces;
+using SimpleWarehouse.Model;
 
 namespace SimpleWarehouse.Services
 {
@@ -23,24 +20,24 @@ namespace SimpleWarehouse.Services
 
         private readonly string _appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
-        private string FullPath { get; set; }
+        public DbConnectionStorageManager()
+        {
+            FullPath = $"{_appDataPath}\\{FolderName}\\{FileName}";
+            Initialize();
+        }
+
+        private string FullPath { get; }
 
         private DbProperties DbProperties { get; set; }
 
-        public DbConnectionStorageManager()
-        {
-            this.FullPath = $"{this._appDataPath}\\{FolderName}\\{FileName}";
-            this.Initialize();
-        }
-
         public DbProperties GetSettings()
         {
-            if (this.DbProperties != null)
-                return this.DbProperties;
+            if (DbProperties != null)
+                return DbProperties;
             try
             {
-                Dictionary<string, string> rawProps = this.ParseJson();
-                DbProperties properties = new DbProperties
+                var rawProps = ParseJson();
+                var properties = new DbProperties
                 {
                     Server = rawProps[Server],
                     Port = rawProps[Port],
@@ -48,58 +45,65 @@ namespace SimpleWarehouse.Services
                     Password = rawProps[Password],
                     DatabaseName = rawProps[DatabaseName]
                 };
-                this.DbProperties = properties;
+                DbProperties = properties;
                 return properties;
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+            }
+
             return new DbProperties();
         }
 
         public void SaveSettings(DbProperties properties)
         {
-
-            Dictionary<string, string> rawProps = new Dictionary<string, string>()
+            var rawProps = new Dictionary<string, string>
             {
-                {Server, properties.Server },
-                {Port, properties.Port },
-                {Username, properties.Username },
-                {Password, properties.Password },
-                {DatabaseName, properties.DatabaseName },
+                {Server, properties.Server},
+                {Port, properties.Port},
+                {Username, properties.Username},
+                {Password, properties.Password},
+                {DatabaseName, properties.DatabaseName}
             };
 
-            this.WriteToFile(JsonConvert.SerializeObject(rawProps));
+            WriteToFile(JsonConvert.SerializeObject(rawProps));
         }
 
         //PRIVATE METHODS
         private void Initialize()
         {
-            if (!Directory.Exists($"{this._appDataPath}\\{FolderName}"))
-                Directory.CreateDirectory($"{this._appDataPath}\\{FolderName}");
-            if (!File.Exists(this.FullPath))
+            if (!Directory.Exists($"{_appDataPath}\\{FolderName}"))
+                Directory.CreateDirectory($"{_appDataPath}\\{FolderName}");
+            if (!File.Exists(FullPath))
             {
-                var f = File.Create(this.FullPath);
+                var f = File.Create(FullPath);
                 f.Close();
             }
-            if (this.ReadFile().Trim() != "")
-            {
-                try { this.ParseJson(); }
-                catch (Exception) { this.WriteToFile(string.Empty); }
-            }
+
+            if (ReadFile().Trim() != "")
+                try
+                {
+                    ParseJson();
+                }
+                catch (Exception)
+                {
+                    WriteToFile(string.Empty);
+                }
         }
 
         private Dictionary<string, string> ParseJson()
         {
-            return JsonConvert.DeserializeObject<Dictionary<string, string>>(this.ReadFile());
+            return JsonConvert.DeserializeObject<Dictionary<string, string>>(ReadFile());
         }
 
         private string ReadFile()
         {
-            return File.ReadAllText(this.FullPath);
+            return File.ReadAllText(FullPath);
         }
 
         private void WriteToFile(string content)
         {
-            System.IO.File.WriteAllText(this.FullPath, content);
+            File.WriteAllText(FullPath, content);
         }
     }
 }

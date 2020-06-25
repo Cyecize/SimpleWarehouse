@@ -23,7 +23,7 @@ namespace SimpleWarehouse.Services.Transactions
 
         List<Transaction> FindByType(TransactionType transactionType);
 
-        List<Transaction> FindByDateTypeAndRevisionStatus(DateTime startDate, DateTime endDate, TransactionType transactionType, bool isRevised);
-
+        List<Transaction> FindByDateTypeAndRevisionStatus(DateTime startDate, DateTime endDate,
+            TransactionType transactionType, bool isRevised);
     }
 }
