@@ -23,5 +23,7 @@ namespace SimpleWarehouse.RevenueRelated.View
         string TotalArchivedEntitiesRows { get; set; }
 
         string TotalArchivedEntitiesPrice { get; set; }
+
+        string CommentArchive { get; set; }
     }
 }

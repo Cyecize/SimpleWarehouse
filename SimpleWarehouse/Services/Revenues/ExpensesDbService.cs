@@ -48,10 +48,13 @@ namespace SimpleWarehouse.Services.Revenues
             return new List<RevenueStream>(Database.Expenses.Where(e => e.IsRevised));
         }
 
-        public List<RevenueStream> FindAllArchived(DateTime start, DateTime end)
+        public List<RevenueStream> FindAllArchived(DateTime start, DateTime end, string comment)
         {
             return new List<RevenueStream>(
-                Database.Expenses.Where(e => e.IsRevised && e.Date >= start && e.Date <= end));
+                Database.Expenses.Where(e => e.IsRevised
+                                             && e.Date >= start
+                                             && e.Date <= end
+                                             && e.Comment.ToLower().Contains(comment.ToLower())));
         }
     }
 }

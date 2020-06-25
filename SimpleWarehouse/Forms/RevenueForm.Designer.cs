@@ -33,6 +33,11 @@
             this.label7 = new System.Windows.Forms.Label();
             this.CommentBox = new System.Windows.Forms.TextBox();
             this.DataTableView = new System.Windows.Forms.DataGridView();
+            this.Username = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Amount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Comment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IsRevised = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AddRevenueBtn = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.RevenueAmountBox = new System.Windows.Forms.TextBox();
@@ -44,6 +49,11 @@
             this.TotalAmountBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.ArchivedRevenuesTable = new System.Windows.Forms.DataGridView();
+            this.UsernameArch = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AmountArch = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DateArch = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CommentArch = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IsRevisedArch = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.FindArchivedRevenues = new System.Windows.Forms.Button();
@@ -52,16 +62,8 @@
             this.materialTabSelector1 = new MaterialSkin.Controls.MaterialTabSelector();
             this.GoBackBtn = new MaterialSkin.Controls.MaterialFlatButton();
             this.LogLabel = new MaterialSkin.Controls.MaterialLabel();
-            this.Username = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Amount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Comment = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IsRevised = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UsernameArch = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AmountArch = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DateArch = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CommentArch = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IsRevisedArch = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LblCommentArchive = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.materialTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataTableView)).BeginInit();
@@ -77,11 +79,12 @@
             this.materialTabControl1.Controls.Add(this.tabPage1);
             this.materialTabControl1.Controls.Add(this.tabPage2);
             this.materialTabControl1.Depth = 0;
-            this.materialTabControl1.Location = new System.Drawing.Point(12, 113);
+            this.materialTabControl1.Location = new System.Drawing.Point(16, 139);
+            this.materialTabControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.materialTabControl1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialTabControl1.Name = "materialTabControl1";
             this.materialTabControl1.SelectedIndex = 0;
-            this.materialTabControl1.Size = new System.Drawing.Size(676, 288);
+            this.materialTabControl1.Size = new System.Drawing.Size(901, 354);
             this.materialTabControl1.TabIndex = 26;
             // 
             // tabPage1
@@ -94,10 +97,11 @@
             this.tabPage1.Controls.Add(this.RevenueAmountBox);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.DateTimeForRevenue);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(668, 262);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage1.Size = new System.Drawing.Size(893, 325);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Добавяне на оборот";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -107,19 +111,21 @@
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Segoe MDL2 Assets", 16.30189F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(236, 208);
+            this.label7.Location = new System.Drawing.Point(315, 256);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(89, 22);
+            this.label7.Size = new System.Drawing.Size(117, 28);
             this.label7.TabIndex = 31;
             this.label7.Text = "Коментар:";
             // 
             // CommentBox
             // 
             this.CommentBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.CommentBox.Location = new System.Drawing.Point(240, 233);
+            this.CommentBox.Location = new System.Drawing.Point(320, 287);
+            this.CommentBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.CommentBox.Multiline = true;
             this.CommentBox.Name = "CommentBox";
-            this.CommentBox.Size = new System.Drawing.Size(135, 23);
+            this.CommentBox.Size = new System.Drawing.Size(179, 27);
             this.CommentBox.TabIndex = 30;
             // 
             // DataTableView
@@ -135,20 +141,63 @@
             this.Date,
             this.Comment,
             this.IsRevised});
-            this.DataTableView.Location = new System.Drawing.Point(7, 6);
+            this.DataTableView.Location = new System.Drawing.Point(9, 7);
+            this.DataTableView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.DataTableView.MultiSelect = false;
             this.DataTableView.Name = "DataTableView";
             this.DataTableView.ReadOnly = true;
+            this.DataTableView.RowHeadersWidth = 51;
             this.DataTableView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.DataTableView.Size = new System.Drawing.Size(655, 199);
+            this.DataTableView.Size = new System.Drawing.Size(873, 245);
             this.DataTableView.TabIndex = 29;
+            // 
+            // Username
+            // 
+            this.Username.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Username.HeaderText = "Потр. име";
+            this.Username.MinimumWidth = 6;
+            this.Username.Name = "Username";
+            this.Username.ReadOnly = true;
+            // 
+            // Amount
+            // 
+            this.Amount.HeaderText = "Сума";
+            this.Amount.MinimumWidth = 6;
+            this.Amount.Name = "Amount";
+            this.Amount.ReadOnly = true;
+            this.Amount.Width = 206;
+            // 
+            // Date
+            // 
+            this.Date.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Date.HeaderText = "Дата";
+            this.Date.MinimumWidth = 6;
+            this.Date.Name = "Date";
+            this.Date.ReadOnly = true;
+            // 
+            // Comment
+            // 
+            this.Comment.HeaderText = "Коментар";
+            this.Comment.MinimumWidth = 6;
+            this.Comment.Name = "Comment";
+            this.Comment.ReadOnly = true;
+            this.Comment.Width = 125;
+            // 
+            // IsRevised
+            // 
+            this.IsRevised.HeaderText = "Ревизиран";
+            this.IsRevised.MinimumWidth = 6;
+            this.IsRevised.Name = "IsRevised";
+            this.IsRevised.ReadOnly = true;
+            this.IsRevised.Width = 125;
             // 
             // AddRevenueBtn
             // 
             this.AddRevenueBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.AddRevenueBtn.Location = new System.Drawing.Point(497, 233);
+            this.AddRevenueBtn.Location = new System.Drawing.Point(663, 287);
+            this.AddRevenueBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.AddRevenueBtn.Name = "AddRevenueBtn";
-            this.AddRevenueBtn.Size = new System.Drawing.Size(88, 23);
+            this.AddRevenueBtn.Size = new System.Drawing.Size(117, 28);
             this.AddRevenueBtn.TabIndex = 28;
             this.AddRevenueBtn.Text = "Добави";
             this.AddRevenueBtn.UseVisualStyleBackColor = true;
@@ -159,9 +208,10 @@
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe MDL2 Assets", 16.30189F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(377, 208);
+            this.label2.Location = new System.Drawing.Point(503, 256);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(52, 22);
+            this.label2.Size = new System.Drawing.Size(71, 28);
             this.label2.TabIndex = 27;
             this.label2.Text = "Сума:";
             // 
@@ -169,9 +219,10 @@
             // 
             this.RevenueAmountBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.RevenueAmountBox.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.RevenueAmountBox.Location = new System.Drawing.Point(381, 233);
+            this.RevenueAmountBox.Location = new System.Drawing.Point(508, 287);
+            this.RevenueAmountBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.RevenueAmountBox.Name = "RevenueAmountBox";
-            this.RevenueAmountBox.Size = new System.Drawing.Size(110, 22);
+            this.RevenueAmountBox.Size = new System.Drawing.Size(145, 26);
             this.RevenueAmountBox.TabIndex = 26;
             // 
             // label1
@@ -179,9 +230,10 @@
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe MDL2 Assets", 16.30189F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(3, 208);
+            this.label1.Location = new System.Drawing.Point(4, 256);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 22);
+            this.label1.Size = new System.Drawing.Size(68, 28);
             this.label1.TabIndex = 25;
             this.label1.Text = "Дата:";
             // 
@@ -190,13 +242,16 @@
             this.DateTimeForRevenue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.DateTimeForRevenue.CalendarFont = new System.Drawing.Font("Arial Narrow", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DateTimeForRevenue.Font = new System.Drawing.Font("Segoe MDL2 Assets", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DateTimeForRevenue.Location = new System.Drawing.Point(6, 233);
+            this.DateTimeForRevenue.Location = new System.Drawing.Point(8, 287);
+            this.DateTimeForRevenue.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.DateTimeForRevenue.Name = "DateTimeForRevenue";
-            this.DateTimeForRevenue.Size = new System.Drawing.Size(228, 23);
+            this.DateTimeForRevenue.Size = new System.Drawing.Size(303, 27);
             this.DateTimeForRevenue.TabIndex = 0;
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.label8);
+            this.tabPage2.Controls.Add(this.LblCommentArchive);
             this.tabPage2.Controls.Add(this.TotalRowsBox);
             this.tabPage2.Controls.Add(this.label6);
             this.tabPage2.Controls.Add(this.TotalAmountBox);
@@ -207,10 +262,11 @@
             this.tabPage2.Controls.Add(this.FindArchivedRevenues);
             this.tabPage2.Controls.Add(this.RevisedEndDate);
             this.tabPage2.Controls.Add(this.RevisedStartDate);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(668, 262);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage2.Size = new System.Drawing.Size(893, 325);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Архив";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -219,10 +275,11 @@
             // 
             this.TotalRowsBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.TotalRowsBox.Enabled = false;
-            this.TotalRowsBox.Location = new System.Drawing.Point(456, 192);
+            this.TotalRowsBox.Location = new System.Drawing.Point(608, 236);
+            this.TotalRowsBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.TotalRowsBox.Name = "TotalRowsBox";
             this.TotalRowsBox.ReadOnly = true;
-            this.TotalRowsBox.Size = new System.Drawing.Size(37, 20);
+            this.TotalRowsBox.Size = new System.Drawing.Size(48, 22);
             this.TotalRowsBox.TabIndex = 34;
             // 
             // label6
@@ -230,9 +287,10 @@
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe MDL2 Assets", 16.30189F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(316, 190);
+            this.label6.Location = new System.Drawing.Point(421, 234);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(134, 22);
+            this.label6.Size = new System.Drawing.Size(178, 28);
             this.label6.TabIndex = 33;
             this.label6.Text = "Брой на записи:";
             // 
@@ -240,10 +298,11 @@
             // 
             this.TotalAmountBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.TotalAmountBox.Enabled = false;
-            this.TotalAmountBox.Location = new System.Drawing.Point(581, 192);
+            this.TotalAmountBox.Location = new System.Drawing.Point(775, 236);
+            this.TotalAmountBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.TotalAmountBox.Name = "TotalAmountBox";
             this.TotalAmountBox.ReadOnly = true;
-            this.TotalAmountBox.Size = new System.Drawing.Size(80, 20);
+            this.TotalAmountBox.Size = new System.Drawing.Size(105, 22);
             this.TotalAmountBox.TabIndex = 32;
             // 
             // label5
@@ -251,9 +310,10 @@
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe MDL2 Assets", 16.30189F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(518, 189);
+            this.label5.Location = new System.Drawing.Point(691, 233);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(57, 22);
+            this.label5.Size = new System.Drawing.Size(75, 28);
             this.label5.TabIndex = 31;
             this.label5.Text = "Общо:";
             // 
@@ -270,22 +330,65 @@
             this.DateArch,
             this.CommentArch,
             this.IsRevisedArch});
-            this.ArchivedRevenuesTable.Location = new System.Drawing.Point(6, 6);
+            this.ArchivedRevenuesTable.Location = new System.Drawing.Point(8, 7);
+            this.ArchivedRevenuesTable.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ArchivedRevenuesTable.MultiSelect = false;
             this.ArchivedRevenuesTable.Name = "ArchivedRevenuesTable";
             this.ArchivedRevenuesTable.ReadOnly = true;
+            this.ArchivedRevenuesTable.RowHeadersWidth = 51;
             this.ArchivedRevenuesTable.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.ArchivedRevenuesTable.Size = new System.Drawing.Size(656, 180);
+            this.ArchivedRevenuesTable.Size = new System.Drawing.Size(875, 222);
             this.ArchivedRevenuesTable.TabIndex = 30;
+            // 
+            // UsernameArch
+            // 
+            this.UsernameArch.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.UsernameArch.HeaderText = "Потр. име";
+            this.UsernameArch.MinimumWidth = 6;
+            this.UsernameArch.Name = "UsernameArch";
+            this.UsernameArch.ReadOnly = true;
+            // 
+            // AmountArch
+            // 
+            this.AmountArch.HeaderText = "Сума";
+            this.AmountArch.MinimumWidth = 6;
+            this.AmountArch.Name = "AmountArch";
+            this.AmountArch.ReadOnly = true;
+            this.AmountArch.Width = 206;
+            // 
+            // DateArch
+            // 
+            this.DateArch.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.DateArch.HeaderText = "Дата";
+            this.DateArch.MinimumWidth = 6;
+            this.DateArch.Name = "DateArch";
+            this.DateArch.ReadOnly = true;
+            // 
+            // CommentArch
+            // 
+            this.CommentArch.HeaderText = "Коментар";
+            this.CommentArch.MinimumWidth = 6;
+            this.CommentArch.Name = "CommentArch";
+            this.CommentArch.ReadOnly = true;
+            this.CommentArch.Width = 125;
+            // 
+            // IsRevisedArch
+            // 
+            this.IsRevisedArch.HeaderText = "Ревизиран";
+            this.IsRevisedArch.MinimumWidth = 6;
+            this.IsRevisedArch.Name = "IsRevisedArch";
+            this.IsRevisedArch.ReadOnly = true;
+            this.IsRevisedArch.Width = 125;
             // 
             // label4
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe MDL2 Assets", 16.30189F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(208, 211);
+            this.label4.Location = new System.Drawing.Point(277, 260);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(113, 22);
+            this.label4.Size = new System.Drawing.Size(146, 28);
             this.label4.TabIndex = 27;
             this.label4.Text = "Крайна дата:";
             // 
@@ -294,18 +397,20 @@
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe MDL2 Assets", 16.30189F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(6, 211);
+            this.label3.Location = new System.Drawing.Point(8, 260);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(125, 22);
+            this.label3.Size = new System.Drawing.Size(158, 28);
             this.label3.TabIndex = 26;
             this.label3.Text = "Начална дата:";
             // 
             // FindArchivedRevenues
             // 
             this.FindArchivedRevenues.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.FindArchivedRevenues.Location = new System.Drawing.Point(418, 236);
+            this.FindArchivedRevenues.Location = new System.Drawing.Point(729, 287);
+            this.FindArchivedRevenues.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.FindArchivedRevenues.Name = "FindArchivedRevenues";
-            this.FindArchivedRevenues.Size = new System.Drawing.Size(75, 20);
+            this.FindArchivedRevenues.Size = new System.Drawing.Size(100, 25);
             this.FindArchivedRevenues.TabIndex = 2;
             this.FindArchivedRevenues.Text = "Търсене";
             this.FindArchivedRevenues.UseVisualStyleBackColor = true;
@@ -314,17 +419,19 @@
             // RevisedEndDate
             // 
             this.RevisedEndDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.RevisedEndDate.Location = new System.Drawing.Point(212, 236);
+            this.RevisedEndDate.Location = new System.Drawing.Point(283, 290);
+            this.RevisedEndDate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.RevisedEndDate.Name = "RevisedEndDate";
-            this.RevisedEndDate.Size = new System.Drawing.Size(200, 20);
+            this.RevisedEndDate.Size = new System.Drawing.Size(265, 22);
             this.RevisedEndDate.TabIndex = 1;
             // 
             // RevisedStartDate
             // 
             this.RevisedStartDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.RevisedStartDate.Location = new System.Drawing.Point(6, 236);
+            this.RevisedStartDate.Location = new System.Drawing.Point(8, 290);
+            this.RevisedStartDate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.RevisedStartDate.Name = "RevisedStartDate";
-            this.RevisedStartDate.Size = new System.Drawing.Size(200, 20);
+            this.RevisedStartDate.Size = new System.Drawing.Size(265, 22);
             this.RevisedStartDate.TabIndex = 0;
             // 
             // materialTabSelector1
@@ -333,10 +440,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.materialTabSelector1.BaseTabControl = this.materialTabControl1;
             this.materialTabSelector1.Depth = 0;
-            this.materialTabSelector1.Location = new System.Drawing.Point(-2, 59);
+            this.materialTabSelector1.Location = new System.Drawing.Point(-3, 73);
+            this.materialTabSelector1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.materialTabSelector1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialTabSelector1.Name = "materialTabSelector1";
-            this.materialTabSelector1.Size = new System.Drawing.Size(712, 48);
+            this.materialTabSelector1.Size = new System.Drawing.Size(949, 59);
             this.materialTabSelector1.TabIndex = 27;
             this.materialTabSelector1.Text = "materialTabSelector1";
             // 
@@ -347,12 +455,12 @@
             this.GoBackBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.GoBackBtn.Depth = 0;
             this.GoBackBtn.Icon = null;
-            this.GoBackBtn.Location = new System.Drawing.Point(620, 410);
-            this.GoBackBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.GoBackBtn.Location = new System.Drawing.Point(854, 513);
+            this.GoBackBtn.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.GoBackBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.GoBackBtn.Name = "GoBackBtn";
             this.GoBackBtn.Primary = false;
-            this.GoBackBtn.Size = new System.Drawing.Size(68, 36);
+            this.GoBackBtn.Size = new System.Drawing.Size(80, 36);
             this.GoBackBtn.TabIndex = 28;
             this.GoBackBtn.Text = "Назад";
             this.GoBackBtn.UseVisualStyleBackColor = true;
@@ -365,88 +473,46 @@
             this.LogLabel.Depth = 0;
             this.LogLabel.Font = new System.Drawing.Font("Roboto", 11F);
             this.LogLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.LogLabel.Location = new System.Drawing.Point(12, 404);
+            this.LogLabel.Location = new System.Drawing.Point(16, 497);
+            this.LogLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LogLabel.MouseState = MaterialSkin.MouseState.HOVER;
             this.LogLabel.Name = "LogLabel";
-            this.LogLabel.Size = new System.Drawing.Size(448, 30);
+            this.LogLabel.Size = new System.Drawing.Size(597, 37);
             this.LogLabel.TabIndex = 42;
             // 
-            // Username
+            // LblCommentArchive
             // 
-            this.Username.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Username.HeaderText = "Потр. име";
-            this.Username.Name = "Username";
-            this.Username.ReadOnly = true;
+            this.LblCommentArchive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.LblCommentArchive.Location = new System.Drawing.Point(556, 290);
+            this.LblCommentArchive.Margin = new System.Windows.Forms.Padding(4);
+            this.LblCommentArchive.Multiline = true;
+            this.LblCommentArchive.Name = "LblCommentArchive";
+            this.LblCommentArchive.Size = new System.Drawing.Size(165, 22);
+            this.LblCommentArchive.TabIndex = 43;
             // 
-            // Amount
+            // label8
             // 
-            this.Amount.HeaderText = "Сума";
-            this.Amount.Name = "Amount";
-            this.Amount.ReadOnly = true;
-            this.Amount.Width = 206;
-            // 
-            // Date
-            // 
-            this.Date.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Date.HeaderText = "Дата";
-            this.Date.Name = "Date";
-            this.Date.ReadOnly = true;
-            // 
-            // Comment
-            // 
-            this.Comment.HeaderText = "Коментар";
-            this.Comment.Name = "Comment";
-            this.Comment.ReadOnly = true;
-            // 
-            // IsRevised
-            // 
-            this.IsRevised.HeaderText = "Ревизиран";
-            this.IsRevised.Name = "IsRevised";
-            this.IsRevised.ReadOnly = true;
-            // 
-            // UsernameArch
-            // 
-            this.UsernameArch.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.UsernameArch.HeaderText = "Потр. име";
-            this.UsernameArch.Name = "UsernameArch";
-            this.UsernameArch.ReadOnly = true;
-            // 
-            // AmountArch
-            // 
-            this.AmountArch.HeaderText = "Сума";
-            this.AmountArch.Name = "AmountArch";
-            this.AmountArch.ReadOnly = true;
-            this.AmountArch.Width = 206;
-            // 
-            // DateArch
-            // 
-            this.DateArch.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.DateArch.HeaderText = "Дата";
-            this.DateArch.Name = "DateArch";
-            this.DateArch.ReadOnly = true;
-            // 
-            // CommentArch
-            // 
-            this.CommentArch.HeaderText = "Коментар";
-            this.CommentArch.Name = "CommentArch";
-            this.CommentArch.ReadOnly = true;
-            // 
-            // IsRevisedArch
-            // 
-            this.IsRevisedArch.HeaderText = "Ревизиран";
-            this.IsRevisedArch.Name = "IsRevisedArch";
-            this.IsRevisedArch.ReadOnly = true;
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Segoe MDL2 Assets", 16.30189F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(551, 261);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(117, 28);
+            this.label8.TabIndex = 44;
+            this.label8.Text = "Коментар:";
             // 
             // RevenueForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(700, 450);
+            this.ClientSize = new System.Drawing.Size(933, 554);
             this.Controls.Add(this.LogLabel);
             this.Controls.Add(this.GoBackBtn);
             this.Controls.Add(this.materialTabSelector1);
             this.Controls.Add(this.materialTabControl1);
-            this.MinimumSize = new System.Drawing.Size(700, 450);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.MinimumSize = new System.Drawing.Size(933, 554);
             this.Name = "RevenueForm";
             this.Text = "RevenueForm";
             this.materialTabControl1.ResumeLayout(false);
@@ -497,5 +563,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn DateArch;
         private System.Windows.Forms.DataGridViewTextBoxColumn CommentArch;
         private System.Windows.Forms.DataGridViewTextBoxColumn IsRevisedArch;
+        private System.Windows.Forms.TextBox LblCommentArchive;
+        private System.Windows.Forms.Label label8;
     }
 }

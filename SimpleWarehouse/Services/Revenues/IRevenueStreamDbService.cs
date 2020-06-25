@@ -16,6 +16,6 @@ namespace SimpleWarehouse.Services.Revenues
 
         List<RevenueStream> FindAllArchived();
 
-        List<RevenueStream> FindAllArchived(DateTime start, DateTime end);
+        List<RevenueStream> FindAllArchived(DateTime start, DateTime end, string comment);
     }
 }

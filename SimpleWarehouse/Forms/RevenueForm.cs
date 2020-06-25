@@ -75,6 +75,8 @@ namespace SimpleWarehouse.Forms
             set => TotalAmountBox.Text = value;
         }
 
+        public string CommentArchive { get => LblCommentArchive.Text; set => LblCommentArchive.Text = value; }
+
         public string CommentText
         {
             get => CommentBox.Text;

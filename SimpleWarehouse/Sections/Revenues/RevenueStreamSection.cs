@@ -64,7 +64,8 @@ namespace SimpleWarehouse.Sections.Revenues
         {
             var start = Presenter.Form.ArchivedEntitiesStartDate;
             var end = Presenter.Form.ArchivedEntitiesEndDate;
-            var revenueStreams = RevenueStreamDbService.FindAllArchived(start, end);
+            var comment = Presenter.Form.CommentArchive;
+            var revenueStreams = RevenueStreamDbService.FindAllArchived(start, end, comment);
             ArchiveViewManager.DisplayRevenues(revenueStreams);
             Presenter.Form.TotalArchivedEntitiesRows = revenueStreams.Count.ToString();
             Presenter.Form.TotalArchivedEntitiesPrice = $"{revenueStreams.Sum(e => e.RevenueAmount):F2}";
