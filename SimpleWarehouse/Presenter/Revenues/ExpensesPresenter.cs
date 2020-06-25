@@ -15,7 +15,7 @@ namespace SimpleWarehouse.Presenter.Revenues
             ((Form) Form).FormClosing += (sen, ev) => GoBackAction();
             Form.Text = "Разходи";
             RevenueStreamSection = new RevenueStreamSection(this, new ExpensesDbService());
-            RevenueStreamSection.UpdateNonRevisedRevenueStreams();
+            RevenueStreamSection.UpdateNonRevisedRevenueStreams(string.Empty);
         }
 
         public IRevenueStreamSection RevenueStreamSection { get; set; }

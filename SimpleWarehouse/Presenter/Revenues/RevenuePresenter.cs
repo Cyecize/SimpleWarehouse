@@ -16,7 +16,7 @@ namespace SimpleWarehouse.Presenter.Revenues
             Form = (IRevenueView) FormFactory.CreateForm("RevenueForm", new object[] {this});
             ((Form) Form).FormClosing += (sen, ev) => GoBackAction();
             RevenueStreamSection = new RevenueStreamSection(this, new RevenuesDbService());
-            RevenueStreamSection.UpdateNonRevisedRevenueStreams();
+            RevenueStreamSection.UpdateNonRevisedRevenueStreams(string.Empty);
             Form.Text = PresenterTitle;
         }
 

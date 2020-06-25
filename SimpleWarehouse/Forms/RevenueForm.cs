@@ -65,17 +65,28 @@ namespace SimpleWarehouse.Forms
 
         public string TotalArchivedEntitiesRows
         {
+            get => TotalRowsBoxArchive.Text;
+            set => TotalRowsBoxArchive.Text = value;
+        }
+
+        public string TotalArchivedEntitiesPrice
+        {
+            get => TotalAmountBoxArchive.Text;
+            set => TotalAmountBoxArchive.Text = value;
+        }
+        public string TotalEntitiesRows
+        {
             get => TotalRowsBox.Text;
             set => TotalRowsBox.Text = value;
         }
 
-        public string TotalArchivedEntitiesPrice
+        public string TotalEntitiesPrice
         {
             get => TotalAmountBox.Text;
             set => TotalAmountBox.Text = value;
         }
 
-        public string CommentArchive { get => LblCommentArchive.Text; set => LblCommentArchive.Text = value; }
+        public string CommentArchive { get => LblCommentSearchArchive.Text; set => LblCommentSearchArchive.Text = value; }
 
         public string CommentText
         {
@@ -152,6 +163,11 @@ namespace SimpleWarehouse.Forms
         private void FindArchivedRevenues_Click(object sender, EventArgs e)
         {
             StreamPresenter.RevenueStreamSection.DisplayArchivedRevenueStreams();
+        }
+
+        private void CommentBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            StreamPresenter.RevenueStreamSection.UpdateNonRevisedRevenueStreams(this.CommentBox.Text);
         }
     }
 }

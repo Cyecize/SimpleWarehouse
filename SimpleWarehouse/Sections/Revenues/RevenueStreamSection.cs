@@ -51,7 +51,7 @@ namespace SimpleWarehouse.Sections.Revenues
             try
             {
                 RevenueStreamDbService.CreateRevenueStream(revenue);
-                UpdateNonRevisedRevenueStreams();
+                UpdateNonRevisedRevenueStreams(string.Empty);
                 Presenter.Form.NewEntityAmount = 0;
             }
             catch (ArgumentException e)
@@ -71,9 +71,12 @@ namespace SimpleWarehouse.Sections.Revenues
             Presenter.Form.TotalArchivedEntitiesPrice = $"{revenueStreams.Sum(e => e.RevenueAmount):F2}";
         }
 
-        public void UpdateNonRevisedRevenueStreams()
+        public void UpdateNonRevisedRevenueStreams(string comment)
         {
-            ViewManager.DisplayRevenues(RevenueStreamDbService.FindAllNonRevised());
+            var revenueStreams = RevenueStreamDbService.FindAllNonRevised(comment);
+            ViewManager.DisplayRevenues(revenueStreams);
+            Presenter.Form.TotalEntitiesRows = revenueStreams.Count.ToString();
+            Presenter.Form.TotalEntitiesPrice = $"{revenueStreams.Sum(e => e.RevenueAmount):F2}";
         }
     }
 }

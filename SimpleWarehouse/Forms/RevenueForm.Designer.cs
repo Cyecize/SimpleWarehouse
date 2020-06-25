@@ -44,9 +44,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.DateTimeForRevenue = new System.Windows.Forms.DateTimePicker();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.TotalRowsBox = new System.Windows.Forms.TextBox();
+            this.TotalRowsBoxArchive = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.TotalAmountBox = new System.Windows.Forms.TextBox();
+            this.TotalAmountBoxArchive = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.ArchivedRevenuesTable = new System.Windows.Forms.DataGridView();
             this.UsernameArch = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -62,8 +62,12 @@
             this.materialTabSelector1 = new MaterialSkin.Controls.MaterialTabSelector();
             this.GoBackBtn = new MaterialSkin.Controls.MaterialFlatButton();
             this.LogLabel = new MaterialSkin.Controls.MaterialLabel();
-            this.LblCommentArchive = new System.Windows.Forms.TextBox();
+            this.LblCommentSearchArchive = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.TotalRowsBox = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.TotalAmountBox = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.materialTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataTableView)).BeginInit();
@@ -89,6 +93,10 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.TotalRowsBox);
+            this.tabPage1.Controls.Add(this.label9);
+            this.tabPage1.Controls.Add(this.TotalAmountBox);
+            this.tabPage1.Controls.Add(this.label10);
             this.tabPage1.Controls.Add(this.label7);
             this.tabPage1.Controls.Add(this.CommentBox);
             this.tabPage1.Controls.Add(this.DataTableView);
@@ -127,6 +135,7 @@
             this.CommentBox.Name = "CommentBox";
             this.CommentBox.Size = new System.Drawing.Size(179, 27);
             this.CommentBox.TabIndex = 30;
+            this.CommentBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.CommentBox_KeyUp);
             // 
             // DataTableView
             // 
@@ -148,7 +157,7 @@
             this.DataTableView.ReadOnly = true;
             this.DataTableView.RowHeadersWidth = 51;
             this.DataTableView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.DataTableView.Size = new System.Drawing.Size(873, 245);
+            this.DataTableView.Size = new System.Drawing.Size(873, 222);
             this.DataTableView.TabIndex = 29;
             // 
             // Username
@@ -251,10 +260,10 @@
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.label8);
-            this.tabPage2.Controls.Add(this.LblCommentArchive);
-            this.tabPage2.Controls.Add(this.TotalRowsBox);
+            this.tabPage2.Controls.Add(this.LblCommentSearchArchive);
+            this.tabPage2.Controls.Add(this.TotalRowsBoxArchive);
             this.tabPage2.Controls.Add(this.label6);
-            this.tabPage2.Controls.Add(this.TotalAmountBox);
+            this.tabPage2.Controls.Add(this.TotalAmountBoxArchive);
             this.tabPage2.Controls.Add(this.label5);
             this.tabPage2.Controls.Add(this.ArchivedRevenuesTable);
             this.tabPage2.Controls.Add(this.label4);
@@ -271,16 +280,16 @@
             this.tabPage2.Text = "Архив";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // TotalRowsBox
+            // TotalRowsBoxArchive
             // 
-            this.TotalRowsBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.TotalRowsBox.Enabled = false;
-            this.TotalRowsBox.Location = new System.Drawing.Point(608, 236);
-            this.TotalRowsBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.TotalRowsBox.Name = "TotalRowsBox";
-            this.TotalRowsBox.ReadOnly = true;
-            this.TotalRowsBox.Size = new System.Drawing.Size(48, 22);
-            this.TotalRowsBox.TabIndex = 34;
+            this.TotalRowsBoxArchive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.TotalRowsBoxArchive.Enabled = false;
+            this.TotalRowsBoxArchive.Location = new System.Drawing.Point(608, 236);
+            this.TotalRowsBoxArchive.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TotalRowsBoxArchive.Name = "TotalRowsBoxArchive";
+            this.TotalRowsBoxArchive.ReadOnly = true;
+            this.TotalRowsBoxArchive.Size = new System.Drawing.Size(48, 22);
+            this.TotalRowsBoxArchive.TabIndex = 34;
             // 
             // label6
             // 
@@ -294,16 +303,16 @@
             this.label6.TabIndex = 33;
             this.label6.Text = "Брой на записи:";
             // 
-            // TotalAmountBox
+            // TotalAmountBoxArchive
             // 
-            this.TotalAmountBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.TotalAmountBox.Enabled = false;
-            this.TotalAmountBox.Location = new System.Drawing.Point(775, 236);
-            this.TotalAmountBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.TotalAmountBox.Name = "TotalAmountBox";
-            this.TotalAmountBox.ReadOnly = true;
-            this.TotalAmountBox.Size = new System.Drawing.Size(105, 22);
-            this.TotalAmountBox.TabIndex = 32;
+            this.TotalAmountBoxArchive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.TotalAmountBoxArchive.Enabled = false;
+            this.TotalAmountBoxArchive.Location = new System.Drawing.Point(775, 236);
+            this.TotalAmountBoxArchive.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TotalAmountBoxArchive.Name = "TotalAmountBoxArchive";
+            this.TotalAmountBoxArchive.ReadOnly = true;
+            this.TotalAmountBoxArchive.Size = new System.Drawing.Size(105, 22);
+            this.TotalAmountBoxArchive.TabIndex = 32;
             // 
             // label5
             // 
@@ -480,15 +489,15 @@
             this.LogLabel.Size = new System.Drawing.Size(597, 37);
             this.LogLabel.TabIndex = 42;
             // 
-            // LblCommentArchive
+            // LblCommentSearchArchive
             // 
-            this.LblCommentArchive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.LblCommentArchive.Location = new System.Drawing.Point(556, 290);
-            this.LblCommentArchive.Margin = new System.Windows.Forms.Padding(4);
-            this.LblCommentArchive.Multiline = true;
-            this.LblCommentArchive.Name = "LblCommentArchive";
-            this.LblCommentArchive.Size = new System.Drawing.Size(165, 22);
-            this.LblCommentArchive.TabIndex = 43;
+            this.LblCommentSearchArchive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.LblCommentSearchArchive.Location = new System.Drawing.Point(556, 290);
+            this.LblCommentSearchArchive.Margin = new System.Windows.Forms.Padding(4);
+            this.LblCommentSearchArchive.Multiline = true;
+            this.LblCommentSearchArchive.Name = "LblCommentSearchArchive";
+            this.LblCommentSearchArchive.Size = new System.Drawing.Size(165, 22);
+            this.LblCommentSearchArchive.TabIndex = 43;
             // 
             // label8
             // 
@@ -501,6 +510,52 @@
             this.label8.Size = new System.Drawing.Size(117, 28);
             this.label8.TabIndex = 44;
             this.label8.Text = "Коментар:";
+            // 
+            // TotalRowsBox
+            // 
+            this.TotalRowsBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.TotalRowsBox.Enabled = false;
+            this.TotalRowsBox.Location = new System.Drawing.Point(602, 235);
+            this.TotalRowsBox.Margin = new System.Windows.Forms.Padding(4);
+            this.TotalRowsBox.Name = "TotalRowsBox";
+            this.TotalRowsBox.ReadOnly = true;
+            this.TotalRowsBox.Size = new System.Drawing.Size(48, 22);
+            this.TotalRowsBox.TabIndex = 38;
+            // 
+            // label9
+            // 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Segoe MDL2 Assets", 16.30189F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(415, 233);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(178, 28);
+            this.label9.TabIndex = 37;
+            this.label9.Text = "Брой на записи:";
+            // 
+            // TotalAmountBox
+            // 
+            this.TotalAmountBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.TotalAmountBox.Enabled = false;
+            this.TotalAmountBox.Location = new System.Drawing.Point(769, 235);
+            this.TotalAmountBox.Margin = new System.Windows.Forms.Padding(4);
+            this.TotalAmountBox.Name = "TotalAmountBox";
+            this.TotalAmountBox.ReadOnly = true;
+            this.TotalAmountBox.Size = new System.Drawing.Size(105, 22);
+            this.TotalAmountBox.TabIndex = 36;
+            // 
+            // label10
+            // 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Segoe MDL2 Assets", 16.30189F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(685, 232);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(75, 28);
+            this.label10.TabIndex = 35;
+            this.label10.Text = "Общо:";
             // 
             // RevenueForm
             // 
@@ -547,9 +602,9 @@
         private System.Windows.Forms.Button FindArchivedRevenues;
         private System.Windows.Forms.DateTimePicker RevisedEndDate;
         private System.Windows.Forms.DateTimePicker RevisedStartDate;
-        private System.Windows.Forms.TextBox TotalRowsBox;
+        private System.Windows.Forms.TextBox TotalRowsBoxArchive;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox TotalAmountBox;
+        private System.Windows.Forms.TextBox TotalAmountBoxArchive;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox CommentBox;
@@ -563,7 +618,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn DateArch;
         private System.Windows.Forms.DataGridViewTextBoxColumn CommentArch;
         private System.Windows.Forms.DataGridViewTextBoxColumn IsRevisedArch;
-        private System.Windows.Forms.TextBox LblCommentArchive;
+        private System.Windows.Forms.TextBox LblCommentSearchArchive;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox TotalRowsBox;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox TotalAmountBox;
+        private System.Windows.Forms.Label label10;
     }
 }

@@ -143,12 +143,12 @@ namespace SimpleWarehouse.Sections.Revisions
         {
             var transactions = TransactionDbService.FindAllNonRevised().OrderBy(tr => tr.Date).ToList();
             var startDate = DateTime.Now;
-            var expensesTotal = ExpenseDbService.FindAllNonRevised().Sum(e =>
+            var expensesTotal = ExpenseDbService.FindAllNonRevised(string.Empty).Sum(e =>
             {
                 if (e.Date < startDate) startDate = e.Date;
                 return e.RevenueAmount;
             });
-            var revenuesTotal = RevenueDbService.FindAllNonRevised().Sum(r =>
+            var revenuesTotal = RevenueDbService.FindAllNonRevised(string.Empty).Sum(r =>
             {
                 if (r.Date < startDate) startDate = r.Date;
                 return r.RevenueAmount;
@@ -213,8 +213,8 @@ namespace SimpleWarehouse.Sections.Revisions
             var revision = new Revision
             {
                 StartDate = StartDate,
-                Revenue = RevenueDbService.FindAllNonRevised().Sum(r => r.RevenueAmount),
-                Expenses = ExpenseDbService.FindAllNonRevised().Sum(e => e.RevenueAmount),
+                Revenue = RevenueDbService.FindAllNonRevised(string.Empty).Sum(r => r.RevenueAmount),
+                Expenses = ExpenseDbService.FindAllNonRevised(string.Empty).Sum(e => e.RevenueAmount),
                 ActualRevenue = GetRevisionSubTotal() + SalesRevenue
             };
             return revision;

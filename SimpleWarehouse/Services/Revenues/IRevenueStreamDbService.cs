@@ -12,7 +12,7 @@ namespace SimpleWarehouse.Services.Revenues
 
         List<RevenueStream> FindAll();
 
-        List<RevenueStream> FindAllNonRevised();
+        List<RevenueStream> FindAllNonRevised(string comment);
 
         List<RevenueStream> FindAllArchived();
 

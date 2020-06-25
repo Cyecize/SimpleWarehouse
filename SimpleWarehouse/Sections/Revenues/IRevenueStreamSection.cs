@@ -6,6 +6,6 @@
 
         void DisplayArchivedRevenueStreams();
 
-        void UpdateNonRevisedRevenueStreams();
+        void UpdateNonRevisedRevenueStreams(string comment);
     }
 }
