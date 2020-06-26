@@ -51,7 +51,7 @@ namespace SimpleWarehouse.Sections.Revenues
             try
             {
                 RevenueStreamDbService.CreateRevenueStream(revenue);
-                UpdateNonRevisedRevenueStreams(string.Empty);
+                UpdateNonRevisedRevenueStreams(Presenter.Form.CommentText);
                 Presenter.Form.NewEntityAmount = 0;
             }
             catch (ArgumentException e)

@@ -53,13 +53,13 @@ namespace SimpleWarehouse.Forms
 
         public DateTime ArchivedEntitiesStartDate
         {
-            get => RevisedStartDate.Value;
+            get => RevisedStartDate.Value.Date;
             set => RevisedStartDate.Value = value;
         }
 
         public DateTime ArchivedEntitiesEndDate
         {
-            get => RevisedEndDate.Value;
+            get => RevisedEndDate.Value.Date.Add(new TimeSpan(0, 23, 59, 59));
             set => RevisedEndDate.Value = value;
         }
 
